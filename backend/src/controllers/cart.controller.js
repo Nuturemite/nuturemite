@@ -87,9 +87,7 @@ export const getCart = async (req, res) => {
       },
     ]);
 
-    if (!cart) return res.status(404).json({ message: "Cart not found" });
-    const data = cart.length == 0 ? [] : cart[0].items;
-
+    if (cart.length == 0) return res.status(200).json({ data: [] });
     res.status(200).json({ data: cart[0].items });
   } catch (error) {
     res.status(500).json({ message: error.message });

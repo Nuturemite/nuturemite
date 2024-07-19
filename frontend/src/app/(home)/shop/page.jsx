@@ -5,30 +5,13 @@ import { useProducts } from "@/lib/data";
 import ProductSkeleton from "./components/ProductSkeleton";
 import { PriceFilter } from "./components/PriceFilter";
 import { CategoryFilter } from "./components/CategoryFilter";
-import Link from "next/link";
 import ClearFilter from "../../../components/shared/redundant/ClearFilter";
 import { Button } from "@/components/ui/button";
 import PaginationComp from "@/components/shared/common/pagination";
 import { SortComp } from "./components/SortComp";
-import { useSearchParams } from "next/navigation";
 
 function Page() {
-  const searchParams = useSearchParams();
-  const minPrice = searchParams.get("minprice");
-  const maxPrice = searchParams.get("maxprice");
-  const minDiscount = searchParams.get("minDiscount");
-  const categoryId = searchParams.get("categoryId");
-  const sortBy = searchParams.get("sortBy");
-  const query = searchParams.get("query");
-
-  const { products, isLoading, error, totalPages } = useProducts({
-    minPrice,
-    maxPrice,
-    minDiscount,
-    categoryId,
-    sortBy,
-    query,
-  });
+  const { products, isLoading, error, totalPages } = useProducts({});
 
   if (error) return <Error />;
 

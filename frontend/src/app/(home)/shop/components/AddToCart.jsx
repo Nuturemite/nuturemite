@@ -6,7 +6,6 @@ import React, { useState } from "react";
 
 function AddToCart({ product, isChild, children, quantity }) {
   const [pending, setPending] = useState(false);
-
   async function handleCartAdd(e) {
     e.preventDefault();
     try {

@@ -3,15 +3,18 @@ import api from "@/lib/api";
 import { useCart } from "@/lib/data";
 import { tst } from "@/lib/utils";
 
-export default function RemoveFromCart({ cartItem }) {
+export default function RemoveFromCart({ cartItem, pending, setPending }) {
   const { mutate } = useCart();
 
   async function handleCartRemove() {
     try {
+      setPending(true);
       await api.delete(`/cart/${cartItem.vendorProduct._id}`);
-      mutate();
+      await mutate();
     } catch (error) {
       tst.error(error);
+    } finally {
+      setPending(false);
     }
   }
 

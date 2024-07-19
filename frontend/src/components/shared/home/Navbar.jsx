@@ -5,7 +5,7 @@ import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import Icon from "@/components/shared/common/icon";
 import { useAuthContext } from "@/context/authprovider";
 import { Avatar } from "@/components/shared/avatar";
-import ShoppingCart from "@/components/shared/home/Cart";
+import ShoppingCart from "@/components/shared/home/ShoppingCart";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -38,7 +38,6 @@ const accountItems = [
 
 const NavBar = () => {
   const { isAuthenticated, user, login, logout } = useAuthContext();
-  console.log(user);
   useLayoutEffect(() => {
     login();
   }, []);
@@ -49,8 +48,8 @@ const NavBar = () => {
   const menuItems = isAuthenticated
     ? [
         { text: "Shop", href: "/shop" },
-        { text: "My Account", href: "/account" },
-        { text: "Dashboard", href: "/admin" },
+        // { text: "My Account", href: "/account" },
+        // { text: "Dashboard", href: "/admin" },
       ]
     : [
         { text: "Shop", href: "/shop" },
@@ -71,7 +70,7 @@ const NavBar = () => {
             <Icon icon="mingcute:menu-fill" className="text-3xl lg:hidden text-slate-200" />
           </SheetTrigger>
           <SheetContent side="right" className="bg-slate-800 text-slate-100">
-            <ul className="space-y-4 space-x-3 mt-10">
+            <ul className="space-y-4 space-x-4 mt-10">
               {menuItems.map((menuItem, index) => (
                 <li key={index}>
                   <Link
@@ -88,7 +87,7 @@ const NavBar = () => {
         </Sheet>
 
         <div className="hidden w-full md:block md:w-auto" id="navbar-default">
-          <ul className="font-medium  items-center flex flex-col  border-slate-100  md:flex-row md:space-x-3 rtl:space-x-reverse md:mt-0 md:border-0  dark:border-slate-700">
+          <ul className="font-medium  items-center flex flex-col  border-slate-100  md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0  dark:border-slate-700">
             <SearchInput />
             <li>
               <NavigationMenu>

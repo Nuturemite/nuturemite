@@ -1,5 +1,6 @@
 import useSWR from "swr";
 import api from "./api";
+import { useSearchParams } from "next/navigation";
 
 const fetcher = url => api.get(url).then(res => res.data.data);
 const fetcher2 = url => api.get(url).then(res => res.data);
@@ -45,35 +46,40 @@ export const useBrand = brandId => {
   const { data, error, isLoading, mutate } = useSWR(url, fetcher);
   return { brand: data, error, isLoading, mutate };
 };
-export const useProducts = (queryParams = {}) => {
-  console.log(queryParams);
+export const useProducts = () => {
+  const searchParams = useSearchParams();
+
   let { data = {}, error, isLoading, mutate } = useSWR("/vendor-products", fetcher2);
   const totalPages = data?.totalPages || 1;
   data = data?.data || [];
+  const minPrice = searchParams.get("minprice");
+  const maxPrice = searchParams.get("maxprice");
+  const minDiscount = searchParams.get("minDiscount");
+  const categoryId = searchParams.get("categoryId");
+  const sortBy = searchParams.get("sortBy");
+  const query = searchParams.get("query");
+  const limit = searchParams.get("limit") || 9;
+  const page = searchParams.get("page") || 1;
+  const minRating = searchParams.get("minRating");
 
-  const { limit = 12, page = 1 } = queryParams;
   const filterProducts = products => {
     return products
       .filter(product => {
-        if (queryParams.minprice && product.price < queryParams.minprice) return false;
-        if (queryParams.maxprice && product.price > queryParams.maxprice) return false;
-        if (
-          queryParams.categoryId &&
-          !product.categories.map(c => c._id).includes(queryParams.categoryId)
-        )
-          return false;
-        if (queryParams.mindiscount && product.discount < queryParams.mindiscount) return false;
-        if (queryParams.minrating && product.rating < queryParams.minrating) return false;
-        if (queryParams.query && !product.name.includes(queryParams.query)) return false;
+        if (minPrice && product.price < minPrice) return false;
+        if (maxPrice && product.price > maxPrice) return false;
+        if (categoryId && !product.categories.map(c => c._id).includes(categoryId)) return false;
+        if (minDiscount && product.discount < minDiscount) return false;
+        if (minRating && product.rating < minRating) return false;
+        if (query && !product.name.includes(query)) return false;
         return true;
       })
       .slice(limit * page - limit, limit * page);
   };
 
-  if (queryParams.sortBy == "price-low-to-high") data.sort((a, b) => a.price - b.price);
-  if (queryParams.sortBy == "price-high-to-low") data.sort((a, b) => b.price - a.price);
-  if (queryParams.sortBy == "discount") data.sort((a, b) => b.discount - a.discount);
-  if (queryParams.sortBy == "latest") data.sort((a, b) => b.createdAt - a.createdAt);
+  if (sortBy == "price-low-to-high") data.sort((a, b) => a.price - b.price);
+  if (sortBy == "price-high-to-low") data.sort((a, b) => b.price - a.price);
+  if (sortBy == "discount") data.sort((a, b) => b.discount - a.discount);
+  if (sortBy == "latest") data.sort((a, b) => b.createdAt - a.createdAt);
 
   const filteredProducts = filterProducts(data);
 

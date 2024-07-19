@@ -51,7 +51,6 @@ export const createCheckoutSession = async (req, res) => {
       mode: "payment",
       metadata: {
         userId: req.user.id,
-        productDetails: JSON.stringify(cartItems),
       },
       success_url: `${process.env.CLIENT_URL}/orders`,
       cancel_url: `${process.env.CLIENT_URL}/payment/cancel`,

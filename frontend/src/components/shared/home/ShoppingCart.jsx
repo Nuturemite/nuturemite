@@ -1,6 +1,6 @@
 "use client";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { useCarts, useWishlistItems } from "@/lib/data";
+import { useCart} from "@/lib/data";
 import Loader from "@/components/shared/loader";
 import Error from "@/components/shared/common/error";
 import RemoveFromCart from "./RemoveFromCart";
@@ -19,7 +19,7 @@ import { tst } from "@/lib/utils";
 import { Button } from "../../ui/button";
 
 const ShoppingCart = () => {
-  const { cartItems, isLoading, error } = useCarts();
+  const { cartItems, isLoading, error } = useCart();
   const [pending, setPending] = useState(false);
 
   const totalAmount = cartItems?.reduce((total, cartItem) => {

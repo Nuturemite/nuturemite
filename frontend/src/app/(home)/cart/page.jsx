@@ -19,7 +19,6 @@ import OrderSummary from "./OrderSummary";
 
 const ShoppingCart = () => {
   const { cartItems, isLoading, error, mutate } = useCart();
-  console.log(cartItems);
   const [pending, setPending] = useState(false);
   if (isLoading) return <Loader />;
   if (error) return <Error />;
@@ -28,27 +27,28 @@ const ShoppingCart = () => {
     try {
       setPending(true);
       await api.post(`/cart/${item.vendorProduct._id}`, { quantity: value });
-      mutate();
-      setPending(false);
+      await mutate();
       tst.success("Quantity updated successfully");
     } catch (error) {
       tst.error(error);
-      setPending(false);
       console.log(error);
+    } finally {
+      setPending(false);
     }
   };
 
-  console.log('first')
+  console.log("first");
 
   if (cartItems.length === 0) return <EmptyCart />;
 
   return (
-    <div className="max-w-6xl mt-10 mx-auto">
-      <h2 className="h2-primary">Shopping cart</h2>
+    <div className={` ${pending && "opacity-50 pointer-events-none"}`}>
+      <div className="max-w-6xl mt-10 mx-auto">
+        <h2 className="h2-primary">Shopping cart</h2>
 
-      <div className="mt-16 flex  gap-16 ">
-        {/* Cart */}
-        <div className={`w-3/5 ${pending && "opacity-80 pointer-events-none"}`}>
+        <div className="mt-16 flex  gap-16 ">
+          {/* Cart */}
+
           <ul role="list" className="-my-6 divide-y-4 divide-gray-200">
             {cartItems.map(cartItem => (
               <li key={cartItem._id} className="flex p-4 bg-white ">
@@ -93,37 +93,40 @@ const ShoppingCart = () => {
                   <div className="flex flex-1 items-end justify-between text-sm">
                     <p className="text-gray-500">Qty {cartItem.quantity}</p>
                     <div className="flex">
-                      <RemoveFromCart cartItem={cartItem}  />
+                      <RemoveFromCart
+                        cartItem={cartItem}
+                        pending={pending}
+                        setPending={setPending}
+                      />
                     </div>
                   </div>
                 </div>
               </li>
             ))}
           </ul>
-        </div>
+          {/* Order Summary */}
+          <div className="w-2/5">
+            <OrderSummary />
 
-        {/* Order Summary */}
-        <div className="w-2/5">
-          <OrderSummary />
-
-          {/* Checkout */}
-          <div className="space-y-2 border-gray-200 px-4 py-6 sm:px-6">
-            <div className="mt-6">
-              <Link href="/checkout">
-                <Button className="w-full">Checkout</Button>
-              </Link>
-            </div>
-            <div className="mt-6 flex justify-center text-center text-sm text-gray-500">
-              <p>
-                <Link
-                  href="/shop"
-                  type="button"
-                  className="font-medium text-indigo-600 hover:text-indigo-500"
-                >
-                  Continue Shopping
-                  <span aria-hidden="true"> &rarr;</span>
+            {/* Checkout */}
+            <div className="space-y-2 border-gray-200 px-4 py-6 sm:px-6">
+              <div className="mt-6">
+                <Link href="/checkout">
+                  <Button className="w-full">Checkout</Button>
                 </Link>
-              </p>
+              </div>
+              <div className="mt-6 flex justify-center text-center text-sm text-gray-500">
+                <p>
+                  <Link
+                    href="/shop"
+                    type="button"
+                    className="font-medium text-indigo-600 hover:text-indigo-500"
+                  >
+                    Continue Shopping
+                    <span aria-hidden="true"> &rarr;</span>
+                  </Link>
+                </p>
+              </div>
             </div>
           </div>
         </div>
@@ -133,12 +136,12 @@ const ShoppingCart = () => {
 };
 
 const EmptyCart = () => (
-  <div className="flex flex-col items-center justify-center h-full">
+  <div className="flex flex-col items-center justify-center h-full min-h-screen">
     <p className="text-gray-500">No items in cart</p>
     <div className="mt-4">
-      <Button href="/products" variant="outline">
-        Start Shopping
-      </Button>
+      <Link href="/shop">
+        <Button variant="outline">Start Shopping</Button>
+      </Link>
     </div>
   </div>
 );

@@ -4,7 +4,7 @@ export default function ProductPageSkeleton({ count }) {
   return (
     <div className="flex gap-8 flex-wrap p-10 pt-20">
       <div className="w-full flex min-h-[70vh] gap-10">
-        <Skeleton className="flex-1 rounded-lg  bg-slate-300 mb-4" />
+        <Skeleton className="flex-1  bg-slate-300 mb-4" />
         <div className="flex-1 w-full">
           <div className="space-y-4 ">
             <Skeleton className="h-12 w-[400px]" />
