@@ -19,12 +19,6 @@ const app = express();
 app.use(cors({ origin: process.env.CLIENT_URL, credentials: true }));
 
 
-app.use((req, res, next) => {
-  setTimeout(() => {
-    next();
-  }, 2000);
-});
-
 app.post("/api/stripe/webhook", express.raw({ type: "application/json" }), stripePaymentListener);
 
 app.use(express.json({ limit: "50mb", extended: true }));
