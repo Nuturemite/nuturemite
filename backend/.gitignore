@@ -1,0 +1,13 @@
+# .gitignore file
+
+# Ignore node_modules
+/node_modules
+
+# Ignore .env file
+.env
+
+# Ignore .next folder
+.next
+
+# Ignore build folder
+/build

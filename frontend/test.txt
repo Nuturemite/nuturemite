@@ -1,0 +1,135 @@
+
+/**
+ * <DropdownMenu >
+          <DropdownMenuTrigger asChild>
+            <div >
+              <MoreHorizontal className="h-4 w-4" />
+              <span className="sr-only">Toggle menu</span>
+            </div>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end">
+            <DropdownMenuLabel>Actions</DropdownMenuLabel>
+
+            <DropdownMenuItem>Edit</DropdownMenuItem>
+            <AlertDialog>
+              <AlertDialogTrigger asChild>
+                <DropdownMenuItem>Delete</DropdownMenuItem>
+              </AlertDialogTrigger>
+              <AlertDialogContent>
+                <AlertDialogHeader>
+                  <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+                  <AlertDialogDescription>This action cannot be undone.</AlertDialogDescription>
+                </AlertDialogHeader>
+                <AlertDialogFooter>
+                  <AlertDialogCancel>Cancel</AlertDialogCancel>
+                  <AlertDialogAction
+                    onClick={() => onDelete(brand.id)}
+                    className={buttonVariants({ variant: "destructive" })}
+                  >
+                    Delete
+                  </AlertDialogAction>
+                </AlertDialogFooter>
+              </AlertDialogContent>
+            </AlertDialog>
+          </DropdownMenuContent>
+        </DropdownMenu>
+ */
+
+// BrandList.jsx
+
+import React from "react";
+import CommonList from "./CommonList";
+import { useBrands } from "@/lib/data";
+
+const BrandList = ({ searchParams }) => {
+  const query = searchParams.query;
+  const { brands, error, isLoading, mutate } = useBrands({ query });
+
+  const mapBrandToTableRows = (brand) => (
+    <>
+      <TableCell>{brand.id}</TableCell>
+      <TableCell>{brand.name}</TableCell>
+      <TableCell>{brand.description || "No Description"}</TableCell>
+    </>
+  );
+
+  return (
+    <CommonList
+      searchEndpoint="brand"
+      newEntityLink="/admin/brand/new"
+      deleteEndpoint="/brands"
+      fetchFunction={useBrands}
+      mapFunction={mapBrandToTableRows}
+      tableCaption="List of all brands."
+      tableHeaders={["ID", "Name", "Description"]}
+    />
+  );
+};
+
+export default BrandList;
+// CategoryList.jsx
+
+import React from "react";
+import CommonList from "./CommonList";
+import { useCategories } from "@/lib/data";
+
+const CategoryList = ({ searchParams }) => {
+  const query = searchParams.query;
+  const { categories, error, isLoading, mutate } = useCategories({ query });
+
+  const mapCategoryToTableRows = (category) => (
+    <>
+      <TableCell>{category.id}</TableCell>
+      <TableCell>{category.name}</TableCell>
+      <TableCell>{category.description || "No Description"}</TableCell>
+    </>
+  );
+
+  return (
+    <CommonList
+      searchEndpoint="category"
+      newEntityLink="/admin/category/new"
+      deleteEndpoint="/categories"
+      fetchFunction={useCategories}
+      mapFunction={mapCategoryToTableRows}
+      tableCaption="List of all categories."
+      tableHeaders={["ID", "Name", "Description"]}
+    />
+  );
+};
+
+export default CategoryList;
+// ProductList.jsx
+
+import React from "react";
+import CommonList from "./CommonList";
+import { useProducts } from "@/lib/data";
+
+const ProductList = ({ searchParams }) => {
+  const query = searchParams.query;
+  const { products, error, isLoading, mutate } = useProducts({ query });
+
+  const mapProductToTableRows = (product) => (
+    <>
+      <TableCell>{product.title}</TableCell>
+      <TableCell>{product.quantity}</TableCell>
+      <TableCell>{product.price}</TableCell>
+      <TableCell>{product.category.name}</TableCell>
+      <TableCell>{product.discount || 0}</TableCell>
+    </>
+  );
+
+  return (
+    <CommonList
+      searchEndpoint="product"
+      newEntityLink="/admin/product/new"
+      deleteEndpoint="/products"
+      fetchFunction={useProducts}
+      mapFunction={mapProductToTableRows}
+      tableCaption="List of all products."
+      tableHeaders={["Title", "Quantity", "Price", "Category", "Discount"]}
+    />
+  );
+};
+
+export default ProductList;
