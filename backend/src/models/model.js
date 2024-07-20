@@ -4,22 +4,14 @@ const Schema = mongoose.Schema;
 // Address Schema
 const AddressSchema = new Schema(
   {
+    fname: String,
+    lname: String,
+    phone: String,
     street: String,
     city: String,
     state: String,
     country: String,
     zip: String,
-  },
-  { _id: false }
-);
-
-// Profile Schema
-const ProfileSchema = new Schema(
-  {
-    dateOfBirth: Date,
-    mobile: String,
-    gender: { type: String, enum: ["male", "female", "others"] },
-    address: [AddressSchema],
   },
   { _id: false }
 );
@@ -32,7 +24,10 @@ const UserSchema = new Schema(
     name: { type: String, required: true },
     password: { type: String, required: true },
     role: { type: String, enum: ["user", "admin", "vendor"], default: "user" },
-    profile: ProfileSchema,
+    dateOfBirth: Date,
+    mobile: String,
+    gender: { type: String, enum: ["male", "female", "others"] },
+    address: [AddressSchema],
   },
   { timestamps: true }
 );
@@ -66,7 +61,7 @@ const ProductSchema = new Schema(
       set: v => parseFloat(parseFloat(v).toFixed(2)),
     },
     description: String,
-    categories: [{ type: Schema.Types.ObjectId, ref: "Category", required: true, }],
+    categories: [{ type: Schema.Types.ObjectId, ref: "Category", required: true }],
     brand: { type: Schema.Types.ObjectId, ref: "Brand", default: "66987df7c8d737564c027967" },
     sku: Number,
     barcode: String,
@@ -97,7 +92,7 @@ const VendorProductSchema = new Schema(
 // Order Schema
 const OrderSchema = new Schema(
   {
-    amount: { type: mongoose.Decimal128 },
+    amount: { type: Number },
     deliveryFee: String,
     discount: String,
     total: String,
@@ -117,11 +112,27 @@ const OrderSchema = new Schema(
       ],
     },
     comment: String,
-    address: { type: Schema.Types.ObjectId, ref: "Address" },
+    shippingDetails: {
+      firstName: String,
+      lastName: String,
+      email: String,
+      phone: String,
+      address: String,
+      country: String,
+      city: String,
+      state: String,
+      zipcode: String,
+    },
     user: { type: Schema.Types.ObjectId, ref: "User" },
     paymentDetails: { type: Schema.Types.ObjectId, ref: "PaymentDetails" },
-    subOrders: [{ type: Schema.Types.ObjectId, ref: "SubOrder" }],
-    orderItems: [{ type: Schema.Types.ObjectId, ref: "OrderItem" }],
+    orderItems: [
+      {
+        product: { type: Schema.Types.ObjectId, ref: "Product" },
+        vendor: { type: Schema.Types.ObjectId, ref: "Vendor" },
+        quantity: { type: Number, required: true },
+        price: { type: Number, required: true },
+      },
+    ],
   },
   { timestamps: true }
 );
@@ -151,17 +162,6 @@ const VendorSchema = new Schema(
   { timestamps: true }
 );
 
-// SubOrderItem Schema
-const SubOrderItemSchema = new Schema(
-  {
-    quantity: { type: Number, required: true },
-    price: { type: mongoose.Decimal128, required: true },
-    subOrder: { type: Schema.Types.ObjectId, ref: "SubOrder", required: true },
-    product: { type: Schema.Types.ObjectId, ref: "Product", required: true },
-  },
-  { timestamps: true }
-);
-
 // SubOrder Schema
 const SubOrderSchema = new Schema(
   {
@@ -170,7 +170,14 @@ const SubOrderSchema = new Schema(
     vendor: { type: Schema.Types.ObjectId, ref: "Vendor" },
     status: String,
     total: String,
-    subOrderItems: [{ type: Schema.Types.ObjectId, ref: "SubOrderItem" }],
+    subOrderItems: [
+      {
+        quantity: { type: Number, required: true },
+        price: { type: mongoose.Decimal128, required: true },
+        subOrder: { type: Schema.Types.ObjectId, ref: "SubOrder", required: true },
+        product: { type: Schema.Types.ObjectId, ref: "Product", required: true },
+      },
+    ],
   },
   { timestamps: true }
 );
@@ -226,10 +233,10 @@ const WishlistSchema = new Schema(
 const ReviewSchema = new Schema(
   {
     title: { type: String, required: true },
-    content: { type: String, required: true },
+    comment: { type: String, required: true },
     rating: { type: Number, required: true },
     product: { type: Schema.Types.ObjectId, ref: "Product", required: true },
-    user: { type: Schema.Types.ObjectId, ref: "User", required: true },
+    author: { type: Schema.Types.ObjectId, ref: "User", required: true },
   },
   { timestamps: true }
 );
@@ -280,16 +287,8 @@ const UcodeSchema = new Schema(
   { timestamps: true }
 );
 
-const bookSchema = mongoose.Schema({
-  _id: Number,
-  name: String,
-  author: String,
-  pages: Number,
-});
-
 // Compile all schemas
 const User = mongoose.model("User", UserSchema);
-const Profile = mongoose.model("Profile", ProfileSchema);
 const Category = mongoose.model("Category", CategorySchema);
 const Brand = mongoose.model("Brand", BrandSchema);
 const Product = mongoose.model("Product", ProductSchema);
@@ -300,7 +299,6 @@ const Wishlist = mongoose.model("Wishlist", WishlistSchema);
 const Address = mongoose.model("Address", AddressSchema);
 const Order = mongoose.model("Order", OrderSchema);
 const Vendor = mongoose.model("Vendor", VendorSchema);
-const SubOrderItem = mongoose.model("SubOrderItem", SubOrderItemSchema);
 const SubOrder = mongoose.model("SubOrder", SubOrderSchema);
 const PaymentDetails = mongoose.model("PaymentDetails", PaymentDetailsSchema);
 const ApiToken = mongoose.model("ApiToken", ApiTokenSchema);
@@ -309,7 +307,6 @@ const Tag = mongoose.model("Tag", TagSchema);
 const City = mongoose.model("City", CitySchema);
 const State = mongoose.model("State", StateSchema);
 const Country = mongoose.model("Country", CountrySchema);
-const Book = mongoose.model("Book", bookSchema);
 
 export {
   Category,
@@ -317,10 +314,8 @@ export {
   Product,
   Order,
   Address,
-  Profile,
   User,
   Vendor,
-  SubOrderItem,
   SubOrder,
   PaymentDetails,
   ApiToken,

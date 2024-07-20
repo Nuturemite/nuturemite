@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
@@ -12,20 +12,28 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { useProfile } from "@/lib/data";
+import { useUser } from "@/lib/data";
 import Loader from "@/components/shared/loader";
 import Error from "@/components/shared/common/error";
 import { Button } from "@/components/ui/button";
+import CustomSelect from "@/components/ui/custrom-select";
 
-export default function UpdateProfile() {
-  const { profile, isLoading, error } = useProfile();
-
-  const [formData, setFormData] = useState({
-    name: profile?.name || "",
-    gender: profile?.gender || "",
-    bio: profile?.bio || "",
-  });
+export default function UpdateUser() {
+  const { user, isLoading, error } = useUser();
+  const [formData, setFormData] = useState({});
   const [pending, setPending] = useState(false);
+
+  useEffect(() => {
+    if (user) {
+      setFormData({
+        name: user.name || "",
+        gender: user?.gender || "",
+        bio: "",
+        dateOfBirth: user?.dateOfBirth || "",
+        mobile: user?.mobile || "",
+      });
+    }
+  }, [user]);
 
   const handleChange = e => {
     const { name, value } = e.target;
@@ -39,13 +47,13 @@ export default function UpdateProfile() {
     e.preventDefault();
     try {
       setPending(true);
-      await api.post("/users/profile", formData);
-      tst.success("Profile updated");
-      setPending(false);
+      await api.put("/users/profile", formData);
+      tst.success("Profile Updated");
     } catch (error) {
       console.log(error);
-      setPending(false);
       tst.error(error);
+    } finally {
+      setPending(false);
     }
   };
 
@@ -54,8 +62,8 @@ export default function UpdateProfile() {
 
   return (
     <div className="max-w-lg mx-auto">
-      <h2 className="h2-primary">Update Profile</h2>
-      <form className="space-y-4 w-full" onSubmit={handleSubmit} disabled={pending}>
+      <h2 className="h2-primary">Update Details</h2>
+      <form className="space-y-4 w-full bg-white p-4" onSubmit={handleSubmit} disabled={pending}>
         <div>
           <Label htmlFor="name" className="mb-2">
             Name
@@ -70,24 +78,33 @@ export default function UpdateProfile() {
           />
         </div>
         <div>
+          <Label htmlFor="name" className="mb-2">
+            Mobile
+          </Label>
+          <Input
+            type="text"
+            name="mobile"
+            id="mobile"
+            placeholder="E.g. 9876543210"
+            value={formData.mobile}
+            onChange={handleChange}
+          />
+        </div>
+        <div>
           <Label htmlFor="gender" className="mb-2">
             Gender
           </Label>
-          <Select
-            className="w-full"
+          <CustomSelect
+            options={[
+              { id: "male", name: "Male" },
+              { id: "female", name: "Female" },
+            ]}
+            placeholder={"Select your gender"}
             value={formData.gender}
-            onValueChange={value => setFormData({ ...formData, gender: value })}
-          >
-            <SelectTrigger className="col-span-3 bg-white">
-              <SelectValue placeholder="Select a gender" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="male">Male</SelectItem>
-              <SelectItem value="female">Female</SelectItem>
-            </SelectContent>
-          </Select>
+            onChange={value => setFormData({ ...formData, gender: value })}
+          />
         </div>
-        <div>
+        {/*   <div>
           <Label htmlFor="bio" className="mb-2">
             Bio
           </Label>
@@ -98,8 +115,20 @@ export default function UpdateProfile() {
             value={formData.bio}
             onChange={handleChange}
           />
+        </div> */}
+        <div>
+          <Label htmlFor="dateOfBirth" className="mb-2">
+            Date of Birth
+          </Label>
+          <Input
+            type="date"
+            name="dateOfBirth"
+            id="dateOfBirth"
+            value={formData.dateOfBirth}
+            onChange={handleChange}
+          />
         </div>
-        <Button pending={pending} type="submit" >
+        <Button pending={pending} type="submit">
           Save
         </Button>
       </form>

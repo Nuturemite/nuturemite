@@ -9,11 +9,11 @@ export const ProductCard = ({ product }) => {
 
   return (
     <Link href={`/shop/${_id}`}>
-      <div className="w-[250px] group hover:shadow-md cursor-pointer bg-white p-2">
+      <div className="w-full group hover:shadow-md cursor-pointer bg-white p-2">
         <div className="bg-white mb-4 relative overflow-hidden">
           <img
-            className="w-full h-[300px] object-cover p-2 group-hover:scale-110 group-hover:brightness-50 transition duration-500"
-            src={images?.lenght != 0 ? images[1] : "./noimage.png"}
+            className="w-full  aspect-auto object-cover p-2 group-hover:scale-110 group-hover:brightness-50 transition duration-500"
+            src={images?.length != 0 ? images[1] : "./noimage.png"}
             alt={name}
           />
           <div className="absolute z-10 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 p-2 group-hover:flex space-x-6 hidden">
@@ -39,8 +39,8 @@ export const ProductCard = ({ product }) => {
             {name}
           </a>
           <div className="flex items-center justify-center mt-2">
-            <h5 className="font-semibold">{price}</h5>
-            <h6 className="text-xs text-gray-500 ml-2 line-through">{basePrice}</h6>
+            <h5 className="font-semibold">&#8377;{price}</h5>
+            <h6 className="text-xs text-gray-500 ml-2 line-through">&#8377; {basePrice}</h6>
           </div>
           <div className="flex items-center justify-center mb-1">
             {[...Array(5)].map((_, index) => (

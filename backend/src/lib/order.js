@@ -1,4 +1,13 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose';
 
-  export const orderSession = await mongoose.startSession();
+const sessionContext = {};
 
+export async function initializeSession() {
+  const session = await mongoose.startSession();
+  session.startTransaction({maxTimeMS:120000});
+  sessionContext.currentSession = session;
+}
+
+export function getOrderSession() {
+  return sessionContext.currentSession;
+}

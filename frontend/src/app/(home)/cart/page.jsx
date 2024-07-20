@@ -16,12 +16,17 @@ import { useState } from "react";
 import { tst } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import OrderSummary from "./OrderSummary";
+import { useAuthContext } from "@/context/authprovider";
 
 const ShoppingCart = () => {
   const { cartItems, isLoading, error, mutate } = useCart();
   const [pending, setPending] = useState(false);
+  const { isAuthenticated } = useAuthContext();
+
   if (isLoading) return <Loader />;
+  if (!isAuthenticated) return <NotAuthenticated />;
   if (error) return <Error />;
+  if (cartItems.length === 0) return <EmptyCart />;
 
   const handleQuantityChange = async (item, value) => {
     try {
@@ -36,10 +41,6 @@ const ShoppingCart = () => {
       setPending(false);
     }
   };
-
-  console.log("first");
-
-  if (cartItems.length === 0) return <EmptyCart />;
 
   return (
     <div className={` ${pending && "opacity-50 pointer-events-none"}`}>
@@ -64,8 +65,11 @@ const ShoppingCart = () => {
                     <div className="flex justify-between text-base font-medium text-gray-900">
                       <h3>{cartItem.product.name}</h3>
                       <div>
-                        <p className="ml-4">{cartItem.product.price}</p>
-                        {/* <p className="ml-4">{cartItem.product.discount}</p> */}
+                        <span className="ml-6"> &#8377;{cartItem.vendorProduct.price}</span>
+                        <span className="ml-2 line-through text-sm text-red-600">
+                          {" "}
+                          &#8377;{cartItem.product.basePrice}
+                        </span>
                       </div>
                     </div>
                   </div>
@@ -109,25 +113,7 @@ const ShoppingCart = () => {
             <OrderSummary />
 
             {/* Checkout */}
-            <div className="space-y-2 border-gray-200 px-4 py-6 sm:px-6">
-              <div className="mt-6">
-                <Link href="/checkout">
-                  <Button className="w-full">Checkout</Button>
-                </Link>
-              </div>
-              <div className="mt-6 flex justify-center text-center text-sm text-gray-500">
-                <p>
-                  <Link
-                    href="/shop"
-                    type="button"
-                    className="font-medium text-indigo-600 hover:text-indigo-500"
-                  >
-                    Continue Shopping
-                    <span aria-hidden="true"> &rarr;</span>
-                  </Link>
-                </p>
-              </div>
-            </div>
+            <Checkout />
           </div>
         </div>
       </div>
@@ -146,4 +132,38 @@ const EmptyCart = () => (
   </div>
 );
 
+const NotAuthenticated = () => (
+  <div className="flex flex-col items-center justify-center h-full min-h-screen">
+    <p className="text-gray-500">Please login to continue</p>
+    <div className="mt-4">
+      <Link href="/auth/signin">
+        <Button variant="outline">Login</Button>
+      </Link>
+    </div>
+  </div>
+);
+
+const Checkout = () => {
+  return (
+    <div className="space-y-2 border-gray-200 px-4 py-6 sm:px-6">
+      <div className="mt-6">
+        <Link href="/checkout">
+          <Button className="w-full">Checkout</Button>
+        </Link>
+      </div>
+      <div className="mt-6 flex justify-center text-center text-sm text-gray-500">
+        <p>
+          <Link
+            href="/shop"
+            type="button"
+            className="font-medium text-indigo-600 hover:text-indigo-500"
+          >
+            Continue Shopping
+            <span aria-hidden="true"> &rarr;</span>
+          </Link>
+        </p>
+      </div>
+    </div>
+  );
+};
 export default ShoppingCart;

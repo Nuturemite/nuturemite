@@ -41,7 +41,12 @@ export const productPipeline = [
     $addFields: {
       discount: { $subtract: ["$product.basePrice", "$price"] },
       isSale: { $gt: ["$discount", 0] },
-      discountPercentage: { $multiply: [100, { $divide: ["$discount", "$product.basePrice"] }] },
+      discountPercentage: {
+        $multiply: [
+          { $divide: [{ $subtract: ["$product.basePrice", "$price"] }, "$product.basePrice"] },
+          100,
+        ],
+      },
     },
   },
   {

@@ -118,5 +118,13 @@
     .image-primary{
       @apply group-hover:rotate-6 group-hover:scale-125 transition-all duration-500 object-cover brightness-75 opacity-70 w-full h-full
     }
+
+    .image-primary-2{
+      @apply  object-cover brightness-75 opacity-70 w-full h-full
+    }
+
+    .product-grid{
+      @apply grid grid-cols-1  min-[400px]:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-10
+    }
   }
   

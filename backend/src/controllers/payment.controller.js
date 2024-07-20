@@ -3,7 +3,7 @@ import Stripe from "stripe";
 import { findCartByUserId } from "./cart.controller.js";
 const stripe = Stripe(process.env.STRIPE_SECRET_KEY);
 const DELIVERY_CHARGE = 200;
-const MAX_TOTAL_DELIVERY_FREE = 2000;
+const MIN_PRICE_FOR_FREE_DELIVERY = 2000;
 
 export const createCheckoutSession = async (req, res) => {
   try {
@@ -32,7 +32,7 @@ export const createCheckoutSession = async (req, res) => {
       return total + cartItem.quantity * cartItem.vendorProduct.price;
     }, 0);
 
-    if (totalPrice > MAX_TOTAL_DELIVERY_FREE) {
+    if (totalPrice < MIN_PRICE_FOR_FREE_DELIVERY) {
       itemData.push({
         price_data: {
           currency: "inr",

@@ -28,6 +28,7 @@ import {
 } from "@/components/ui/navigation-menu";
 import { cn } from "@/lib/utils";
 import { useCategories } from "@/lib/data";
+import ProductSearch from "./ProductSearch";
 
 const accountItems = [
   { icon: User, text: "Profile", href: "/dashboard/profile" },
@@ -48,7 +49,7 @@ const NavBar = () => {
   const menuItems = isAuthenticated
     ? [
         { text: "Shop", href: "/shop" },
-        // { text: "My Account", href: "/account" },
+        { text: "My Account", href: "/account" },
         // { text: "Dashboard", href: "/admin" },
       ]
     : [
@@ -57,7 +58,7 @@ const NavBar = () => {
       ];
 
   return (
-    <nav className="bg-back-primary border-slate-200 border-b px-16 ">
+    <nav className="bg-back-primary border-slate-200 border-b px-4 md:px-16 ">
       <div className="flex flex-wrap items-center justify-between mx-auto py-4">
         <Link href="/" className="flex items-center space-x-3 rtl:space-x-reverse">
           <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
@@ -87,13 +88,18 @@ const NavBar = () => {
         </Sheet>
 
         <div className="hidden w-full md:block md:w-auto" id="navbar-default">
-          <ul className="font-medium  items-center flex flex-col  border-slate-100  md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0  dark:border-slate-700">
-            <SearchInput />
+          <ul className="font-medium  items-center flex flex-col  border-slate-100  md:flex-row md:space-x-6 rtl:space-x-reverse md:mt-0 md:border-0  dark:border-slate-700">
+            <ProductSearch />
+
+         
+            
             <li>
               <NavigationMenu>
                 <NavigationMenuList>
                   <NavigationMenuItem>
-                    <NavigationMenuTrigger className="navbar-heading">Categories</NavigationMenuTrigger>
+                    <NavigationMenuTrigger className="navbar-heading">
+                      Categories
+                    </NavigationMenuTrigger>
                     <CategoryBox />
                   </NavigationMenuItem>
                 </NavigationMenuList>
@@ -106,7 +112,11 @@ const NavBar = () => {
                 </Link>
               </li>
             ))}
-            {isAuthenticated && <li onClick={handleLogout} className="cursor-pointer navbar-heading">Logout</li>}
+            {isAuthenticated && (
+              <li onClick={handleLogout} className="cursor-pointer navbar-heading">
+                Logout
+              </li>
+            )}
 
             <li className="md:hidden">
               <Sheet>
@@ -124,11 +134,7 @@ const NavBar = () => {
             </li>
             <li className="max-sm:hidden">
               <Link href={"/cart"}>
-                <Icon
-                  icon="mynaui:cart"
-                  fontSize={28}
-                  className="text-primary cursor-pointer "
-                />
+                <Icon icon="mynaui:cart" fontSize={28} className="text-primary cursor-pointer " />
               </Link>
             </li>
           </ul>

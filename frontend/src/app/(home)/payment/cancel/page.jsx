@@ -13,7 +13,7 @@ export default function PaymentCancel() {
           You can try making the payment again or return to the homepage.
         </p>
         <div className="flex justify-center gap-4">
-          <Link to="/" className="bg-blue-500 text-white px-4 py-2 rounded-lg shadow hover:bg-blue-600">
+          <Link href="/" className="bg-blue-500 text-white px-4 py-2 rounded-lg shadow hover:bg-blue-600">
             Return to Homepage
           </Link>
           <a href="/" className="bg-green-500 text-white px-4 py-2 rounded-lg shadow hover:bg-green-600">

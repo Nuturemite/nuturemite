@@ -4,11 +4,11 @@ import React from "react";
 export const Carousel = () => {
   return (
     <div className="h-[60vh] flex justify-between items-center">
-      <div className="basis-[67%] h-full">
+      <div className="md:basis-[67%] h-full">
         <div className="relative h-full group overflow-hidden">
           <img
             src="./carousel-1.jpg"
-            className="h-full w-full image-primary"
+            className="h-full w-full image-primary-2 "
             alt="Carousel 1"
           />
           <div className="absolute inset-0 flex flex-col justify-center items-center w-[60%] mx-auto">
@@ -21,7 +21,7 @@ export const Carousel = () => {
           </div>
         </div>
       </div>
-      <div className="flex flex-col basis-[30%] gap-5 h-full justify-between">
+      <div className="flex flex-col basis-[30%] gap-5 h-full justify-between max-md:hidden">
         {[2, 3].map(i => (
           <div key={i} className="relative  flex-1 group overflow-hidden">
             <img

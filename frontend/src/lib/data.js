@@ -46,21 +46,22 @@ export const useBrand = brandId => {
   const { data, error, isLoading, mutate } = useSWR(url, fetcher);
   return { brand: data, error, isLoading, mutate };
 };
-export const useProducts = () => {
-  const searchParams = useSearchParams();
-
+export const useProducts = (queryParams = {}) => {
+  const {
+    search,
+    minPrice,
+    maxPrice,
+    categoryId,
+    minDiscount,
+    minRating,
+    productId,
+    sortBy,
+    limit = 9,
+    page = 1,
+  } = queryParams;
   let { data = {}, error, isLoading, mutate } = useSWR("/vendor-products", fetcher2);
   const totalPages = data?.totalPages || 1;
   data = data?.data || [];
-  const minPrice = searchParams.get("minprice");
-  const maxPrice = searchParams.get("maxprice");
-  const minDiscount = searchParams.get("minDiscount");
-  const categoryId = searchParams.get("categoryId");
-  const sortBy = searchParams.get("sortBy");
-  const query = searchParams.get("query");
-  const limit = searchParams.get("limit") || 9;
-  const page = searchParams.get("page") || 1;
-  const minRating = searchParams.get("minRating");
 
   const filterProducts = products => {
     return products
@@ -70,7 +71,8 @@ export const useProducts = () => {
         if (categoryId && !product.categories.map(c => c._id).includes(categoryId)) return false;
         if (minDiscount && product.discount < minDiscount) return false;
         if (minRating && product.rating < minRating) return false;
-        if (query && !product.name.includes(query)) return false;
+        if (search && !product.name.toLowerCase().includes(search.toLowerCase())) return false;
+        if (productId && product.productId != productId) return false;
         return true;
       })
       .slice(limit * page - limit, limit * page);
@@ -100,7 +102,7 @@ export const useCart = () => {
 export const useWishlist = () => {
   const { data, error, isLoading, mutate } = useSWR("/wishlist", fetcher);
   console.log(data);
-  return { wishlist: data, error, isLoading, mutate };
+  return { wishlistItems: data, error, isLoading, mutate };
 };
 
 export const useUsers = (queryParams = {}) => {
@@ -120,9 +122,9 @@ export const useAddresses = () => {
   return { addresses: data, error, isLoading, mutate };
 };
 
-export const useProfile = () => {
-  const { data, error, isLoading, mutate } = useSWR("/users/profile", fetcher);
-  return { profile: data, error, isLoading, mutate };
+export const useUser = () => {
+  const { data, error, isLoading, mutate } = useSWR("/auth/me", fetcher);
+  return { user: data, error, isLoading, mutate };
 };
 
 export const useReviews = productId => {

@@ -13,7 +13,7 @@ export const Categories = () => {
         {categoriess.map(cat => (
           <Link href={`/shop?categoryId=${cat._id}`}>
             <div key={cat._id} className="bg-white ">
-              <Link href="#" className="text-decoration-none">
+              <div href="#" className="text-decoration-none">
                 <div className="flex items-center px-4 ">
                   <div className="overflow-hidden" style={{ width: "100px", height: "100px" }}>
                     <img
@@ -27,7 +27,7 @@ export const Categories = () => {
                     <small className="text-body">3 Products</small>
                   </div>
                 </div>
-              </Link>
+              </div>
             </div>
           </Link>
         ))}

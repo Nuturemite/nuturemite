@@ -62,12 +62,9 @@ function ProductForm({ update, params }) {
   const { product, isLoading } = update
     ? useProduct(params?.id)
     : { product: {}, isLoading: false };
-
   const { categories } = useCategories();
   const { brands } = useBrands();
-
   const [formData, setFormData] = useState({});
-
   const [pending, setPending] = useState(false);
   const [error, setError] = useState(null);
   const [formErrors, setFormErrors] = useState({});

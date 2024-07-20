@@ -9,9 +9,33 @@ import ClearFilter from "../../../components/shared/redundant/ClearFilter";
 import { Button } from "@/components/ui/button";
 import PaginationComp from "@/components/shared/common/pagination";
 import { SortComp } from "./components/SortComp";
+import { useSearchParams } from "next/navigation";
 
 function Page() {
-  const { products, isLoading, error, totalPages } = useProducts({});
+  const searchParams = useSearchParams();
+  const minPrice = searchParams.get("minprice");
+  const maxPrice = searchParams.get("maxprice");
+  const minDiscount = searchParams.get("minDiscount");
+  const categoryId = searchParams.get("categoryId");
+  const sortBy = searchParams.get("sortBy");
+  const query = searchParams.get("query");
+  const limit = searchParams.get("limit") || 9;
+  const page = searchParams.get("page") || 1;
+  const minRating = searchParams.get("minRating");
+  const productId =  searchParams.get("productId");
+
+  const { products, isLoading, error, totalPages } = useProducts({
+    minPrice,
+    productId,
+    maxPrice,
+    minDiscount,
+    categoryId,
+    sortBy,
+    query,
+    limit,
+    page,
+    minRating,
+  });
 
   if (error) return <Error />;
 
@@ -29,7 +53,7 @@ function Page() {
       );
     }
     return (
-      <div className=" grid  grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-8">
+      <div className=" grid  grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {products.map(product => (
           <ProductCard key={product.id} product={product} />
         ))}
@@ -39,16 +63,16 @@ function Page() {
 
   return (
     <div>
-      <div className="mt-6 flex gap-10 flex-1 pb-10 scroll-smooth">
-        <div className="basis-1/4">
+      <div className="mt-6 md:flex gap-10 flex-1 pb-10 scroll-smooth">
+        <div className="max-md:hidden md:basis-1/4">
           <CategoryFilter />
           <PriceFilter className="mt-10" />
           <ClearFilter isChild>
             <Button className="bg-red-600 w-full mt-3">Clear filters</Button>
           </ClearFilter>
         </div>
-        <div className=" basis-3/4">
-          <div className="flex mb-4">
+        <div className="md:basis-3/4">
+          <div className="md:flex mb-4">
             <SortComp className={"ml-auto"} />
           </div>
           <ProductPage />

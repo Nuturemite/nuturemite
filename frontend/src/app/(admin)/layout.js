@@ -11,7 +11,7 @@ export const metadata = {
 
 export default function HomeLayout({ children }) {
   return (
-    <html lang="en">
+    <html lang="en scrollbar-thumb-sky-700 scrollbar-track-slate-100">
       <body className="bg-gray-100">
         <AuthProvider>
           <div className="text-slate-900">
