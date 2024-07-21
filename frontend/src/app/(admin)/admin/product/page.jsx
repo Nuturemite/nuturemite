@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import ProductRow from "./row";
 import { Button } from "@/components/ui/button";
 import api from "@/lib/api";
-import { useProducts } from "@/lib/data";
+import { useBaseProducts, useProducts } from "@/lib/data";
 import {
   Table,
   TableBody,
@@ -22,7 +22,7 @@ import Link from "next/link";
 
 const ProductList = ({ searchParams }) => {
   const query = searchParams.query;
-  const { products, error, isLoading, mutate } = useProducts({ query });
+  const { products, error, isLoading, mutate } = useBaseProducts();
   const [pending, setPending] = useState(false);
 
   const handleProductDelete = async (id) => {
@@ -61,10 +61,10 @@ const ProductList = ({ searchParams }) => {
             <TableHeader>
               <TableRow>
                 <TableHead>Name</TableHead>
-                <TableHead>Quantity</TableHead>
+                {/* <TableHead>Quantity</TableHead> */}
                 <TableHead>Price</TableHead>
-                <TableHead>Category</TableHead>
-                <TableHead>Discount</TableHead>
+                {/* <TableHead>Category</TableHead> */}
+                {/* <TableHead>Price</TableHead> */}
                 <TableHead>Action</TableHead>
               </TableRow>
             </TableHeader>

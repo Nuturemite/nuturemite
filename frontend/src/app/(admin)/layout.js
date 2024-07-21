@@ -11,15 +11,15 @@ export const metadata = {
 
 export default function HomeLayout({ children }) {
   return (
-    <html lang="en scrollbar-thumb-sky-700 scrollbar-track-slate-100">
+    <html lang="en ">
       <body className="bg-gray-100">
         <AuthProvider>
           <div className="text-slate-900">
             <div className="relative flex min-h-screen ">
-              <Sidebar/>
-              <div className="w-full md:ml-2 mt-1 relative">
+              <Sidebar />
+              <div className="w-full md:ml-2 mt-1 relative ">
                 <Navbar />
-                <div className="p-4">{children}</div>
+                <div className="p-4 ">{children}</div>
               </div>
             </div>
             <Toaster position="bottom-center" />

@@ -21,15 +21,15 @@ function ProductRow({ product, onDelete }) {
       <TableCell className="flex items-center gap-3">
         <img
           className="w-10 h-10 object-cover rounded"
-          src={product.image || "./noimage.png"}
+          src={product?.images[1] || "./noimage.png"}
           alt="product image"
         />
         <span>{product.name}</span>
       </TableCell>
-      <TableCell>{product.quantity}</TableCell>
-      <TableCell>{product.price}</TableCell>
-      <TableCell>{product.category.name}</TableCell>
-      <TableCell>{product.discount || 0}</TableCell>
+      {/* <TableCell>{product.quantity}</TableCell> */}
+      <TableCell>{product.basePrice}</TableCell>
+      {/* <TableCell>{product.category.name}</TableCell> */}
+      {/* <TableCell>{product.discount || 0}</TableCell> */}
       <TableCell>
         <form>
           <div className="flex gap-2">
