@@ -26,10 +26,7 @@ function ProductRow({ product, onDelete }) {
         />
         <span>{product.name}</span>
       </TableCell>
-      {/* <TableCell>{product.quantity}</TableCell> */}
-      <TableCell>{product.basePrice}</TableCell>
-      {/* <TableCell>{product.category.name}</TableCell> */}
-      {/* <TableCell>{product.discount || 0}</TableCell> */}
+      <TableCell>&#8377;{product.basePrice}</TableCell>
       <TableCell>
         <form>
           <div className="flex gap-2">

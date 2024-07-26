@@ -56,6 +56,7 @@ export const useProducts = (queryParams = {}) => {
     minRating,
     productId,
     sortBy,
+    vendorId,
     limit = 9,
     page = 1,
   } = queryParams;
@@ -88,8 +89,12 @@ export const useProducts = (queryParams = {}) => {
   return { products: filteredProducts, error, isLoading, mutate, totalPages };
 };
 
-export const useBaseProducts = () => {
-  const { data, error, isLoading, mutate } = useSWR("/products", fetcher);
+export const useBaseProducts = (queryParams = {}) => {
+  let { data, error, isLoading, mutate } = useSWR("/products", fetcher);
+
+  // if(queryParams.id) {
+  //   data = data.filter(product => product._id == queryParams.id);
+  // }
   return { products: data, error, isLoading, mutate };
 };
 

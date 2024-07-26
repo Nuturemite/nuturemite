@@ -70,7 +70,7 @@ const BrandList = ({ searchParams }) => {
               <TableBody>
                 {brands.map((brand, index) => (
                   <BrandRow
-                    key={brand.id}
+                    key={brand._id}
                     index={index + 1}
                     brand={brand}
                     onDelete={handleBrandDelete}

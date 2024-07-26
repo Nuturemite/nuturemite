@@ -4,6 +4,7 @@ import { productPipeline } from "./pipeline/vendorProduct.pipeline.js";
 // Create a new vendor product
 export const createVendorProduct = async (req, res) => {
   try {
+    req.body.vendor = req.user.id
     const vendorProduct = new VendorProduct(req.body);
     await vendorProduct.save();
     res.status(201).json({ message: "Vendor product created successfully!", data: vendorProduct });

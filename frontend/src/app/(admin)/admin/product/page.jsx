@@ -61,10 +61,7 @@ const ProductList = ({ searchParams }) => {
             <TableHeader>
               <TableRow>
                 <TableHead>Name</TableHead>
-                {/* <TableHead>Quantity</TableHead> */}
                 <TableHead>Price</TableHead>
-                {/* <TableHead>Category</TableHead> */}
-                {/* <TableHead>Price</TableHead> */}
                 <TableHead>Action</TableHead>
               </TableRow>
             </TableHeader>

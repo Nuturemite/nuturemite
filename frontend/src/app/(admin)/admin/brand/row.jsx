@@ -37,7 +37,7 @@ function BrandRow({ index, brand, onDelete }) {
               <AlertDialogFooter>
                 <AlertDialogCancel>Cancel</AlertDialogCancel>
                 <AlertDialogAction
-                  onClick={() => onDelete(brand.id)}
+                  onClick={() => onDelete(brand._id)}
                   className={buttonVariants({ variant: "destructive" })}
                 >
                   Delete

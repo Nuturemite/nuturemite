@@ -50,8 +50,6 @@ export const getAllProducts = async (req, res) => {
         path: "brands",
         options: { strictPopulate: false },
       })
-      .skip((page - 1) * limit)
-      .limit(Number(limit));
 
     const total = await Product.countDocuments();
 

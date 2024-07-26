@@ -18,7 +18,7 @@ function UploadImage({ className, image, onImageSelect, onImageRemove, ...props 
       <label
         htmlFor="file-upload"
         className={cn(
-          "border-2 border-dashed w-full aspect-square rounded-lg flex justify-center items-center cursor-pointer",
+          "border-2 border-dashed w-full bg-white aspect-square rounded-lg flex justify-center items-center cursor-pointer",
           className
         )}
       >

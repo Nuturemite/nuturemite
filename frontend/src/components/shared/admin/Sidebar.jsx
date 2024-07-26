@@ -5,6 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Home, User, Settings, ShoppingBag, Slack, Radar } from "lucide-react";
 import Image from "next/image";
+import { useAuthContext } from "@/context/authprovider";
 
 const sidebarItems = [
   {
@@ -22,6 +23,11 @@ const sidebarItems = [
     title: "Products",
     link: "/admin/product",
   },
+  // {
+  //   icon: ShoppingBag,
+  //   title: "Products",
+  //   link: "/vendor/product",
+  // },
   {
     icon: Slack,
     title: "Brand",
@@ -41,6 +47,7 @@ const sidebarItems = [
 ];
 function Sidebar({ className }) {
   const activePath = usePathname().split("/")[2];
+
 
   return (
     <aside

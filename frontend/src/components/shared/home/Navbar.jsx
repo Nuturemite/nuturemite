@@ -58,12 +58,13 @@ const NavBar = () => {
       ];
 
   return (
-    <nav className="bg-back-primary border-slate-200 border-b px-4 md:px-16 ">
-      <div className="flex flex-wrap items-center justify-between mx-auto py-4">
-        <Link href="/" className="flex items-center space-x-3 rtl:space-x-reverse">
-          <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
-            <h1 className="text-xl font-semibold text-slate-200 uppercase">Nuturemite</h1>
-          </span>
+    <nav className="bg-back-primary border-slate-200 border-b px-4 md:px-12 ">
+      <div className="flex gap-3 items-center  justify-between mx-auto py-4">
+        <Link href="/" >
+            <div className="flex items-center gap-2">
+              <img className="h-20 mix-blend-multiply" src="./logo.png" alt="" />
+              <h1 className="text-xl font-semibold text-slate-200 uppercase">Nuturemite</h1>
+            </div>
         </Link>
 
         <Sheet>
@@ -88,11 +89,9 @@ const NavBar = () => {
         </Sheet>
 
         <div className="hidden w-full md:block md:w-auto" id="navbar-default">
-          <ul className="font-medium  items-center flex flex-col  border-slate-100  md:flex-row md:space-x-6 rtl:space-x-reverse md:mt-0 md:border-0  dark:border-slate-700">
+          <ul className="font-medium  items-center flex flex-col  border-slate-100  md:flex-row md:space-x-3 rtl:space-x-reverse md:mt-0 md:border-0  dark:border-slate-700">
             <ProductSearch />
 
-         
-            
             <li>
               <NavigationMenu>
                 <NavigationMenuList>

@@ -287,6 +287,38 @@ const UcodeSchema = new Schema(
   { timestamps: true }
 );
 
+
+const vendorSchemaa = new mongoose.Schema({
+  name: String,
+  contactPerson: String,
+  contactEmail: String,
+  contactPhoneNumber: String,
+  address: {
+    street: String,
+    city: String,
+    state: String,
+    postalCode: String,
+    country: String,
+  },
+  businessInfo: {
+    registrationNumber: String,
+    taxId: String,
+    businessType: String,
+  },
+  bankDetails: {
+    bankName: String,
+    accountNumber: String,
+    routingNumber: String,
+    swiftCode: String,
+  },
+  status: {
+    type: String,
+    enum: ['profile', 'bank', 'business', 'complete'],
+    default: 'profile',
+  },
+}, { timestamps: true });
+
+
 // Compile all schemas
 const User = mongoose.model("User", UserSchema);
 const Category = mongoose.model("Category", CategorySchema);

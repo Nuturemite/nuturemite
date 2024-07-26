@@ -5,11 +5,11 @@ export function Offer() {
   return (
     <div>
       <div className="flex gap-5 h-full justify-between">
-        {[2, 3].map(i => (
+        {[1, 2].map(i => (
           <div key={i} className="relative flex-1 group overflow-hidden">
             <img
-              src={`./carousel-${i}.jpg`}
-              className="w-full h-full image-primary  "
+              src={`./banners/banner${i}.jpg`}
+              className="w-full h-80 image-primary  "
               alt={`Carousel ${i}`}
             />
             <div className="absolute inset-0 flex flex-col justify-center items-center pointer-events-none">

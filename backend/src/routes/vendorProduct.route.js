@@ -6,13 +6,13 @@ import {
   updateVendorProduct,
   deleteVendorProduct,
 } from "../controllers/vendorProduct.controller.js";
-
+import isAuth from "../middlewares/auth.js";
 const router = express.Router();
 
-router.post("/", createVendorProduct);
+router.post("/", isAuth, createVendorProduct);
 router.get("/", getAllVendorProducts);
 router.get("/:id", getVendorProduct);
-router.put("/:id", updateVendorProduct);
-router.delete("/:id", deleteVendorProduct);
+router.put("/:id", isAuth, updateVendorProduct);
+router.delete("/:id", isAuth, deleteVendorProduct);
 
 export default router;
