@@ -1,9 +1,10 @@
 "use client";
-import { Featured } from "./components/featured";
+import { Featured } from "./components/features";
 import { Categories } from "./components/categories";
 import { Hero } from "./components/hero";
 import { RecentProducts } from "./components/recent";
 import { Offer } from "./components/offer";
+import { FeaturedProducts } from "./components/featured";
 
 export default function Page() {
   return (
@@ -14,9 +15,8 @@ export default function Page() {
         {/* <Categories /> */}
         <RecentProducts />
         <Offer />
-        <RecentProducts />
+        <FeaturedProducts />
       </section>
     </div>
   );
 }
-

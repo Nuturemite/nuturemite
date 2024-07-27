@@ -34,7 +34,7 @@ export const ProductCard = ({ product }) => {
             </div>
           </div>
         </div>
-        <div className="text-center pb-4">
+        <div className="text-center pb-[1em]">
           <a href="#" className="h6 text-decoration-none block text-[0.92rem] ">
             {name}
           </a>
