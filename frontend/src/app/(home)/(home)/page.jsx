@@ -11,11 +11,11 @@ export default function Page() {
     <div className="py-10">
       <section className="space-y-20">
         <Hero />
-        <Featured />
         {/* <Categories /> */}
         <RecentProducts />
         <Offer />
         <FeaturedProducts />
+        <Featured />
       </section>
     </div>
   );

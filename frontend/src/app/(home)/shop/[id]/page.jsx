@@ -1,19 +1,11 @@
 "use client";
+import React, { useState } from "react";
 import Error from "@/components/shared/error";
 import Loader from "@/components/shared/loader";
-import { useProduct, useProducts } from "@/lib/data";
+import { useProduct } from "@/lib/data";
 import { Icon } from "@iconify/react";
-import React, { useState } from "react";
 import ProductPageSkeleton from "./skeleton";
 import AddToCart from "../components/AddToCart";
-import AddToWishlist from "../components/AddToWishlist";
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from "@/components/ui/carousel";
 import {
   Select,
   SelectContent,
@@ -27,55 +19,59 @@ export default function Product({ params }) {
   const id = params.id;
   const { product, isLoading, error } = useProduct(id);
   const [quantity, setQuantity] = useState(1);
-  // const { products, isLoading: isProductLoading } = useProducts({ catgoryId: product?.categoryId })
+  const [selectedImage, setSelectedImage] = useState(null);
 
   if (isLoading) return <ProductPageSkeleton count={1} />;
 
   if (error) return <Error />;
 
+  // Default image if none is selected
+  const displayImage = selectedImage || product.images?.[0] || "./noimage.png";
+
   return (
-    <div className=" py-8 pt-10">
-      <div className="mx-auto ">
-        <div className="flex flex-col  md:flex-row gap-8">
-          {/* Carousel */}
-          <div className="px-4 basis-2/5">
-            <div className="h-[460px] p-10 bg-white test:bg-slate-700 mb-4">
-              <Carousel>
-                <CarouselContent>
-                  {product.images?.map(image => (
-                    <CarouselItem key={image}>
-                      <img
-                        className="w-full h-full object-cover overflow-hidden object-center "
-                        src={image || "./noimage.png"}
-                        alt="Product Image"
-                      />
-                    </CarouselItem>
-                  ))}
-                </CarouselContent>
-                <CarouselPrevious />
-                <CarouselNext />
-              </Carousel>
+    <div className="py-8 pt-10">
+      <div className="mx-auto">
+        <div className="flex flex-col md:flex-row gap-4">
+          {/* Image Sidebar */}
+          <div className="basis-[7%] p-3 space-y-2 bg-white">
+            <div className="flex flex-col space-y-2">
+              {product.images?.map((image, index) => (
+                <img
+                  key={index}
+                  className="w-full h-20 object-cover cursor-pointer border-2 border-transparent hover:border-slate-600"
+                  src={image || "./noimage.png"}
+                  alt={`Thumbnail ${index + 1}`}
+                  onClick={() => setSelectedImage(image)}
+                />
+              ))}
+            </div>
+          </div>
+
+          {/* Selected Image Display */}
+          <div className="px-4 basis-[40%]">
+            <div className="h-[600px] p-4 bg-white mb-4">
+              <img
+                className="w-full h-full object-cover overflow-hidden object-center"
+                src={displayImage}
+                alt="Product Image"
+              />
             </div>
           </div>
 
           {/* Product Details */}
-          <div className="md:flex-1 p-10 bg-white basis-1/5">
-            <p className="text-slate-600 text-3xl font-bold  mb-4">{product.name}</p>
+          <div className="md:flex-1 basis-[40%] p-10 bg-white">
+            <p className="text-slate-600 text-3xl font-bold mb-4">{product.name}</p>
             <div className="mb-4 space-y-4">
               <div className="mr-4">
-                <span className="text-2xl text-slate-500 ">${product.price}</span>
-                <span className={`${"line-through text-red-600 text-lg"} `}>
-                  {" "}
-                  ${product.basePrice}
-                </span>
+                <span className="text-2xl text-slate-500">${product.price}</span>
+                <span className="line-through text-red-600 text-lg"> ${product.basePrice}</span>
                 <span className="text-sm text-green-600">
-                  {" "}
-                  {product.basePrice - product.price}% off
+                  {Math.round(((product.basePrice - product.price) / product.basePrice) * 100)}% off
                 </span>
               </div>
 
               <div>
-                {[...Array(5)].map(index => (
+                {[...Array(5)].map((_, index) => (
                   <Icon
                     key={index}
                     className="inline text-xl text-orange-500"
@@ -86,12 +82,9 @@ export default function Product({ params }) {
             </div>
 
             <div>
-              <p className="text-slate-600 test:text-slate-300 mt-2 mb-8">
+              <p className="text-slate-600 mt-2 mb-8">
                 {product.description ||
-                  ` Lorem ipsum dolor sit amet consectetur adipisicing
-              elit. Exercitationem vel sint perspiciatis velit sunt pariatur odio debitis laborum,
-              quas nesciunt numquam id aspernatur dolore itaque quia? Magnam itaque similique
-              accusamus.`}
+                  ` Lorem ipsum dolor sit amet consectetur adipisicing elit. Exercitationem vel sint perspiciatis velit sunt pariatur odio debitis laborum, quas nesciunt numquam id aspernatur dolore itaque quia? Magnam itaque similique accusamus.`}
               </p>
             </div>
             <div className="flex mb-4 gap-4 items-center">
@@ -111,29 +104,12 @@ export default function Product({ params }) {
                   ))}
                 </SelectContent>
               </Select>
-              {<AddToCart quantity={quantity} product={product} />}
+              <AddToCart quantity={quantity} product={product} />
             </div>
           </div>
-
-          {/* You May Also Like */}
-          {/*    {!isProductLoading && (
-            <div>
-              <h2 className="h2-primary">
-                You May Also Like
-              </h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-                {products.map(product => (
-                  <ProductCard key={product.id} product={product} />
-                ))}
-              </div>
-            </div>
-          )} */}
         </div>
         <Tabs />
       </div>
     </div>
   );
-}
-{
-  /* <Review product={product} /> */
 }

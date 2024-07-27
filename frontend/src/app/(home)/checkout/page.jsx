@@ -158,7 +158,7 @@ export default function Page() {
   return (
     <div className={`${pending && " pointer-events-none opacity-50"}`}>
       <div className="mt-10 pb-10">
-        <h2 className="h2-primary">Billing Details</h2>
+        <h2 className="h2-primary">Shipping Details</h2>
         <div className="flex gap-20 ">
           <div className="basis-3/5">
             <div className="bg-white p-6">
@@ -200,7 +200,7 @@ export default function Page() {
                 </div>
               ))}
 
-              <div className="flex items-center mt-2">
+              {/* <div className="flex items-center mt-2">
                 <input
                   id="ship-to-different"
                   className="w-4 h-4"
@@ -211,7 +211,7 @@ export default function Page() {
                 <Label className="text-slate-600 ml-3" htmlFor="ship-to-different">
                   Ship to different address
                 </Label>
-              </div>
+              </div> */}
             </div>
 
             {formData.shipToDifferentAddress && (
@@ -258,8 +258,22 @@ export default function Page() {
                 </div>
               </div>
             )}
+          </div>
+          <div className=" basis-2/5">
+            <h2 className="h2-primary">Order Details</h2>
+            <OrderSummary />
+            <Button pending={pending} className="w-full mt-2" onClick={handleCheckout}>
+              Checkout
+            </Button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
 
-            <div>
+{
+  /* <div>
               <h2 className="h2-primary mt-6">Payment Details</h2>
               <div className="bg-white p-6">
                 {paymentDetails.map((section, index) => (
@@ -300,17 +314,5 @@ export default function Page() {
                   </div>
                 ))}
               </div>
-            </div>
-          </div>
-          <div className=" basis-2/5">
-            <h2 className="h2-primary">Order Details</h2>
-            <OrderSummary />
-            <Button pending={pending} className="w-full mt-2" onClick={handleCheckout}>
-              Checkout
-            </Button>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
+            </div> */
 }
