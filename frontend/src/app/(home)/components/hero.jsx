@@ -27,7 +27,7 @@ export const Hero = () => {
               ].map((image) => (
                 <CarouselItem key={image}>
                   <img
-                    className="w-full image-primary-2 "
+                    className="w-full image--2 "
                     src={image}
                     alt="Product Image"
                   />
@@ -37,14 +37,14 @@ export const Hero = () => {
             <CarouselPrevious />
             <CarouselNext />
           </Carousel>
-          <div className="absolute inset-0 flex flex-col justify-center items-center w-[60%] mx-auto">
+          {/* <div className="absolute inset-0 flex flex-col justify-center items-center w-[60%] mx-auto">
             <h2 className="text-white text-3xl font-bold mb-4">Organic Items</h2>
             <p className="text-white text-sm text-center mb-4">
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam condimentum purus
               vitae lectus blandit.
             </p>
             <Button size="sm">Shop Now</Button>
-          </div>
+          </div> */}
         </div>
       </div>
       <div className="flex flex-col basis-[30%] gap-5 h-full justify-between max-md:hidden">

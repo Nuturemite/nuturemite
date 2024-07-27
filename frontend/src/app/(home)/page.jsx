@@ -11,7 +11,7 @@ export default function Page() {
       <section className="space-y-20">
         <Hero />
         <Featured />
-        <Categories />
+        {/* <Categories /> */}
         <RecentProducts />
         <Offer />
         <RecentProducts />

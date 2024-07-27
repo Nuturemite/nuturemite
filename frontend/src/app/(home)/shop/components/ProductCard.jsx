@@ -34,7 +34,7 @@ export const ProductCard = ({ product }) => {
             </div>
           </div>
         </div>
-        <div className="text-center py-4">
+        <div className="text-center pb-4">
           <a href="#" className="h6 text-decoration-none block text-[0.92rem] ">
             {name}
           </a>
@@ -58,7 +58,7 @@ export const ProductCard = ({ product }) => {
                 />
               </svg>
             ))}
-            <small className="ml-1">({avgRating})</small>
+            {/* <small className="ml-1">({avgRating})</small> */}
           </div>
         </div>
       </div>
