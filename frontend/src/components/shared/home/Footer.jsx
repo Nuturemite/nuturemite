@@ -2,7 +2,16 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useCategories } from "@/lib/data";
-import { Mail, Phone, MapPin, Twitter, Facebook, Instagram, Youtube, Linkedin } from "lucide-react";
+import {
+  Mail,
+  Phone,
+  MapPin,
+  Twitter,
+  Facebook,
+  Instagram,
+  Youtube,
+  Linkedin,
+} from "lucide-react";
 
 const Footer = () => {
   const { categories } = useCategories();
@@ -38,12 +47,20 @@ const Footer = () => {
               ],
             },
             {
-              title: "About Us",
-              links: ["About Us", "Careers", "Our Stores", "Corporate Sales", "Careers"],
+              title: "",
+              links: [
+                "About Us",
+                "Careers",
+                "Our Stores",
+                "Corporate Sales",
+                "Careers",
+              ],
             },
             {
               title: "Popular categories",
-              links: categories ? categories?.map(category => category.name) : [],
+              links: categories
+                ? categories?.map((category) => category.name)
+                : [],
             },
             { title: "Newsletter", links: [] },
           ].map(({ title, links }, index) => (
@@ -52,7 +69,11 @@ const Footer = () => {
               {links.length > 0 ? (
                 <div className="flex flex-col">
                   {links.map((link, idx) => (
-                    <a key={idx} href="#" className="text-secondary mb-2 flex items-center">
+                    <a
+                      key={idx}
+                      href="#"
+                      className="text-secondary mb-2 flex items-center"
+                    >
                       <i className="fa fa-angle-right mr-2"></i>
                       {link}
                     </a>
@@ -70,10 +91,14 @@ const Footer = () => {
                         className="form-control flex-1"
                         placeholder="Your Email Address"
                       />
-                      <Button className="btn bg-tert-100 text-white ml-2">Sign Up</Button>
+                      <Button className="btn bg-tert-100 text-white ml-2">
+                        Sign Up
+                      </Button>
                     </div>
                   </form>
-                  <h6 className="text-secondary text-uppercase mb-3">Follow Us</h6>
+                  <h6 className="text-secondary text-uppercase mb-3">
+                    Follow Us
+                  </h6>
                   <div className="flex">
                     <a
                       href="https://facebook.com/nuturemite"

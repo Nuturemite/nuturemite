@@ -1,4 +1,4 @@
-import { collectionGroup } from "firebase/firestore";
+// import { collectionGroup } from "firebase/firestore";
 import { User } from "../models/model.js";
 
 // Update user profile
@@ -7,11 +7,10 @@ export const updateUserProfile = async (req, res) => {
     const userId = req.user.id;
     const data = req.body;
 
-    const user = await User.findByIdAndUpdate(
-      userId,
-      data ,
-      { new: true, runValidators: true }
-    );
+    const user = await User.findByIdAndUpdate(userId, data, {
+      new: true,
+      runValidators: true,
+    });
 
     if (!user) return res.status(404).json({ message: "User not found" });
 
@@ -36,7 +35,6 @@ export const getUserProfile = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
-
 
 export const getAllUsers = async (req, res) => {
   try {
