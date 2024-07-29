@@ -5,31 +5,55 @@ import { useState } from "react";
 const ProductDesc = ({ product }) => (
   <div className="py-4">
     <h2 className="text-2xl font-medium">Product Description</h2>
-    <p className="mt-4">{product?.desciption}</p>
+    <p className="mt-4">{product?.description}</p>
   </div>
 );
 
-const RandomProductInfo = () => (
+const ProductInfo = ({ product }) => (
   <div className="py-4">
-    <h2 className="text-2xl font-medium">Random Product Info</h2>
+    <h2 className="text-2xl font-medium">{product.name}</h2>
     <ul className="mt-4 space-y-2">
       <li>
-        <span className="font-medium">Brand:</span>{" "}
-        {["Nike", "Adidas", "Vans"][Math.floor(Math.random() * 3)]}
+        <span className="font-medium">Brand:</span> Nuturemite
       </li>
       <li>
-        <span className="font-medium">Model:</span>{" "}
-        {["Air Force 1", "Yeezy", "Old Skool"][Math.floor(Math.random() * 3)]}
+        <span className="font-medium">Type:</span> Supplement
       </li>
       <li>
-        <span className="font-medium">Year:</span>{" "}
-        {Math.floor(Math.random() * (2022 - 2010 + 1) + 2010)}
+        <span className="font-medium">MRP:</span> ₹{product.basePrice}
       </li>
       <li>
-        <span className="font-medium">Type:</span>{" "}
-        {["Sneakers", "Boots", "Sandals"][Math.floor(Math.random() * 3)]}
+        <span className="font-medium">Sales Price:</span> ₹{product.price}
+      </li>
+      <li>
+        <span className="font-medium">Description:</span> {product.description}
+      </li>
+      <li>
+        <span className="font-medium">Benefits:</span> {product.benefits}
+      </li>
+      <li>
+        <span className="font-medium">Use Instruction:</span> {product.useInstruction}
+      </li>
+      <li>
+        <span className="font-medium">Safety Precaution:</span> {product.safetyPrecaution}
+      </li>
+      <li>
+        <span className="font-medium">Ingredients:</span> {product.ingredients}
       </li>
     </ul>
+    <div className="mt-4">
+      <h3 className="text-xl font-medium">Images</h3>
+      <div className="flex space-x-2">
+        {product.images.map((url, index) => (
+          <img
+            key={index}
+            src={url}
+            alt={`Product image ${index + 1}`}
+            className="w-24 h-24 object-cover"
+          />
+        ))}
+      </div>
+    </div>
   </div>
 );
 
@@ -63,14 +87,14 @@ const Reviews = () => (
   </div>
 );
 
-const Tabs = () => {
+const Tabs = ({ product }) => {
   const [activeTab, setActiveTab] = useState(1);
 
   // Array of tab data
   const tabs = [
-    { id: 1, label: "Description", content: <ProductDesc /> },
-    { id: 2, label: "Information", content: <RandomProductInfo /> },
-    { id: 3, label: "Reviews", content: <Reviews /> },
+    { id: 1, label: "Description", content: <ProductDesc product={product} /> },
+    { id: 2, label: "Information", content: <ProductInfo product={product} /> },
+    { id: 3, label: "Reviews", content: <Reviews product={product} /> },
   ];
 
   const handleTabClick = tabId => {

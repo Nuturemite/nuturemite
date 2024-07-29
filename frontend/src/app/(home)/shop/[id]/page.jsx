@@ -83,9 +83,9 @@ export default function Product({ params }) {
             </div>
 
             <div>
-              {/* <p className="text-slate-600 mt-2 mb-8">{product.description}</p> */}
-              <p>{product.keywords}</p>
-              <p>{product.categories.map(category => category.name)}</p>
+              <p className="text-slate-600 mt-2 mb-8">{product.description}</p>
+              <p className="text-slate-600 mt-2 mb-8"><strong>Keywords:  </strong>{product.keywords}</p>
+              <p className="text-slate-600 mt-2 mb-8"><strong>Categories:  </strong>{product.categories.map(category => category.name)}</p>
             </div>
             <div className="flex mb-4 gap-4 items-center">
               <Select
@@ -108,7 +108,7 @@ export default function Product({ params }) {
             </div>
           </div>
         </div>
-        <Tabs />
+        <Tabs product={product} />
       </div>
     </div>
   );
