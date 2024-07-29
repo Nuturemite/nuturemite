@@ -1,0 +1,670 @@
+[
+    {
+      "_id": {
+        "$oid": "6698b519d18d60d47a344de6"
+      },
+      "name": "Nuturemite Amla Powder 250 gms",
+      "basePrice": 128,
+      "categories": [
+        {
+          "$oid": "6698ad5fd18d60d47a344dd7"
+        }
+      ],
+      "brand": {
+        "$oid": "66987df7c8d737564c027967"
+      },
+      "images": [
+        "http://res.cloudinary.com/dt0h1catc/image/upload/v1721284034/Products-20240718T061315Z-001/Products/11-Amla%20250g/Amla_Back_Side_CMYK_250g_v3_ggzsge.jpg",
+        "http://res.cloudinary.com/dt0h1catc/image/upload/v1721284038/Products-20240718T061315Z-001/Products/11-Amla%20250g/Amla_CMYK_250g_sr883z.jpg",
+        "http://res.cloudinary.com/dt0h1catc/image/upload/v1721284035/Products-20240718T061315Z-001/Products/11-Amla%20250g/Amla_Mockup_White_Back_ieqxr1.jpg",
+        "http://res.cloudinary.com/dt0h1catc/image/upload/v1721284034/Products-20240718T061315Z-001/Products/11-Amla%20250g/Amla_Mockup_White_FNT_250g_mh1ith.jpg"
+      ],
+      "__v": 0,
+      "createdAt": {
+        "$date": "2024-07-18T09:36:33.671Z"
+      },
+      "updatedAt": {
+        "$date": "2024-07-18T09:36:33.671Z"
+      }
+    },
+    {
+      "_id": {
+        "$oid": "6698b519d18d60d47a344de7"
+      },
+      "name": "Nuturemite Amla Powder 450 gms",
+      "basePrice": 221,
+      "categories": [
+        {
+          "$oid": "6698ad5fd18d60d47a344dd7"
+        }
+      ],
+      "brand": {
+        "$oid": "66987df7c8d737564c027967"
+      },
+      "images": [
+        "http://res.cloudinary.com/dt0h1catc/image/upload/v1721283930/Products-20240718T061315Z-001/Products/12-Amla%20450g/Amla_Back_Side_CMYK_450g_v3_h0sx74.jpg",
+        "http://res.cloudinary.com/dt0h1catc/image/upload/v1721283909/Products-20240718T061315Z-001/Products/12-Amla%20450g/Amla_CMYK_450g_aijofk.jpg",
+        "http://res.cloudinary.com/dt0h1catc/image/upload/v1721283936/Products-20240718T061315Z-001/Products/12-Amla%20450g/Amla_Mockup_White_Back_bc0p4p.jpg",
+        "http://res.cloudinary.com/dt0h1catc/image/upload/v1721283904/Products-20240718T061315Z-001/Products/12-Amla%20450g/Amla_Mockup_White_FNT_450g_so0tql.jpg"
+      ],
+      "__v": 0,
+      "createdAt": {
+        "$date": "2024-07-18T09:36:33.671Z"
+      },
+      "updatedAt": {
+        "$date": "2024-07-18T09:36:33.671Z"
+      }
+    },
+    {
+      "_id": {
+        "$oid": "6698b519d18d60d47a344de8"
+      },
+      "name": "Nuturemite Amla Powder 900 gms",
+      "basePrice": 360,
+      "categories": [
+        {
+          "$oid": "6698ad5fd18d60d47a344dd7"
+        }
+      ],
+      "brand": {
+        "$oid": "66987df7c8d737564c027967"
+      },
+      "images": [
+        "http://res.cloudinary.com/dt0h1catc/image/upload/v1721284108/Products-20240718T061315Z-001/Products/13-Amla%20900g/Amla_Back_Side_CMYK_900g_v3_o8mmhw.jpg",
+        "http://res.cloudinary.com/dt0h1catc/image/upload/v1721284096/Products-20240718T061315Z-001/Products/13-Amla%20900g/Amla_CMYK_900g_wwws3t.jpg",
+        "http://res.cloudinary.com/dt0h1catc/image/upload/v1721284113/Products-20240718T061315Z-001/Products/13-Amla%20900g/Amla_Mockup_White_Back_kmptfs.jpg",
+        "http://res.cloudinary.com/dt0h1catc/image/upload/v1721284093/Products-20240718T061315Z-001/Products/13-Amla%20900g/Amla_Mockup_White_FNT_900g_g2ljsz.jpg"
+      ],
+      "__v": 0,
+      "createdAt": {
+        "$date": "2024-07-18T09:36:33.671Z"
+      },
+      "updatedAt": {
+        "$date": "2024-07-18T09:36:33.671Z"
+      }
+    },
+    {
+      "_id": {
+        "$oid": "6698b519d18d60d47a344de9"
+      },
+      "name": "Nuturemite Ashwagandha Powder 250 gms",
+      "basePrice": 260,
+      "categories": [
+        {
+          "$oid": "6698ad5fd18d60d47a344dd7"
+        }
+      ],
+      "brand": {
+        "$oid": "66987df7c8d737564c027967"
+      },
+      "images": [
+        "http://res.cloudinary.com/dt0h1catc/image/upload/v1721283810/Products-20240718T061315Z-001/Products/14-Ashwagandha%20250g/Ashwagandha_Back_Side_CMYK_250g_v3_ixangx.jpg",
+        "http://res.cloudinary.com/dt0h1catc/image/upload/v1721283832/Products-20240718T061315Z-001/Products/14-Ashwagandha%20250g/Ashwagandha_CMYK_250g_feh6gf.jpg",
+        "http://res.cloudinary.com/dt0h1catc/image/upload/v1721283824/Products-20240718T061315Z-001/Products/14-Ashwagandha%20250g/Ashwagandha_Mockup_White_Back_vddkyn.jpg",
+        "http://res.cloudinary.com/dt0h1catc/image/upload/v1721283809/Products-20240718T061315Z-001/Products/14-Ashwagandha%20250g/Ashwagandha_Mockup_White_FNT_250g_lvqjc5.jpg"
+      ],
+      "__v": 0,
+      "createdAt": {
+        "$date": "2024-07-18T09:36:33.671Z"
+      },
+      "updatedAt": {
+        "$date": "2024-07-18T09:36:33.671Z"
+      }
+    },
+    {
+      "_id": {
+        "$oid": "6698b519d18d60d47a344dea"
+      },
+      "name": "Nuturemite Ashwagandha Powder 450 gms",
+      "basePrice": 488,
+      "categories": [
+        {
+          "$oid": "6698ad5fd18d60d47a344dd6"
+        }
+      ],
+      "brand": {
+        "$oid": "66987df7c8d737564c027967"
+      },
+      "images": [
+        "http://res.cloudinary.com/dt0h1catc/image/upload/v1721284233/Products-20240718T061315Z-001/Products/15-Ashwagandha%20450g/Ashwagandha_Back_Side_CMYK_450g_v3_fhvqhm.jpg",
+        "http://res.cloudinary.com/dt0h1catc/image/upload/v1721284240/Products-20240718T061315Z-001/Products/15-Ashwagandha%20450g/Ashwagandha_CMYK_450g_ooq2em.jpg",
+        "http://res.cloudinary.com/dt0h1catc/image/upload/v1721284240/Products-20240718T061315Z-001/Products/15-Ashwagandha%20450g/Ashwagandha_Mockup_White_Back_ufjvbq.jpg",
+        "http://res.cloudinary.com/dt0h1catc/image/upload/v1721284238/Products-20240718T061315Z-001/Products/15-Ashwagandha%20450g/Ashwagandha_Mockup_White_FNT_450g_vxvm7k.jpg"
+      ],
+      "__v": 0,
+      "createdAt": {
+        "$date": "2024-07-18T09:36:33.672Z"
+      },
+      "updatedAt": {
+        "$date": "2024-07-18T09:36:33.672Z"
+      }
+    },
+    {
+      "_id": {
+        "$oid": "6698b519d18d60d47a344deb"
+      },
+      "name": "Nuturemite Ashwagandha Powder 900 gms",
+      "basePrice": 844,
+      "categories": [
+        {
+          "$oid": "6698ad5fd18d60d47a344dd7"
+        }
+      ],
+      "brand": {
+        "$oid": "66987df7c8d737564c027967"
+      },
+      "images": [
+        "http://res.cloudinary.com/dt0h1catc/image/upload/v1721284239/Products-20240718T061315Z-001/Products/16-Ashwagandha%20900g/Ashwagandha_Back_Side_CMYK_900g_v3_iqbu3z.jpg",
+        "http://res.cloudinary.com/dt0h1catc/image/upload/v1721284226/Products-20240718T061315Z-001/Products/16-Ashwagandha%20900g/Ashwagandha_CMYK_900g_yocg1p.jpg",
+        "http://res.cloudinary.com/dt0h1catc/image/upload/v1721284230/Products-20240718T061315Z-001/Products/16-Ashwagandha%20900g/Ashwagandha_Mockup_White_Back_frhfdz.jpg",
+        "http://res.cloudinary.com/dt0h1catc/image/upload/v1721284219/Products-20240718T061315Z-001/Products/16-Ashwagandha%20900g/Ashwagandha_Mockup_White_FNT_900g_pamdsm.jpg"
+      ],
+      "__v": 0,
+      "createdAt": {
+        "$date": "2024-07-18T09:36:33.672Z"
+      },
+      "updatedAt": {
+        "$date": "2024-07-18T09:36:33.672Z"
+      }
+    },
+    {
+      "_id": {
+        "$oid": "6698b519d18d60d47a344df4"
+      },
+      "name": "Nuturemite Bhringaraj Powder 250 gms",
+      "basePrice": 120,
+      "categories": [
+        {
+          "$oid": "6698ad5fd18d60d47a344dd6"
+        }
+      ],
+      "brand": {
+        "$oid": "66987df7c8d737564c027967"
+      },
+      "images": [
+        "http://res.cloudinary.com/dt0h1catc/image/upload/v1721283984/Products-20240718T061315Z-001/Products/25-Bhingraj%20250g/Bhingraj_Back_Side_CMYK_250g_v3_tlbbgc.jpg",
+        "http://res.cloudinary.com/dt0h1catc/image/upload/v1721283984/Products-20240718T061315Z-001/Products/25-Bhingraj%20250g/Bhringraj_CMYK_250g_pqxeod.jpg",
+        "http://res.cloudinary.com/dt0h1catc/image/upload/v1721283983/Products-20240718T061315Z-001/Products/25-Bhingraj%20250g/Bhringraj_Mockup_White_Back_p7w1a1.jpg",
+        "http://res.cloudinary.com/dt0h1catc/image/upload/v1721283984/Products-20240718T061315Z-001/Products/25-Bhingraj%20250g/Bhringraj_Mockup_White_FNT_250g_igivc9.jpg"
+      ],
+      "__v": 0,
+      "createdAt": {
+        "$date": "2024-07-18T09:36:33.673Z"
+      },
+      "updatedAt": {
+        "$date": "2024-07-18T09:36:33.673Z"
+      }
+    },
+    {
+      "_id": {
+        "$oid": "6698b519d18d60d47a344df5"
+      },
+      "name": "Nuturemite Bhringaraj Powder 450 gms",
+      "basePrice": 200,
+      "categories": [
+        {
+          "$oid": "6698ad5fd18d60d47a344dd6"
+        }
+      ],
+      "brand": {
+        "$oid": "66987df7c8d737564c027967"
+      },
+      "images": [
+        "http://res.cloudinary.com/dt0h1catc/image/upload/v1721284068/Products-20240718T061315Z-001/Products/26-Bhingraj%20450g/Bhingraj_Back_Side_CMYK_450g_v3_goy65l.jpg",
+        "http://res.cloudinary.com/dt0h1catc/image/upload/v1721284055/Products-20240718T061315Z-001/Products/26-Bhingraj%20450g/Bhringraj_CMYK_450g_zopbzk.jpg",
+        "http://res.cloudinary.com/dt0h1catc/image/upload/v1721284057/Products-20240718T061315Z-001/Products/26-Bhingraj%20450g/Bhringraj_Mockup_White_Back_ljhyu4.jpg",
+        "http://res.cloudinary.com/dt0h1catc/image/upload/v1721284069/Products-20240718T061315Z-001/Products/26-Bhingraj%20450g/Bhringraj_Mockup_White_FNT_450g_eogv86.jpg"
+      ],
+      "__v": 0,
+      "createdAt": {
+        "$date": "2024-07-18T09:36:33.674Z"
+      },
+      "updatedAt": {
+        "$date": "2024-07-18T09:36:33.674Z"
+      }
+    },
+    {
+      "_id": {
+        "$oid": "6698b519d18d60d47a344df6"
+      },
+      "name": "Nuturemite Bhringaraj Powder 900 gms",
+      "basePrice": 280,
+      "categories": [
+        {
+          "$oid": "6698ad5fd18d60d47a344dd6"
+        }
+      ],
+      "brand": {
+        "$oid": "66987df7c8d737564c027967"
+      },
+      "images": [
+        "http://res.cloudinary.com/dt0h1catc/image/upload/v1721283910/Products-20240718T061315Z-001/Products/27-Bhingraj%20900g/Bhingraj_Back_Side_CMYK_900g_v3_xh0ui6.jpg",
+        "http://res.cloudinary.com/dt0h1catc/image/upload/v1721283895/Products-20240718T061315Z-001/Products/27-Bhingraj%20900g/Bhringraj_CMYK_900g_qaymj0.jpg",
+        "http://res.cloudinary.com/dt0h1catc/image/upload/v1721283883/Products-20240718T061315Z-001/Products/27-Bhingraj%20900g/Bhringraj_Mockup_White_Back_phdti6.jpg",
+        "http://res.cloudinary.com/dt0h1catc/image/upload/v1721283884/Products-20240718T061315Z-001/Products/27-Bhingraj%20900g/Bhringraj_Mockup_White_FNT_900g_obwhdv.jpg"
+      ],
+      "__v": 0,
+      "createdAt": {
+        "$date": "2024-07-18T09:36:33.674Z"
+      },
+      "updatedAt": {
+        "$date": "2024-07-18T09:36:33.674Z"
+      }
+    },
+    {
+      "_id": {
+        "$oid": "6698b519d18d60d47a344e06"
+      },
+      "name": "Nuturemite Safed musli Powder 250 gms",
+      "basePrice": 640,
+      "categories": [
+        {
+          "$oid": "6698ad5fd18d60d47a344dd7"
+        }
+      ],
+      "brand": {
+        "$oid": "66987df7c8d737564c027967"
+      },
+      "images": [
+        "http://res.cloudinary.com/dt0h1catc/image/upload/v1721284176/Products-20240718T061315Z-001/Products/20-Safed%20Musli%20250g/Safed_Musli_Back_Side_CMYK_250g_v3_kpdauf.jpg",
+        "http://res.cloudinary.com/dt0h1catc/image/upload/v1721284165/Products-20240718T061315Z-001/Products/20-Safed%20Musli%20250g/Safed_Musli_CMYK_250g_a33ysx.jpg",
+        "http://res.cloudinary.com/dt0h1catc/image/upload/v1721284174/Products-20240718T061315Z-001/Products/20-Safed%20Musli%20250g/Safed_Musli_Mockup_White_Back_enz9rt.jpg",
+        "http://res.cloudinary.com/dt0h1catc/image/upload/v1721284173/Products-20240718T061315Z-001/Products/20-Safed%20Musli%20250g/Safed_Musli_Mockup_White_FNT_250g_lf47t3.jpg"
+      ],
+      "__v": 0,
+      "createdAt": {
+        "$date": "2024-07-18T09:36:33.676Z"
+      },
+      "updatedAt": {
+        "$date": "2024-07-18T09:36:33.676Z"
+      }
+    },
+    {
+      "_id": {
+        "$oid": "6698b519d18d60d47a344e07"
+      },
+      "name": "Nuturemite Safed musli Powder 450 gms",
+      "basePrice": 1320,
+      "categories": [
+        {
+          "$oid": "6698ad5fd18d60d47a344dd7"
+        }
+      ],
+      "brand": {
+        "$oid": "66987df7c8d737564c027967"
+      },
+      "images": [
+        "http://res.cloudinary.com/dt0h1catc/image/upload/v1721283862/Products-20240718T061315Z-001/Products/21-Safed%20Musli%20450g/Safed_Musli_Back_Side_CMYK_450g_v3_pomd2d.jpg",
+        "http://res.cloudinary.com/dt0h1catc/image/upload/v1721283863/Products-20240718T061315Z-001/Products/21-Safed%20Musli%20450g/Safed_Musli_CMYK_450g_crmll8.jpg",
+        "http://res.cloudinary.com/dt0h1catc/image/upload/v1721283872/Products-20240718T061315Z-001/Products/21-Safed%20Musli%20450g/Safed_Musli_Mockup_White_Back_nitkzb.jpg",
+        "http://res.cloudinary.com/dt0h1catc/image/upload/v1721283847/Products-20240718T061315Z-001/Products/21-Safed%20Musli%20450g/Safed_Musli_Mockup_White_FNT_450g_uw7hyq.jpg"
+      ],
+      "__v": 0,
+      "createdAt": {
+        "$date": "2024-07-18T09:36:33.676Z"
+      },
+      "updatedAt": {
+        "$date": "2024-07-18T09:36:33.676Z"
+      }
+    },
+    {
+      "_id": {
+        "$oid": "6698b519d18d60d47a344e08"
+      },
+      "name": "Nuturemite Shatavari Powder 250 gms",
+      "basePrice": 240,
+      "categories": [
+        {
+          "$oid": "6698ad5fd18d60d47a344dd6"
+        },
+        {
+          "$oid": "6698ad5fd18d60d47a344ddf"
+        }
+      ],
+      "brand": {
+        "$oid": "66987df7c8d737564c027967"
+      },
+      "images": [
+        "http://res.cloudinary.com/dt0h1catc/image/upload/v1721283997/Products-20240718T061315Z-001/Products/17-Shatavari%20250g/Shatavari_Back_Side_CMYK_250g_v3_onr4zi.jpg",
+        "http://res.cloudinary.com/dt0h1catc/image/upload/v1721283987/Products-20240718T061315Z-001/Products/17-Shatavari%20250g/Shatavari_CMYK_250g_fyuxlu.jpg",
+        "http://res.cloudinary.com/dt0h1catc/image/upload/v1721284008/Products-20240718T061315Z-001/Products/17-Shatavari%20250g/Shatavari_Mockup_White_Back_d0e0jz.jpg",
+        "http://res.cloudinary.com/dt0h1catc/image/upload/v1721284011/Products-20240718T061315Z-001/Products/17-Shatavari%20250g/Shatavari_Mockup_White_FNT_250g_tdafku.jpg"
+      ],
+      "__v": 0,
+      "createdAt": {
+        "$date": "2024-07-18T09:36:33.676Z"
+      },
+      "updatedAt": {
+        "$date": "2024-07-18T09:36:33.676Z"
+      }
+    },
+    {
+      "_id": {
+        "$oid": "6698b519d18d60d47a344e09"
+      },
+      "name": "Nuturemite Shatavari Powder 450 gms",
+      "basePrice": 432,
+      "categories": [
+        {
+          "$oid": "6698ad5fd18d60d47a344dd7"
+        },
+        {
+          "$oid": "6698ad5fd18d60d47a344ddf"
+        }
+      ],
+      "brand": {
+        "$oid": "66987df7c8d737564c027967"
+      },
+      "images": [
+        "http://res.cloudinary.com/dt0h1catc/image/upload/v1721284071/Products-20240718T061315Z-001/Products/18-Shatavari%20450g/Shatavari_Back_Side_CMYK_450g_v3_iniyg9.jpg",
+        "http://res.cloudinary.com/dt0h1catc/image/upload/v1721284089/Products-20240718T061315Z-001/Products/18-Shatavari%20450g/Shatavari_CMYK_450g_qu2qdg.jpg",
+        "http://res.cloudinary.com/dt0h1catc/image/upload/v1721284069/Products-20240718T061315Z-001/Products/18-Shatavari%20450g/Shatavari_Mockup_White_Back_ih0y8d.jpg",
+        "http://res.cloudinary.com/dt0h1catc/image/upload/v1721284070/Products-20240718T061315Z-001/Products/18-Shatavari%20450g/Shatavari_Mockup_White_FNT_450g_bvdlpg.jpg"
+      ],
+      "__v": 0,
+      "createdAt": {
+        "$date": "2024-07-18T09:36:33.676Z"
+      },
+      "updatedAt": {
+        "$date": "2024-07-18T09:36:33.676Z"
+      }
+    },
+    {
+      "_id": {
+        "$oid": "6698b519d18d60d47a344e0a"
+      },
+      "name": "Nuturemite Shatavari Powder 900 gms",
+      "basePrice": 799,
+      "categories": [
+        {
+          "$oid": "6698ad5fd18d60d47a344dd7"
+        },
+        {
+          "$oid": "6698ad5fd18d60d47a344ddf"
+        }
+      ],
+      "brand": {
+        "$oid": "66987df7c8d737564c027967"
+      },
+      "images": [
+        "http://res.cloudinary.com/dt0h1catc/image/upload/v1721284145/Products-20240718T061315Z-001/Products/19-Shatavari%20900g/Shatavari_Back_Side_CMYK_900g_v3_m0brfy.jpg",
+        "http://res.cloudinary.com/dt0h1catc/image/upload/v1721284143/Products-20240718T061315Z-001/Products/19-Shatavari%20900g/Shatavari_CMYK_900g_ipuhuq.jpg",
+        "http://res.cloudinary.com/dt0h1catc/image/upload/v1721284149/Products-20240718T061315Z-001/Products/19-Shatavari%20900g/Shatavari_Mockup_White_Back_tkzmsa.jpg",
+        "http://res.cloudinary.com/dt0h1catc/image/upload/v1721284143/Products-20240718T061315Z-001/Products/19-Shatavari%20900g/Shatavari_Mockup_White_FNT_900g_swk3pi.jpg"
+      ],
+      "__v": 0,
+      "createdAt": {
+        "$date": "2024-07-18T09:36:33.676Z"
+      },
+      "updatedAt": {
+        "$date": "2024-07-18T09:36:33.676Z"
+      }
+    },
+    {
+      "_id": {
+        "$oid": "6698b519d18d60d47a344e0e"
+      },
+      "name": "Nuturemite Wheat grass Powder 250 gms",
+      "basePrice": 304,
+      "categories": [
+        {
+          "$oid": "6698ad5fd18d60d47a344dd6"
+        },
+        {
+          "$oid": "6698ad5fd18d60d47a344dd7"
+        }
+      ],
+      "brand": {
+        "$oid": "66987df7c8d737564c027967"
+      },
+      "images": [
+        "http://res.cloudinary.com/dt0h1catc/image/upload/v1721283937/Products-20240718T061315Z-001/Products/22-Wheat%20Grass%20250g/Wheat_Grass_Back_Side_CMYK_250g_v3_bynuq0.jpg",
+        "http://res.cloudinary.com/dt0h1catc/image/upload/v1721283928/Products-20240718T061315Z-001/Products/22-Wheat%20Grass%20250g/Wheat_Grass_CMYK_250g_p0crop.jpg",
+        "http://res.cloudinary.com/dt0h1catc/image/upload/v1721283930/Products-20240718T061315Z-001/Products/22-Wheat%20Grass%20250g/Wheat_Grass_Mockup_White_Back_zpwx1j.jpg",
+        "http://res.cloudinary.com/dt0h1catc/image/upload/v1721283933/Products-20240718T061315Z-001/Products/22-Wheat%20Grass%20250g/Wheat_Grass_Mockup_White_FNT_250g_f1vvxd.jpg"
+      ],
+      "__v": 0,
+      "createdAt": {
+        "$date": "2024-07-18T09:36:33.677Z"
+      },
+      "updatedAt": {
+        "$date": "2024-07-18T09:36:33.677Z"
+      }
+    },
+    {
+      "_id": {
+        "$oid": "6698b519d18d60d47a344e0f"
+      },
+      "name": "Nuturemite Wheat grass Powder 450 gms",
+      "basePrice": 560,
+      "categories": [
+        {
+          "$oid": "6698ad5fd18d60d47a344dd6"
+        },
+        {
+          "$oid": "6698ad5fd18d60d47a344dd7"
+        }
+      ],
+      "brand": {
+        "$oid": "66987df7c8d737564c027967"
+      },
+      "images": [
+        "http://res.cloudinary.com/dt0h1catc/image/upload/v1721283970/Products-20240718T061315Z-001/Products/23-Wheat%20Grass%20450g/Wheat_Grass_Back_Side_CMYK_450g_v3_fjcjx5.jpg",
+        "http://res.cloudinary.com/dt0h1catc/image/upload/v1721283956/Products-20240718T061315Z-001/Products/23-Wheat%20Grass%20450g/Wheat_Grass_CMYK_450g_jv6wmo.jpg",
+        "http://res.cloudinary.com/dt0h1catc/image/upload/v1721283951/Products-20240718T061315Z-001/Products/23-Wheat%20Grass%20450g/Wheat_Grass_Mockup_White_Back_omaqfp.jpg",
+        "http://res.cloudinary.com/dt0h1catc/image/upload/v1721283850/Products-20240718T061315Z-001/Products/23-Wheat%20Grass%20450g/Wheat_Grass_Mockup_White_FNT_450g_kg73io.jpg"
+      ],
+      "__v": 0,
+      "createdAt": {
+        "$date": "2024-07-18T09:36:33.677Z"
+      },
+      "updatedAt": {
+        "$date": "2024-07-18T09:36:33.677Z"
+      }
+    },
+    {
+      "_id": {
+        "$oid": "6698b519d18d60d47a344e10"
+      },
+      "name": "Nuturemite Wheat grass Powder 900 gms",
+      "basePrice": 980,
+      "categories": [
+        {
+          "$oid": "6698ad5fd18d60d47a344dd6"
+        },
+        {
+          "$oid": "6698ad5fd18d60d47a344dd7"
+        }
+      ],
+      "brand": {
+        "$oid": "66987df7c8d737564c027967"
+      },
+      "images": [
+        "http://res.cloudinary.com/dt0h1catc/image/upload/v1721283851/Products-20240718T061315Z-001/Products/24-Wheat%20Grass%20900g/Wheat_Grass_Back_Side_CMYK_900g_v3_lilcir.jpg",
+        "http://res.cloudinary.com/dt0h1catc/image/upload/v1721283872/Products-20240718T061315Z-001/Products/24-Wheat%20Grass%20900g/Wheat_Grass_CMYK_900g_ucq3a1.jpg",
+        "http://res.cloudinary.com/dt0h1catc/image/upload/v1721283846/Products-20240718T061315Z-001/Products/24-Wheat%20Grass%20900g/Wheat_Grass_Mockup_White_Back_ukrkhd.jpg",
+        "http://res.cloudinary.com/dt0h1catc/image/upload/v1721283861/Products-20240718T061315Z-001/Products/24-Wheat%20Grass%20900g/Wheat_Grass_Mockup_White_FNT_900g_uff1mo.jpg"
+      ],
+      "__v": 0,
+      "createdAt": {
+        "$date": "2024-07-18T09:36:33.677Z"
+      },
+      "updatedAt": {
+        "$date": "2024-07-18T09:36:33.677Z"
+      }
+    },
+    {
+      "name": "Glutathione, Vitamin C, Hyaluronic acid, Aloevera, Blueberry, Vitamin E - Effervescent tablets - 20 Orange flavor for skin Health",
+      "images": [
+        "https://res.cloudinary.com/dt0h1catc/image/upload/v1722250397/1.%20SUPPLEMENTS/1.%20L-GLUTATHIONE/L_Gluthathione_Mockup_V3_Nuturemite_fnt_1_pijng0.jpg",
+        "https://res.cloudinary.com/dt0h1catc/image/upload/v1722250397/1.%20SUPPLEMENTS/1.%20L-GLUTATHIONE/L_Gluthathione_Mockup_V3_Nuturemite_fnt_1_pijng0.jpg",
+        "https://res.cloudinary.com/dt0h1catc/image/upload/v1722250397/1.%20SUPPLEMENTS/1.%20L-GLUTATHIONE/L_Gluthathione_Mockup_V3_Nuturemite_fnt_1_pijng0.jpg",
+        "https://res.cloudinary.com/dt0h1catc/image/upload/v1722250397/1.%20SUPPLEMENTS/1.%20L-GLUTATHIONE/L_Gluthathione_Mockup_V3_Nuturemite_mid_fj0ira.jpg",
+        "https://res.cloudinary.com/dt0h1catc/image/upload/v1722250403/1.%20SUPPLEMENTS/1.%20L-GLUTATHIONE/Promotion_Nuturemite_yltlma.png",
+        "https://res.cloudinary.com/dt0h1catc/image/upload/v1722250400/1.%20SUPPLEMENTS/1.%20L-GLUTATHIONE/Promotion_2_lynssf.jpg",
+        "https://res.cloudinary.com/dt0h1catc/image/upload/v1722250396/1.%20SUPPLEMENTS/1.%20L-GLUTATHIONE/Promotion_3_rgoz2q.jpg"
+      ],
+      "basePrice": "160",
+      "categories": [
+        {
+          "$oid": "6698ad5fd18d60d47a344de0"
+        }
+      ]
+    },
+    {
+      "_id": {
+        "$oid": "6698b519d18d60d47a344df9"
+      },
+      "name": "Nuturemite Nano Curcumin piperine 60 Veg capsules",
+      "basePrice": 743,
+      "categories": [
+        {
+          "$oid": "6698ad5fd18d60d47a344de0"
+        }
+      ],
+      "brand": {
+        "$oid": "66987df7c8d737564c027967"
+      },
+      "images": [
+        "http://res.cloudinary.com/dt0h1catc/image/upload/v1721283869/Products-20240718T061315Z-001/Products/1-Curcumin%20Pepperine/Curcumin_Pepperine_3_Mockup_prak5d.jpg",
+        "http://res.cloudinary.com/dt0h1catc/image/upload/v1721283862/Products-20240718T061315Z-001/Products/1-Curcumin%20Pepperine/Curcumin_Pepperine_BK_Mockup_rhmwhj.jpg",
+        "http://res.cloudinary.com/dt0h1catc/image/upload/v1721283866/Products-20240718T061315Z-001/Products/1-Curcumin%20Pepperine/Curcumin_Pepperine_FNT_Mockup_wnbg3k.jpg",
+        "http://res.cloudinary.com/dt0h1catc/image/upload/v1721283864/Products-20240718T061315Z-001/Products/1-Curcumin%20Pepperine/Curcumin_Pepperine_MID_Mockup_zvrpyo.jpg"
+      ],
+      "__v": 0,
+      "createdAt": {
+        "$date": "2024-07-18T09:36:33.671Z"
+      },
+      "updatedAt": {
+        "$date": "2024-07-18T09:36:33.671Z"
+      }
+    },
+    {
+      "_id": {
+        "$oid": "6698b519d18d60d47a344dec"
+      },
+      "name": "Nuturemite AstaReal – Astaxanthin 6 mg Veg Capsules",
+      "basePrice": 413,
+      "categories": [
+        {
+          "$oid": "6698ad5fd18d60d47a344dd6"
+        },
+        {
+          "$oid": "6698ad5fd18d60d47a344de1"
+        }
+      ],
+      "brand": {
+        "$oid": "66987df7c8d737564c027967"
+      },
+      "images": [
+        "http://res.cloudinary.com/dt0h1catc/image/upload/v1721284182/Products-20240718T061315Z-001/Products/9-Astaxanthin%207/Astazanthin_7_3_Mockup_b4r3rj.jpg",
+        "http://res.cloudinary.com/dt0h1catc/image/upload/v1721284182/Products-20240718T061315Z-001/Products/9-Astaxanthin%207/Astazanthin_7_Mockup_Bk_mfaihw.jpg",
+        "http://res.cloudinary.com/dt0h1catc/image/upload/v1721284178/Products-20240718T061315Z-001/Products/9-Astaxanthin%207/Astazanthin_7_Mockup_Fnt_we8pdu.jpg",
+        "http://res.cloudinary.com/dt0h1catc/image/upload/v1721284184/Products-20240718T061315Z-001/Products/9-Astaxanthin%207/Astazanthin_7_Mockup_Mid_ipkrgp.jpg"
+      ],
+      "__v": 0,
+      "createdAt": {
+        "$date": "2024-07-18T09:36:33.671Z"
+      },
+      "updatedAt": {
+        "$date": "2024-07-18T09:36:33.671Z"
+      }
+    },
+    {
+      "_id": {
+        "$oid": "6698b519d18d60d47a344ded"
+      },
+      "name": "Nuturemite AstaReal – Astaxanthin 7 mg, DHA, Glutathione, Lutein capsules",
+      "basePrice": 495,
+      "categories": [
+        {
+          "$oid": "6698ad5fd18d60d47a344dd6"
+        },
+        {
+          "$oid": "6698ad5fd18d60d47a344dda"
+        }
+      ],
+      "brand": {
+        "$oid": "66987df7c8d737564c027967"
+      },
+      "images": [
+        "http://res.cloudinary.com/dt0h1catc/image/upload/v1721284034/Products-20240718T061315Z-001/Products/8-Astaxanthin/Astazanthin_3_Mockup_uzlu2p.jpg",
+        "http://res.cloudinary.com/dt0h1catc/image/upload/v1721284038/Products-20240718T061315Z-001/Products/8-Astaxanthin/Astazanthin_Mockup_Bk_jw5sxs.jpg",
+        "http://res.cloudinary.com/dt0h1catc/image/upload/v1721284058/Products-20240718T061315Z-001/Products/8-Astaxanthin/Astazanthin_Mockup_Fnt_uqkpap.jpg",
+        "http://res.cloudinary.com/dt0h1catc/image/upload/v1721284041/Products-20240718T061315Z-001/Products/8-Astaxanthin/Astazanthin_Mockup_Mid_hsyoci.jpg"
+      ],
+      "__v": 0,
+      "createdAt": {
+        "$date": "2024-07-18T09:36:33.671Z"
+      },
+      "updatedAt": {
+        "$date": "2024-07-18T09:36:33.671Z"
+      }
+    },
+    {
+      "_id": {
+        "$oid": "6698b519d18d60d47a344df7"
+      },
+      "name": "Nuturemite Co Enzyme Q10 120 mg Veg capsules",
+      "basePrice": 1004,
+      "categories": [
+        {
+          "$oid": "6698ad5fd18d60d47a344dd6"
+        }
+      ],
+      "brand": {
+        "$oid": "66987df7c8d737564c027967"
+      },
+      "images": [
+        "http://res.cloudinary.com/dt0h1catc/image/upload/v1721284175/Products-20240718T061315Z-001/Products/7-Co%20Enzyme/Co_Enzyme_3_Mockup_dimwn0.jpg",
+        "http://res.cloudinary.com/dt0h1catc/image/upload/v1721284174/Products-20240718T061315Z-001/Products/7-Co%20Enzyme/Co_Enzyme_Mockup_Bk_gbhysd.jpg",
+        "http://res.cloudinary.com/dt0h1catc/image/upload/v1721284189/Products-20240718T061315Z-001/Products/7-Co%20Enzyme/Co_Enzyme_Mockup_Fnt_cx2qza.jpg",
+        "http://res.cloudinary.com/dt0h1catc/image/upload/v1721284176/Products-20240718T061315Z-001/Products/7-Co%20Enzyme/Co_Enzyme_Mockup_Mid_zp6yju.jpg"
+      ],
+      "__v": 0,
+      "createdAt": {
+        "$date": "2024-07-18T09:36:33.674Z"
+      },
+      "updatedAt": {
+        "$date": "2024-07-18T09:36:33.674Z"
+      }
+    },
+    {
+      "_id": {
+        "$oid": "6698b519d18d60d47a344df8"
+      },
+      "name": "Nuturemite Cranberry 500 mg Veg capsules",
+      "basePrice": 519,
+      "categories": [
+        {
+          "$oid": "6698ad5fd18d60d47a344dd6"
+        },
+        {
+          "$oid": "6698ad5fd18d60d47a344dda"
+        },
+        {
+          "$oid": "6698ad5fd18d60d47a344de2"
+        },
+        {
+          "$oid": "6698ad5fd18d60d47a344ddc"
+        }
+      ],
+      "brand": {
+        "$oid": "66987df7c8d737564c027967"
+      },
+      "images": [
+        "http://res.cloudinary.com/dt0h1catc/image/upload/v1721283885/Products-20240718T061315Z-001/Products/5-Cran%20Berry/Cran_Berry_3_Mockup_nrwkho.jpg",
+        "http://res.cloudinary.com/dt0h1catc/image/upload/v1721283886/Products-20240718T061315Z-001/Products/5-Cran%20Berry/Cran_Berry_Mockup_Bk_stos5z.jpg",
+        "http://res.cloudinary.com/dt0h1catc/image/upload/v1721283867/Products-20240718T061315Z-001/Products/5-Cran%20Berry/Cran_Berry_Mockup_Fnt_s4eotf.jpg",
+        "http://res.cloudinary.com/dt0h1catc/image/upload/v1721283884/Products-20240718T061315Z-001/Products/5-Cran%20Berry/Cran_Berry_Mockup_Mid_kplwkz.jpg"
+      ],
+      "__v": 0,
+      "createdAt": {
+        "$date": "2024-07-18T09:36:33.674Z"
+      },
+      "updatedAt": {
+        "$date": "2024-07-18T09:36:33.674Z"
+      }
+    }
+  ]
+  

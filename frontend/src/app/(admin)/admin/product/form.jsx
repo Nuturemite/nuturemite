@@ -29,31 +29,15 @@ const productSchema = Joi.object({
       "string.empty": `Description cannot be an empty`,
       "string.min": `Description should have a minimum length of {#limit}`,
     }),
-  quantity: Joi.number().integer().min(1).required().messages({
-    "number.base": `Quantity should be a type of 'number'`,
-    "number.integer": `Quantity should be an integer`,
-    "number.min": `Quantity should have a minimum value of {#limit}`,
-    "any.required": `Quantity is a required`,
-  }),
   price: Joi.number().min(1).required().messages({
     "number.base": `Price should be a type of 'number'`,
     "number.min": `Price should have a minimum value of {#limit}`,
     "any.required": `Price is a required`,
   }),
-  discount: Joi.number().min(0).max(100).optional().messages({
-    "number.base": `Discount should be a type of 'number'`,
-    "number.min": `Discount should have a minimum value of {#limit}`,
-    "number.max": `Discount should have a maximum value of {#limit}`,
-  }),
   categoryId: Joi.number().integer().required().messages({
     "number.base": `Category ID should be a type of 'number'`,
     "number.integer": `Category ID should be an integer`,
     "any.required": `Category ID is a required`,
-  }),
-  brandId: Joi.number().integer().required().messages({
-    "number.base": `Brand ID should be a type of 'number'`,
-    "number.integer": `Brand ID should be an integer`,
-    "any.required": `Brand ID is a required`,
   }),
   image: Joi.any(),
 }).options({ stripUnknown: true });
@@ -63,7 +47,6 @@ function ProductForm({ update, params }) {
     ? useProduct(params?.id)
     : { product: {}, isLoading: false };
   const { categories } = useCategories();
-  const { brands } = useBrands();
   const [formData, setFormData] = useState({});
   const [pending, setPending] = useState(false);
   const [error, setError] = useState(null);
@@ -74,10 +57,7 @@ function ProductForm({ update, params }) {
       setFormData({
         name: product.name,
         description: product.description || "",
-        quantity: product.quantity,
         price: product.price,
-        discount: product.discount,
-        discountNumber: product.discount ? (product.discount / 100) * product.price : "",
         categoryId: product.categoryId,
         brandId: product.brandId,
         image: product.image,
@@ -88,21 +68,10 @@ function ProductForm({ update, params }) {
   const handleChange = e => {
     const { name, value } = e.target;
 
-    if (name === "discount") {
-      const discountPercent = parseFloat(value);
-      const discountNumber = (discountPercent / 100) * formData.price;
-
-      setFormData(prevData => ({
-        ...prevData,
-        discount: discountPercent,
-        discountNumber: discountNumber.toFixed(2),
-      }));
-    } else {
-      setFormData(prevData => ({
-        ...prevData,
-        [name]: value,
-      }));
-    }
+    setFormData(prevData => ({
+      ...prevData,
+      [name]: value,
+    }));
   };
 
   const handleFocus = e => {
@@ -143,7 +112,6 @@ function ProductForm({ update, params }) {
     } catch (err) {
       if (err.response?.data?.message) {
         console.log(err.response.data);
-        // setError(err.response.data.message);
       } else {
         tst.error(err);
       }
@@ -194,25 +162,6 @@ function ProductForm({ update, params }) {
         </div>
         <div className="flex gap-6">
           <div className="flex-1">
-            <Label htmlFor="quantity" className="mb-2 block">
-              Quantity
-            </Label>
-            <Input
-              type="number"
-              name="quantity"
-              value={formData.quantity}
-              onChange={handleChange}
-              id="quantity"
-              disabled={pending}
-              placeholder="Product Quantity"
-              className={`col-span-3 ${formErrors.quantity ? "border-red-500" : ""}`}
-              onFocus={handleFocus}
-            />
-            {formErrors.quantity && (
-              <div className="text-red-500 text-sm">{formErrors.quantity}</div>
-            )}
-          </div>
-          <div className="flex-1">
             <Label htmlFor="price" className="mb-2 block">
               Price
             </Label>
@@ -228,41 +177,6 @@ function ProductForm({ update, params }) {
               onFocus={handleFocus}
             />
             {formErrors.price && <div className="text-red-500 text-sm">{formErrors.price}</div>}
-          </div>
-        </div>
-        <div className="flex gap-6">
-          <div className="flex-1">
-            <Label htmlFor="discount" className="mb-2 block">
-              Discount (%)
-            </Label>
-            <Input
-              type="number"
-              name="discount"
-              value={formData.discount}
-              onChange={handleChange}
-              id="discount"
-              disabled={pending}
-              placeholder="Product Discount"
-              className={`col-span-3 ${formErrors.discount ? "border-red-500" : ""}`}
-              onFocus={handleFocus}
-            />
-            {formErrors.discount && (
-              <div className="text-red-500 text-sm">{formErrors.discount}</div>
-            )}
-          </div>
-          <div className="flex-1">
-            <Label htmlFor="discountNumber" className="mb-2 block">
-              Discount Num
-            </Label>
-            <Input
-              type="text"
-              name="discountNumber"
-              value={formData.discountNumber}
-              onChange={handleChange}
-              id="discountNumber"
-              disabled={true}
-              className="col-span-3"
-            />
           </div>
         </div>
         <div className="flex gap-6">
@@ -283,22 +197,6 @@ function ProductForm({ update, params }) {
             {formErrors.categoryId && (
               <div className="text-red-500 text-sm">{formErrors.categoryId}</div>
             )}
-          </div>
-          <div className="flex-1">
-            <Label htmlFor="brand" className="mb-2 block">
-              Brand
-            </Label>
-            <CustomSelect
-              label="Brand"
-              options={brands}
-              name={"brandId"}
-              value={formData.brandId}
-              onChange={v => setFormData({ ...formData, brandId: v })}
-              error={formErrors.categoryId}
-              onFocus={handleFocus}
-              placeholder="Select a brand"
-            />
-            {formErrors.brandId && <div className="text-red-500 text-sm">{formErrors.brandId}</div>}
           </div>
         </div>
         <div>

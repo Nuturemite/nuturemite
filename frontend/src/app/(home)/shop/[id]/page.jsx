@@ -14,6 +14,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import Tabs from "./tabs";
+import ImageZoom from "@/components/ui/image-zoom";
 
 export default function Product({ params }) {
   const id = params.id;
@@ -50,11 +51,13 @@ export default function Product({ params }) {
           {/* Selected Image Display */}
           <div className="px-4 basis-[40%]">
             <div className="h-[600px] p-4 bg-white mb-4">
-              <img
-                className="w-full h-full object-cover overflow-hidden object-center"
-                src={displayImage}
-                alt="Product Image"
-              />
+              <ImageZoom>
+                <img
+                  className="w-full h-full object-cover overflow-hidden object-center"
+                  src={displayImage}
+                  alt="Product Image"
+                />
+              </ImageZoom>
             </div>
           </div>
 

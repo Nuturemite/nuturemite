@@ -13,7 +13,7 @@ export default function Page() {
         <Hero />
         {/* <Categories /> */}
         <RecentProducts />
-        <Offer />
+        {/* <Offer /> */}
         <FeaturedProducts />
         <Featured />
       </section>
