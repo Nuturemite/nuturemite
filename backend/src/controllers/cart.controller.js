@@ -189,3 +189,43 @@ export const findCartByUserId = async userId => {
     throw error;
   }
 };
+
+// // cartController.js
+
+// export const getUserCart = async (req, res) => {
+//   try {
+//     const userId = req.params.userId;
+
+//     // Find the cart for the user
+//     const cart = await Cart.findOne({ user: userId }).populate({
+//       path: "items.vendorProduct",
+//       populate: {
+//         path: "product",
+//         populate: {
+//           path: "categories",
+//           model: "Category",
+//           select: "_id name",
+//         },
+//         select: "name basePrice categories",
+//       },
+//     });
+
+//     if (!cart) {
+//       return res.status(404).json({ message: "Cart not found" });
+//     }
+
+//     const newCart = cart.items.map(item => ({
+//       product: {
+//         name: item.vendorProduct.product.name,
+//         mrp: item.vendorProduct.product.basePrice,
+//         salesPrice: item.vendorProduct.price,
+//         discount:
+//       },
+//     }));
+
+//     res.status(200).json(newCart);
+//   } catch (error) {
+//     console.error(error);
+//     res.status(500).json({ message: "Server error" });
+//   }
+// };

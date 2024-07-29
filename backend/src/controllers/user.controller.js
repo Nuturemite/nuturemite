@@ -36,3 +36,14 @@ export const getUserProfile = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+
+
+export const getAllUsers = async (req, res) => {
+  try {
+    const users = await User.find().select("-password"); // Exclude password field from response
+
+    res.json({ message: "Users fetched successfully!", data: users });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
