@@ -18,18 +18,18 @@ export const ProductCard = ({ product }) => {
           />
           <div className="absolute z-10 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 p-2 group-hover:flex space-x-6 hidden">
             <AddToCart product={product} isChild>
-              <div className="p-1 border border-primary">
-                <ShoppingCart className="text-primary" />
+              <div className="p-1 border border-tert-100">
+                <ShoppingCart className="text-tert-100" />
               </div>
             </AddToCart>
             <AddToWishlist product={product} isChild>
-              <div className="p-1 border border-primary">
-                <Heart className="text-primary" />
+              <div className="p-1 border border-tert-100">
+                <Heart className="text-tert-100" />
               </div>
             </AddToWishlist>
-            <div className="p-1 border border-primary">
+            <div className="p-1 border border-tert-100">
               <Link href={`/shop/${name}`}>
-                <Search className="text-primary" />
+                <Search className="text-tert-100" />
               </Link>
             </div>
           </div>
@@ -58,7 +58,6 @@ export const ProductCard = ({ product }) => {
                 />
               </svg>
             ))}
-            {/* <small className="ml-1">({avgRating})</small> */}
           </div>
         </div>
       </div>

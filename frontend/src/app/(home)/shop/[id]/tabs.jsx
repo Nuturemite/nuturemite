@@ -5,10 +5,7 @@ import { useState } from "react";
 const ProductDesc = ({ product }) => (
   <div className="py-4">
     <h2 className="text-2xl font-medium">Product Description</h2>
-    <p className="mt-4">
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi id pariatur perferendis qui
-      consequatur fugit iure fugiat nobis sit saepe!
-    </p>
+    <p className="mt-4">{product?.desciption}</p>
   </div>
 );
 
@@ -17,16 +14,20 @@ const RandomProductInfo = () => (
     <h2 className="text-2xl font-medium">Random Product Info</h2>
     <ul className="mt-4 space-y-2">
       <li>
-        <span className="font-medium">Brand:</span> {["Nike", "Adidas", "Vans"][Math.floor(Math.random() * 3)]}
+        <span className="font-medium">Brand:</span>{" "}
+        {["Nike", "Adidas", "Vans"][Math.floor(Math.random() * 3)]}
       </li>
       <li>
-        <span className="font-medium">Model:</span> {["Air Force 1", "Yeezy", "Old Skool"][Math.floor(Math.random() * 3)]}
+        <span className="font-medium">Model:</span>{" "}
+        {["Air Force 1", "Yeezy", "Old Skool"][Math.floor(Math.random() * 3)]}
       </li>
       <li>
-        <span className="font-medium">Year:</span> {Math.floor(Math.random() * (2022 - 2010 + 1) + 2010)}
+        <span className="font-medium">Year:</span>{" "}
+        {Math.floor(Math.random() * (2022 - 2010 + 1) + 2010)}
       </li>
       <li>
-        <span className="font-medium">Type:</span> {["Sneakers", "Boots", "Sandals"][Math.floor(Math.random() * 3)]}
+        <span className="font-medium">Type:</span>{" "}
+        {["Sneakers", "Boots", "Sandals"][Math.floor(Math.random() * 3)]}
       </li>
     </ul>
   </div>
@@ -41,7 +42,9 @@ const Reviews = () => (
           <Avatar name="John Doe" />
           <div className="ml-4">
             <span className="font-semibold">John Doe</span>
-            <p className="mt-1 text-sm text-slate-600">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod, voluptas.</p>
+            <p className="mt-1 text-sm text-slate-600">
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod, voluptas.
+            </p>
           </div>
         </div>
       </li>
@@ -50,7 +53,9 @@ const Reviews = () => (
           <Avatar name="Jane Doe" />
           <div className="ml-4">
             <span className="font-semibold">Jane Doe</span>
-            <p className="mt-1 text-sm text-slate-600">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod, voluptas.</p>
+            <p className="mt-1 text-sm text-slate-600">
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod, voluptas.
+            </p>
           </div>
         </div>
       </li>

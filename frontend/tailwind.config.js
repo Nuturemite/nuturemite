@@ -21,6 +21,7 @@ module.exports = {
       colors: {
         tert: {
           100: "#F5A823",
+          200:"#2B6F64"
         },
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
@@ -28,7 +29,7 @@ module.exports = {
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
         primary: {
-          DEFAULT: "#F5A823",
+          DEFAULT: "#2B6F64",
           foreground: "hsl(var(--primary-foreground))",
         },
         "back-primary": {

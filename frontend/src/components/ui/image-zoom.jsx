@@ -22,13 +22,13 @@ const ImageZoom = ({ children }) => {
 
   return (
     <div 
-    //   className="relative overflow-hidden w-72 h-72/" 
+      className="overflow-hidden" 
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       onMouseMove={handleMouseMove}
     >
       {React.cloneElement(children, {
-        className: `transition-transform duration-200 ${zoom ? 'transform scale-150 cursor-zoom-in' : 'transform scale-100'}`,
+        className: `transition-transform duration-200 ${zoom ? 'transform scale-[3] cursor-zoom-in' : 'transform scale-100'}`,
         style: {
           transformOrigin: `${position.x}% ${position.y}%`,
           ...children.props.style,

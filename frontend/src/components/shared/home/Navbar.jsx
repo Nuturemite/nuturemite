@@ -58,7 +58,7 @@ const NavBar = () => {
       ];
 
   return (
-    <nav className="bg-back-primary border-slate-200 border-b px-4 md:px-12 ">
+    <nav className="bg-primary border-slate-200 border-b px-4 md:px-12 ">
       <div className="flex gap-3 items-center  justify-between mx-auto py-4">
         <Link href="/" >
             <div className="flex items-center gap-2">
@@ -133,7 +133,7 @@ const NavBar = () => {
             </li>
             <li className="max-sm:hidden">
               <Link href={"/cart"}>
-                <Icon icon="mynaui:cart" fontSize={28} className="text-primary cursor-pointer " />
+                <Icon icon="mynaui:cart" fontSize={28} className="text-tert-100 cursor-pointer " />
               </Link>
             </li>
           </ul>

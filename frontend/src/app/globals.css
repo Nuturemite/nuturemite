@@ -114,7 +114,7 @@
   }
 
   .image-primary {
-    @apply group-hover:rotate-6 group-hover:scale-125 transition-all duration-500 object-cover brightness-50 opacity-70 ;
+    @apply  group-hover:scale-125 transition-all duration-500 object-cover brightness-50 opacity-70 ;
   }
 
   .image-primary-2 {
