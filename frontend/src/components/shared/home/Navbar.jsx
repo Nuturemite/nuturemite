@@ -59,10 +59,10 @@ const NavBar = () => {
 
   return (
     <nav className="bg-primary border-slate-200 border-b px-4 md:px-12 ">
-      <div className="flex gap-3 items-center  justify-between mx-auto py-4">
+      <div className="flex gap-3 items-center  justify-between mx-auto ">
         <Link href="/" >
             <div className="flex items-center gap-2">
-              <img className="h-20 " src="./logo.jpeg" alt="" />
+              <img className="h-24 " src="./logo.jpeg" alt="" />
               <h1 className="text-xl font-semibold text-slate-200 uppercase">Nuturemite</h1>
             </div>
         </Link>

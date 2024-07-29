@@ -8,10 +8,13 @@ import { FeaturedProducts } from "./components/featured";
 
 export default function Page() {
   return (
-    <div >
+    <div>
       <section className="space-y-20 ">
         <div className="mt-6">
           <Hero />
+        </div>
+        <div className="">
+          <Featured />
         </div>
         {/* <div className="">
           <Categories />
@@ -24,9 +27,6 @@ export default function Page() {
         </div> */}
         <div className="">
           <FeaturedProducts />
-        </div>
-        <div className="">
-          <Featured />
         </div>
       </section>
     </div>
