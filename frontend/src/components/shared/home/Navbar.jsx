@@ -58,85 +58,87 @@ const NavBar = () => {
       ];
 
   return (
-    <nav className="bg-primary border-slate-200 border-b px-4 md:px-12 ">
-      <div className="flex gap-3 items-center  justify-between mx-auto ">
-        <Link href="/" >
-            <div className="flex items-center gap-2">
-              <img className="h-24 " src="./logo.jpeg" alt="" />
-              <h1 className="text-xl font-semibold text-slate-200 uppercase">Nuturemite</h1>
-            </div>
-        </Link>
+    <nav className="bg-primary border-slate-200 border-b px-4 md:px-12 flex gap-16 items-center ">
+      <Link href="/">
+        <div className="flex items-center gap-2">
+          <img className="h-24 " src="./logo.jpeg" alt="" />
+        </div>
+      </Link>
 
-        <Sheet>
-          <SheetTrigger asChild>
-            <Icon icon="mingcute:menu-fill" className="text-3xl lg:hidden text-slate-200" />
-          </SheetTrigger>
-          <SheetContent side="right" className="bg-slate-800 text-slate-100">
-            <ul className="space-y-4 space-x-4 mt-10">
+      <div>
+        <div></div>
+        <div>
+          <Sheet>
+            <SheetTrigger asChild>
+              <Icon icon="mingcute:menu-fill" className="text-3xl lg:hidden text-slate-200" />
+            </SheetTrigger>
+            <SheetContent side="right" className="bg-slate-800 text-slate-100">
+              <ul className="space-y-4 space-x-4 mt-10">
+                {menuItems.map((menuItem, index) => (
+                  <li key={index}>
+                    <Link
+                      href={menuItem.href}
+                      className="block py-2 px-3 md:bg-transparent text-white"
+                      aria-current="page"
+                    >
+                      {menuItem.text}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </SheetContent>
+          </Sheet>
+  
+          <div className="hidden w-full md:block">
+            <ul className="font-medium  items-center flex flex-col  border-slate-100  md:flex-row md:space-x-3 rtl:space-x-reverse md:mt-0 md:border-0  dark:border-slate-700">
+              <ProductSearch />
+  
+              <li>
+                <NavigationMenu>
+                  <NavigationMenuList>
+                    <NavigationMenuItem>
+                      <NavigationMenuTrigger className="navbar-heading">
+                        Categories
+                      </NavigationMenuTrigger>
+                      <CategoryBox />
+                    </NavigationMenuItem>
+                  </NavigationMenuList>
+                </NavigationMenu>
+              </li>
               {menuItems.map((menuItem, index) => (
                 <li key={index}>
-                  <Link
-                    href={menuItem.href}
-                    className="block py-2 px-3 md:bg-transparent text-white"
-                    aria-current="page"
-                  >
+                  <Link href={menuItem.href} className="navbar-heading">
                     {menuItem.text}
                   </Link>
                 </li>
               ))}
-            </ul>
-          </SheetContent>
-        </Sheet>
-
-        <div className="hidden w-full md:block md:w-auto" id="navbar-default">
-          <ul className="font-medium  items-center flex flex-col  border-slate-100  md:flex-row md:space-x-3 rtl:space-x-reverse md:mt-0 md:border-0  dark:border-slate-700">
-            <ProductSearch />
-
-            <li>
-              <NavigationMenu>
-                <NavigationMenuList>
-                  <NavigationMenuItem>
-                    <NavigationMenuTrigger className="navbar-heading">
-                      Categories
-                    </NavigationMenuTrigger>
-                    <CategoryBox />
-                  </NavigationMenuItem>
-                </NavigationMenuList>
-              </NavigationMenu>
-            </li>
-            {menuItems.map((menuItem, index) => (
-              <li key={index}>
-                <Link href={menuItem.href} className="navbar-heading">
-                  {menuItem.text}
+              {isAuthenticated && (
+                <li onClick={handleLogout} className="cursor-pointer navbar-heading">
+                  Logout
+                </li>
+              )}
+  
+              <li className="md:hidden">
+                <Sheet>
+                  <SheetTrigger asChild>
+                    <Icon
+                      icon="mynaui:cart"
+                      fontSize={28}
+                      className="text-orange-700 cursor-pointer "
+                    />
+                  </SheetTrigger>
+                  <SheetContent className=" max-w-6xl cursor-pointer" side="right">
+                    <ShoppingCart />
+                  </SheetContent>
+                </Sheet>
+              </li>
+              <li className="max-sm:hidden">
+                <Link href={"/cart"}>
+                  <Icon icon="mynaui:cart" fontSize={28} className="text-tert-100 cursor-pointer " />
                 </Link>
               </li>
-            ))}
-            {isAuthenticated && (
-              <li onClick={handleLogout} className="cursor-pointer navbar-heading">
-                Logout
-              </li>
-            )}
-
-            <li className="md:hidden">
-              <Sheet>
-                <SheetTrigger asChild>
-                  <Icon
-                    icon="mynaui:cart"
-                    fontSize={28}
-                    className="text-orange-700 cursor-pointer "
-                  />
-                </SheetTrigger>
-                <SheetContent className=" max-w-6xl cursor-pointer" side="right">
-                  <ShoppingCart />
-                </SheetContent>
-              </Sheet>
-            </li>
-            <li className="max-sm:hidden">
-              <Link href={"/cart"}>
-                <Icon icon="mynaui:cart" fontSize={28} className="text-tert-100 cursor-pointer " />
-              </Link>
-            </li>
-          </ul>
+            </ul>
+          </div>
         </div>
       </div>
     </nav>

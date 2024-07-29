@@ -10,22 +10,25 @@ export default function Page() {
   return (
     <div>
       <section className="space-y-20 ">
-        <div className="mt-6">
+        <div className="mt-12">
           <Hero />
         </div>
-        <div className="">
+        <div className="px-16">
           <Featured />
         </div>
-        {/* <div className="">
+        {/* <div className="px-16">
           <Categories />
         </div> */}
-        <div className="">
+        <div className="bg-primary">
+          <div className="px-16 py-10">
           <RecentProducts />
+
+          </div>
         </div>
-        {/* <div className="">
+        {/* <div className="px-16">
           <Offer />
         </div> */}
-        <div className="">
+        <div className="px-16">
           <FeaturedProducts />
         </div>
       </section>
