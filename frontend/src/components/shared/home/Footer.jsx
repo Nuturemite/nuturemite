@@ -1,8 +1,11 @@
+"use client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { useCategories } from "@/lib/data";
 import { Mail, Phone, MapPin, Twitter, Facebook, Instagram, Youtube, Linkedin } from "lucide-react";
 
 const Footer = () => {
+  const { categories } = useCategories();
   return (
     <div className="container-fluid bg-primary text-secondary mt-5 p-10  text-sm ">
       <div className="flex flex-wrap justify-center px-4 lg:px-0">
@@ -39,13 +42,8 @@ const Footer = () => {
               links: ["About Us", "Careers", "Our Stores", "Corporate Sales", "Careers"],
             },
             {
-              title: "More Information",
-              links: [
-                "Affiliates",
-                "Refer a Friend",
-                "Student Beans Offers",
-                "Gift Vouchers",
-              ],
+              title: "Popular categories",
+              links: categories ? categories?.map(category => category.name) : [],
             },
             { title: "Newsletter", links: [] },
           ].map(({ title, links }, index) => (
@@ -62,7 +60,9 @@ const Footer = () => {
                 </div>
               ) : (
                 <>
-                  <p className="mb-2">Get all the latest information on Events, Sales and Offers.</p>
+                  <p className="mb-2">
+                    Get all the latest information on Events, Sales and Offers.
+                  </p>
                   <form action="" className="mb-4">
                     <div className="flex items-center">
                       <Input
@@ -127,7 +127,6 @@ const Footer = () => {
           ))}
         </div>
       </div>
-
     </div>
   );
 };

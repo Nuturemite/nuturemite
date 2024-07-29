@@ -66,11 +66,9 @@ export default function Product({ params }) {
             <p className="text-slate-600 text-3xl font-bold mb-4">{product.name}</p>
             <div className="mb-4 space-y-4">
               <div className="mr-4">
-                <span className="text-2xl text-slate-500">${product.price}</span>
+                <span className="text-2xl text-slate-500">${product.price}{" "}</span>
                 <span className="line-through text-red-600 text-lg"> ${product.basePrice}</span>
-                <span className="text-sm text-green-600">
-                  {Math.round(((product.basePrice - product.price) / product.basePrice) * 100)}% off
-                </span>
+               
               </div>
 
               <div>
@@ -85,10 +83,9 @@ export default function Product({ params }) {
             </div>
 
             <div>
-              <p className="text-slate-600 mt-2 mb-8">
-                {product.description ||
-                  ` Lorem ipsum dolor sit amet consectetur adipisicing elit. Exercitationem vel sint perspiciatis velit sunt pariatur odio debitis laborum, quas nesciunt numquam id aspernatur dolore itaque quia? Magnam itaque similique accusamus.`}
-              </p>
+              {/* <p className="text-slate-600 mt-2 mb-8">{product.description}</p> */}
+              <p>{product.keywords}</p>
+              <p>{product.categories.map(category => category.name)}</p>
             </div>
             <div className="flex mb-4 gap-4 items-center">
               <Select

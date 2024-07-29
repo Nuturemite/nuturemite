@@ -8,14 +8,26 @@ import { FeaturedProducts } from "./components/featured";
 
 export default function Page() {
   return (
-    <div className="py-10">
-      <section className="space-y-20">
-        <Hero />
-        {/* <Categories /> */}
-        <RecentProducts />
-        {/* <Offer /> */}
-        <FeaturedProducts />
-        <Featured />
+    <div >
+      <section className="space-y-20 ">
+        <div className="mt-6">
+          <Hero />
+        </div>
+        {/* <div className="">
+          <Categories />
+        </div> */}
+        <div className="">
+          <RecentProducts />
+        </div>
+        {/* <div className="">
+          <Offer />
+        </div> */}
+        <div className="">
+          <FeaturedProducts />
+        </div>
+        <div className="">
+          <Featured />
+        </div>
       </section>
     </div>
   );

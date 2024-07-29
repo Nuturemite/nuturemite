@@ -62,7 +62,7 @@ const NavBar = () => {
       <div className="flex gap-3 items-center  justify-between mx-auto py-4">
         <Link href="/" >
             <div className="flex items-center gap-2">
-              <img className="h-20 mix-blend-multiply" src="./logo.png" alt="" />
+              <img className="h-20 " src="./logo.jpeg" alt="" />
               <h1 className="text-xl font-semibold text-slate-200 uppercase">Nuturemite</h1>
             </div>
         </Link>

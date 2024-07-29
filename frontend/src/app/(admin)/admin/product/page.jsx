@@ -66,7 +66,7 @@ const ProductList = ({ searchParams }) => {
               </TableRow>
             </TableHeader>
             {isLoading ? (
-              <TableSkeleton columnCount={6} />
+              <TableSkeleton columnCount={3} />
             ) : (
               <TableBody>
                 {products.map((product, index) => (

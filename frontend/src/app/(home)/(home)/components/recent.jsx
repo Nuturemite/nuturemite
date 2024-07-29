@@ -5,12 +5,12 @@ import ProductSkeleton from "../../shop/components/ProductSkeleton";
 
 export const RecentProducts = () => {
   const { products, isLoading, error } = useProducts({ limit: 5 });
-  if (isLoading) return <ProductSkeleton count={8} />;
+  if (isLoading) return <ProductSkeleton count={5} />;
 
   if (error) return <div>Error: {error.message}</div>;
 
   return (
-    <div>
+    <div className="">
       <h2 className="uppercase mb-6 text-4xl text-slate-500 font-medium ">Recent Products</h2>
       <div className="product-grid">
         {products.map(product => (

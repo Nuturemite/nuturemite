@@ -16,12 +16,12 @@ import { Button } from "@/components/ui/button";
 import TableSkeleton from "@/components/shared/tableskeleton";
 
 export default function OrderPage() {
-  const { orders, isLoading, error } = useOrders();
+  const { orders = [], isLoading = false, error } = useOrders();
 
   return (
     <div>
       <h2 className="h2-primary">Orders</h2>
-      <Table>
+      <Table className="bg-white">
         <TableCaption>A list of your recent invoices.</TableCaption>
         <TableHeader>
           <TableRow>
@@ -34,8 +34,6 @@ export default function OrderPage() {
         </TableHeader>
         {isLoading ? (
           <TableSkeleton columnCount={5} />
-        ) : error ? (
-          <Error />
         ) : (
           <TableBody>
             {orders.map(order => (

@@ -20,12 +20,12 @@ const dashboardItems = [
   {
     icon: Package,
     title: "Orders",
-    link: "#",
+    link: "/orders",
   },
   {
     icon: Home,
     title: "Address",
-    link: "#",
+    link: "/address",
   },
 ];
 

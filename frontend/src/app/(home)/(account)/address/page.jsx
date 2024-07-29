@@ -1,120 +1,116 @@
 "use client";
+import React, { useState } from "react";
+import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { useAddresses } from "@/lib/data";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
-import React from "react";
-import AddAddress from "../../../../components/shared/redundant/(order)/address/AddAddress";
-import { Button } from "@/components/ui/button";
-import Loader from "@/components/shared/loader";
-import Error from "@/components/shared/common/error";
-import Link from "next/link";
 import api from "@/lib/api";
-import { tst } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
 
-function Address() {
-  const { isLoading, error, addresses, mutate } = useAddresses();
+export default function AddAddress() {
+  const [formData, setFormData] = useState({
+    street: "",
+    city: "",
+    state: "",
+    zip: "",
+    country: "",
+  });
 
-  async function handleItemRemove(item) {
+  const [pending, setPending] = useState(false);
+
+  const handleChange = e => {
+    const { name, value } = e.target;
+    setFormData(prevData => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
+  const handleSubmit = async e => {
+    e.preventDefault();
     try {
-      await api.delete(`/addresses/${item.id}`);
-      mutate(addresses.filter(address => address.id !== item.id));
+      setPending(true);
+      await api.post("/users/address", formData);
+      tst.success("Address Added");
     } catch (error) {
+      console.log(error);
       tst.error(error);
+    } finally {
+      setPending(false);
     }
-  }
-
-  async function handleAddressUpdate(id, updatedAddress) {
-    try {
-      await api.put(`/addresses/${id}`, updatedAddress);
-      mutate(
-        addresses.map(address =>
-          address.id === id ? { ...addresses, ...updatedAddress } : address
-        )
-      );
-    } catch (error) {
-      tst.error(error);
-    }
-  }
-
-  if (isLoading) return <Loader />;
-  if (error) return <Error />;
-
-  if (addresses.length === 0) return <AddAddress />;
+  };
 
   return (
-    <div className="mx-auto ">
-      <div className="font-bold mb-6 flex justify-between items-center">
-        <h2 className="h2-primary">Addresses</h2>
-        <Dialog>
-          <DialogTrigger>
-            <Button>Add New Address</Button>
-          </DialogTrigger>
-          <DialogContent>
-            <DialogHeader>
-              <DialogTitle>Add Address</DialogTitle>
-              <DialogDescription>Add new address</DialogDescription>
-            </DialogHeader>
-            <AddAddress />
-          </DialogContent>
-        </Dialog>
-      </div>
-      <div>
-        {addresses.map(address => (
-          <div
-            key={address.id}
-            className="flex items-center space-x-6 mb-4 rounded-md  border border-slate-400  p-6"
-          >
-            <div className="space-y-2">
-              <div className="space-x-4 font-semibold">
-                <span>{address.name}</span>
-                <span>{address.phone}</span>
-              </div>
-              <div className="font-normal">
-                <span>{address.address}</span>
-                <span className="mx-1">•</span>
-                <span>{address.street}</span>
-                <span className="mx-1">•</span>
-                <span>{address.city}</span>
-                <span className="mx-1">•</span>
-                <span>{address.state}</span>
-                <span className="mx-1">•</span>
-                <span>{address.pincode}</span>
-              </div>
-              <div className="flex  gap-4">
-                <p>
-                  <button
-                    onClick={() => handleAddressUpdate(address)}
-                    type="button"
-                    className="font-medium text-green-600 hover:text-green-500"
-                  >
-                    Edit
-                  </button>
-                </p>
-                <p>
-                  <button
-                    onClick={() => handleItemRemove(address)}
-                    type="button"
-                    className="font-medium text-orange-600 hover:text-orange-500"
-                  >
-                    Remove
-                  </button>
-                </p>
-              </div>
-            </div>
-            <div></div>
-          </div>
-        ))}
-      </div>
+    <div className="max-w-lg mx-auto">
+      <h2 className="h2-primary">Add Address</h2>
+      <form className="space-y-4 w-full bg-white p-4" onSubmit={handleSubmit}>
+        <div>
+          <Label htmlFor="street" className="mb-2">
+            Street
+          </Label>
+          <Input
+            type="text"
+            name="street"
+            id="street"
+            placeholder="E.g. 123 Main St"
+            value={formData.street}
+            onChange={handleChange}
+          />
+        </div>
+        <div>
+          <Label htmlFor="city" className="mb-2">
+            City
+          </Label>
+          <Input
+            type="text"
+            name="city"
+            id="city"
+            placeholder="E.g. New York"
+            value={formData.city}
+            onChange={handleChange}
+          />
+        </div>
+        <div>
+          <Label htmlFor="state" className="mb-2">
+            State
+          </Label>
+          <Input
+            type="text"
+            name="state"
+            id="state"
+            placeholder="E.g. NY"
+            value={formData.state}
+            onChange={handleChange}
+          />
+        </div>
+        <div>
+          <Label htmlFor="zip" className="mb-2">
+            ZIP Code
+          </Label>
+          <Input
+            type="text"
+            name="zip"
+            id="zip"
+            placeholder="E.g. 10001"
+            value={formData.zip}
+            onChange={handleChange}
+          />
+        </div>
+        <div>
+          <Label htmlFor="country" className="mb-2">
+            Country
+          </Label>
+          <Input
+            type="text"
+            name="country"
+            id="country"
+            placeholder="E.g. USA"
+            value={formData.country}
+            onChange={handleChange}
+          />
+        </div>
+        <Button pending={pending} type="submit">
+          Save
+        </Button>
+      </form>
     </div>
   );
 }
-
-export default Address;

@@ -6,7 +6,7 @@ import "react-responsive-carousel/lib/styles/carousel.min.css";
 export const Hero = () => {
   return (
     <div className="flex justify-between items-center">
-      <div className="md:basis-[60%] h-full">
+      <div className="h-full">
         <div className="relative h-full group overflow-hidden">
           <Carousel
             showThumbs={false}
@@ -16,17 +16,13 @@ export const Hero = () => {
             showStatus={false}
           >
             {[
+              "./banners/banner1.jpg",
+              "./banners/banner2.jpg",
               "./banners/banner3.jpg",
-              "./banners/banner4.jpg",
-              "./banners/banner5.jpg",
-              "./banners/banner6.jpg",
-              "./banners/banner7.jpg",
-              "./banners/banner8.jpg",
-              "./banners/banner9.jpg",
             ].map((image, index) => (
               <div key={index}>
                 <img
-                  className="w-full image--2"
+                  className="w-full image--2 my-auto"
                   src={image}
                   alt={`Product Image ${index + 1}`}
                 />
@@ -35,7 +31,7 @@ export const Hero = () => {
           </Carousel>
         </div>
       </div>
-      <div className="flex flex-col basis-[30%] gap-5 h-full justify-between max-md:hidden">
+      {/* <div className="flex flex-col basis-[38%] gap-5 h-full justify-between max-md:hidden">
         {[1, 2].map(i => (
           <div key={i} className="relative flex-1 group overflow-hidden">
             <img
@@ -50,7 +46,7 @@ export const Hero = () => {
             </div>
           </div>
         ))}
-      </div>
+      </div> */}
     </div>
   );
 };
