@@ -16,6 +16,7 @@ import { Edit, Trash } from "lucide-react";
 import Link from "next/link";
 
 function ProductRow({ product, onDelete }) {
+
   return (
     <TableRow>
       <TableCell className="flex items-center gap-3">
@@ -52,7 +53,7 @@ function ProductRow({ product, onDelete }) {
                 </AlertDialogFooter>
               </AlertDialogContent>
             </AlertDialog>
-            <Link href={"/admin/product/edit/" + product.id + "/"}>
+            <Link href={"/admin/product/edit/" + product._id + "/"}>
               <Edit className="text-green-500 cursor-pointer" />
             </Link>
           </div>

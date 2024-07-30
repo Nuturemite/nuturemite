@@ -98,6 +98,13 @@ export const useBaseProducts = (queryParams = {}) => {
   return { products: data, error, isLoading, mutate };
 };
 
+export const useBaseProduct = id => {
+  let url = `/products/${id}`;
+  const { data, error, isLoading, mutate } = useSWR(url, fetcher);
+  console.log(data)
+  return { product: data, error, isLoading, mutate };
+};
+
 export const useProduct = id => {
   let url = `/vendor-products/${id}`;
   const { data, error, isLoading, mutate } = useSWR(url, fetcher);

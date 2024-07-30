@@ -40,7 +40,7 @@ function Page() {
   if (error) return <Error />;
 
   const ProductPage = () => {
-    if (isLoading) return <ProductSkeleton count={20} />;
+    if (isLoading) return <ProductSkeleton count={3} />;
 
     if (products.length == 0) {
       return (

@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
-import { useProduct, useCategories, useBrands } from "@/lib/data";
+import { useProduct, useCategories, useBrands, useBaseProducts } from "@/lib/data";
 import { Textarea } from "@/components/ui/textarea";
 import { tst } from "@/lib/utils";
 import api from "@/lib/api";
@@ -42,10 +42,7 @@ const productSchema = Joi.object({
   image: Joi.any(),
 }).options({ stripUnknown: true });
 
-function ProductForm({ update, params }) {
-  const { product, isLoading } = update
-    ? useProduct(params?.id)
-    : { product: {}, isLoading: false };
+function ProductForm({ update, params, product,isLoading }) {
   const { categories } = useCategories();
   const [formData, setFormData] = useState({});
   const [pending, setPending] = useState(false);
@@ -57,9 +54,7 @@ function ProductForm({ update, params }) {
       setFormData({
         name: product.name,
         description: product.description || "",
-        price: product.price,
-        categoryId: product.categoryId,
-        brandId: product.brandId,
+        basePrice: product.basePrice,
         image: product.image,
       });
     }

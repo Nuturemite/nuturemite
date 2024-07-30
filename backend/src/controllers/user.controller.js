@@ -1,4 +1,3 @@
-import { collectionGroup } from "firebase/firestore";
 import { User } from "../models/model.js";
 
 // Update user profile

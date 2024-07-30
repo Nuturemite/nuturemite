@@ -74,37 +74,6 @@ const ProductInfo = ({ product }) => (
   </div>
 );
 
-const Reviews = () => (
-  <div className="py-4">
-    <h2 className="text-2xl font-medium">Reviews</h2>
-    <ul className="mt-4 space-y-4">
-      <li>
-        <div className="flex items-center">
-          <Avatar name="John Doe" />
-          <div className="ml-4">
-            <span className="font-semibold">John Doe</span>
-            <p className="mt-1 text-sm text-slate-600">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod, voluptas.
-            </p>
-          </div>
-        </div>
-      </li>
-      <li>
-        <div className="flex items-center">
-          <Avatar name="Jane Doe" />
-          <div className="ml-4">
-            <span className="font-semibold">Jane Doe</span>
-            <p className="mt-1 text-sm text-slate-600">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod, voluptas.
-            </p>
-          </div>
-        </div>
-      </li>
-    </ul>
-  </div>
-);
-
-import React from 'react';
 
 const ReviewComponent = ({ reviews }) => (
   <div className="py-4">

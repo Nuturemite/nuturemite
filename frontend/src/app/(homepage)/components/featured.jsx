@@ -5,7 +5,7 @@ import ProductSkeleton from "../../(home)/shop/components/ProductSkeleton";
 
 export const FeaturedProducts = () => {
   const { products, isLoading, error } = useProducts({ limit: 5, minDiscount: 15 });
-  if (isLoading) return <ProductSkeleton count={5} />;
+  if (isLoading) return <ProductSkeleton count={3} />;
 
   if (error) return <div>Error: {error.message}</div>;
 
