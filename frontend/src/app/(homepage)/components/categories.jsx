@@ -18,13 +18,13 @@ export const Categories = () => {
                   <div className="overflow-hidden" style={{ width: "100px", height: "100px" }}>
                     <img
                       className="w-full  h-full object-cover"
-                      src={"./category.png"}
+                      src={cat.image}
                       // alt={cat.name}
                     />
                   </div>
                   <div className="flex-grow pl-3 px-4 h-full">
                     <h6>{cat.name}</h6>
-                    <small className="text-body">3 Products</small>
+                    {/* <small className="text-body">3 Products</small> */}
                   </div>
                 </div>
               </div>

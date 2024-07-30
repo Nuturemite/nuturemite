@@ -91,17 +91,12 @@ export const useProducts = (queryParams = {}) => {
 
 export const useBaseProducts = (queryParams = {}) => {
   let { data, error, isLoading, mutate } = useSWR("/products", fetcher);
-
-  // if(queryParams.id) {
-  //   data = data.filter(product => product._id == queryParams.id);
-  // }
   return { products: data, error, isLoading, mutate };
 };
 
 export const useBaseProduct = id => {
   let url = `/products/${id}`;
   const { data, error, isLoading, mutate } = useSWR(url, fetcher);
-  console.log(data)
   return { product: data, error, isLoading, mutate };
 };
 

@@ -106,7 +106,7 @@ const ProductList = ({ searchParams }) => {
                           <AlertDialogFooter>
                             <AlertDialogCancel>Cancel</AlertDialogCancel>
                             <AlertDialogAction
-                              onClick={() => handleProductDelete(product.id)}
+                              onClick={() => handleProductDelete(product._id)}
                               className={buttonVariants({ variant: "destructive" })}
                             >
                               Delete

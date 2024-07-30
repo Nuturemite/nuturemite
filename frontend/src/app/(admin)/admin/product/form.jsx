@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
-import { useProduct, useCategories, useBrands, useBaseProducts } from "@/lib/data";
+import { useCategories } from "@/lib/data";
 import { Textarea } from "@/components/ui/textarea";
 import { tst } from "@/lib/utils";
 import api from "@/lib/api";
@@ -29,12 +29,12 @@ const productSchema = Joi.object({
       "string.empty": `Description cannot be an empty`,
       "string.min": `Description should have a minimum length of {#limit}`,
     }),
-  price: Joi.number().min(1).required().messages({
-    "number.base": `Price should be a type of 'number'`,
-    "number.min": `Price should have a minimum value of {#limit}`,
-    "any.required": `Price is a required`,
+  basePrice: Joi.number().min(1).required().messages({
+    "number.base": `BasePrice should be a type of 'number'`,
+    "number.min": `BasePrice should have a minimum value of {#limit}`,
+    "any.required": `BasePrice is a required`,
   }),
-  categoryId: Joi.number().integer().required().messages({
+  categoryId: Joi.string().required().messages({
     "number.base": `Category ID should be a type of 'number'`,
     "number.integer": `Category ID should be an integer`,
     "any.required": `Category ID is a required`,
@@ -42,7 +42,7 @@ const productSchema = Joi.object({
   image: Joi.any(),
 }).options({ stripUnknown: true });
 
-function ProductForm({ update, params, product,isLoading }) {
+function ProductForm({ update, params, product, isLoading }) {
   const { categories } = useCategories();
   const [formData, setFormData] = useState({});
   const [pending, setPending] = useState(false);
@@ -157,21 +157,23 @@ function ProductForm({ update, params, product,isLoading }) {
         </div>
         <div className="flex gap-6">
           <div className="flex-1">
-            <Label htmlFor="price" className="mb-2 block">
-              Price
+            <Label htmlFor="basePrice" className="mb-2 block">
+              MRP
             </Label>
             <Input
               type="number"
-              name="price"
-              value={formData.price}
+              name="basePrice"
+              value={formData.basePrice}
               onChange={handleChange}
-              id="price"
+              id="basePrice"
               disabled={pending}
-              placeholder="Product Price"
-              className={`col-span-3 ${formErrors.price ? "border-red-500" : ""}`}
+              placeholder="Product MRP"
+              className={`col-span-3 ${formErrors.basePrice ? "border-red-500" : ""}`}
               onFocus={handleFocus}
             />
-            {formErrors.price && <div className="text-red-500 text-sm">{formErrors.price}</div>}
+            {formErrors.basePrice && (
+              <div className="text-red-500 text-sm">{formErrors.basePrice}</div>
+            )}
           </div>
         </div>
         <div className="flex gap-6">

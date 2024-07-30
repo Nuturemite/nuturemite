@@ -47,10 +47,10 @@ const ShoppingCart = () => {
       <div className="max-w-6xl mt-10 mx-auto">
         <h2 className="h2-primary">Shopping cart</h2>
 
-        <div className="mt-16 flex  gap-16 ">
+        <div className="mt-10 flex  gap-16 ">
           {/* Cart */}
 
-          <ul role="list" className="-my-6 divide-y-4 divide-gray-200">
+          <ul role="list" className="divide-y-4 divide-gray-200 w-3/5">
             {cartItems.map(cartItem => (
               <li key={cartItem._id} className="flex p-4 bg-white ">
                 <div className="h-24 w-24 flex-shrink-0 overflow-hidden  border border-gray-200">

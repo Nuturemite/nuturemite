@@ -2,7 +2,6 @@
 import React, { useState } from "react";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
-import { Checkbox } from "@/components/ui/checkbox";
 import OrderSummary from "../cart/OrderSummary";
 import { Button } from "@/components/ui/button";
 import api from "@/lib/api";

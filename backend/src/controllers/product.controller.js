@@ -33,10 +33,10 @@ export const getProduct = async (req, res) => {
   try {
     const product = await Product.findById(req.params.id)
       .populate("categories", "name")
-      .populate("brands", "name");
     if (!product) return res.status(404).json({ message: "Product not found" });
     res.json({ data: product });
   } catch (error) {
+    console.log(error);
     res.status(500).json({ message: error.message });
   }
 };
@@ -49,7 +49,7 @@ export const getAllProducts = async (req, res) => {
       .populate({
         path: "brands",
         options: { strictPopulate: false },
-      })
+      });
 
     const total = await Product.countDocuments();
 

@@ -1,7 +1,13 @@
 "use client";
-import { Avatar } from "@/components/shared/avatar";
 import { useState } from "react";
-import { Table, TableBody, TableCell, TableHead, TableRow,TableHeader } from '@/components/ui/table';
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableRow,
+  TableHeader,
+} from "@/components/ui/table";
 const ProductDesc = ({ product }) => (
   <div className="py-4">
     <h2 className="text-2xl font-medium">Product Description</h2>
@@ -56,24 +62,25 @@ const ProductInfo = ({ product }) => (
           <TableCell className="font-medium">Ingredients:</TableCell>
           <TableCell>{product.ingredients}</TableCell>
         </TableRow>
+        <TableRow>
+          <TableCell className="font-medium">Images:</TableCell>
+          <TableCell>
+              <div className="flex space-x-2">
+                {product.images.map((url, index) => (
+                  <img
+                    key={index}
+                    src={url}
+                    alt={`Product image ${index + 1}`}
+                    className="w-24 h-24 object-cover"
+                  />
+                ))}
+              </div>
+          </TableCell>
+        </TableRow>
       </TableBody>
     </Table>
-    <div className="mt-4">
-      <h3 className="text-xl font-medium">Images</h3>
-      <div className="flex space-x-2">
-        {product.images.map((url, index) => (
-          <img
-            key={index}
-            src={url}
-            alt={`Product image ${index + 1}`}
-            className="w-24 h-24 object-cover"
-          />
-        ))}
-      </div>
-    </div>
   </div>
 );
-
 
 const ReviewComponent = ({ reviews }) => (
   <div className="py-4">
@@ -85,7 +92,7 @@ const ReviewComponent = ({ reviews }) => (
             {Array.from({ length: 5 }, (_, i) => (
               <svg
                 key={i}
-                className={`h-5 w-5 ${i < review.rating ? 'text-yellow-500' : 'text-gray-300'}`}
+                className={`h-5 w-5 ${i < review.rating ? "text-yellow-500" : "text-gray-300"}`}
                 fill="currentColor"
                 viewBox="0 0 20 20"
               >
@@ -106,14 +113,13 @@ const ReviewComponent = ({ reviews }) => (
 const reviews = [
   {
     rating: 4,
-    date: 'July 28, 2024',
-    title: 'Great Product!',
-    content: 'I really liked this product. It has great features.',
-    author: 'Anoop Singh',
+    date: "July 28, 2024",
+    title: "Great Product!",
+    content: "I really liked this product. It has great features.",
+    author: "Anoop Singh",
   },
   // Add more reviews here
 ];
-
 
 const Tabs = ({ product }) => {
   const [activeTab, setActiveTab] = useState(1);

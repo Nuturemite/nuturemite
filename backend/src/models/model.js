@@ -83,8 +83,8 @@ const VendorProductSchema = new Schema(
       default: 0,
       set: v => parseFloat(parseFloat(v).toFixed(2)),
     },
-    inventory: { type: Number, default: 0 },
-    status: { type: String, enum: ["active", "inactive", "out_of_stock"], default: "active" },
+    quantity: { type: Number, default: 0 },
+    status: { type: String, enum: ["In Stock", "Out of Stock"], default: "In Stock" },
   },
   { timestamps: true }
 );

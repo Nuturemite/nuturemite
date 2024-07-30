@@ -66,9 +66,11 @@ export default function Product({ params }) {
             <p className="text-slate-600 text-3xl font-bold mb-4">{product.name}</p>
             <div className="mb-4 space-y-4">
               <div className="mr-4">
-                <span className="text-2xl text-slate-500">${product.price}{" "}</span>
-                <span className="line-through text-red-600 text-lg"> ${product.basePrice}</span>
-               
+                <span className="text-2xl text-slate-500">&#8377;{product.price} </span>
+                <span className="line-through text-red-600 text-lg">
+                  {" "}
+                  &#8377;${product.basePrice}
+                </span>
               </div>
 
               <div>
@@ -84,8 +86,14 @@ export default function Product({ params }) {
 
             <div>
               <p className="text-slate-600 mt-2 mb-8">{product.description}</p>
-              <p className="text-slate-600 mt-2 mb-8"><strong>Keywords:  </strong>{product.keywords}</p>
-              <p className="text-slate-600 mt-2 mb-8"><strong>Categories:  </strong>{product.categories.map(category => category.name)}</p>
+              <p className="text-slate-600 mt-2 mb-8">
+                <strong>Keywords: </strong>
+                {product.keywords}
+              </p>
+              <p className="text-slate-600 mt-2 mb-8">
+                <strong>Categories: </strong>
+                {product.categories.map(category => category.name)}
+              </p>
             </div>
             <div className="flex mb-4 gap-4 items-center">
               <Select

@@ -103,7 +103,7 @@ export const getAllVendorProducts = async (req, res) => {
             _id: "$vendor._id",
           },
           price: 1,
-          inventory: 1,
+          quantity: 1,
           status: 1,
           productId: "$product._id",
           name: "$product.name",

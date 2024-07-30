@@ -14,13 +14,13 @@ export default function Page() {
           <div>
             <Hero />
           </div>
-          <div className="mt-5 px-16">
+          <div className="mt-16 px-16">
             <Featured />
           </div>
         </div>
-        {/* <div className="px-16">
+        <div className="px-16 my-16">
           <Categories />
-        </div> */}
+        </div>
         <div className="bg-primary">
           <div className="px-16 py-10">
             <RecentProducts />

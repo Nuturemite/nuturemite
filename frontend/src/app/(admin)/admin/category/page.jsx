@@ -1,6 +1,5 @@
 "use client";
 import React, { useState } from "react";
-import CategoryRow from "./row";
 import { Button } from "@/components/ui/button";
 import api from "@/lib/api";
 import { useCategories } from "@/lib/data";
@@ -11,13 +10,26 @@ import {
   TableHead,
   TableHeader,
   TableRow,
+  TableCell,
 } from "@/components/ui/table";
 import TableSkeleton from "@/components/shared/tableskeleton";
 import { tst } from "@/lib/utils";
 import Error from "@/components/shared/error";
-import { Plus } from "lucide-react";
+import { Plus, Trash, Edit } from "lucide-react";
 import SearchInput from "@/components/shared/search";
 import Link from "next/link";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
+
 const CategoryList = ({ searchParams }) => {
   const query = searchParams.query;
   const { categories, error, isLoading, mutate } = useCategories({ query });
@@ -69,12 +81,40 @@ const CategoryList = ({ searchParams }) => {
             ) : (
               <TableBody>
                 {categories.map((cat, index) => (
-                  <CategoryRow
-                    index={index + 1}
-                    key={cat.id}
-                    category={cat}
-                    onDelete={handleCategoryDelete}
-                  />
+                  <TableRow key={cat.id}>
+                    <TableCell className="font-medium">{index + 1}</TableCell>
+                    <TableCell className="font-medium">{cat.name}</TableCell>
+                    <TableCell className="line-clamp-1">
+                      {cat.description ? cat.description.slice(0, 40) : "No Description"}
+                    </TableCell>
+                    <TableCell>
+                      <div className="flex gap-2">
+                        <AlertDialog>
+                          <AlertDialogTrigger asChild>
+                            <Trash className="text-red-600 cursor-pointer" />
+                          </AlertDialogTrigger>
+                          <AlertDialogContent>
+                            <AlertDialogHeader>
+                              <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+                              <AlertDialogDescription>This action cannot be undone.</AlertDialogDescription>
+                            </AlertDialogHeader>
+                            <AlertDialogFooter>
+                              <AlertDialogCancel>Cancel</AlertDialogCancel>
+                              <AlertDialogAction
+                                onClick={() => handleCategoryDelete(cat._id)}
+                                className="bg-red-600 text-white"
+                              >
+                                Delete
+                              </AlertDialogAction>
+                            </AlertDialogFooter>
+                          </AlertDialogContent>
+                        </AlertDialog>
+                        <Link href={`/admin/category/edit/${cat._id}`}>
+                          <Edit className="text-green-500 cursor-pointer" />
+                        </Link>
+                      </div>
+                    </TableCell>
+                  </TableRow>
                 ))}
               </TableBody>
             )}
@@ -86,40 +126,3 @@ const CategoryList = ({ searchParams }) => {
 };
 
 export default CategoryList;
-
-
-// "use client";
-// import React from "react";
-// import { useCategories } from "@/lib/data";
-// import CommonList from "@/components/shared/admin/CommonList";
-// import { TableCell } from "@/components/ui/table";
-
-// const CategoryList = ({ searchParams }) => {
-//   const queryParams = searchParams.query;
-//   const { data: categories, error, isLoading, mutate } = useCategories({ query: queryParams });
-
-//   const mapCategoryToTableRows = (category) => (
-//     <>
-//       <TableCell>{category.id}</TableCell>
-//       <TableCell>{category.name}</TableCell>
-//       <TableCell>{category.description || "No Description"}</TableCell>
-//     </>
-//   );
-
-//   return (
-//     <CommonList
-//       searchEndpoint="category"
-//       newEntityLink="/admin/category/new"
-//       deleteEndpoint="/categories"
-//       data={categories}
-//       error={error}
-//       isLoading={isLoading}
-//       mapFunction={mapCategoryToTableRows}
-//       tableCaption="List of all categories."
-//       tableHeaders={["ID", "Name", "Description"]}
-//       refetch={mutate}
-//     />
-//   );
-// };
-
-// export default CategoryList;

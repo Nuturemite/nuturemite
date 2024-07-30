@@ -3,7 +3,7 @@ import React from "react";
 import Icon from "@/components/shared/common/icon";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Home, User, Settings, ShoppingBag, Slack, Radar } from "lucide-react";
+import { Home, User, Settings, ShoppingBag, Slack, Radar ,} from "lucide-react";
 import Image from "next/image";
 import { useAuthContext } from "@/context/authprovider";
 
@@ -23,16 +23,21 @@ const sidebarItems = [
     title: "Products",
     link: "/admin/product",
   },
+  {
+    icon: ShoppingBag,
+    title: "Inventory",
+    link: "/admin/inventory",
+  },
   // {
   //   icon: ShoppingBag,
   //   title: "Products",
   //   link: "/vendor/product",
   // },
-  {
-    icon: Slack,
-    title: "Brand",
-    link: "/admin/brand",
-  },
+  // {
+  //   icon: Slack,
+  //   title: "Brand",
+  //   link: "/admin/brand",
+  // },
   {
     icon: Radar,
     title: "Category",
