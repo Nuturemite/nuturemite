@@ -149,7 +149,7 @@ const ProductList = ({ searchParams }) => {
                   <TableCell>&#8377;{product.price}</TableCell>
                   <TableCell>&#8377;{product.basePrice}</TableCell>
                   <TableCell>{product.quantity || 0}</TableCell>
-                  <TableCell>{product.quantity == 0  ? "Out of Stock" : "In Stock"}</TableCell>
+                  <TableCell>{!product.quantity || product.quantity == 0  ? "Out of Stock" : "In Stock"}</TableCell>
                   <TableCell>
                     <div className="flex gap-2">
                       <StockUpdateDialog product={product} mutate={mutate} />

@@ -43,6 +43,14 @@ const ProductInfo = ({ product }) => (
           <TableCell>₹{product.price}</TableCell>
         </TableRow>
         <TableRow>
+          <TableCell className="font-medium">Quantity:</TableCell>
+          <TableCell>{product.quantity || 0}</TableCell>
+        </TableRow>
+        <TableRow>
+          <TableCell className="font-medium">Status:</TableCell>
+          <TableCell>{product.status || "Out of Stock"}</TableCell>
+        </TableRow>
+        <TableRow>
           <TableCell className="font-medium">Description:</TableCell>
           <TableCell>{product.description}</TableCell>
         </TableRow>
@@ -65,16 +73,16 @@ const ProductInfo = ({ product }) => (
         <TableRow>
           <TableCell className="font-medium">Images:</TableCell>
           <TableCell>
-              <div className="flex space-x-2">
-                {product.images.map((url, index) => (
-                  <img
-                    key={index}
-                    src={url}
-                    alt={`Product image ${index + 1}`}
-                    className="w-24 h-24 object-cover"
-                  />
-                ))}
-              </div>
+            <div className="flex space-x-2">
+              {product.images.map((url, index) => (
+                <img
+                  key={index}
+                  src={url}
+                  alt={`Product image ${index + 1}`}
+                  className="w-24 h-24 object-cover"
+                />
+              ))}
+            </div>
           </TableCell>
         </TableRow>
       </TableBody>

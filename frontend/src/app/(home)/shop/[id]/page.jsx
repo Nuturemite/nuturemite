@@ -69,7 +69,7 @@ export default function Product({ params }) {
                 <span className="text-2xl text-slate-500">&#8377;{product.price} </span>
                 <span className="line-through text-red-600 text-lg">
                   {" "}
-                  &#8377;${product.basePrice}
+                  &#8377;{product.basePrice}
                 </span>
               </div>
 
@@ -92,28 +92,32 @@ export default function Product({ params }) {
               </p>
               <p className="text-slate-600 mt-2 mb-8">
                 <strong>Categories: </strong>
-                {product.categories.map(category => category.name)}
+                {product.categories.map(category => category.name).join(", ")}
               </p>
             </div>
-            <div className="flex mb-4 gap-4 items-center">
-              <Select
-                className="w-full"
-                value={quantity}
-                onValueChange={value => setQuantity(value)}
-              >
-                <SelectTrigger className="border-slate-600 w-32 focus:ring-0">
-                  <SelectValue placeholder="1" />
-                </SelectTrigger>
-                <SelectContent>
-                  {Array.from({ length: 100 }, (_, i) => i + 1).map(i => (
-                    <SelectItem key={i} value={i}>
-                      {i}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-              <AddToCart quantity={quantity} product={product} />
-            </div>
+            {!product.quantity || product.quantity === 0 ? (
+              <div className="text-red-600 text-xl font-bold mb-4">Out of Stock</div>
+            ) : (
+              <div className="flex mb-4 gap-4 items-center">
+                <Select
+                  className="w-full"
+                  value={quantity}
+                  onValueChange={value => setQuantity(value)}
+                >
+                  <SelectTrigger className="border-slate-600 w-32 focus:ring-0">
+                    <SelectValue placeholder="1" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {Array.from({ length: 100 }, (_, i) => i + 1).map(i => (
+                      <SelectItem key={i} value={i}>
+                        {i}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+                <AddToCart quantity={quantity} product={product} />
+              </div>
+            )}
           </div>
         </div>
         <Tabs product={product} />

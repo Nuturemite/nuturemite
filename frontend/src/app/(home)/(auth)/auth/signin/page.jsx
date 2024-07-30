@@ -13,7 +13,7 @@ function LoginForm() {
     password: "",
   });
   const [loading, setLoading] = useState(false);
-  const { login } = useAuthContext();
+  const { login ,user} = useAuthContext();
   const router = useRouter();
 
   const handleChange = event => {

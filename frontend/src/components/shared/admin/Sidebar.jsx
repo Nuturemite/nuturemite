@@ -1,11 +1,9 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import Icon from "@/components/shared/common/icon";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Home, User, Settings, ShoppingBag, Slack, Radar ,} from "lucide-react";
-import Image from "next/image";
-import { useAuthContext } from "@/context/authprovider";
+import { Home, User, Settings, ShoppingBag, Package, Truck, FileText, CreditCard, Boxes, List, Minimize2 } from "lucide-react";
 
 const sidebarItems = [
   {
@@ -24,69 +22,68 @@ const sidebarItems = [
     link: "/admin/product",
   },
   {
-    icon: ShoppingBag,
+    icon: Boxes,
     title: "Inventory",
     link: "/admin/inventory",
   },
   {
-    icon: ShoppingBag,
+    icon: Package,
     title: "Orders",
     link: "/admin/orders",
   },
   {
-    icon: ShoppingBag,
+    icon: Truck,
     title: "Shipments",
     link: "/admin/shipments",
   },
   {
-    icon: ShoppingBag,
+    icon: FileText,
     title: "Invoices",
     link: "/admin/invoices",
   },
   {
-    icon: ShoppingBag,
+    icon: CreditCard,
     title: "Refunds",
     link: "/admin/refunds",
   },
-  // {
-  //   icon: ShoppingBag,
-  //   title: "Products",
-  //   link: "/vendor/product",
-  // },
-  // {
-  //   icon: Slack,
-  //   title: "Brand",
-  //   link: "/admin/brand",
-  // },
   {
-    icon: Radar,
+    icon: List,
     title: "Category",
     link: "/admin/category",
   },
-
   {
     icon: Settings,
     title: "Settings",
     link: "/admin/settings/",
   },
 ];
-function Sidebar({ className }) {
-  const activePath = usePathname().split("/")[2];
 
+function Sidebar({ className }) {
+  const [isMinimized, setIsMinimized] = useState(false);
+  const activePath = usePathname().split("/")[2];
 
   return (
     <aside
       aria-label="sidebar"
       aria-controls="default-sidebar"
-      className={`${className} sticky top-0 bottom-0 left-0 h-[100vh] max-lg:hidden bg-gray-800 font-urbanist w-[260px] px-6`}
+      className={`${className} sticky top-0 bottom-0 left-0 h-[100vh] bg-gray-800 font-urbanist ${
+        isMinimized ? "w-[60px]" : "w-[260px]"
+      } px-6 transition-width duration-300`}
     >
       <div className="wrapper pt-6">
-        <Link href="/">
-          <span className="text-lg px-4 font-semibold tracking-wide text-slate-200 mb-8  block">
-            Nuturemite
-          </span>
-        </Link>
-        {/* <hr className="bg-slate-700 text-slate-500  my-6"/> */}
+      <div className="flex justify-between items-center mb-4">
+          <Link href="/">
+            <span className={`text-lg px-4 font-semibold tracking-wide text-slate-200 ${isMinimized && "hidden"}`}>
+              Nuturemite
+            </span>
+          </Link>
+          <button
+            className="text-slate-200 mb-4 "
+            onClick={() => setIsMinimized(!isMinimized)}
+          >
+            <Minimize2 size={24} />
+          </button>
+      </div>
         <ul className="flex flex-col gap-4">
           {sidebarItems.map((item) => (
             <li key={item.title}>
@@ -94,17 +91,17 @@ function Sidebar({ className }) {
                 href={item.link}
                 className={`flex items-center px-4 py-2 text-slate-200 hover:bg-slate-100 hover:text-slate-800 transition duration-150 cursor-pointer ${
                   activePath === item.title.toLowerCase() && "bg-slate-300 text-slate-800"
-                }`}
+                } ${isMinimized && ""}`}
               >
                 <item.icon size={20} />
-                <span className="ml-4 text-sm  tracking-wider">{item.title}</span>
+                <span className={`ml-4 text-sm tracking-wider ${isMinimized && "hidden"}`}>{item.title}</span>
               </Link>
             </li>
           ))}
           <li>
-            <div className="flex items-center px-4 py-2 text-red-400 hover:bg-slate-100 hover:text-slate-800 transition duration-150 cursor-pointer">
+            <div className={`flex items-center px-4 py-2 text-red-400 hover:bg-slate-100 hover:text-slate-800 transition duration-150 cursor-pointer ${isMinimized && "justify-center"}`}>
               <Icon icon={"uil:signout"} className="hover:text-white text-2xl" />
-              <span className="ml-4 text-sm  tracking-wider">Sign out</span>
+              <span className={`ml-4 text-sm tracking-wider ${isMinimized && "hidden"}`}>Sign out</span>
             </div>
           </li>
         </ul>
@@ -112,45 +109,5 @@ function Sidebar({ className }) {
     </aside>
   );
 }
+
 export default Sidebar;
-
-// const sidebarItems = [
-//   {
-//     icon: "mynaui:home",
-//     title: "Home",
-//     link: "/admin/",
-//   },
-//   {
-//     icon: "mingcute:user-3-line",
-//     title: "Users",
-//     link: "/admin/users",
-//   },
-//   {
-//     icon: "fluent-mdl2:product",
-//     title: "Products",
-//     link: "/admin/products",
-//   },
-//   {
-//     icon: "cib:brand-ai",
-//     title: "Brand",
-//     link: "/admin/brand",
-//   },
-//   {
-//     icon: "material-symbols:category-outline",
-//     title: "Category",
-//     link: "/admin/category",
-//   },
-
-//   {
-//     icon: "mdi:account-outline",
-//     title: "Account",
-//     link: "/admin/account",
-//   },
-//   {
-//     icon: "solar:settings-linear",
-//     title: "Settings",
-//     link: "/admin/",
-//   },
-// ];
-{
-}

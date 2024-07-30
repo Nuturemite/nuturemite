@@ -5,51 +5,54 @@ import AddToWishlist from "./AddToWishlist";
 import Link from "next/link";
 
 export const ProductCard = ({ product, featured }) => {
-  const { _id, images, name, basePrice, price, avgRating, inventory } = product;
+  const { _id, images, name, basePrice, price, avgRating, quantity } = product;
 
   return (
     <Link href={`/shop/${_id}`}>
-      <div className="w-full h-full group hover:shadow-md cursor-pointer bg-white p-2">
-        <div className="bg-white mb-4 relative overflow-hidden">
+      <div className="w-full h-full group hover:shadow-md cursor-pointer bg-white p-2 relative">
+        {/* Product Image and Sold Out Badge */}
+        <div className="relative bg-white mb-4 overflow-hidden">
           <img
             className={`w-full ${
               featured && "max-h-44"
             } aspect-auto object-cover p-2 group-hover:scale-110 group-hover:brightness-50 transition duration-500`}
-            src={images?.length != 0 ? images[1] : "./noimage.png"}
+            src={images?.length ? images[1] : "./noimage.png"}
             alt={name}
           />
-          <div className="absolute z-10 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 p-2 group-hover:flex space-x-6 hidden">
-            <AddToCart product={product} isChild>
-              <div className="p-1 border border-tert-100">
-                <ShoppingCart className="text-tert-100" />
-              </div>
-            </AddToCart>
-            <AddToWishlist product={product} isChild>
-              <div className="p-1 border border-tert-100">
-                <Heart className="text-tert-100" />
-              </div>
-            </AddToWishlist>
-            <div className="p-1 border border-tert-100">
-              <Link href={`/shop/${name}`}>
-                <Search className="text-tert-100" />
-              </Link>
+          {!quantity || quantity === 0 ? (
+            <div className="absolute z-10 top-1/2 text-center -rotate-45 w-full bg-black bg-opacity-50 text-white text-lg font-bold">
+              Sold Out
             </div>
-          </div>
+          ) : (
+            <div className="absolute z-10 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 p-2 group-hover:flex space-x-6 hidden">
+              <AddToCart product={product} isChild>
+                <div className="p-1 border border-tert-100">
+                  <ShoppingCart className="text-tert-100" />
+                </div>
+              </AddToCart>
+              <AddToWishlist product={product} isChild>
+                <div className="p-1 border border-tert-100">
+                  <Heart className="text-tert-100" />
+                </div>
+              </AddToWishlist>
+              <div className="p-1 border border-tert-100">
+                <Link href={`/shop/${name}`}>
+                  <Search className="text-tert-100" />
+                </Link>
+              </div>
+            </div>
+          )}
         </div>
         <div className="text-center pb-[1em]">
           <a
             href="#"
-            className={` ${
-              featured && "truncate"
-            } h6 text-decoration-none block text-[0.92rem] `}
+            className={` ${featured && "truncate"} h6 text-decoration-none block text-[0.92rem] `}
           >
             {name}
           </a>
           <div className="flex items-center justify-center mt-2">
             <h5 className="font-semibold">&#8377;{price}</h5>
-            <h6 className="text-xs text-gray-500 ml-2 line-through">
-              &#8377; {basePrice}
-            </h6>
+            <h6 className="text-xs text-gray-500 ml-2 line-through">&#8377; {basePrice}</h6>
           </div>
           <div className="flex items-center justify-center mb-1">
             {[...Array(5)].map((_, index) => (
