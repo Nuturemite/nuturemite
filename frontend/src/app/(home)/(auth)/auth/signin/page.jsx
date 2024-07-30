@@ -3,14 +3,13 @@ import LoadingButton from "@/components/shared/loadbtn";
 import { useAuthContext } from "@/context/authprovider";
 import api from "@/lib/api";
 import { tst } from "@/lib/utils";
-import { Icon } from "@iconify/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 
 function LoginForm() {
   const [formData, setFormData] = useState({
-    email: "",
+    username: "",
     password: "",
   });
   const [loading, setLoading] = useState(false);
@@ -51,23 +50,23 @@ function LoginForm() {
         <form className="space-y-6" onSubmit={handleSignin}>
           <h5 className="text-xl font-medium text-slate-800">Sign in to our platform</h5>
           <div>
-            <label htmlFor="email" className="block mb-2 text-sm font-medium text-slate-800">
-              Your email
+            <label htmlFor="username" className="block mb-2 text-sm font-medium text-slate-800">
+              Username
             </label>
             <input
-              type="email"
-              name="email"
-              id="email"
+              type="text"
+              name="username"
+              id="username"
               className="bg-slate-300 border border-slate-300 text-slate-700 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 placeholder-slate-400"
               placeholder="E.g. anoop@gmail.com"
-              value={formData.email}
+              value={formData.username}
               onChange={handleChange}
               required
             />
           </div>
           <div>
             <label htmlFor="password" className="block mb-2 text-sm font-medium text-slate-800">
-              Your password
+              Password
             </label>
             <input
               type="password"

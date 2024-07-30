@@ -5,7 +5,7 @@ import { useProducts } from "@/lib/data";
 import ProductSkeleton from "./components/ProductSkeleton";
 import { PriceFilter } from "./components/PriceFilter";
 import { CategoryFilter } from "./components/CategoryFilter";
-import ClearFilter from "../../../components/shared/redundant/ClearFilter";
+import ClearFilter from "./components/ClearFilter";
 import { Button } from "@/components/ui/button";
 import PaginationComp from "@/components/shared/common/pagination";
 import { SortComp } from "./components/SortComp";

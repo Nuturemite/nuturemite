@@ -1,6 +1,7 @@
-"use client"
+"use client";
 
-import { Bar, BarChart, CartesianGrid, XAxis } from "recharts"
+import React from "react";
+import { Bar, BarChart, CartesianGrid, XAxis, YAxis, Tooltip } from "recharts";
 import { ShoppingCart, Users, DollarSign, CreditCard } from 'lucide-react';
 
 import {
@@ -10,70 +11,105 @@ import {
   ChartLegendContent,
   ChartTooltip,
   ChartTooltipContent,
-} from "@/components/ui/chart"
+} from "@/components/ui/chart";
 
-const chartData = [
-  { month: "January", desktop: 186, mobile: 80 },
-  { month: "February", desktop: 305, mobile: 200 },
-  { month: "March", desktop: 237, mobile: 120 },
-  { month: "April", desktop: 73, mobile: 190 },
-  { month: "May", desktop: 209, mobile: 130 },
-  { month: "June", desktop: 214, mobile: 140 },
-]
+// Sample data for sales and orders
+const salesData = [
+  { month: "January", totalSales: 5000 },
+  { month: "February", totalSales: 7000 },
+  { month: "March", totalSales: 6000 },
+  { month: "April", totalSales: 8000 },
+  { month: "May", totalSales: 7500 },
+  { month: "June", totalSales: 9000 },
+];
 
-const chartConfig = {
-  desktop: {
-    label: "Desktop",
-    color: "#2563eb",
+const ordersData = [
+  { month: "January", totalOrders: 120 },
+  { month: "February", totalOrders: 150 },
+  { month: "March", totalOrders: 135 },
+  { month: "April", totalOrders: 160 },
+  { month: "May", totalOrders: 140 },
+  { month: "June", totalOrders: 180 },
+];
+
+// Chart configurations
+const salesConfig = {
+  totalSales: {
+    label: "Total Sales",
+    color: "#34d399",
   },
-  mobile: {
-    label: "Mobile",
-    color: "#60a5fa",
+};
+
+const ordersConfig = {
+  totalOrders: {
+    label: "Total Orders",
+    color: "#f87171",
   },
-} 
+};
 
-export default  function Component() {
-  return (
-   <div>
-    <div>
-      <div className="card flex gap-4 bg-white w-[240px]  p-4">
-        <div>
-          <ShoppingCart size={30} className="p-1 bg-green-400 text-white"/>
-        </div>
-        <div>
-          <p>Orders</p>
-          <p className="text-3xl font-bold">0</p>
-        </div>
-      </div>
-    </div>
-      <ChartContainer config={chartConfig} className="min-h-[200px] w-[400px]">
-        <BarChart accessibilityLayer data={chartData}>
-          <CartesianGrid vertical={false} />
-          <XAxis
-            dataKey="month"
-            tickLine={false}
-            tickMargin={10}
-            axisLine={false}
-            tickFormatter={(value) => value.slice(0, 3)}
-          />
-          <ChartTooltip content={<ChartTooltipContent />} />
-          <ChartLegend content={<ChartLegendContent />} />
-          <Bar dataKey="desktop" fill="var(--color-desktop)"  />
-          <Bar dataKey="mobile" fill="var(--color-mobile)"  />
-        </BarChart>
-      </ChartContainer>
-   </div>
-    )
-}
-
+// Card component
 const Card = ({ title, value, icon: Icon, color }) => {
   return (
-    <div style={{ backgroundColor: color, padding: '20px', borderRadius: '8px', color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-      <div>
-        <h2>{title}</h2>
-        <p>{value}</p>
+    <div className="bg-white p-4   flex items-center justify-between">
+      <div className="flex items-center">
+        <Icon size={30} className={`p-2  text-white`} style={{ backgroundColor: color }} />
+        <div className="ml-4">
+          <h2 className="text-sm font-semibold text-gray-600">{title}</h2>
+          <p className="text-2xl font-bold">{value}</p>
+        </div>
       </div>
-      <Icon size={48} />
     </div>
   );
 };
+
+// Dashboard Component
+export default function Dashboard() {
+  return (
+    <div className="p-6 space-y-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
+        <Card title="Orders" value="1,234" icon={ShoppingCart} color="#4ade80" />
+        <Card title="Users" value="567" icon={Users} color="#38bdf8" />
+        <Card title="Revenue" value="₹12,345" icon={DollarSign} color="#f97316" />
+        <Card title="Payments" value="₹6,789" icon={CreditCard} color="#8b5cf6" />
+      </div>
+      
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <ChartContainer config={salesConfig} className="min-h-[300px] bg-white">
+          <BarChart data={salesData} margin={{ top: 20, right: 20, bottom: 20, left: 0 }}>
+            <CartesianGrid vertical={false} strokeDasharray="3 3" />
+            <XAxis
+              dataKey="month"
+              tickLine={false}
+              tickMargin={10}
+              axisLine={false}
+              tickFormatter={(value) => value.slice(0, 3)}
+              className="text-gray-600"
+            />
+            <YAxis tickFormatter={(value) => `₹${value}`} className="text-gray-600" />
+            <Tooltip content={<ChartTooltipContent />} />
+            <ChartLegend content={<ChartLegendContent />} />
+            <Bar dataKey="totalSales" fill={salesConfig.totalSales.color}  />
+          </BarChart>
+        </ChartContainer>
+
+        <ChartContainer config={ordersConfig} className="min-h-[300px] bg-white">
+          <BarChart data={ordersData} margin={{ top: 20, right: 20, bottom: 20, left: 0 }}>
+            <CartesianGrid vertical={false} strokeDasharray="3 3" />
+            <XAxis
+              dataKey="month"
+              tickLine={false}
+              tickMargin={10}
+              axisLine={false}
+              tickFormatter={(value) => value.slice(0, 3)}
+              className="text-gray-600"
+            />
+            <YAxis className="text-gray-600" />
+            <Tooltip content={<ChartTooltipContent />} />
+            <ChartLegend content={<ChartLegendContent />} />
+            <Bar dataKey="totalOrders" fill={ordersConfig.totalOrders.color}  />
+          </BarChart>
+        </ChartContainer>
+      </div>
+    </div>
+  );
+}

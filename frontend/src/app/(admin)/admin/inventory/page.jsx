@@ -37,14 +37,12 @@ import CustomSelect from "@/components/ui/custrom-select";
 const StockUpdateDialog = ({ product, mutate }) => {
   const [pending, setPending] = useState(false);
   const [quantity, setQuantity] = useState(product.quantity);
-  const [stockStatus, setStockStatus] = useState(product.status);
 
   const handleStockUpdate = async id => {
     try {
       setPending(true);
       await api.put(`/vendor-products/${id}`, {
         quantity: quantity,
-        status: stockStatus,
       });
       mutate();
       tst.success("Stock updated successfully");
@@ -78,7 +76,7 @@ const StockUpdateDialog = ({ product, mutate }) => {
                 onChange={e => setQuantity(Number(e.target.value))}
                 className="w-full border p-2"
               />
-              <Label className="block mt-4 mb-2">Stock Status</Label>
+              {/* <Label className="block mt-4 mb-2">Stock Status</Label>
               <CustomSelect
                 value={stockStatus}
                 onChange={v => setStockStatus(v)}
@@ -88,7 +86,7 @@ const StockUpdateDialog = ({ product, mutate }) => {
                   { name: "In Stock", id: "In Stock" },
                   { name: "Out of Stock", id: "Out of Stock" },
                 ]}
-              />
+              /> */}
             </div>
             <DialogFooter>
               <DialogClose>
@@ -112,7 +110,6 @@ const StockUpdateDialog = ({ product, mutate }) => {
 const ProductList = ({ searchParams }) => {
   const query = searchParams.query;
   const { products, error, isLoading, mutate } = useProducts({ limit: 1000 });
-
   if (error) return <Error />;
 
   return (
@@ -152,7 +149,7 @@ const ProductList = ({ searchParams }) => {
                   <TableCell>&#8377;{product.price}</TableCell>
                   <TableCell>&#8377;{product.basePrice}</TableCell>
                   <TableCell>{product.quantity || 0}</TableCell>
-                  <TableCell>{product.status}</TableCell>
+                  <TableCell>{product.quantity == 0  ? "Out of Stock" : "In Stock"}</TableCell>
                   <TableCell>
                     <div className="flex gap-2">
                       <StockUpdateDialog product={product} mutate={mutate} />

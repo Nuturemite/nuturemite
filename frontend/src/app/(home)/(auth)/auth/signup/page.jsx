@@ -10,7 +10,7 @@ import api from "@/lib/api";
 
 function LoginForm() {
   const [formData, setFormData] = useState({
-    email: "",
+    username: "",
     name: "",
     password: "",
   });
@@ -67,16 +67,16 @@ function LoginForm() {
             />
           </div>
           <div>
-            <label htmlFor="email" className="block mb-2 text-sm font-medium text-slate-800">
-              Your email
+            <label htmlFor="username" className="block mb-2 text-sm font-medium text-slate-800">
+              Your username
             </label>
             <input
-              type="email"
-              name="email"
-              id="email"
+              type="username"
+              name="username"
+              id="username"
               className="bg-slate-300 border border-slate-300 text-slate-800 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 placeholder-slate-600"
               placeholder="name@company.com"
-              value={formData.email}
+              value={formData.username}
               onChange={handleChange}
               required
             />

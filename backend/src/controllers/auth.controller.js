@@ -5,21 +5,26 @@ import { User } from "../models/model.js";
 // Register a new user
 export const register = async (req, res) => {
   try {
-    const { email, password, name } = req.body;
+    const { username, password, name } = req.body;
     console.log(req.body);
 
-    // Check if the email already exists
-    const existingUser = await User.findOne({ email });
+    // Check if the username already exists
+    const existingUser = await User.findOne({ username });
     if (existingUser) {
-      return res.status(400).json({ message: "Email already exists" });
+      return res.status(400).json({ message: "Username already exists" });
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
-    const user = new User({ email, password: hashedPassword, name });
+    const user = new User({ username, password: hashedPassword, name, email: username });
 
     await user.save();
 
-    const token = signToken({ id: user._id, email: user.email, name: user.name, role: user.role });
+    const token = signToken({
+      id: user._id,
+      username: user.username,
+      name: user.name,
+      role: user.role,
+    });
     res.setHeader("Authorization", `Bearer ${token}`);
     res.set("Access-Control-Expose-Headers", "Authorization");
     res.status(201).json({ message: "User registered successfully!", token });
@@ -31,8 +36,8 @@ export const register = async (req, res) => {
 // Login a user
 export const login = async (req, res) => {
   try {
-    const { email, password } = req.body;
-    const user = await User.findOne({ email });
+    const { username, password } = req.body;
+    const user = await User.findOne({ username });
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
@@ -41,7 +46,12 @@ export const login = async (req, res) => {
       return res.status(401).json({ message: "Invalid credentials" });
     }
 
-    const token = signToken({ id: user._id, email: user.email, name: user.name, role: user.role });
+    const token = signToken({
+      id: user._id,
+      username: user.username,
+      name: user.name,
+      role: user.role,
+    });
     res.setHeader("Authorization", `Bearer ${token}`);
     res.set("Access-Control-Expose-Headers", "Authorization");
     res.json({ token });

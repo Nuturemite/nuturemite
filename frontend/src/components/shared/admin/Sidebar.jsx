@@ -28,6 +28,26 @@ const sidebarItems = [
     title: "Inventory",
     link: "/admin/inventory",
   },
+  {
+    icon: ShoppingBag,
+    title: "Orders",
+    link: "/admin/orders",
+  },
+  {
+    icon: ShoppingBag,
+    title: "Shipments",
+    link: "/admin/shipments",
+  },
+  {
+    icon: ShoppingBag,
+    title: "Invoices",
+    link: "/admin/invoices",
+  },
+  {
+    icon: ShoppingBag,
+    title: "Refunds",
+    link: "/admin/refunds",
+  },
   // {
   //   icon: ShoppingBag,
   //   title: "Products",

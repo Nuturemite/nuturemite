@@ -7,7 +7,7 @@ const AuthContext = createContext(null);
 export const AuthProvider = ({ children }) => {
 
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [user, setUser] = useState({ id: null, name: null, image: null });
+  const [user, setUser] = useState({ id: null, name: null, image: null, role: null });
 
   const login = () => {
     try {
@@ -26,11 +26,12 @@ export const AuthProvider = ({ children }) => {
             id: decodedToken._id,
             name: decodedToken.name,
             image: decodedToken.image,
+            role: decodedToken.role
           });
         }
       } else {
         setIsAuthenticated(false);
-        setUser({ id: null, name: null, image: null });
+        setUser({ id: null, name: null, image: null, role: null });
       }
     } catch (error) {
       console.log(error);
@@ -40,7 +41,7 @@ export const AuthProvider = ({ children }) => {
 
   const logout =  () => {
     setIsAuthenticated(false);
-    setUser({ id: null, name: null, image: null });
+    setUser({ id: null, name: null, image: null, role: null });
     localStorage.removeItem("token");
   };
 

@@ -46,6 +46,7 @@ const accountItems = [
 
 const NavBar = () => {
   const { isAuthenticated, user, login, logout } = useAuthContext();
+
   useLayoutEffect(() => {
     login();
   }, []);
@@ -54,11 +55,16 @@ const NavBar = () => {
   };
 
   const menuItems = isAuthenticated
-    ? [
-        { text: "Shop", href: "/shop" },
-        { text: "My Account", href: "/account" },
-        { text: "Dashboard", href: "/admin" },
-      ]
+    ? user.role==="vendor" ?
+    [
+      { text: "Shop", href: "/shop" },
+      { text: "My Account", href: "/account" },
+      { text: "Dashboard", href: "/admin" },
+    ] :
+    [
+      { text: "Shop", href: "/shop" },
+      { text: "My Account", href: "/account" },
+    ]
     : [
         { text: "Shop", href: "/shop" },
         { text: "Login", href: "/auth/signin" },
@@ -69,7 +75,7 @@ const NavBar = () => {
       <Header />
       <nav className="bg-primary border-slate-200 border-b px-4 md:px-12 flex gap-16 items-center justify-between">
         <Link href="/">
-          <div className="flex items-center gap-2">
+          <div className="flex items-center border-t border-primary gap-2">
             <img className="h-24 " src="./logo.jpeg" alt="" />
           </div>
         </Link>
