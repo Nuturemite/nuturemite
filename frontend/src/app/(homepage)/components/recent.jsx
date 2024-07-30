@@ -11,10 +11,12 @@ export const RecentProducts = () => {
 
   return (
     <div className="">
-      <h2 className="uppercase mb-6 text-4xl text-slate-100 font-medium ">Recent Products</h2>
-      <div className="product-grid">
-        {products.map(product => (
-          <ProductCard key={product.id} product={product} />
+      <h2 className="uppercase mb-6 text-4xl text-slate-100 font-medium ">
+        Recent Products
+      </h2>
+      <div className="grid grid-cols-1  min-[400px]:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-10 w-full h-full">
+        {products.map((product) => (
+          <ProductCard key={product.id} product={product} featured={true} />
         ))}
       </div>
     </div>

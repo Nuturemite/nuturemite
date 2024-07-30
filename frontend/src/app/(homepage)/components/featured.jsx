@@ -11,10 +11,12 @@ export const FeaturedProducts = () => {
 
   return (
     <div>
-      <h2 className="uppercase mb-6 text-4xl text-slate-500 font-medium ">Featured Products</h2>
+      <h2 className="uppercase mb-6 text-4xl text-slate-500 font-medium ">
+        Featured Products
+      </h2>
       <div className="product-grid">
-        {products.map(product => (
-          <ProductCard key={product.id} product={product} />
+        {products.map((product) => (
+          <ProductCard key={product.id} product={product} featured={true} />
         ))}
       </div>
     </div>

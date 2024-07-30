@@ -4,15 +4,17 @@ import AddToCart from "./AddToCart";
 import AddToWishlist from "./AddToWishlist";
 import Link from "next/link";
 
-export const ProductCard = ({ product }) => {
-  const { _id, images, name, basePrice, price, avgRating ,inventory} = product;
+export const ProductCard = ({ product, featured }) => {
+  const { _id, images, name, basePrice, price, avgRating, inventory } = product;
 
   return (
     <Link href={`/shop/${_id}`}>
-      <div className="w-full group hover:shadow-md cursor-pointer bg-white p-2">
+      <div className="w-full h-full group hover:shadow-md cursor-pointer bg-white p-2">
         <div className="bg-white mb-4 relative overflow-hidden">
           <img
-            className="w-full  aspect-auto object-cover p-2 group-hover:scale-110 group-hover:brightness-50 transition duration-500"
+            className={`w-full ${
+              featured && "max-h-44"
+            } aspect-auto object-cover p-2 group-hover:scale-110 group-hover:brightness-50 transition duration-500`}
             src={images?.length != 0 ? images[1] : "./noimage.png"}
             alt={name}
           />
@@ -35,12 +37,19 @@ export const ProductCard = ({ product }) => {
           </div>
         </div>
         <div className="text-center pb-[1em]">
-          <a href="#" className="h6 text-decoration-none block text-[0.92rem] ">
+          <a
+            href="#"
+            className={` ${
+              featured && "truncate"
+            } h6 text-decoration-none block text-[0.92rem] `}
+          >
             {name}
           </a>
           <div className="flex items-center justify-center mt-2">
             <h5 className="font-semibold">&#8377;{price}</h5>
-            <h6 className="text-xs text-gray-500 ml-2 line-through">&#8377; {basePrice}</h6>
+            <h6 className="text-xs text-gray-500 ml-2 line-through">
+              &#8377; {basePrice}
+            </h6>
           </div>
           <div className="flex items-center justify-center mb-1">
             {[...Array(5)].map((_, index) => (
