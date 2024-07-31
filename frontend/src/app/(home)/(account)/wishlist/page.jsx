@@ -11,7 +11,7 @@ const Wishlist = () => {
 
   async function handleItemRemove(wishlistItem) {
     try {
-      await api.delete(`/wishlist/${wishlistItem.vendorProduct._id}`);
+      await api.delete(`/wishlist/${wishlistItem.product._id}`);
       mutate();
     } catch (error) {
       tst.error(error);
@@ -47,13 +47,13 @@ const Wishlist = () => {
                 </div>
 
                 <div className="ml-4 flex flex-1 flex-col gap-6 ">
-                  <Link href={`/shop/${wishlistItem.vendorProduct._id}`} className="flex">
+                  <Link href={`/shop/${wishlistItem.product._id}`} className="flex">
                     <div>
                       <div className="text-base font-medium text-gray-900">
                         <h3>{wishlistItem.product.name}</h3>
                       </div>
                       <span>Price: </span>
-                      <span> &#8377;{wishlistItem.vendorProduct.price} </span>
+                      <span> &#8377;{wishlistItem.product.price} </span>
                       <span className="font-normal text-sm line-through text-red-500 ">
                         &#8377;{wishlistItem.product.basePrice}
                       </span>

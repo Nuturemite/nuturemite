@@ -60,7 +60,7 @@ export const useProducts = (queryParams = {}) => {
     limit = 9,
     page = 1,
   } = queryParams;
-  let { data = {}, error, isLoading, mutate } = useSWR("/vendor-products", fetcher2);
+  let { data = {}, error, isLoading, mutate } = useSWR("/products", fetcher2);
   const totalPages = data?.totalPages || 1;
   data = data?.data || [];
 
@@ -101,7 +101,7 @@ export const useBaseProduct = id => {
 };
 
 export const useProduct = id => {
-  let url = `/vendor-products/${id}`;
+  let url = `/products/${id}`;
   const { data, error, isLoading, mutate } = useSWR(url, fetcher);
   return { product: data, error, isLoading, mutate };
 };
@@ -113,7 +113,6 @@ export const useCart = () => {
 
 export const useWishlist = () => {
   const { data, error, isLoading, mutate } = useSWR("/wishlist", fetcher);
-  console.log(data);
   return { wishlistItems: data, error, isLoading, mutate };
 };
 

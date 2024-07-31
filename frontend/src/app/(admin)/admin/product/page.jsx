@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import api from "@/lib/api";
-import { useBaseProducts } from "@/lib/data";
+import { useProducts } from "@/lib/data";
 import {
   Table,
   TableBody,
@@ -33,14 +33,14 @@ import { buttonVariants } from "@/components/ui/button";
 
 const ProductList = ({ searchParams }) => {
   const query = searchParams.query;
-  const { products, error, isLoading, mutate } = useBaseProducts();
+  const { products, error, isLoading, mutate } = useProducts();
   const [pending, setPending] = useState(false);
 
-  const handleProductDelete = async (id) => {
+  const handleProductDelete = async id => {
     try {
       setPending(true);
       await api.delete(`/products/${id}`);
-      mutate(products.filter((product) => product.id !== id));
+      mutate(products.filter(product => product.id !== id));
       tst.success("Product deleted successfully");
     } catch (error) {
       console.error(error);
@@ -79,7 +79,7 @@ const ProductList = ({ searchParams }) => {
             <TableSkeleton columnCount={3} />
           ) : (
             <TableBody>
-              {products.map((product) => (
+              {products.map(product => (
                 <TableRow key={product._id}>
                   <TableCell className="flex items-center gap-3">
                     <img

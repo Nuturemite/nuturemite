@@ -19,9 +19,9 @@ export const ProductCard = ({ product, featured }) => {
             src={images?.length ? images[1] : "./noimage.png"}
             alt={name}
           />
-          {!quantity || quantity === 0 ? (
-            <div className="absolute z-10 top-1/2 text-center -rotate-45 w-full bg-black bg-opacity-50 text-white text-lg font-bold">
-              Sold Out
+          {(!quantity || quantity === 0 ) && !featured? (
+            <div className="absolute z-10 top-1/2 text-center -rotate-45 w-full bg-black bg-opacity-50 text-white  font-bold">
+              Out of Stock
             </div>
           ) : (
             <div className="absolute z-10 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 p-2 group-hover:flex space-x-6 hidden">
@@ -59,7 +59,7 @@ export const ProductCard = ({ product, featured }) => {
               <svg
                 key={index}
                 xmlns="http://www.w3.org/2000/svg"
-                className="h-4 w-4 text-primary"
+                className="h-4 w-4 text-tert-100"
                 fill="currentColor"
                 viewBox="0 0 20 20"
               >

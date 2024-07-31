@@ -3,7 +3,19 @@ import React, { useState } from "react";
 import Icon from "@/components/shared/common/icon";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Home, User, Settings, ShoppingBag, Package, Truck, FileText, CreditCard, Boxes, List, Minimize2 } from "lucide-react";
+import {
+  Home,
+  User,
+  Settings,
+  ShoppingBag,
+  Package,
+  Truck,
+  FileText,
+  CreditCard,
+  Boxes,
+  List,
+  Minimize2,
+} from "lucide-react";
 
 const sidebarItems = [
   {
@@ -71,37 +83,46 @@ function Sidebar({ className }) {
       } px-6 transition-width duration-300`}
     >
       <div className="wrapper pt-6">
-      <div className="flex justify-between items-center mb-4">
+        <div className="flex justify-between items-center mb-4">
           <Link href="/">
-            <span className={`text-lg px-4 font-semibold tracking-wide text-slate-200 ${isMinimized && "hidden"}`}>
+            <span
+              className={`text-lg px-4 font-semibold tracking-wide text-slate-200 ${
+                isMinimized && "hidden"
+              }`}
+            >
               Nuturemite
             </span>
           </Link>
-          <button
-            className="text-slate-200 mb-4 "
-            onClick={() => setIsMinimized(!isMinimized)}
-          >
+          <button className="text-slate-200 mb-4 " onClick={() => setIsMinimized(!isMinimized)}>
             <Minimize2 size={24} />
           </button>
-      </div>
+        </div>
         <ul className="flex flex-col gap-4">
-          {sidebarItems.map((item) => (
+          {sidebarItems.map(item => (
             <li key={item.title}>
               <Link
                 href={item.link}
-                className={`flex items-center px-4 py-2 text-slate-200 hover:bg-slate-100 hover:text-slate-800 transition duration-150 cursor-pointer ${
+                className={`${!isMinimized && "flex items-center"} px-4 py-2 text-slate-200 hover:bg-slate-100 hover:text-slate-800 transition duration-150 cursor-pointer ${
                   activePath === item.title.toLowerCase() && "bg-slate-300 text-slate-800"
-                } ${isMinimized && ""}`}
+                }`}
               >
-                <item.icon size={20} />
-                <span className={`ml-4 text-sm tracking-wider ${isMinimized && "hidden"}`}>{item.title}</span>
+                <item.icon  size={20} />
+                <span className={`ml-4 text-sm tracking-wider ${isMinimized && "hidden"}`}>
+                  {item.title}
+                </span>
               </Link>
             </li>
           ))}
           <li>
-            <div className={`flex items-center px-4 py-2 text-red-400 hover:bg-slate-100 hover:text-slate-800 transition duration-150 cursor-pointer ${isMinimized && "justify-center"}`}>
+            <div
+              className={`flex items-center px-4 py-2 text-red-400 hover:bg-slate-100 hover:text-slate-800 transition duration-150 cursor-pointer ${
+                isMinimized && "justify-center"
+              }`}
+            >
               <Icon icon={"uil:signout"} className="hover:text-white text-2xl" />
-              <span className={`ml-4 text-sm tracking-wider ${isMinimized && "hidden"}`}>Sign out</span>
+              <span className={`ml-4 text-sm tracking-wider ${isMinimized && "hidden"}`}>
+                Sign out
+              </span>
             </div>
           </li>
         </ul>

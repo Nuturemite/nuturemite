@@ -10,7 +10,7 @@ function AddToCart({ product, isChild, children, quantity }) {
     e.preventDefault();
     try {
       setPending(true);
-      await api.post(`/cart/${product._id}`, { productId: product.id, quantity: quantity || 1 });
+      await api.post(`/cart`, { productId: product._id, quantity: quantity || 1 });
       tst.success("Cart item added");
     } catch (error) {
       tst.error(error);

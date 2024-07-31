@@ -55,36 +55,13 @@ const BrandSchema = new Schema(
 const ProductSchema = new Schema(
   {
     name: { type: String, required: true },
-    basePrice: {
-      type: Number,
-      default: 0,
-      set: v => parseFloat(parseFloat(v).toFixed(2)),
-    },
+    basePrice: { type: Number, required: true },
     description: String,
     categories: [{ type: Schema.Types.ObjectId, ref: "Category", required: true }],
     brand: { type: Schema.Types.ObjectId, ref: "Brand", default: "66987df7c8d737564c027967" },
-    sku: Number,
-    barcode: String,
-    image: String,
-    images: [String],
-    isSale: { type: Number, default: 0 },
-    slug: String,
-  },
-  { timestamps: true }
-);
-
-// VendorProduct Schema
-const VendorProductSchema = new Schema(
-  {
-    product: { type: Schema.Types.ObjectId, ref: "Product", required: true },
-    vendor: { type: Schema.Types.ObjectId, ref: "Vendor", required: true },
-    price: {
-      type: Number,
-      default: 0,
-      set: v => parseFloat(parseFloat(v).toFixed(2)),
-    },
     quantity: { type: Number, default: 0 },
-    status: { type: String, enum: ["In Stock", "Out of Stock"], default: "In Stock" },
+    sku: String,
+    images: [String],
   },
   { timestamps: true }
 );
@@ -162,26 +139,6 @@ const VendorSchema = new Schema(
   { timestamps: true }
 );
 
-// SubOrder Schema
-const SubOrderSchema = new Schema(
-  {
-    order: { type: Schema.Types.ObjectId, ref: "Order" },
-    seller: { type: Schema.Types.ObjectId, ref: "User" },
-    vendor: { type: Schema.Types.ObjectId, ref: "Vendor" },
-    status: String,
-    total: String,
-    subOrderItems: [
-      {
-        quantity: { type: Number, required: true },
-        price: { type: mongoose.Decimal128, required: true },
-        subOrder: { type: Schema.Types.ObjectId, ref: "SubOrder", required: true },
-        product: { type: Schema.Types.ObjectId, ref: "Product", required: true },
-      },
-    ],
-  },
-  { timestamps: true }
-);
-
 // PaymentDetails Schema
 const PaymentDetailsSchema = new Schema(
   {
@@ -193,14 +150,6 @@ const PaymentDetailsSchema = new Schema(
   { timestamps: true }
 );
 
-// ApiToken Schema
-const ApiTokenSchema = new Schema(
-  {
-    token: { type: String, unique: true, required: true },
-    user: { type: Schema.Types.ObjectId, ref: "User", required: true },
-  },
-  { timestamps: true }
-);
 
 // CartItem Schema
 const CartSchema = new Schema(
@@ -208,7 +157,7 @@ const CartSchema = new Schema(
     user: { type: Schema.Types.ObjectId, ref: "User", required: true },
     items: [
       {
-        vendorProduct: { type: Schema.Types.ObjectId, ref: "VendorProduct", required: true },
+        product: { type: Schema.Types.ObjectId, ref: "Product", required: true },
         quantity: { type: Number, required: true },
       },
     ],
@@ -222,7 +171,7 @@ const WishlistSchema = new Schema(
     user: { type: Schema.Types.ObjectId, ref: "User", required: true },
     items: [
       {
-        vendorProduct: { type: Schema.Types.ObjectId, ref: "VendorProduct", required: true },
+        product: { type: Schema.Types.ObjectId, ref: "Product", required: true },
       },
     ],
   },
@@ -241,104 +190,53 @@ const ReviewSchema = new Schema(
   { timestamps: true }
 );
 
-// Tag Schema
-const TagSchema = new Schema({
-  title: { type: String, required: true },
-});
 
-// City Schema
-const CitySchema = new Schema(
-  {
-    name: { type: String, unique: true, required: true },
-    state: { type: Schema.Types.ObjectId, ref: "State", required: true },
-    addresses: [{ type: Schema.Types.ObjectId, ref: "Address" }],
-  },
-  { timestamps: true }
-);
-
-// State Schema
-const StateSchema = new Schema(
-  {
-    name: { type: String, unique: true, required: true },
-    country: { type: Schema.Types.ObjectId, ref: "Country", required: true },
-    addresses: [{ type: Schema.Types.ObjectId, ref: "Address" }],
-    cities: [{ type: Schema.Types.ObjectId, ref: "City" }],
-  },
-  { timestamps: true }
-);
-
-// Country Schema
-const CountrySchema = new Schema(
-  {
-    name: { type: String, unique: true, required: true },
-    addresses: [{ type: Schema.Types.ObjectId, ref: "Address" }],
-    states: [{ type: Schema.Types.ObjectId, ref: "State" }],
-  },
-  { timestamps: true }
-);
-
-// Ucode Schema
-const UcodeSchema = new Schema(
-  {
-    code: { type: String, unique: true, required: true },
-    email: { type: String, required: true },
-    dateExpired: Date,
-  },
-  { timestamps: true }
-);
-
-
-const vendorSchemaa = new mongoose.Schema({
-  name: String,
-  contactPerson: String,
-  contactEmail: String,
-  contactPhoneNumber: String,
-  address: {
-    street: String,
-    city: String,
-    state: String,
-    postalCode: String,
-    country: String,
-  },
-  businessInfo: {
-    registrationNumber: String,
-    taxId: String,
-    businessType: String,
-  },
-  bankDetails: {
-    bankName: String,
-    accountNumber: String,
-    routingNumber: String,
-    swiftCode: String,
-  },
-  status: {
-    type: String,
-    enum: ['profile', 'bank', 'business', 'complete'],
-    default: 'profile',
-  },
-}, { timestamps: true });
-
+// const vendorSchema = new mongoose.Schema(
+//   {
+//     name: String,
+//     contactPerson: String,
+//     contactEmail: String,
+//     contactPhoneNumber: String,
+//     address: {
+//       street: String,
+//       city: String,
+//       state: String,
+//       postalCode: String,
+//       country: String,
+//     },
+//     businessInfo: {
+//       registrationNumber: String,
+//       taxId: String,
+//       businessType: String,
+//     },
+//     bankDetails: {
+//       bankName: String,
+//       accountNumber: String,
+//       routingNumber: String,
+//       swiftCode: String,
+//     },
+//     status: {
+//       type: String,
+//       enum: ["profile", "bank", "business", "complete"],
+//       default: "profile",
+//     },
+//   },
+//   { timestamps: true }
+// );
 
 // Compile all schemas
 const User = mongoose.model("User", UserSchema);
 const Category = mongoose.model("Category", CategorySchema);
 const Brand = mongoose.model("Brand", BrandSchema);
 const Product = mongoose.model("Product", ProductSchema);
-const VendorProduct = mongoose.model("VendorProduct", VendorProductSchema);
 const Cart = mongoose.model("Cart", CartSchema);
 const Wishlist = mongoose.model("Wishlist", WishlistSchema);
 
 const Address = mongoose.model("Address", AddressSchema);
 const Order = mongoose.model("Order", OrderSchema);
 const Vendor = mongoose.model("Vendor", VendorSchema);
-const SubOrder = mongoose.model("SubOrder", SubOrderSchema);
 const PaymentDetails = mongoose.model("PaymentDetails", PaymentDetailsSchema);
-const ApiToken = mongoose.model("ApiToken", ApiTokenSchema);
 const Review = mongoose.model("Review", ReviewSchema);
-const Tag = mongoose.model("Tag", TagSchema);
-const City = mongoose.model("City", CitySchema);
-const State = mongoose.model("State", StateSchema);
-const Country = mongoose.model("Country", CountrySchema);
 
 export {
   Category,
@@ -348,15 +246,8 @@ export {
   Address,
   User,
   Vendor,
-  SubOrder,
   PaymentDetails,
-  ApiToken,
   Cart,
   Wishlist,
   Review,
-  Tag,
-  City,
-  State,
-  Country,
-  VendorProduct,
 };

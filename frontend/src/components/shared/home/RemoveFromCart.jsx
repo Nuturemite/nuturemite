@@ -8,10 +8,13 @@ export default function RemoveFromCart({ cartItem, pending, setPending }) {
 
   async function handleCartRemove() {
     try {
+      console.log("first");
+      console.log(cartItem);
       setPending(true);
-      await api.delete(`/cart/${cartItem.vendorProduct._id}`);
+      await api.delete(`/cart/${cartItem.product._id}`);
       await mutate();
     } catch (error) {
+      console.log(error);
       tst.error(error);
     } finally {
       setPending(false);

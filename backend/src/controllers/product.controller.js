@@ -31,8 +31,7 @@ export const createProduct = async (req, res) => {
 // Get a single product
 export const getProduct = async (req, res) => {
   try {
-    const product = await Product.findById(req.params.id)
-      .populate("categories", "name")
+    const product = await Product.findById(req.params.id).populate("categories", "name");
     if (!product) return res.status(404).json({ message: "Product not found" });
     res.json({ data: product });
   } catch (error) {
@@ -86,6 +85,7 @@ export const updateProduct = async (req, res) => {
     if (!product) return res.status(404).json({ message: "Product not found" });
     res.json({ message: "Product updated successfully!", data: product });
   } catch (error) {
+    console.log(error);
     res.status(500).json({ message: error.message });
   }
 };

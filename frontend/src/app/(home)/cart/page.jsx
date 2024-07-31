@@ -28,10 +28,10 @@ const ShoppingCart = () => {
   if (error) return <Error />;
   if (cartItems.length === 0) return <EmptyCart />;
 
-  const handleQuantityChange = async (item, value) => {
+  const handleQuantityChange = async (cartItem, value) => {
     try {
       setPending(true);
-      await api.post(`/cart/${item.vendorProduct._id}`, { quantity: value });
+      await api.post(`/cart/`, { productId: cartItem.product._id, quantity: value });
       await mutate();
       tst.success("Quantity updated successfully");
     } catch (error) {
@@ -65,7 +65,7 @@ const ShoppingCart = () => {
                     <div className="flex justify-between text-base font-medium text-gray-900">
                       <h3>{cartItem.product.name}</h3>
                       <div>
-                        <span className="ml-6"> &#8377;{cartItem.vendorProduct.price}</span>
+                        <span className="ml-6"> &#8377;{cartItem.product.price}</span>
                         <span className="ml-2 line-through text-sm text-red-600">
                           {" "}
                           &#8377;{cartItem.product.basePrice}

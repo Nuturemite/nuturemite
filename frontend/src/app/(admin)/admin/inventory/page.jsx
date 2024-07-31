@@ -38,10 +38,10 @@ const StockUpdateDialog = ({ product, mutate }) => {
   const [pending, setPending] = useState(false);
   const [quantity, setQuantity] = useState(product.quantity);
 
-  const handleStockUpdate = async id => {
+  const handleStockUpdate = async productId => {
     try {
       setPending(true);
-      await api.put(`/vendor-products/${id}`, {
+      await api.put(`/products/${productId}`, {
         quantity: quantity,
       });
       mutate();
@@ -146,10 +146,20 @@ const ProductList = ({ searchParams }) => {
                     />
                     <span>{product.name}</span>
                   </TableCell>
-                  <TableCell>&#8377;{product.price}</TableCell>
                   <TableCell>&#8377;{product.basePrice}</TableCell>
+                  <TableCell>&#8377;{product.price}</TableCell>
                   <TableCell>{product.quantity || 0}</TableCell>
-                  <TableCell>{!product.quantity || product.quantity == 0  ? "Out of Stock" : "In Stock"}</TableCell>
+                  <TableCell>
+                    <div
+                      className={`p-1 rounded-full text-xs text-center ${
+                        !product.quantity || product.quantity == 0
+                          ? "bg-red-200 text-red-600"
+                          : "bg-green-200 text-green-600"
+                      }`}
+                    >
+                      {!product.quantity || product.quantity == 0 ? "Out of Stock" : "In Stock"}
+                    </div>
+                  </TableCell>
                   <TableCell>
                     <div className="flex gap-2">
                       <StockUpdateDialog product={product} mutate={mutate} />

@@ -2,14 +2,14 @@ import express from "express";
 import {
   addItemToWishlist,
   removeItemFromWishlist,
-  getWishlist,
+  getWishlistByUserId,
 } from "../controllers/wishlist.controller.js";
 import isAuth from "../middlewares/auth.js";
 
 const router = express.Router();
 
-router.post("/:vendorProductId", isAuth, addItemToWishlist);
-router.delete("/:vendorProductId", isAuth, removeItemFromWishlist);
-router.get("/", isAuth, getWishlist);
+router.post("/:productId", isAuth, addItemToWishlist);
+router.delete("/:productId", isAuth, removeItemFromWishlist);
+router.get("/", isAuth, getWishlistByUserId);
 
 export default router;

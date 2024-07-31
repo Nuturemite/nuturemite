@@ -1,6 +1,6 @@
 // server.js
 import Stripe from "stripe";
-import { findCartByUserId } from "./cart.controller.js";
+import { getCartByUserId } from "./cart.controller.js";
 import { Order, PaymentDetails } from "../models/model.js";
 const stripe = Stripe(process.env.STRIPE_SECRET_KEY);
 const DELIVERY_CHARGE = 200;
@@ -8,7 +8,7 @@ const MIN_PRICE_FOR_FREE_DELIVERY = 2000;
 
 export const createCheckoutSession = async (req, res) => {
   try {
-    const cart = await findCartByUserId(req.user.id);
+    const cart = await getCartByUserId(req.user.id);
 
     if (!cart || cart[0].items.length === 0)
       return res.status(400).json({ message: "Cart is empty" });
