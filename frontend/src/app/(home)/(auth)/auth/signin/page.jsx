@@ -1,5 +1,6 @@
 "use client";
-import LoadingButton from "@/components/shared/loadbtn";
+import PendingButton from "@/components/shared/loadbtn";
+import { Button } from "@/components/ui/button";
 import { useAuthContext } from "@/context/authprovider";
 import api from "@/lib/api";
 import { tst } from "@/lib/utils";
@@ -12,7 +13,7 @@ function LoginForm() {
     username: "",
     password: "",
   });
-  const [loading, setLoading] = useState(false);
+  const [pending, setPending] = useState(false);
   const { login ,user} = useAuthContext();
   const router = useRouter();
 
@@ -27,7 +28,7 @@ function LoginForm() {
   const handleSignin = async e => {
     e.preventDefault();
     try {
-      setLoading(true);
+      setPending(true);
       const response = await api.post("/auth/login", formData);
       const authHeader = response.headers.get("Authorization");
       if (authHeader) {
@@ -37,16 +38,16 @@ function LoginForm() {
       login();
       router.back("/");
       tst.success("Signin success");
-      setLoading(false);
+      setPending(false);
     } catch (error) {
       tst.error(error)
-      setLoading(false);
+      setPending(false);
     }
   };
 
   return (
-    <div className="flex justify-between items-center mt-6 w-full ">
-      <div className="w-full  mx-auto max-w-sm p-4 bg-slate-200 border border-slate-400 rounded-lg shadow sm:p-6 md:p-8">
+    <div className="flex justify-between items-center  w-full ">
+      <div className="w-full  mx-auto max-w-sm p-4 bg-slate-200 border border-slate-400  shadow sm:p-6 md:p-8">
         <form className="space-y-6" onSubmit={handleSignin}>
           <h5 className="text-xl font-medium text-slate-800">Sign in to our platform</h5>
           <div>
@@ -57,7 +58,7 @@ function LoginForm() {
               type="text"
               name="username"
               id="username"
-              className="bg-slate-300 border border-slate-300 text-slate-700 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 placeholder-slate-400"
+              className="bg-slate-300 border border-slate-300 text-slate-700 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 placeholder-slate-400"
               placeholder="E.g. anoop@gmail.com"
               value={formData.username}
               onChange={handleChange}
@@ -73,7 +74,7 @@ function LoginForm() {
               name="password"
               id="password"
               placeholder="E.g. welcome"
-              className="bg-slate-300 border border-slate-300 text-slate-700 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 placeholder-slate-400"
+              className="bg-slate-300 border border-slate-300 text-slate-700 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 placeholder-slate-400"
               value={formData.password}
               onChange={handleChange}
               required
@@ -84,7 +85,7 @@ function LoginForm() {
               Forgot your password?
             </a>
           </div>
-          <LoadingButton loading={loading}>Login to your Account</LoadingButton>
+          <Button className="w-full" pending={pending}>Login to your Account</Button>
           <div className="text-sm font-medium text-slate-800">
             Not registered?{" "}
             <Link href="/auth/signup" className="text-blue-700 hover:underline">

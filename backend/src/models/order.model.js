@@ -4,6 +4,7 @@ const Schema = mongoose.Schema;
 // Order Schema
 export const OrderSchema = new Schema(
   {
+    user: { type: Schema.Types.ObjectId, ref: "User", required: true },
     subtotal: { type: Number, required: true },
     total: { type: Number, required: true },
     deliveryFee: String,
@@ -58,3 +59,10 @@ export const OrderSchema = new Schema(
   },
   { timestamps: true }
 );
+
+
+OrderSchema.virtual("suborders", {
+  ref: "SubOrder",
+  localField: "_id",
+  foreignField: "order",
+});

@@ -48,28 +48,18 @@ const ProductInfo = ({ product }) => (
         </TableRow>
         <TableRow>
           <TableCell className="font-medium">Status:</TableCell>
-          <TableCell>{product.status || "Out of Stock"}</TableCell>
+          <TableCell>{product.quantity == 0 ? "Out of Stock" : "In Stock"}</TableCell>
         </TableRow>
         <TableRow>
           <TableCell className="font-medium">Description:</TableCell>
           <TableCell>{product.description}</TableCell>
         </TableRow>
-        <TableRow>
-          <TableCell className="font-medium">Benefits:</TableCell>
-          <TableCell>{product.benefits}</TableCell>
-        </TableRow>
-        <TableRow>
-          <TableCell className="font-medium">Use Instruction:</TableCell>
-          <TableCell>{product.useInstruction}</TableCell>
-        </TableRow>
-        <TableRow>
-          <TableCell className="font-medium">Safety Precaution:</TableCell>
-          <TableCell>{product.safetyPrecaution}</TableCell>
-        </TableRow>
-        <TableRow>
-          <TableCell className="font-medium">Ingredients:</TableCell>
-          <TableCell>{product.ingredients}</TableCell>
-        </TableRow>
+        {product.details.map(detail => (
+          <TableRow key={detail.name}>
+            <TableCell className="font-medium">{detail.name}:</TableCell>
+            <TableCell>{detail.value}</TableCell>
+          </TableRow>
+        ))}
         <TableRow>
           <TableCell className="font-medium">Images:</TableCell>
           <TableCell>

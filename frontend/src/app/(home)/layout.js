@@ -3,6 +3,7 @@ import { Toaster } from "react-hot-toast";
 import { AuthProvider } from "@/context/authprovider";
 import NavBar from "@/components/shared/home/Navbar";
 import Footer from "@/components/shared/home/Footer";
+
 export const metadata = {
   title: "Nuturemite",
   description: "",

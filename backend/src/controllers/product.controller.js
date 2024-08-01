@@ -49,7 +49,7 @@ export const getAllProducts = async (req, res) => {
       .populate({
         path: "brands",
         options: { strictPopulate: false },
-      });
+      })
 
     const total = await Product.countDocuments();
 

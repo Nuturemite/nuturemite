@@ -6,7 +6,7 @@ export const metadata = {
 export default async function Layout({ children }) {
 
   return (
-    <div className="pt-10">
+    <div className="pt-2">
       <div>{children}</div>
     </div>
   );

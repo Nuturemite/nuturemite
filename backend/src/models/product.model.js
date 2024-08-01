@@ -13,6 +13,24 @@ export const ProductSchema = new Schema(
     quantity: { type: Number, default: 0 },
     sku: String,
     images: [String],
+    dimensions: {
+      length: { type: Number },
+      width: { type: Number },
+      height: { type: Number },
+    },
+    weight: { type: Number },
+    details:[
+      {
+        name: String,
+        value: String
+      }
+    ],
+    approvalStatus: {
+      type: String,
+      enum: ["pending", "approved", "rejected"],
+      default: "pending",
+    },
+    status: { type: String, enum: ["active", "inactive"], default: "active" },
   },
   { timestamps: true }
 );

@@ -16,8 +16,9 @@ import {
   List,
   Minimize2,
 } from "lucide-react";
+import { useAuthContext } from "@/context/authprovider";
 
-const sidebarItems = [
+const sidebarItemsVendor = [
   {
     icon: Home,
     title: "Dashboard",
@@ -70,11 +71,29 @@ const sidebarItems = [
   },
 ];
 
+const sidebarItemsAdmin = [
+  {
+    icon: Home,
+    title: "Dashboard",
+    link: "/admin/",
+  },
+  {
+    icon: User,
+    title: "Customers",
+    link: "/admin/users",
+  },
+  {
+    icon: Settings,
+    title: "Settings",
+    link: "/admin/products/",
+  },
+];
+
 function Sidebar({ className }) {
   const [isMinimized, setIsMinimized] = useState(false);
   const activePath = usePathname().split("/")[2];
-  console.log(activePath)
-  console.log(sidebarItems[2].title.toLowerCase())
+  const {user} = useAuthContext();
+  const sidebarItems = sidebarItemsVendor;
 
   return (
     <aside
@@ -95,18 +114,24 @@ function Sidebar({ className }) {
               Nuturemite
             </span>
           </Link>
-            <Minimize2 onClick={() => setIsMinimized(!isMinimized)} className="text-slate-200 cursor-pointer" size={20} />
+          <Minimize2
+            onClick={() => setIsMinimized(!isMinimized)}
+            className="text-slate-200 cursor-pointer"
+            size={20}
+          />
         </div>
         <ul className="flex flex-col gap-4">
           {sidebarItems.map(item => (
             <li key={item.title}>
               <Link
                 href={item.link}
-                className={`${!isMinimized && "flex items-center px-4 py-2"} p-1  text-slate-200 hover:bg-slate-100 hover:text-slate-800 transition duration-150 cursor-pointer ${
+                className={`${
+                  !isMinimized && "flex items-center px-4 py-2"
+                } p-1  text-slate-200 hover:bg-slate-100 hover:text-slate-800 transition duration-150 cursor-pointer ${
                   activePath === item.title.toLowerCase() && "bg-slate-300 text-slate-800"
                 }`}
               >
-                <item.icon  size={20} />
+                <item.icon size={20} />
                 <span className={`ml-4 text-sm tracking-wider ${isMinimized && "hidden"}`}>
                   {item.title}
                 </span>

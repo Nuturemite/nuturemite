@@ -23,36 +23,44 @@ export const placeOrder = async (req, res) => {
     const cart = await Cart.findOne({ user: userId }).populate("items.product");
 
     if (!cart) {
-      throw new Error("Cart not found or user not authorized");
+      return res.status(400).json({ message: "Cart not found " });
     }
 
-    // Check stock levels and prepare stock updates
-    const stockUpdates = [];
+    if (cart.items.length === 0) {
+      return res.status(400).json({ message: "Cart is empty" });
+    }
+
+    // Check quantity levels and prepare quantity updates
+    const quantityUpdates = [];
     for (const item of cart.items) {
       const product = await Product.findById(item.product._id).session(session);
 
-      if (product.stock < item.quantity) {
-        throw new Error(`Product ${product.name} is out of stock or insufficient stock`);
+      if (product.quantity < item.quantity) {
+        await session.abortTransaction();
+        return res.status(400).json({ message: "Insufficient quantity" });
       }
 
-      // Prepare the stock update
-      stockUpdates.push({
+      // Prepare the quantity update
+      quantityUpdates.push({
         product,
-        newStock: product.stock - item.quantity,
+        newQuantity: product.quantity - item.quantity,
       });
     }
 
     // Create Order
     const subtotal = cart.items.reduce((acc, item) => acc + item.product.price * item.quantity, 0);
     let total;
-    if (subtotal > 2000) {
-      total = subtotal + 2000;
+    if (subtotal <= 2000) {
+      total = subtotal + 200;
+    } else {
+      total = subtotal;
     }
     const newOrder = new Order({
       total,
       subtotal,
       paymentMode,
       shippingDetails,
+      user: userId,
       createdAt: new Date(),
       orderItems: cart.items.map(item => ({
         product: item.product._id,
@@ -60,7 +68,9 @@ export const placeOrder = async (req, res) => {
         basePrice: item.product.basePrice,
         price: item.product.price,
       })),
+      status: "placed",
     });
+
     await newOrder.save({ session });
 
     // Create SubOrders for each vendor
@@ -72,11 +82,12 @@ export const placeOrder = async (req, res) => {
 
       if (!vendorOrders[vendor]) {
         vendorOrders[vendor] = {
-          orderId: newOrder._id,
+          order: newOrder._id,
           vendor,
           subOrderItems: [],
           totalAmount: 0,
           createdAt: new Date(),
+          status: "placed",
         };
       }
 
@@ -94,9 +105,9 @@ export const placeOrder = async (req, res) => {
       await subOrder.save({ session });
     }
 
-    // Apply the stock updates
-    for (const { product, newStock } of stockUpdates) {
-      product.stock = newStock;
+    // Apply the quantity updates
+    for (const { product, newQuantity } of quantityUpdates) {
+      product.quantity = newQuantity;
       await product.save({ session });
     }
 
@@ -116,60 +127,72 @@ export const placeOrder = async (req, res) => {
   }
 };
 
-export const getOrdersByUserId = async (req, res) => {
-  try {
-    const userId = req.user.id;
-    const orders = await Order.find({ user: userId })
-      .populate("vendor")
-      .populate("subOrders.vendorId")
-      .populate("subOrders.subOrderItems.productId")
-      .exec();
-
-    res.status(200).json(orders);
-  } catch (error) {
-    console.error("Error getting orders:", error);
-    res.status(500).json({ message: "Error getting orders", error: error.message });
-  }
-};
-
-export const getOrdersByVendorId = async (req, res) => {
-  try {
-    const vendorId = req.params.vendorId;
-    const orders = await Order.find({ "subOrders.vendorId": vendorId })
-      .populate("user")
-      .populate("subOrders.subOrderItems.productId")
-      .exec();
-
-    res.status(200).json(orders);
-  } catch (error) {
-    console.error("Error getting orders:", error);
-    res.status(500).json({ message: "Error getting orders", error: error.message });
-  }
-};
-
+// Get all orders
 export const getAllOrders = async (req, res) => {
   try {
-    const orders = await Order.find({}).exec();
-
+    const orders = await Order.find();
     res.status(200).json(orders);
   } catch (error) {
-    console.error("Error getting orders:", error);
-    res.status(500).json({ message: "Error getting orders", error: error.message });
+    res.status(500).json({ message: error.message });
   }
 };
 
-export const getOrderById = async (req, res) => {
+// Get orders by user
+export const getUserOrders = async (req, res) => {
+  const { userId } = req.params;
   try {
-    const orderId = req.params.id;
-    const order = await Order.findById(orderId).exec();
-    console.log("first");
-    if (!order) {
-      return res.status(404).json({ message: "Order not found" });
-    }
-
-    res.status(200).json(order);
+    const orders = await Order.find({ user: userId });
+    res.status(200).json(orders);
   } catch (error) {
-    console.error("Error getting order:", error);
-    res.status(500).json({ message: "Error getting order", error: error.message });
+    res.status(500).json({ message: error.message });
+  }
+};
+
+// Get order by ID
+export const getOrderById = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const order = await Order.findById(id).populate({
+      path: "orderItems.product",
+      select: "_id vendor name price basePrice images",
+    });
+    if (order) {
+      res.status(200).json(order);
+    } else {
+      res.status(404).json({ message: "Order not found" });
+    }
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+// Get orders by current authenticated user
+export const getMyOrders = async (req, res) => {
+  try {
+    const orders = await Order.find({ user: req.user.id }).select("-shippingDetails -orderItems");
+    res.status(200).json(orders);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+// Get all sub-orders by vendor
+export const getVendorOrders = async (req, res) => {
+  const { vendorId } = req.params;
+  try {
+    const subOrders = await SubOrder.find({ vendor: vendorId });
+    res.status(200).json(subOrders);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+// Get sub-orders by current authenticated vendor
+export const getMyOrdersAsVendor = async (req, res) => {
+  try {
+    const subOrders = await SubOrder.find({ vendor: req.user.vendorId });
+    res.status(200).json(subOrders);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
   }
 };

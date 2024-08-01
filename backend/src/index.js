@@ -26,7 +26,7 @@ app.post("/api/stripe/webhook", express.raw({ type: "application/json" }), strip
 app.use(express.json({ limit: "50mb", extended: true }));
 app.use(fileUpload({ limits: { fileSize: 50 * 1024 * 1024 } }));
 
-app.use("/api/orders", orderRoutes);
+app.use("/api", orderRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/reviews", reviewRoutes);
 app.use("/api/payment", paymentRoutes);
