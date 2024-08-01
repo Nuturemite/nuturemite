@@ -66,3 +66,17 @@ export const removeItemFromCart = async (req, res) => {
     res.status(500).json({ message: "Error removing item from cart", error });
   }
 };
+
+
+export const findCartByUserId = async (userId) => {
+  try {
+    const cart = await Cart.findOne({ user: userId }).populate("items.product");
+    if (!cart) {
+      return null;
+    }
+    return cart;
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
+};

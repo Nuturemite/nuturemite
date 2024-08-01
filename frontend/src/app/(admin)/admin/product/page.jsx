@@ -33,7 +33,7 @@ import { buttonVariants } from "@/components/ui/button";
 
 const ProductList = ({ searchParams }) => {
   const query = searchParams.query;
-  const { products, error, isLoading, mutate } = useProducts();
+  const { products, error, isLoading, mutate } = useProducts({ limit: 50 });
   const [pending, setPending] = useState(false);
 
   const handleProductDelete = async id => {
@@ -72,11 +72,13 @@ const ProductList = ({ searchParams }) => {
             <TableRow>
               <TableHead>Name</TableHead>
               <TableHead>MRP</TableHead>
+              <TableHead>Sales Price</TableHead>
+              <TableHead>SKU</TableHead>
               <TableHead>Action</TableHead>
             </TableRow>
           </TableHeader>
           {isLoading ? (
-            <TableSkeleton columnCount={3} />
+            <TableSkeleton columnCount={5} />
           ) : (
             <TableBody>
               {products.map(product => (
@@ -90,34 +92,15 @@ const ProductList = ({ searchParams }) => {
                     <span>{product.name}</span>
                   </TableCell>
                   <TableCell>&#8377;{product.basePrice}</TableCell>
+                  <TableCell>&#8377;{product.price}</TableCell>
+                  <TableCell>{product.sku || "-"}</TableCell>
                   <TableCell>
-                    <div className="flex gap-2">
-                      <AlertDialog>
-                        <AlertDialogTrigger asChild>
-                          <Trash className="text-red-600 cursor-pointer" />
-                        </AlertDialogTrigger>
-                        <AlertDialogContent>
-                          <AlertDialogHeader>
-                            <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
-                            <AlertDialogDescription>
-                              This action cannot be undone.
-                            </AlertDialogDescription>
-                          </AlertDialogHeader>
-                          <AlertDialogFooter>
-                            <AlertDialogCancel>Cancel</AlertDialogCancel>
-                            <AlertDialogAction
-                              onClick={() => handleProductDelete(product._id)}
-                              className={buttonVariants({ variant: "destructive" })}
-                            >
-                              Delete
-                            </AlertDialogAction>
-                          </AlertDialogFooter>
-                        </AlertDialogContent>
-                      </AlertDialog>
-                      <Link href={`/admin/product/edit/${product._id}/`}>
-                        <Edit className="text-green-500 cursor-pointer" />
-                      </Link>
-                    </div>
+                    <ProductDeleteDialog
+                      key={product._id}
+                      id={product._id}
+                      handleProductDelete={handleProductDelete}
+                      product={product}
+                    />
                   </TableCell>
                 </TableRow>
               ))}
@@ -129,4 +112,33 @@ const ProductList = ({ searchParams }) => {
   );
 };
 
+const ProductDeleteDialog = ({ handleProductDelete, product }) => {
+  return (
+    <div className="flex gap-2">
+      <AlertDialog>
+        <AlertDialogTrigger asChild>
+          <Trash className="text-red-600 cursor-pointer" />
+        </AlertDialogTrigger>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+            <AlertDialogDescription>This action cannot be undone.</AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>Cancel</AlertDialogCancel>
+            <AlertDialogAction
+              onClick={() => handleProductDelete(product._id)}
+              className={buttonVariants({ variant: "destructive" })}
+            >
+              Delete
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
+      <Link href={`/admin/product/edit/${product._id}/`}>
+        <Edit className="text-green-500 cursor-pointer" />
+      </Link>
+    </div>
+  );
+};
 export default ProductList;

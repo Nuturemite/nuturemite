@@ -1,7 +1,7 @@
 // server.js
 import Stripe from "stripe";
 import { getCartByUserId } from "./cart.controller.js";
-import { Order, PaymentDetails } from "../models/model.js";
+import { Order } from "../models/model.js";
 const stripe = Stripe(process.env.STRIPE_SECRET_KEY);
 const DELIVERY_CHARGE = 200;
 const MIN_PRICE_FOR_FREE_DELIVERY = 2000;
@@ -88,12 +88,12 @@ export const stripePaymentListener = async (req, res) => {
         order.amount = amount;
         order.paymentStatus = paymentIntentSucceeded.payment_status;
         order.save();
-        const paymentDetials = new PaymentDetails({
-          orderId: paymentIntentSucceeded.metadata.orderId,
-          amount: amount,
-          provider: paymentIntentSucceeded.payment_method_types[0],
-          status: paymentIntentSucceeded.payment_status,
-        });
+        // const paymentDetials = new PaymentDetails({
+        //   orderId: paymentIntentSucceeded.metadata.orderId,
+        //   amount: amount,
+        //   provider: paymentIntentSucceeded.payment_method_types[0],
+        //   status: paymentIntentSucceeded.payment_status,
+        // });
         paymentDetials.save();
         break;
       default:

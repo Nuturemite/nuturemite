@@ -1,7 +1,6 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { useCategories } from "@/lib/data";
 import {
   Mail,
   Phone,
@@ -14,7 +13,19 @@ import {
 } from "lucide-react";
 
 const Footer = () => {
-  const { categories } = useCategories();
+  const categories = [
+    "Antioxidants",
+    "Ayurvedic",
+    "Digestive Health",
+    "General Health",
+    "Herbal, Specialty Supplements",
+    "Immune Health",
+    "Men Health",
+    "Women Health",
+    "Personal Care",
+    "Vitamins & Minerals",
+  ];
+ 
   return (
     <div className="container-fluid bg-primary text-secondary mt-5 p-10  text-sm ">
       <div className="flex flex-wrap justify-center px-4 lg:px-0">
@@ -59,8 +70,6 @@ const Footer = () => {
             {
               title: "Popular categories",
               links: categories
-                ? categories?.map((category) => category.name)
-                : [],
             },
             { title: "Newsletter", links: [] },
           ].map(({ title, links }, index) => (

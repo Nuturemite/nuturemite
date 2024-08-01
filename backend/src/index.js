@@ -10,8 +10,9 @@ import productRoutes from "./routes/product.route.js";
 import cartRoutes from "./routes/cart.route.js";
 import wishlistRoutes from "./routes/wishlist.route.js";
 import paymentRoutes from "./routes/payment.route.js";
-import reviewRoutes from "./routes/review.route.js"
-import userRoutes from "./routes/user.route.js"
+import reviewRoutes from "./routes/review.route.js";
+import userRoutes from "./routes/user.route.js";
+import orderRoutes from "./routes/order.route.js";
 import { stripePaymentListener } from "./controllers/payment.controller.js";
 
 dotenv.config();
@@ -20,12 +21,12 @@ const app = express();
 
 app.use(cors({ origin: process.env.CLIENT_URL, credentials: true }));
 
-
 app.post("/api/stripe/webhook", express.raw({ type: "application/json" }), stripePaymentListener);
 
 app.use(express.json({ limit: "50mb", extended: true }));
 app.use(fileUpload({ limits: { fileSize: 50 * 1024 * 1024 } }));
 
+app.use("/api/orders", orderRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/reviews", reviewRoutes);
 app.use("/api/payment", paymentRoutes);

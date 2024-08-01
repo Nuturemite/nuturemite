@@ -11,7 +11,7 @@ export const RecentProducts = () => {
 
   return (
     <div className="">
-      <h2 className="uppercase mb-6 text-3xl text-slate-100 font-medium text-center">
+      <h2 className="uppercase mb-10 text-3xl text-slate-100 font-medium text-center">
         Recent Products
       </h2>
       <div className="grid grid-cols-1  min-[400px]:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-10 w-full h-full">

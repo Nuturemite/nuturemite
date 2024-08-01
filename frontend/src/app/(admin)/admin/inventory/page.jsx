@@ -21,7 +21,6 @@ import Link from "next/link";
 import {
   Dialog,
   DialogPortal,
-  DialogOverlay,
   DialogClose,
   DialogTrigger,
   DialogContent,
@@ -32,7 +31,6 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import CustomSelect from "@/components/ui/custrom-select";
 
 const StockUpdateDialog = ({ product, mutate }) => {
   const [pending, setPending] = useState(false);
@@ -67,7 +65,7 @@ const StockUpdateDialog = ({ product, mutate }) => {
               Update the stock quantity and status for this product.
             </DialogDescription>
           </DialogHeader>
-          <form>
+          <form onSubmit={e => e.preventDefault()}>
             <div className="my-4">
               <Label className="block mb-2">Inventory Quantity</Label>
               <Input
@@ -151,8 +149,8 @@ const ProductList = ({ searchParams }) => {
                   <TableCell>{product.quantity || 0}</TableCell>
                   <TableCell>
                     <div
-                      className={`p-1 rounded-full text-xs text-center ${
-                        !product.quantity || product.quantity == 0
+                      className={`py-1 rounded-full w-max text-xs px-2 text-center  ${
+                        product.quantity == 0
                           ? "bg-red-200 text-red-600"
                           : "bg-green-200 text-green-600"
                       }`}

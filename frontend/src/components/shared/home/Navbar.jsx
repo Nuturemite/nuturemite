@@ -114,7 +114,7 @@ const NavBar = () => {
               <ul className="font-medium  items-center flex flex-col  border-slate-100  md:flex-row md:space-x-3 rtl:space-x-reverse md:mt-0 md:border-0  dark:border-slate-700">
                 <ProductSearch />
 
-                <li>
+                {/* <li>
                   <NavigationMenu>
                     <NavigationMenuList>
                       <NavigationMenuItem>
@@ -125,7 +125,7 @@ const NavBar = () => {
                       </NavigationMenuItem>
                     </NavigationMenuList>
                   </NavigationMenu>
-                </li>
+                </li> */}
                 {menuItems.map((menuItem, index) => (
                   <li key={index}>
                     <Link href={menuItem.href} className="navbar-heading">

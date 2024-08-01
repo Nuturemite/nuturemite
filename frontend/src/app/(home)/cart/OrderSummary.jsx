@@ -26,7 +26,7 @@ export default function OrderSummary({}) {
       <section aria-labelledby="summary-heading" className=" bg-white lg:p-4 ">
         <h2
           id="summary-heading"
-          className=" border-b border-gray-200 px-4 py-3 text-lg font-medium text-gray-900 sm:p-4"
+          className=" border-b border-gray-200 py-3 text-lg font-medium text-gray-900 "
         >
           Price Details
         </h2>
@@ -50,7 +50,7 @@ export default function OrderSummary({}) {
             </div>
             <div className="flex items-center justify-between border-y border-dashed py-4 ">
               <dt className="text-base font-medium text-gray-900">Total</dt>
-              <dd className="text-base font-medium text-gray-900">{totalAmount}</dd>
+              <dd className="text-base font-medium text-gray-900">₹ {totalAmount}</dd>
             </div>
           </dl>
           <div className="px-2 pb-4 font-medium text-green-700">

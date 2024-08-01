@@ -11,7 +11,7 @@ export const FeaturedProducts = () => {
 
   return (
     <div>
-      <h2 className="uppercase mb-6 text-4xl text-slate-500 font-medium ">
+      <h2 className="uppercase mb-10 text-3xl text-center text-slate-500 font-medium ">
         Featured Products
       </h2>
       <div className="product-grid">

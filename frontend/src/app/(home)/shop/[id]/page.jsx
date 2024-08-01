@@ -108,7 +108,7 @@ export default function Product({ params }) {
                     <SelectValue placeholder="1" />
                   </SelectTrigger>
                   <SelectContent>
-                    {Array.from({ length: 100 }, (_, i) => i + 1).map(i => (
+                    {Array.from({ length: Math.min(product.quantity, 100) }, (_, i) => i + 1).map(i => (
                       <SelectItem key={i} value={i}>
                         {i}
                       </SelectItem>

@@ -19,6 +19,7 @@ export const createProduct = async (req, res) => {
         req.body.images = images;
       }
     }
+    req.body.vendor = req.user._id;
     const product = new Product(req.body);
     await product.save();
     res.status(201).json({ message: "Product created successfully!", data: product });
