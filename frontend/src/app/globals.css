@@ -100,6 +100,7 @@
   background: #718096;
 }
 
+
 @layer utilities {
   .navbar-heading {
     @apply font-normal text-white text-[0.93rem] hover:bg-slate-100 px-4 py-2 hover:text-slate-600 transition-all duration-200;

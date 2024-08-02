@@ -40,7 +40,7 @@ const ProductList = ({ searchParams }) => {
     try {
       setPending(true);
       await api.delete(`/products/${id}`);
-      mutate(products.filter(product => product.id !== id));
+      await mutate();
       tst.success("Product deleted successfully");
     } catch (error) {
       console.error(error);

@@ -1,6 +1,6 @@
 import jwt from "jsonwebtoken";
 // Auth middleware
-const  isAuth = (req, res, next) => {
+const isAuth = (req, res, next) => {
   const token = req.headers.authorization?.split(" ")[1];
 
   if (!token) {
@@ -8,6 +8,7 @@ const  isAuth = (req, res, next) => {
   }
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    // console.log(decoded);
     req.user = decoded;
     next();
   } catch (err) {

@@ -10,8 +10,8 @@ export const createProduct = async (req, res) => {
         const url = await uploadImage(req.files.image.data, "nuturemite/product/uploads");
         req.body.image = url;
       }
-      if (req.files.images) {
-        const uploadPromises = req.files.images.map(async image => {
+      if (req.files['images[]']) {
+        const uploadPromises = req.files['images[]'].map(async image => {
           const url = await uploadImage(image.data, "nuturemite/product/uploads");
           return url;
         });
@@ -19,7 +19,7 @@ export const createProduct = async (req, res) => {
         req.body.images = images;
       }
     }
-    req.body.vendor = req.user._id;
+    req.body.vendor = req.user.vendorId;
     const product = new Product(req.body);
     await product.save();
     res.status(201).json({ message: "Product created successfully!", data: product });
@@ -49,8 +49,8 @@ export const getAllProducts = async (req, res) => {
       .populate({
         path: "brands",
         options: { strictPopulate: false },
-      })
-      
+      });
+
     const total = await Product.countDocuments();
 
     res.json({
@@ -73,8 +73,8 @@ export const updateProduct = async (req, res) => {
         const url = await uploadImage(req.files.image.data, "nuturemite/product/uploads");
         req.body.image = url;
       }
-      if (req.files.images) {
-        const uploadPromises = req.files.images.map(async image => {
+      if (req.files['images[]']) {
+        const uploadPromises = req.files['images[]'].map(async image => {
           const url = await uploadImage(image.data, "nuturemite/product/uploads");
           return url;
         });

@@ -15,6 +15,7 @@ import { Button } from "@/components/ui/button";
 import TableSkeleton from "@/components/shared/tableskeleton";
 import Loader from "@/components/shared/loader";
 import { Eye } from "lucide-react";
+import { formatString } from "@/lib/utils";
 
 export default function OrderPage() {
   const { orders, isLoading, error } = useMyOrders();
@@ -47,16 +48,16 @@ export default function OrderPage() {
                 <TableCell>
                   <div
                     className={`text-xs p-1 rounded-full text-center ${
-                      order.status === "Delivered"
+                      order.status === "delivered"
                         ? "bg-green-200 text-green-600"
-                        : order.status === "Shipped"
+                        : order.status === "shipped"
                         ? "bg-blue-200 text-blue-600"
-                        : order.status === "Pending"
-                        ? "bg-yellow-200 text-yellow-600"
+                        : order.status === "pending"
+                        ? "bg-red-200 text-red-600"
                         : "bg-red-200 text-red-600"
                     }`}
                   >
-                    {order.status}
+                    {formatString(order.status)}
                   </div>
                 </TableCell>
                 <TableCell>{order.total}</TableCell>

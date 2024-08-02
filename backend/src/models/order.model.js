@@ -52,6 +52,13 @@ export const OrderSchema = new Schema(
   { timestamps: true }
 );
 
+OrderSchema.pre('find', function() {
+  this.sort({ _id: -1 });
+});
+
+OrderSchema.pre('findOne', function() {
+  this.sort({ _id: -1 });
+});
 
 OrderSchema.virtual("suborders", {
   ref: "SubOrder",

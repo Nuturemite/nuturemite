@@ -47,14 +47,14 @@ export const login = async (req, res) => {
     }
 
     let vendor;
-    // if (user.role == "vendor") vendor = await Vendor.findOne({ user: user._id });
+    if (user.role == "vendor") vendor = await Vendor.findOne({ user: user._id });
 
     const token = signToken({
       id: user._id,
       username: user.username,
       name: user.name,
       role: user.role,
-      // vendorId:user.vendorId
+      vendorId: vendor._id,
     });
     res.setHeader("Authorization", `Bearer ${token}`);
     res.set("Access-Control-Expose-Headers", "Authorization");

@@ -8,6 +8,7 @@ import {
   TableRow,
   TableHeader,
 } from "@/components/ui/table";
+import ImagePreview from "@/components/ui/image-preivew";
 const ProductDesc = ({ product }) => (
   <div className="py-4">
     <h2 className="text-2xl font-medium">Product Description</h2>
@@ -65,12 +66,14 @@ const ProductInfo = ({ product }) => (
           <TableCell>
             <div className="flex space-x-2">
               {product.images.map((url, index) => (
-                <img
-                  key={index}
-                  src={url}
-                  alt={`Product image ${index + 1}`}
-                  className="w-24 h-24 object-cover"
-                />
+               <ImagePreview>
+                  <img
+                    key={index}
+                    src={url}
+                    alt={`Product image ${index + 1}`}
+                    className="w-24 h-24 object-cover"
+                  />
+               </ImagePreview>
               ))}
             </div>
           </TableCell>

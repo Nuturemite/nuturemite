@@ -11,6 +11,7 @@ import { useCategories } from "@/lib/data";
 import { tst } from "@/lib/utils";
 import UploadImage from "@/components/shared/uploadimage";
 import CustomSelect from "@/components/ui/custrom-select";
+import ImageUpload from "@/components/ui/image-upload";
 
 const productSchema = Joi.object({
   name: Joi.string().trim().min(3).required().messages({
@@ -41,7 +42,7 @@ const productSchema = Joi.object({
     "string.base": `Category ID should be a type of 'string'`,
     "any.required": `Category ID is a required`,
   }),
-  image: Joi.any(),
+  images: Joi.any(),
 }).options({ stripUnknown: true });
 
 const updateProductSchema = Joi.object({
@@ -71,12 +72,13 @@ const updateProductSchema = Joi.object({
     "string.base": `Category ID should be a type of 'string'`,
     "any.required": `Category ID is a required`,
   }),
-  image: Joi.any(),
+  images: Joi.any(),
 }).options({ stripUnknown: true });
 
 function ProductForm({ update, params, product, isLoading }) {
   const { categories } = useCategories();
   const [formData, setFormData] = useState({});
+  const [images, setImages] = useState([]);
   const [pending, setPending] = useState(false);
   const [error, setError] = useState(null);
   const [formErrors, setFormErrors] = useState({});
@@ -90,8 +92,15 @@ function ProductForm({ update, params, product, isLoading }) {
         price: product.price || "",
         sku: product.sku || "",
         categoryId: product.categoryId || "",
-        image: product.image,
       });
+
+      // if (product.images) {
+      //   setImages(
+      //     product.images.map(image => ({
+      //       preview: image
+      //     }))
+      //   );
+      // }
     }
   }, [update, product]);
 
@@ -118,6 +127,8 @@ function ProductForm({ update, params, product, isLoading }) {
 
     try {
       const schema = update ? updateProductSchema : productSchema;
+
+      formData.images = images.map(image => image.image);
       const { value, error } = schema.validate(formData, { abortEarly: false });
 
       if (error) {
@@ -272,13 +283,7 @@ function ProductForm({ update, params, product, isLoading }) {
           <Label htmlFor="image" className="mb-2 block">
             Upload Images
           </Label>
-          <UploadImage
-            multiple
-            image={formData.image}
-            onImageSelect={image => setFormData({ ...formData, image })}
-            onImageRemove={() => setFormData({ ...formData, image: null })}
-            className={"w-60"}
-          />
+          <ImageUpload images={images} setImages={setImages} />
         </div>
         {error && (
           <div className="text-red-500 px-2 py-3 border border-red-300 text-sm mt-2">{error}</div>
