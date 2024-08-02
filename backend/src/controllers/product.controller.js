@@ -50,7 +50,7 @@ export const getAllProducts = async (req, res) => {
         path: "brands",
         options: { strictPopulate: false },
       })
-
+      
     const total = await Product.countDocuments();
 
     res.json({

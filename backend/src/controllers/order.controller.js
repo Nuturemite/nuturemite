@@ -1,4 +1,4 @@
-import { Cart, Order, Product, SubOrder } from "../models/model.js";
+import { Cart, Order, Product, SubOrder, Vendor } from "../models/model.js";
 import mongoose from "mongoose";
 
 export const addShippingAddress = async (req, res) => {
@@ -62,13 +62,6 @@ export const placeOrder = async (req, res) => {
       shippingDetails,
       user: userId,
       createdAt: new Date(),
-      orderItems: cart.items.map(item => ({
-        product: item.product._id,
-        quantity: item.quantity,
-        basePrice: item.product.basePrice,
-        price: item.product.price,
-      })),
-      status: "placed",
     });
 
     await newOrder.save({ session });
@@ -84,18 +77,17 @@ export const placeOrder = async (req, res) => {
         vendorOrders[vendor] = {
           order: newOrder._id,
           vendor,
-          subOrderItems: [],
+          orderItems: [],
           totalAmount: 0,
           createdAt: new Date(),
-          status: "placed",
         };
       }
 
-      vendorOrders[vendor].subOrderItems.push({
+      vendorOrders[vendor].orderItems.push({
         product: item.product._id,
         quantity: item.quantity,
-        unitPrice: item.product.price,
-        totalPrice: item.product.price * item.quantity,
+        basePrice: item.product.price,
+        price: item.product.price * item.quantity,
       });
       vendorOrders[vendor].totalAmount += item.product.price * item.quantity;
     }
@@ -131,7 +123,7 @@ export const placeOrder = async (req, res) => {
 export const getAllOrders = async (req, res) => {
   try {
     const orders = await Order.find();
-    res.status(200).json(orders);
+    res.status(200).json({ data: orders });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -142,7 +134,7 @@ export const getUserOrders = async (req, res) => {
   const { userId } = req.params;
   try {
     const orders = await Order.find({ user: userId });
-    res.status(200).json(orders);
+    res.status(200).json({ data: orders });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -152,12 +144,20 @@ export const getUserOrders = async (req, res) => {
 export const getOrderById = async (req, res) => {
   const { id } = req.params;
   try {
-    const order = await Order.findById(id).populate({
-      path: "orderItems.product",
-      select: "_id vendor name price basePrice images",
-    });
+    const order = await Order.findById(id);
+    const suborders = await SubOrder.find({ order: order._id })
+      .populate({
+        path: "orderItems.product",
+        select: "_id vendor name price basePrice images",
+      })
+      .populate({ path: "vendor" });
+    const orderWithSuborders = {
+      ...order.toObject(),
+      suborders,
+    };
+
     if (order) {
-      res.status(200).json(order);
+      res.status(200).json({ data: orderWithSuborders });
     } else {
       res.status(404).json({ message: "Order not found" });
     }
@@ -170,7 +170,7 @@ export const getOrderById = async (req, res) => {
 export const getMyOrders = async (req, res) => {
   try {
     const orders = await Order.find({ user: req.user.id }).select("-shippingDetails -orderItems");
-    res.status(200).json(orders);
+    res.status(200).json({ data: orders });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -181,7 +181,7 @@ export const getVendorOrders = async (req, res) => {
   const { vendorId } = req.params;
   try {
     const subOrders = await SubOrder.find({ vendor: vendorId });
-    res.status(200).json(subOrders);
+    res.status(200).json({ data: subOrders });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -190,8 +190,12 @@ export const getVendorOrders = async (req, res) => {
 // Get sub-orders by current authenticated vendor
 export const getMyOrdersAsVendor = async (req, res) => {
   try {
-    const subOrders = await SubOrder.find({ vendor: req.user.vendorId });
-    res.status(200).json(subOrders);
+    console.log(req.user.id);
+    const vendor = await Vendor.findOne({ user: req.user.id });
+    console.log(vendor._id);
+    const subOrders = await SubOrder.find({ vendor: vendor._id });
+
+    res.status(200).json({ data: subOrders });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }

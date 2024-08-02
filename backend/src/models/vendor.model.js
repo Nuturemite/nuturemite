@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 
 export const VendorSchema = new Schema(
   {
-    userId: { type: Schema.Types.ObjectId, ref: "User", required: true },
+    user: { type: Schema.Types.ObjectId, ref: "User", required: true },
     domain: String,
     status: {
       type: String,

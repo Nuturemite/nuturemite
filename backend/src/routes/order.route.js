@@ -18,7 +18,7 @@ router.get("/users/:userId/orders", isAuth, getUserOrders); // Get orders by use
 router.get("/vendors/:vendorId/orders", isAuth, getVendorOrders); // Get orders by vendor ID
 
 // Vendor
-router.get("/vendors/my/orders", isAuth, getMyOrdersAsVendor); // Get logged-in vendor's orders
+router.get("/vendor/my/orders", isAuth, getMyOrdersAsVendor); // Get logged-in vendor's orders
 
 // User
 router.get("/my/orders", isAuth, getMyOrders); // Get logged-in user's orders

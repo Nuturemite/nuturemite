@@ -4,9 +4,9 @@ import Sidebar from "./sidebar";
 function DashboardLayout({ children }) {
   return (
     <div className="relative flex min-h-screen  ">
-      <Sidebar/>
-      <div className="w-full md:ml-2 mt-1 relative p-6">
-        <div className="p-4">{children}</div>
+      <Sidebar />
+      <div className="w-full mt-1 relative p-4">
+        <div>{children}</div>
       </div>
     </div>
   );

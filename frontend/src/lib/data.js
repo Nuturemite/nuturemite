@@ -143,8 +143,8 @@ export const useReviews = productId => {
   return { reviews: data, error, isLoading, mutate };
 };
 
-export const useOrders = () => {
-  const { data, error, isLoading, mutate } = useSWR("/orders", fetcher);
+export const useMyOrders = () => {
+  const { data, error, isLoading, mutate } = useSWR("/my/orders", fetcher);
   return { orders: data, error, isLoading, mutate };
 };
 
@@ -152,3 +152,9 @@ export const useOrder = orderId => {
   const { data, error, isLoading, mutate } = useSWR(`/orders/${orderId}`, fetcher);
   return { order: data, error, isLoading, mutate };
 };
+
+export const useMyVendorOrders = () => {
+  const { data, error, isLoading, mutate } = useSWR(`/vendor/my/orders`, fetcher);
+  return { order: data, error, isLoading, mutate };
+};
+

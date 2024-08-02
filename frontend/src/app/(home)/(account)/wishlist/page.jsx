@@ -34,8 +34,8 @@ const Wishlist = () => {
         <div className="flow-root">
           <ul role="list" className=" divide-gray-200 divide-y-4">
             {wishlistItems.map(wishlistItem => (
-              <li key={wishlistItem._id} className="flex py-6 bg-white w-full px-4 ">
-                <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
+              <li key={wishlistItem._id} className="flex py-3 bg-white w-full px-4 ">
+                <div className="h-24 w-24 flex-shrink-0 overflow-hidden  border border-gray-200">
                   <img
                     src={
                       wishlistItem.product.images.length != 0

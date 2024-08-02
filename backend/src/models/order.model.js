@@ -48,14 +48,6 @@ export const OrderSchema = new Schema(
     returnedAt: Date,
     cancelledAt: Date,
     pausedAt: Date,
-    orderItems: [
-      {
-        product: { type: Schema.Types.ObjectId, ref: "Product" },
-        quantity: { type: Number, required: true },
-        basePrice: { type: Number, required: true },
-        price: { type: Number, required: true },
-      },
-    ],
   },
   { timestamps: true }
 );

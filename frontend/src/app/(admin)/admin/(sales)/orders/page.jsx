@@ -14,6 +14,10 @@ import {
 import SearchInput from "@/components/shared/search";
 import Link from "next/link";
 import { Eye } from "lucide-react";
+import { useMyVendorOrders } from "@/lib/data";
+import { isLastDayOfMonth } from "date-fns";
+import Loader from "@/components/shared/loader";
+import Error from "@/components/shared/error";
 
 // Sample data for demonstration
 const sampleData = [
@@ -68,6 +72,11 @@ const sampleData = [
 ];
 
 const ProductList = () => {
+  // const { order, isLoading, error } = useMyVendorOrders();
+
+  // if(isLoading) return <Loader/>
+  // if(error) return <Error/>
+  
   return (
     <div className="container mx-auto p-4">
       <div className="flex justify-between text-center mb-6">

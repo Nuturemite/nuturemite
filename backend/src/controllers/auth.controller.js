@@ -1,6 +1,6 @@
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
-import { User } from "../models/model.js";
+import { User, Vendor } from "../models/model.js";
 
 // Register a new user
 export const register = async (req, res) => {
@@ -46,11 +46,15 @@ export const login = async (req, res) => {
       return res.status(401).json({ message: "Invalid credentials" });
     }
 
+    let vendor;
+    // if (user.role == "vendor") vendor = await Vendor.findOne({ user: user._id });
+
     const token = signToken({
       id: user._id,
       username: user.username,
       name: user.name,
       role: user.role,
+      // vendorId:user.vendorId
     });
     res.setHeader("Authorization", `Bearer ${token}`);
     res.set("Access-Control-Expose-Headers", "Authorization");
