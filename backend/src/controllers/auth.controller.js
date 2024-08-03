@@ -5,17 +5,16 @@ import { User, Vendor } from "../models/model.js";
 // Register a new user
 export const register = async (req, res) => {
   try {
-    const { username, password, name } = req.body;
+    const { username, password, name, role } = req.body;
     console.log(req.body);
 
-    // Check if the username already exists
     const existingUser = await User.findOne({ username });
     if (existingUser) {
       return res.status(400).json({ message: "Username already exists" });
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
-    const user = new User({ username, password: hashedPassword, name, email: username });
+    const user = new User({ username, password: hashedPassword, name, email: username, role });
 
     await user.save();
 
@@ -25,9 +24,10 @@ export const register = async (req, res) => {
       name: user.name,
       role: user.role,
     });
+
     res.setHeader("Authorization", `Bearer ${token}`);
     res.set("Access-Control-Expose-Headers", "Authorization");
-    res.status(201).json({ message: "User registered successfully!", token });
+    res.status(201).json({ message: "User registered successfully!", token, user });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -49,51 +49,30 @@ export const login = async (req, res) => {
     let vendor;
     if (user.role == "vendor") vendor = await Vendor.findOne({ user: user._id });
 
-    const token = signToken({
-      id: user._id,
-      username: user.username,
-      name: user.name,
-      role: user.role,
-      vendorId: vendor._id,
-    });
-    res.setHeader("Authorization", `Bearer ${token}`);
-    res.set("Access-Control-Expose-Headers", "Authorization");
-    res.json({ token, vendor: vendor || {}, user });
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
-};
-
-export const registerVendor = async () => {
-  try {
-    const { username, password, name } = req.body;
-    console.log(req.body);
-
-    // Check if the username already exists
-    const existingUser = await User.findOne({ username });
-    if (existingUser) {
-      return res.status(400).json({ message: "Username already exists" });
-    }
-
-    const hashedPassword = await bcrypt.hash(password, 10);
-    const user = new User({ username, password: hashedPassword, name, email: username });
-
-    await user.save();
-    const vendor = new Vendor(req.body);
-    await vendor.save();
-
-    const token = signToken({
-      id: user._id,
-      username: user.username,
-      name: user.name,
-      role: user.role,
-    });
+    const token =
+      user.role == "user" || user.role == "admin"
+        ? signToken({
+            id: user._id,
+            username: user.username,
+            name: user.name,
+            role: user.role,
+          })
+        : signToken({
+            id: user._id,
+            username: user.username,
+            name: user.name,
+            role: user.role,
+            vendorId: vendor?._id,
+            isVerified: vendor?.isVerified || false,
+            detailsStatus: vendor?.detailsStatus,
+            appprovalStatus: vendor?.approvalStatus,
+            isRegistered: !!vendor,
+          });
 
     res.setHeader("Authorization", `Bearer ${token}`);
     res.set("Access-Control-Expose-Headers", "Authorization");
-    res.status(201).json({ message: "User registered successfully!", user, vendor });
+    res.json({ token, vendor: vendor || null, user });
   } catch (error) {
-    console.log(error);
     res.status(500).json({ message: error.message });
   }
 };

@@ -14,7 +14,7 @@ function LoginForm() {
     password: "",
   });
   const [pending, setPending] = useState(false);
-  const { login ,user} = useAuthContext();
+  const { login, user } = useAuthContext();
   const router = useRouter();
 
   const handleChange = event => {
@@ -30,17 +30,20 @@ function LoginForm() {
     try {
       setPending(true);
       const response = await api.post("/auth/login", formData);
+      const user = response.data.user;
+      const vendor = response.data.vendor;
       const authHeader = response.headers.get("Authorization");
       if (authHeader) {
         const token = authHeader.replace("Bearer ", "");
         localStorage.setItem("token", token);
       }
       login();
-      router.back("/");
+      if (user.role === "vendor" && vendor) router.push("/vendor");
+      else router.push("/vendor-register");
       tst.success("Signin success");
-      setPending(false);
     } catch (error) {
-      tst.error(error)
+      tst.error(error);
+    } finally {
       setPending(false);
     }
   };
@@ -85,7 +88,9 @@ function LoginForm() {
               Forgot your password?
             </a>
           </div>
-          <Button className="w-full" pending={pending}>Login to your Account</Button>
+          <Button className="w-full" pending={pending}>
+            Login to your Account
+          </Button>
           <div className="text-sm font-medium text-slate-800">
             Not registered?{" "}
             <Link href="/auth/signup" className="text-blue-700 hover:underline">

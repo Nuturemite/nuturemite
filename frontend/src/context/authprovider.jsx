@@ -1,16 +1,16 @@
 "use client";
-import { createContext, useState, useContext, useEffect } from "react";
+import { createContext, useState, useContext, useEffect, use } from "react";
 import { jwtDecode } from "jwt-decode";
 
 const AuthContext = createContext(null);
 
 export const AuthProvider = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [user, setUser] = useState({ id: null, name: null, image: null, role: null });
-  const [loading, setLoading] = useState(true);
+  const [user, setUser] = useState({});
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    setLoading(false);
+    setIsLoading(false);
   }, []);
 
   const login = () => {
@@ -32,11 +32,13 @@ export const AuthProvider = ({ children }) => {
             image: decodedToken.image,
             role: decodedToken.role,
             vendorId: decodedToken.vendorId,
+            isVerified: decodedToken.isVerified,
+            isRegistered: decodedToken.isRegistered,
           });
         }
       } else {
         setIsAuthenticated(false);
-        setUser({ id: null, name: null, image: null, role: null, vendorId: null });
+        setUser({});
       }
     } catch (error) {
       console.log(error);
@@ -45,12 +47,12 @@ export const AuthProvider = ({ children }) => {
 
   const logout = () => {
     setIsAuthenticated(false);
-    setUser({ id: null, name: null, image: null, role: null, vendorId: null });
+    setUser({});
     localStorage.removeItem("token");
   };
 
   return (
-    <AuthContext.Provider value={{ isAuthenticated, loading, login, user, logout }}>
+    <AuthContext.Provider value={{ isAuthenticated, login, user, logout, isLoading }}>
       {children}
     </AuthContext.Provider>
   );

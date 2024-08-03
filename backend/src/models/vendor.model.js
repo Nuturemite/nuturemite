@@ -1,6 +1,6 @@
 // const mongoose = require("mongoose");
-import mongoose from "mongoose"
-const Schema = mongoose.Schema
+import mongoose from "mongoose";
+const Schema = mongoose.Schema;
 // Address Schema
 const addressSchema = new mongoose.Schema({
   street: { type: String, required: true },
@@ -47,14 +47,23 @@ export const VendorSchema = new mongoose.Schema({
   name: { type: String, required: true },
   businessName: { type: String, required: true },
   contactNumber: { type: String, required: true },
-  taxId: { type: String, required: true },
-  address: { type: addressSchema, required: true },
-  bankAccount: { type: bankAccountSchema, required: true },
-  businessLicense: { type: businessLicenseSchema, required: true },
-  store: { type: storeSchema, required: true },
+  taxId: { type: String },
+  address: { type: addressSchema },
+  bankAccount: { type: bankAccountSchema },
+  businessLicense: { type: businessLicenseSchema },
+  store: { type: storeSchema },
   status: { type: String, enum: ["active", "inactive"], default: "active" },
+  approvalStatus: {
+    type: String,
+    enum: ["submitted", "approved", "rejected"],
+    default: "submitted",
+  },
   approvedBy: { type: Schema.Types.ObjectId, ref: "User" },
-  detailsStatus: { type: String, enum: ['register','business','bank','profile','complete'], default: "register" },
+  profileStatus: {
+    type: String,
+    enum: ["register", "business", "bank", "profile", "complete"],
+    default: "register",
+  },
   isVerified: { type: Boolean, default: false },
   createdAt: { type: Date, default: Date.now },
 });

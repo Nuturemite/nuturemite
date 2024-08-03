@@ -1,5 +1,4 @@
 "use client";
-import PendingButton from "@/components/shared/loadbtn";
 import { useAuthContext } from "@/context/authprovider";
 import { tst } from "@/lib/utils";
 import Link from "next/link";
@@ -12,14 +11,12 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
 function LoginForm() {
-  const [loginType, setLoginType] = useState("customer");
+  const [role, setRole] = useState("user");
   const [formData, setFormData] = useState({
     username: "",
     name: "",
     password: "",
-    businessName: "",
-    contactNumber: "",
-    businessUrl: "",
+    role: "user",
   });
   const [pending, setPending] = useState(false);
   const { login } = useAuthContext();
@@ -33,28 +30,30 @@ function LoginForm() {
     }));
   };
 
-  const handleLoginTypeChange = event => {
-    setLoginType(event.target.value);
+  const handleRoleChange = event => {
+    const selectedRole = event.target.value;
+    setRole(selectedRole);
+    setFormData(prevData => ({
+      ...prevData,
+      role: selectedRole === "vendor" ? "vendor" : "user",
+    }));
   };
 
   const handleSignup = async e => {
     e.preventDefault();
     try {
       setPending(true);
-      let url = "/auth/register";
-      if (loginType === "vendor") {
-        await api.post('/auth/vendor/register', { formData });
-        router.push('/auth/signin');
-      } else {
-        const response = await api.post("/auth/register", { formData });
-        const authHeader = response.headers.get("Authorization");
-        if (authHeader) {
-          const token = authHeader.replace("Bearer ", "");
-          localStorage.setItem("token", token);
-        }
+
+      const response = await api.post("/auth/register", formData );
+      const user = response.data.user;
+      const authHeader = response.headers.get("Authorization");
+      if (authHeader) {
+        const token = authHeader.replace("Bearer ", "");
+        localStorage.setItem("token", token);
         login();
-        router.push("/");
-        toast.success(`Signup ${loginType} success`);
+        if (user.role === "vendor") router.push("/vendor-register");
+        else router.push("/");
+        toast.success(`Signup ${formData.role} success`);
       }
     } catch (error) {
       tst.error(error);
@@ -84,7 +83,7 @@ function LoginForm() {
           <div>
             <Label htmlFor="username">Username</Label>
             <Input
-              type="username"
+              type="text"
               name="username"
               id="username"
               placeholder="name@gmail.com"
@@ -106,56 +105,15 @@ function LoginForm() {
               required
             />
           </div>
-
-          {loginType === "vendor" && (
-            <>
-              <div>
-                <Label htmlFor="businessName">Business Name</Label>
-                <Input
-                  type="text"
-                  name="businessName"
-                  id="businessName"
-                  placeholder="Business Name"
-                  value={formData.businessName}
-                  onChange={handleChange}
-                  required
-                />
-              </div>
-              <div>
-                <Label htmlFor="contactNumber">Contact Number</Label>
-                <Input
-                  type="text"
-                  name="contactNumber"
-                  id="contactNumber"
-                  placeholder="Contact Number"
-                  value={formData.contactNumber}
-                  onChange={handleChange}
-                  required
-                />
-              </div>
-              <div>
-                <Label htmlFor="businessUrl">Business Url</Label>
-                <Input
-                  type="text"
-                  name="businessUrl"
-                  id="businessUrl"
-                  placeholder="Business Url"
-                  value={formData.businessUrl}
-                  onChange={handleChange}
-                  required
-                />
-              </div>
-            </>
-          )}
           <div className="space-y-2">
             <div className="flex space-x-2">
               <input
                 type="radio"
-                name="loginType"
+                name="role"
                 id="customer"
-                value="customer"
-                checked={loginType === "customer"}
-                onChange={handleLoginTypeChange}
+                value="user"
+                checked={role === "user"}
+                onChange={handleRoleChange}
                 required
               />
               <Label htmlFor="customer">Login as Customer</Label>
@@ -163,11 +121,11 @@ function LoginForm() {
             <div className="flex space-x-2">
               <input
                 type="radio"
-                name="loginType"
+                name="role"
                 id="vendor"
                 value="vendor"
-                checked={loginType === "vendor"}
-                onChange={handleLoginTypeChange}
+                checked={role === "vendor"}
+                onChange={handleRoleChange}
                 required
               />
               <Label htmlFor="vendor">Login as Vendor</Label>

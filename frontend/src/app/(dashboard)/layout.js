@@ -9,7 +9,7 @@ export const metadata = {
   description: "",
 };
 
-export default function HomeLayout({ children }) {
+export default function DashboardLayout({ children }) {
   return (
     <html lang="en ">
       <body className="bg-gray-100">

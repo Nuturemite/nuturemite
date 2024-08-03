@@ -15,8 +15,7 @@ export default function HomeLayout({ children }) {
       <body className="bg-gray-100">
         <div className=" text-slate-900 relative">
           <AuthProvider>
-          <NavBar />
-
+            <NavBar />
             <div className="container  max-w-screen-xl  mx-auto">
               <div>{children}</div>
             </div>

@@ -13,6 +13,7 @@ import paymentRoutes from "./routes/payment.route.js";
 import reviewRoutes from "./routes/review.route.js";
 import userRoutes from "./routes/user.route.js";
 import orderRoutes from "./routes/order.route.js";
+import vendorRoutes from "./routes/vendor.route.js";
 import { stripePaymentListener } from "./controllers/payment.controller.js";
 
 dotenv.config();
@@ -26,6 +27,7 @@ app.post("/api/stripe/webhook", express.raw({ type: "application/json" }), strip
 app.use(express.json({ limit: "50mb", extended: true }));
 app.use(fileUpload({ limits: { fileSize: 50 * 1024 * 1024 } }));
 
+app.use('/api/vendors', vendorRoutes)
 app.use("/api", orderRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/reviews", reviewRoutes);

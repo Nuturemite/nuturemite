@@ -93,6 +93,8 @@ function Sidebar({ className }) {
   const [isMinimized, setIsMinimized] = useState(false);
   const activePath = usePathname().split("/")[2];
   const { user } = useAuthContext();
+  console.log(user);
+
   const sidebarItems = sidebarItemsVendor;
 
   return (
