@@ -15,8 +15,10 @@ import {
   Boxes,
   List,
   Minimize2,
+  User2,
 } from "lucide-react";
 import { useAuthContext } from "@/context/authprovider";
+import Loader from "../loader";
 
 const sidebarItemsVendor = [
   {
@@ -65,9 +67,9 @@ const sidebarItemsVendor = [
     link: "/vendor/category",
   },
   {
-    icon: Settings,
-    title: "Settings",
-    link: "/vendor/settings/",
+    icon: User2,
+    title: "Profile",
+    link: "/vendor/profile/",
   },
 ];
 
@@ -79,23 +81,23 @@ const sidebarItemsAdmin = [
   },
   {
     icon: User,
-    title: "Customers",
-    link: "/vendor/users",
+    title: "Vendors",
+    link: "/admin/vendors",
   },
   {
-    icon: Settings,
-    title: "Settings",
-    link: "/vendor/products/",
+    icon: User,
+    title: "Products",
+    link: "/admin/products",
   },
 ];
 
 function Sidebar({ className }) {
   const [isMinimized, setIsMinimized] = useState(false);
   const activePath = usePathname().split("/")[2];
-  const { user } = useAuthContext();
-  console.log(user);
+  const { user, isLoading } = useAuthContext();
+  if (isLoading) <Loader />;
 
-  const sidebarItems = sidebarItemsVendor;
+  const sidebarItems = user.role === "vendor" ? sidebarItemsVendor : sidebarItemsAdmin;
 
   return (
     <aside

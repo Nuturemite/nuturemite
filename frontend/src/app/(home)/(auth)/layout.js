@@ -1,5 +1,5 @@
 export const metadata = {
-  title: "DailyDocket",
+  title: "Nuturemite",
   description: "",
 };
 

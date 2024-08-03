@@ -135,7 +135,7 @@ const ProductDeleteDialog = ({ handleProductDelete, product }) => {
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
-      <Link href={`/admin/product/edit/${product._id}/`}>
+      <Link href={`/vendor/product/edit/${product._id}/`}>
         <Edit className="text-green-500 cursor-pointer" />
       </Link>
     </div>

@@ -109,7 +109,7 @@ const CategoryList = ({ searchParams }) => {
                             </AlertDialogFooter>
                           </AlertDialogContent>
                         </AlertDialog>
-                        <Link href={`/admin/category/edit/${cat._id}`}>
+                        <Link href={`/vendor/category/edit/${cat._id}`}>
                           <Edit className="text-green-500 cursor-pointer" />
                         </Link>
                       </div>

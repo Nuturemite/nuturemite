@@ -10,7 +10,7 @@ import {
 const router = express.Router();
 
 router.post("/register", isAuth, registerVendor);
-router.get("/me", isAuth, getVendorDetails);
+router.get("/:id", isAuth, getVendorDetails);
 router.get("/", isAuth, getAllVendors);
 router.put("/:id", isAuth, updateVendorDetails);
 

@@ -12,8 +12,13 @@ export const registerVendor = async (req, res) => {
 
 export const updateVendorDetails = async (req, res) => {
   try {
-    const vendorId = req.user.vendorId;
-    const response = await Vendor.findByIdAndUpdate(vendorId, req.body);
+    const id = req.params.id;
+    console.log(id)
+    console.log(req.body)
+    const response = await Vendor.findByIdAndUpdate(id, req.body);
+    if (!response) {
+      return res.status(404).json({ message: "Vendor not found" });
+    }
     res.status(200).json({ message: "Vendor details updated", data: response });
   } catch (error) {
     res.status(500).json({ message: error.message });

@@ -58,12 +58,12 @@ const ProductList = ({ searchParams }) => {
         <div>
           <SearchInput className="md:w-60" />
         </div>
-        <Link href="/admin/product/new">
+        {/* <Link href="/admin/product/new">
           <Button>
             <Plus className="mr-4" />
             Add New
           </Button>
-        </Link>
+        </Link> */}
       </div>
       <div className={`bg-white px-4 ${pending ? "opacity-50 pointer-events-none" : ""}`}>
         <Table>
@@ -135,7 +135,7 @@ const ProductDeleteDialog = ({ handleProductDelete, product }) => {
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
-      <Link href={`/admin/product/edit/${product._id}/`}>
+      <Link href={`/vendor/product/edit/${product._id}/`}>
         <Edit className="text-green-500 cursor-pointer" />
       </Link>
     </div>

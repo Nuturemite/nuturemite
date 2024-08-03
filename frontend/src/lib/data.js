@@ -158,3 +158,12 @@ export const useMyVendorOrders = () => {
   return { order: data, error, isLoading, mutate };
 };
 
+export const useVendors = ()=>{
+  const { data, error, isLoading, mutate } = useSWR(`/vendors`, fetcher);
+return { vendors: data, error, isLoading, mutate };
+}
+
+export const useVendor  = id => {
+  const { data, error, isLoading, mutate } = useSWR(`/vendors/${id}`, fetcher);
+  return { vendor: data, error, isLoading, mutate };
+}

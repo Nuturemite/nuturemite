@@ -38,8 +38,9 @@ function LoginForm() {
         localStorage.setItem("token", token);
       }
       login();
-      if (user.role === "vendor" && vendor) router.push("/vendor");
-      else router.push("/vendor-register");
+      if (user.role === "vendor" && vendor || user.role === "admin") router.push("/vendor");
+      else if (user.role === "vendor") router.push("/vendor-register");
+      else router.push("/");
       tst.success("Signin success");
     } catch (error) {
       tst.error(error);

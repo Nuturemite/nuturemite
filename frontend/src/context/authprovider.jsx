@@ -27,7 +27,7 @@ export const AuthProvider = ({ children }) => {
         } else {
           setIsAuthenticated(true);
           setUser({
-            id: decodedToken._id,
+            id: decodedToken.id,
             name: decodedToken.name,
             image: decodedToken.image,
             role: decodedToken.role,
