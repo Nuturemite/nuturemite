@@ -59,7 +59,7 @@ const NavBar = () => {
     [
       { text: "Shop", href: "/shop" },
       { text: "My Account", href: "/account" },
-      { text: "Dashboard", href: "/admin" },
+      { text: "Dashboard", href: "/vendor" },
     ] :
     [
       { text: "Shop", href: "/shop" },

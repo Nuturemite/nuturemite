@@ -22,52 +22,52 @@ const sidebarItemsVendor = [
   {
     icon: Home,
     title: "Dashboard",
-    link: "/admin/",
+    link: "/vendor/",
   },
   {
     icon: User,
     title: "Customers",
-    link: "/admin/users",
+    link: "/vendor/users",
   },
   {
     icon: ShoppingBag,
     title: "Product",
-    link: "/admin/product",
+    link: "/vendor/product",
   },
   {
     icon: Boxes,
     title: "Inventory",
-    link: "/admin/inventory",
+    link: "/vendor/inventory",
   },
   {
     icon: Package,
     title: "Orders",
-    link: "/admin/orders",
+    link: "/vendor/orders",
   },
   {
     icon: Truck,
     title: "Shipments",
-    link: "/admin/shipments",
+    link: "/vendor/shipments",
   },
   {
     icon: FileText,
     title: "Invoices",
-    link: "/admin/invoices",
+    link: "/vendor/invoices",
   },
   {
     icon: CreditCard,
     title: "Refunds",
-    link: "/admin/refunds",
+    link: "/vendor/refunds",
   },
   {
     icon: List,
     title: "Category",
-    link: "/admin/category",
+    link: "/vendor/category",
   },
   {
     icon: Settings,
     title: "Settings",
-    link: "/admin/settings/",
+    link: "/vendor/settings/",
   },
 ];
 
@@ -75,17 +75,17 @@ const sidebarItemsAdmin = [
   {
     icon: Home,
     title: "Dashboard",
-    link: "/admin/",
+    link: "/vendor/",
   },
   {
     icon: User,
     title: "Customers",
-    link: "/admin/users",
+    link: "/vendor/users",
   },
   {
     icon: Settings,
     title: "Settings",
-    link: "/admin/products/",
+    link: "/vendor/products/",
   },
 ];
 
