@@ -13,17 +13,16 @@ export const ProductSchema = new Schema(
     quantity: { type: Number, default: 0 },
     sku: String,
     images: [String],
-    dimensions: {
-      length: { type: Number },
-      width: { type: Number },
-      height: { type: Number },
+    shippingDetails: {
+      weight: { type: Number, required: true },
+      dimensions: { type: String, required: true },
     },
     weight: { type: Number },
-    details:[
+    details: [
       {
         name: String,
-        value: String
-      }
+        value: String,
+      },
     ],
     approvalStatus: {
       type: String,

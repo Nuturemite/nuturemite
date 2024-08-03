@@ -2,8 +2,8 @@
 import Icon from "@/components/shared/icon";
 import Image from "next/image";
 import SearchInput from "../search";
-import Dashboard from "../dashboard";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+// import Dashboard from "../dashboard";
+// import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { usePathname } from "next/navigation";
 
 function Navbar() {
@@ -13,14 +13,14 @@ function Navbar() {
   return (
     <>
       <header className="sticky top-0 z-[5] w-full gap-4 h-16 flex items-center px-6 justify-between bg-white">
-        <Sheet>
+        {/* <Sheet>
           <SheetTrigger asChild>
             <Icon icon="mingcute:menu-fill" className="text-3xl lg:hidden text-slate-700" />
           </SheetTrigger>
           <SheetContent>
             <Dashboard className={` lg:hidden absolute top-0 left-0 min-h-screen `} />
           </SheetContent>
-        </Sheet>
+        </Sheet> */}
         <h2 className="text-xl uppercase font-medium">{activePath || "Dashboard"}</h2>
         <SearchInput className={"md:w-full bg-slate-50"} />
 

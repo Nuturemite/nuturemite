@@ -46,7 +46,6 @@ const accountItems = [
 
 const NavBar = () => {
   const { isAuthenticated, user, login, logout } = useAuthContext();
-  console.log(user)
 
   useLayoutEffect(() => {
     login();

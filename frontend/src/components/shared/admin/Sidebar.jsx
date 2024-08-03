@@ -92,7 +92,7 @@ const sidebarItemsAdmin = [
 function Sidebar({ className }) {
   const [isMinimized, setIsMinimized] = useState(false);
   const activePath = usePathname().split("/")[2];
-  const {user} = useAuthContext();
+  const { user } = useAuthContext();
   const sidebarItems = sidebarItemsVendor;
 
   return (

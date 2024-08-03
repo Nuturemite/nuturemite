@@ -74,7 +74,7 @@ export default function Page() {
         });
         tst.success("Order placed successfully");
       } else {
-        const response = await api.post("/payment/create-checkout-session");
+        const response = await api.post("/payment/create-checkout-session", { shippingDetails });
         const url = response.data.url;
         router.push(url);
       }
