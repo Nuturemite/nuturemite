@@ -12,7 +12,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import api from "@/lib/api";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { tst } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import OrderSummary from "./OrderSummary";
@@ -23,10 +23,13 @@ const ShoppingCart = () => {
   const [pending, setPending] = useState(false);
   const { isAuthenticated } = useAuthContext();
 
+
   if (isLoading) return <Loader />;
   if (!isAuthenticated) return <NotAuthenticated />;
   if (error) return <Error />;
   if (cartItems.length === 0) return <EmptyCart />;
+
+  const isCheckoutDisabled = cartItems.some(cartItem => cartItem.quantity > cartItem.product.quantity);
 
   const handleQuantityChange = async (cartItem, value) => {
     try {
@@ -47,13 +50,12 @@ const ShoppingCart = () => {
       <div className="max-w-6xl mt-10 mx-auto">
         <h2 className="h2-primary">Shopping cart</h2>
 
-        <div className="mt-10 flex  gap-16 ">
+        <div className="mt-10 flex gap-16">
           {/* Cart */}
-
           <ul role="list" className="divide-y-4 divide-gray-200 w-3/5">
             {cartItems.map(cartItem => (
-              <li key={cartItem._id} className="flex p-4 bg-white ">
-                <div className="h-24 w-24 flex-shrink-0 overflow-hidden  border border-gray-200">
+              <li key={cartItem._id} className="flex p-4 bg-white">
+                <div className="h-24 w-24 flex-shrink-0 overflow-hidden border border-gray-200">
                   <img
                     src={cartItem.product?.images[1] || "/test1.png"}
                     className="h-full w-full object-cover object-center"
@@ -75,23 +77,27 @@ const ShoppingCart = () => {
                   </div>
                   <div>
                     <div className="py-2">
-                      <Select
-                        disabled={pending}
-                        className="w-full"
-                        value={cartItem.quantity}
-                        onValueChange={value => handleQuantityChange(cartItem, value)}
-                      >
-                        <SelectTrigger className="w-16 h-8 border-slate-600  focus:ring-0">
-                          <SelectValue placeholder="1" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          {Array.from({ length: Math.min(100, cartItem.product.quantity) }, (_, i) => i + 1).map(i => (
-                            <SelectItem key={i} value={i}>
-                              {i}
-                            </SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
+                      {cartItem.product.quantity > 0 ? (
+                        <Select
+                          disabled={pending}
+                          className="w-full"
+                          value={cartItem.quantity}
+                          onValueChange={value => handleQuantityChange(cartItem, value)}
+                        >
+                          <SelectTrigger className="w-16 h-8 border-slate-600 focus:ring-0">
+                            <SelectValue placeholder="1" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            {Array.from({ length: Math.min(100, cartItem.product.quantity) }, (_, i) => i + 1).map(i => (
+                              <SelectItem key={i} value={i}>
+                                {i}
+                              </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                      ) : (
+                        <p className="text-red-600">Out of Stock</p>
+                      )}
                     </div>
                   </div>
                   <div className="flex flex-1 items-end justify-between text-sm">
@@ -111,9 +117,8 @@ const ShoppingCart = () => {
           {/* Order Summary */}
           <div className="w-2/5">
             <OrderSummary />
-
             {/* Checkout */}
-            <Checkout />
+            <Checkout isDisabled={isCheckoutDisabled} />
           </div>
         </div>
       </div>
@@ -143,12 +148,14 @@ const NotAuthenticated = () => (
   </div>
 );
 
-const Checkout = () => {
+const Checkout = ({ isDisabled }) => {
   return (
     <div className="space-y-2 border-gray-200 px-4 py-6 sm:px-6">
       <div className="mt-6">
         <Link href="/checkout">
-          <Button className="w-full">Checkout</Button>
+          <Button className="w-full" disabled={isDisabled}>
+            {"Checkout"}
+          </Button>
         </Link>
       </div>
       <div className="mt-6 flex justify-center text-center text-sm text-gray-500">
@@ -166,4 +173,5 @@ const Checkout = () => {
     </div>
   );
 };
+
 export default ShoppingCart;

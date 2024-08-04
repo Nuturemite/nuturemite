@@ -5,6 +5,7 @@ import Loader from "@/components/shared/loader";
 import Error from "@/components/shared/common/error";
 import { tst } from "@/lib/utils";
 import api from "@/lib/api";
+import { Button } from "@/components/ui";
 
 const Wishlist = () => {
   const { wishlistItems, isLoading, error, mutate } = useWishlist();
@@ -19,12 +20,7 @@ const Wishlist = () => {
   }
   if (isLoading) return <Loader />;
   if (error) return <Error />;
-  if (wishlistItems.length === 0)
-    return (
-      <div className="w-full flex  justify-between pt-40 items-center text-center text-slate-500 text-2xl">
-        Add item to wishlist
-      </div>
-    );
+  if (wishlistItems.length === 0) return <EmptyWishlist />;
 
   return (
     <div className="w-full relative">
@@ -79,4 +75,14 @@ const Wishlist = () => {
   );
 };
 
+const EmptyWishlist = () => (
+  <div className="flex flex-col items-center justify-center h-full min-h-screen">
+    <p className="text-gray-500">No items in wishlist</p>
+    <div className="mt-4">
+      <Link href="/shop">
+        <Button variant="outline">Start Shopping</Button>
+      </Link>
+    </div>
+  </div>
+);
 export default Wishlist;

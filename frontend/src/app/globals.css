@@ -118,6 +118,10 @@
     @apply uppercase mb-6 text-2xl text-slate-500 font-medium;
   }
 
+  .h5-primary {
+    @apply uppercase mb-6 text-xl text-slate-500 font-medium;
+  }
+
   .image-primary {
     @apply  group-hover:scale-125 transition-all duration-500 object-cover brightness-50 opacity-70 ;
   }

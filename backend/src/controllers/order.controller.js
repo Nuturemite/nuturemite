@@ -200,3 +200,19 @@ export const getMyOrdersAsVendor = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+
+
+// Update order by ID
+export const updateOrder = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const order = await Order.findByIdAndUpdate(id, req.body, { new: true });
+    if (order) {
+      res.status(200).json({ data: order });
+    } else {
+      res.status(404).json({ message: "Order not found" });
+    }
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};

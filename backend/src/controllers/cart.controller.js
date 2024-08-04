@@ -34,7 +34,10 @@ export const getCartByUserId = async (req, res) => {
   const userId = req.user.id;
 
   try {
-    const cart = await Cart.findOne({ user: userId }).populate("items.product");
+    const cart = await Cart.findOne({ user: userId }).populate({
+      path: "items.product",
+      select: "_id name price images basePrice vendor quantity",
+    });
     if (!cart) {
       return res.status(200).json({ data: [] });
     }
@@ -67,8 +70,7 @@ export const removeItemFromCart = async (req, res) => {
   }
 };
 
-
-export const findCartByUserId = async (userId) => {
+export const findCartByUserId = async userId => {
   try {
     const cart = await Cart.findOne({ user: userId }).populate("items.product");
     if (!cart) {
