@@ -38,7 +38,7 @@ function ProductForm({ update, params, product }) {
         categories: product.categories.map(cat => ({ value: cat._id, label: cat.name })),
       });
     }
-  }, [product._id]);
+  }, []);
 
   const handleChange = e => {
     const { name, value } = e.target;

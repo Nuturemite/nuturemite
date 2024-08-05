@@ -1,10 +1,13 @@
+"use client"
+
 import { useState } from "react";
-import { CustomSelect, Button } from "@/components/ui/index"; // Adjust according to actual imports
+import { Button } from "@/components/ui/index"; // Adjust according to actual imports
 import { Edit } from "lucide-react";
 import api from "@/lib/api";
 import { useOrder } from "@/lib/data";
 import Error from "@/components/shared/error";
 import Loader from "@/components/shared/loader";
+import CustomSelect from "@/components/ui/custrom-select";
 
 const statuses = [
   { id: "pending", name: "Pending" },
