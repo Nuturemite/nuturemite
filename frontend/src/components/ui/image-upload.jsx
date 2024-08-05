@@ -71,7 +71,7 @@ const FileImagePlus = ({images,setImages}) => {
               <div key={index} className="relative flex justify-between items-center">
                 <img src={imageObj.preview} alt="Preview" className="w-24" />
                 <div className="mt-2 text-sm text-gray-700">
-                  <p className="w-20 break-words">{imageObj.image?.name || "Undefined"}</p>
+                  <p className="w-32 break-words">{imageObj.image?.name || "Undefined"}</p>
                 </div>
                 <div className="mt-2 text-sm text-gray-700">
                   <p className="px-2 py-1 bg-orange-500 text-white">{(imageObj.image?.size / 1024).toFixed(2)} KB</p>

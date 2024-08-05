@@ -31,5 +31,13 @@ export const ProductSchema = new Schema(
     },
     status: { type: String, enum: ["active", "inactive"], default: "active" },
   },
-  { timestamps: true }
+  { timestamps: true, toJSON: { virtuals: true }, toObject: { virtuals: true } }
 );
+
+ProductSchema.virtual("discount").get(function () {
+  return this.basePrice - this.price;
+});
+
+ProductSchema.virtual("discountPercent").get(function () {
+  return Math.round(((this.basePrice - this.price) / this.basePrice) * 100);
+});

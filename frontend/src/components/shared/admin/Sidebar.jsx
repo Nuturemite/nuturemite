@@ -27,19 +27,14 @@ const sidebarItemsVendor = [
     link: "/vendor/",
   },
   {
-    icon: User,
-    title: "Customers",
-    link: "/vendor/users",
+    icon: Boxes,
+    title: "Inventory",
+    link: "/vendor/inventory",
   },
   {
     icon: ShoppingBag,
     title: "Product",
     link: "/vendor/product",
-  },
-  {
-    icon: Boxes,
-    title: "Inventory",
-    link: "/vendor/inventory",
   },
   {
     icon: Package,
@@ -61,6 +56,11 @@ const sidebarItemsVendor = [
     title: "Refunds",
     link: "/vendor/refunds",
   },
+  // {
+  //   icon: User,
+  //   title: "Customers",
+  //   link: "/vendor/users",
+  // },
   {
     icon: List,
     title: "Category",
@@ -85,7 +85,7 @@ const sidebarItemsAdmin = [
     link: "/admin/vendors",
   },
   {
-    icon: User,
+    icon: ShoppingBag,
     title: "Products",
     link: "/admin/products",
   },

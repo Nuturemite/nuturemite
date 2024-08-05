@@ -8,27 +8,28 @@ import api from "@/lib/api";
 import { useRouter } from "next/navigation";
 import { tst } from "@/lib/utils";
 
-export default function Page() {
-  const router = useRouter();
-  const [pending, setPending] = useState(false);
-  const [shippingDetails, setShippshippingDetails] = useState({
-    firstName: "",
-    lastName: "",
-    address: "",
-    city: "",
-    state: "",
-    zipcode: "",
-    country: "",
-    email: "",
-    phone: "",
-    paymentMode: "cod",
-  });
-  const [paymentMode, setPaymentMode] = useState("cod");
+const initialData = {
+  firstName: "",
+  lastName: "",
+  address: "",
+  city: "",
+  state: "",
+  zipcode: "",
+  country: "",
+  email: "",
+  phone: "",
+  paymentMode: "cod",
+};
 
-  const paymentOptions = [
-    { value: "cod", label: "Cash On Delivery" },
-    { value: "online", label: "Credit/Debit Card/PhonePe" },
-  ];
+const paymentOptions = [
+  { value: "cod", label: "Cash On Delivery" },
+  { value: "online", label: "Credit/Debit Card/PhonePe" },
+];
+export default function Page() {
+  const [pending, setPending] = useState(false);
+  const [shippingDetails, setShippshippingDetails] = useState(initialData);
+  const [paymentMode, setPaymentMode] = useState("cod");
+  const router = useRouter()
 
   const handlePaymentOptionChange = e => {
     setPaymentMode(e.target.value);
@@ -73,11 +74,14 @@ export default function Page() {
           paymentMode: "cod",
         });
         tst.success("Order placed successfully");
+        router.push("/orders");
+
       } else {
         const response = await api.post("/payment/create-checkout-session", { shippingDetails });
         const url = response.data.url;
         router.push(url);
       }
+
     } catch (error) {
       console.log(error);
       tst.error(error);

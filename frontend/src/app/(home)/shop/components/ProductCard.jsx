@@ -19,7 +19,12 @@ export const ProductCard = ({ product, featured }) => {
             src={images?.length ? images[1] : "./noimage.png"}
             alt={name}
           />
-          {(!quantity || quantity === 0 ) && !featured? (
+
+          {/* <div className="absolute top-2 left-2 bg-red-700 rounded-full text-xs text-white h-12 w-12 flex justify-center items-center">
+            {product.discountPercent} % off
+          </div> */}
+          {/* Sold Out Badge */}
+          {(!quantity || quantity === 0) && !featured ? (
             <div className="absolute z-10 top-1/2 text-center -rotate-45 w-full bg-black bg-opacity-50 text-white  font-bold">
               Out of Stock
             </div>

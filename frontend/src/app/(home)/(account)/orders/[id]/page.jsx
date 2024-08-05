@@ -28,9 +28,9 @@ export default function OrderDetailsPage({ params }) {
   if (error) return <Error />;
 
   return (
-    <div className="p-4 min-h-screen flex gap-10">
+    <div className="p-4 min-h-screen flex md:flex-row flex-col md:gap-10">
       {/* Order Items */}
-      <div className="w-2/3">
+      <div className="md:w-2/3">
         <h2 className="h4-primary">Order Products</h2>
         {order.suborders.map(suborder => (
           <div key={suborder._id} className="mb-8 bg-white p-4 border border-gray-300">
@@ -77,7 +77,7 @@ export default function OrderDetailsPage({ params }) {
       </div>
 
       {/* Order Summary and Shipping Details */}
-      <div className="w-1/3 space-y-6">
+      <div className="md:w-1/3 space-y-6">
         <div className="bg-white p-4 border border-gray-300">
           <h2 className="h5-primary">Order Details</h2>
           <div className="text-gray-700">

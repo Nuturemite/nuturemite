@@ -5,13 +5,14 @@ import { uploadImage } from "../utils/uploadFile.js";
 export const createProduct = async (req, res) => {
   try {
     let images = [];
+    console.log(req.body);
     if (req.files) {
       if (req.files.image) {
         const url = await uploadImage(req.files.image.data, "nuturemite/product/uploads");
         req.body.image = url;
       }
-      if (req.files['images[]']) {
-        const uploadPromises = req.files['images[]'].map(async image => {
+      if (req.files["images[]"]) {
+        const uploadPromises = req.files["images[]"].map(async image => {
           const url = await uploadImage(image.data, "nuturemite/product/uploads");
           return url;
         });
@@ -73,8 +74,8 @@ export const updateProduct = async (req, res) => {
         const url = await uploadImage(req.files.image.data, "nuturemite/product/uploads");
         req.body.image = url;
       }
-      if (req.files['images[]']) {
-        const uploadPromises = req.files['images[]'].map(async image => {
+      if (req.files["images[]"]) {
+        const uploadPromises = req.files["images[]"].map(async image => {
           const url = await uploadImage(image.data, "nuturemite/product/uploads");
           return url;
         });

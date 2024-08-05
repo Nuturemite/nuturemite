@@ -4,7 +4,7 @@ import { Car, CheckCircle, Phone, Truck } from "lucide-react";
 export const Featured = () => {
   return (
     <div>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 ">
+      <div className="grid-4">
         {[
           { id: 1, icon: CheckCircle, title: "Quality Product" },
           { id: 2, icon: Truck, title: "Free Shipping" },
@@ -13,10 +13,10 @@ export const Featured = () => {
         ].map(({ id, icon: Icon, title }) => (
           <div
             key={id}
-            className="bg-white w-full px-8 py-2 mb-4 flex justify-center items-center  "
+            className="bg-white w-full px-8 py-2 mb-4 flex flex-col md:flex-rowjustify-center items-center  "
           >
             <Icon className="text-primary mr-2 text-center" size={56} />
-            <h5 className="font-semibold">{title}</h5>
+            <h5 className="font-semibold text-center">{title}</h5>
           </div>
         ))}
       </div>

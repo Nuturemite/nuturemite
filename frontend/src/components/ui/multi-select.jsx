@@ -1,40 +1,59 @@
-import React, { useState } from "react";
+import React from 'react';
+import Select from 'react-select';
 
-const MultiSelect = ({ options, props, className }) => {
-  const [selectedOptions, setSelectedOptions] = useState([]);
+const customStyles = {
+  control: (provided) => ({
+    ...provided,
+    borderRadius: '0px',
+    padding: '2px',
+    boxShadow: 'none',
+    borderColor: '#ccc',
+    '&:hover': {
+      borderColor: '#aaa',
+    },
+  }),
+  multiValue: (provided) => ({
+    ...provided,
+    borderRadius: '0px',
+  }),
+  multiValueLabel: (provided) => ({
+    ...provided,
+    borderRadius: '0px',
+  }),
+  multiValueRemove: (provided) => ({
+    ...provided,
+    borderRadius: '0px',
+    '&:hover': {
+      backgroundColor: 'red',
+      color: 'white',
+    },
+  }),
+  menu: (provided) => ({
+    ...provided,
+    borderRadius: '0px',
+  }),
+  option: (provided) => ({
+    ...provided,
+    borderRadius: '0px',
+    fontSize: '14px',
+  }),
+  placeholder: (provided) => ({
+    ...provided,
+    fontSize: '14px', // Adjust the font size here
+  }),
+};
 
-  const handleSelect = optionId => {
-    setSelectedOptions(prevSelected =>
-      prevSelected.includes(optionId)
-        ? prevSelected.filter(id => id !== optionId)
-        : [...prevSelected, optionId]
-    );
-  };
-
+const MultiSelect = ({ options, value, onChange, ...props }) => {
   return (
-    <div className={cn("w-64 border border-gray-300 rounded-lg p-4", className)}>
-      <div className="mb-2 text-gray-700">
-        {selectedOptions.length === 0
-          ? "Select options"
-          : `Selected: ${selectedOptions.join(", ")}`}
-      </div>
-      <ul className="space-y-2">
-        {options.map(option => (
-          <li key={option.id} className="flex items-center">
-            <input
-              type="checkbox"
-              id={`option-${option.id}`}
-              checked={selectedOptions.includes(option.id)}
-              onChange={() => handleSelect(option.id)}
-              className="mr-2 h-4 w-4 text-blue-600 bg-gray-100 border-gray-300 rounded"
-            />
-            <label htmlFor={`option-${option.id}`} className="text-gray-800">
-              {option.label}
-            </label>
-          </li>
-        ))}
-      </ul>
-    </div>
+    <Select
+      isMulti
+      closeMenuOnSelect={false}
+      options={options}
+      value={value}
+      onChange={onChange}
+      styles={customStyles}
+      {...props}
+    />
   );
 };
 

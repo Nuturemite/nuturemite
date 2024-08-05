@@ -9,12 +9,12 @@ export const Categories = () => {
   return (
     <div>
       <h2 className="h2-primary">Categories</h2>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 ">
+      <div className="grid-4">
         {categoriess.map(cat => (
           <Link href={`/shop?categoryId=${cat._id}`}>
             <div key={cat._id} className="bg-white ">
               <div href="#" className="text-decoration-none">
-                <div className="flex items-center px-4 ">
+                <div className="flex flex-col md:flex-row md:items-center px-4  ">
                   <div className="overflow-hidden" style={{ width: "100px", height: "100px" }}>
                     <img
                       className="w-full  h-full object-cover"
@@ -22,7 +22,7 @@ export const Categories = () => {
                       // alt={cat.name}
                     />
                   </div>
-                  <div className="flex-grow pl-3 px-4 h-full">
+                  <div className="flex-grow text-center pl-3 px-4 h-full">
                     <h6>{cat.name}</h6>
                     {/* <small className="text-body">3 Products</small> */}
                   </div>

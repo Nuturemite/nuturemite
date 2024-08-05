@@ -1,23 +1,16 @@
-"use client"
+"use client";
 import React, { useState } from "react";
 import { DialogHeader, DialogFooter, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+import CustomSelect from "../ui/custrom-select";
 
 function UserForm({ onUpdate, user }) {
   const [formData, setFormData] = useState({
-    name: user.name ,
-    role: user.role ,
+    name: user.name,
+    role: user.role,
   });
-
 
   const handleChange = e => {
     const { name, value } = e.target;
@@ -58,19 +51,18 @@ function UserForm({ onUpdate, user }) {
           <Label htmlFor="description" className="text-right">
             Role
           </Label>
-          <Select
-            className="w-full"
+          <CustomSelect
+            options={[
+              { id: "admin", name: "Admin" },
+              { id: "vendor", name: "Vendor" },
+              { id: "user", name: "User" },
+            ]}
             value={formData.role}
-            onValueChange={value => setFormData({ ...formData, role: value })}
-          >
-            <SelectTrigger className="col-span-3">
-              <SelectValue placeholder="Select a role" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="User">User</SelectItem>
-              <SelectItem value="Admin">Admin</SelectItem>
-            </SelectContent>
-          </Select>
+            onChange={value => setFormData({ ...formData, role: value })}
+            name="role"
+            placeholder="Select a role"
+            className={"col-span-3"}
+          />
         </div>
       </div>
       <DialogFooter>
@@ -81,4 +73,3 @@ function UserForm({ onUpdate, user }) {
 }
 
 export default UserForm;
-
