@@ -6,11 +6,11 @@ const AuthContext = createContext(null);
 
 export const AuthProvider = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [user, setUser] = useState({});
+  const [user, setUser] = useState();
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    setIsLoading(false);
+    login();
   }, []);
 
   const login = () => {
@@ -41,6 +41,7 @@ export const AuthProvider = ({ children }) => {
         setUser({});
       }
     } catch (error) {
+      setIsLoading(false)
       console.log(error);
     }
   };

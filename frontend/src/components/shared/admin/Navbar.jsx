@@ -7,10 +7,10 @@ import { useAuthContext } from "@/context/authprovider";
 import { formatString } from "@/lib/utils";
 
 function Navbar() {
-  const {user} = useAuthContext();
+  const { user } = useAuthContext();
   const activePath =
     usePathname()?.split("/")[2]?.charAt(0)?.toUpperCase() + usePathname()?.split("/")[2]?.slice(1);
-
+  console.log(user);
   return (
     <>
       <header className="sticky top-0 z-[5] w-full gap-4 h-16 flex items-center px-6 justify-between bg-white">

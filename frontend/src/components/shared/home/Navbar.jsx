@@ -28,7 +28,7 @@ const accountItems = [
 
 const NavBar = () => {
   const { isAuthenticated, user, login, logout } = useAuthContext();
-
+  console.log(user);
   useEffect(() => {
     login();
   }, []);
@@ -36,7 +36,7 @@ const NavBar = () => {
   const handleLogout = () => {
     logout();
   };
-  
+
   let menuItems;
   if (isAuthenticated) {
     if (user.role === "vendor" && !user.isRegistered) {
