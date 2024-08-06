@@ -1,61 +1,93 @@
-"use client";
-import { cn } from "@/lib/utils";
-import { Icon } from "@iconify/react";
 import React, { useState } from "react";
+import { Images, ImagePlus, XCircle } from "lucide-react";
+import api from "@/lib/api";
 
-function UploadImage({ className, image, onImageSelect, onImageRemove, ...props }) {
-  const handleImageSelect = e => {
-    const file = e.target.files[0];
-    onImageSelect(file);
+const FileImagePlus = () => {
+  const [images, setImages] = useState([]);
+  const [uploading, setUploading] = useState(false);
+  const [uploadedImages, setUploadedImages] = useState([]);
+
+  const handleImageChange = async event => {
+    const selectedImages = Array.from(event.target.files);
+    const uploadedImages = [];
+
+    setUploading(true);
+
+    // const formData = new FormData();
+    // formData.append("images", selectedImages);
+
+    try {
+      const response = await api.post(
+        "/upload/images",
+        { images: selectedImages },
+        {
+          headers: { "Content-Type": "multipart/form-data" },
+        }
+      );
+      console.log(response);
+      return;
+
+      setUploadedImages(prevImages => [...prevImages, ...response.data.urls]);
+    } catch (error) {
+      console.error("Error uploading image:", error);
+    }
+
+    setImages(prevImages => [...prevImages, ...uploadedImages]);
+    setUploading(false);
   };
 
-  const handleRemoveImage = () => {
-    onImageRemove();
+  const handleRemoveAll = () => {
+    setImages([]);
+  };
+
+  const handleRemoveImage = index => {
+    setImages(prevImages => prevImages.filter((_, i) => i !== index));
   };
 
   return (
-    <div className="relative">
-      <label
-        htmlFor="file-upload"
-        className={cn(
-          "border-2 border-dashed w-full bg-white aspect-square flex justify-center items-center cursor-pointer",
-          className
-        )}
-      >
-        {image ? (
-          <div className="relative">
-            <button
-              type="button"
-              onClick={handleRemoveImage}
-              className="absolute top-0 right-0 m-2 p-1 rounded-full bg-white text-red-500 hover:bg-red-500 hover:text-white"
-            >
-              <Icon icon="ic:baseline-close" width={20} height={20} />
-            </button>
-            <img
-              src={image instanceof File ? URL.createObjectURL(image) : image}
-              alt="Uploaded Image"
-              className="w-full h-full object-cover rounded-lg"
-            />
+    <div className="bg-white">
+      <div className="flex border gap-8 p-4 justify-around border-gray-300">
+        <label htmlFor="image-upload">
+          <ImagePlus className="w-9 h-9 text-green-600 cursor-pointer" />
+        </label>
+        <XCircle className="w-9 h-9 text-red-600 cursor-pointer" onClick={handleRemoveAll} />
+      </div>
+      <div className="border-gray-300 border-b border-x">
+        {images.length === 0 && !uploading ? (
+          <div className={`p-8 flex flex-col items-center justify-center`}>
+            <label htmlFor="image-upload" className="flex flex-col items-center">
+              <Images className="h-20 w-20 cursor-pointer text-gray-500 bg-slate-200 p-4 rounded-full mb-4" />
+              <p className="text-slate-500">Drag and drop images here or click to upload</p>
+            </label>
+          </div>
+        ) : uploading ? (
+          <div className="p-8 flex flex-col items-center justify-center">
+            <p className="text-slate-500">Uploading images...</p>
           </div>
         ) : (
-          <Icon
-            fontSize={40}
-            className="text-slate-500"
-            icon="fluent:image-28-regular"
-          />
+          <div className="mt-4 space-y-2 px-4 pb-2">
+            {uploadedImages.map((image, index) => (
+              <div key={index} className="relative flex justify-between items-center">
+                <img src={image.url} alt="Preview" className="w-24" />
+                <XCircle
+                  className="h-8 w-8 text-red-500 font-thin cursor-pointer"
+                  onClick={() => handleRemoveImage(index)}
+                />
+              </div>
+            ))}
+          </div>
         )}
-      </label>
-      <input
-        {...props}
-        accept="image/*"
-        onChange={handleImageSelect}
-        type="file"
-        name="image"
-        id="file-upload"
-        className="hidden"
-      />
+        <input
+          type="file"
+          onChange={handleImageChange}
+          className="hidden"
+          id="image-upload"
+          multiple
+          accept="image/*"
+        />
+      </div>
     </div>
   );
-}
+};
 
-export default UploadImage;
+export default FileImagePlus;

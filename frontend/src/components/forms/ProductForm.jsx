@@ -6,9 +6,9 @@ import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { useCategories } from "@/lib/data";
-import { tst } from "@/lib/utils";
 import ImageUpload from "@/components/ui/image-upload";
-import MultiSelect from "../ui/multi-select";
+import MultiSelect from "@/components/ui/multi-select";
+import { Separator } from "../ui/separator";
 
 const initialData = {
   name: "",
@@ -16,7 +16,19 @@ const initialData = {
   basePrice: "",
   price: "",
   sku: "",
-  categories: "",
+  categories: [],
+  brand: "",
+  vendor: "",
+  quantity: "",
+  shippingDetails: {
+    weight: "",
+    dimensions: {
+      length: "",
+      width: "",
+      height: "",
+    },
+  },
+  details: [],
   images: [],
 };
 
@@ -30,21 +42,56 @@ function ProductForm({ update, params, product }) {
   useEffect(() => {
     if (update && product) {
       setFormData({
-        name: product.name,
-        description: product.description,
-        basePrice: product.basePrice,
-        price: product.price,
-        sku: product.sku,
+        ...product,
         categories: product.categories.map(cat => ({ value: cat._id, label: cat.name })),
+        shippingDetails: {
+          ...product.shippingDetails,
+          dimensions: { ...product.shippingDetails?.dimensions || "" },
+        },
       });
+      // setImages(product.images.map(img => ({ image: img })));
     }
-  }, []);
+  }, [update, product]);
 
   const handleChange = e => {
     const { name, value } = e.target;
-    setFormData(prevData => ({
-      ...prevData,
-      [name]: value,
+    if (["length", "width", "height"].includes(name)) {
+      setFormData(prevState => ({
+        ...prevState,
+        shippingDetails: {
+          ...prevState.shippingDetails,
+          dimensions: {
+            ...prevState.shippingDetails.dimensions,
+            [name]: value,
+          },
+        },
+      }));
+    } else {
+      setFormData(prevState => ({
+        ...prevState,
+        [name]: value,
+      }));
+    }
+  };
+
+  const handleShippingChange = e => {
+    const { name, value } = e.target;
+    setFormData(prevState => ({
+      ...prevState,
+      shippingDetails: {
+        ...prevState.shippingDetails,
+        [name]: value,
+      },
+    }));
+  };
+
+  const handleDetailsChange = (index, e) => {
+    const { name, value } = e.target;
+    setFormData(prevState => ({
+      ...prevState,
+      details: prevState.details.map((detail, idx) =>
+        idx === index ? { ...detail, [name]: value } : detail
+      ),
     }));
   };
 
@@ -62,21 +109,18 @@ function ProductForm({ update, params, product }) {
         await api.post("/products", payload, {
           headers: { "Content-Type": "multipart/form-data" },
         });
-        tst.success("Product created successfully");
       } else {
         await api.put(`/products/${params.id}`, payload, {
           headers: { "Content-Type": "multipart/form-data" },
         });
-        tst.success("Product updated successfully");
       }
       setError(null);
     } catch (err) {
-      tst.error(err);
+      setError(err.response?.data?.message || "An error occurred");
     } finally {
       setPending(false);
     }
   };
-
 
   return (
     <form className="p-10 max-w-2xl mx-auto" onSubmit={handleSubmit}>
@@ -109,8 +153,11 @@ function ProductForm({ update, params, product }) {
             id="description"
             placeholder="Product Description"
             minLength="10"
+            className="min-h-[10rem]"
           />
         </div>
+        <Separator/>
+
         <div className="flex gap-6">
           <div className="flex-1">
             <Label htmlFor="basePrice" className="mb-2 block">
@@ -160,31 +207,136 @@ function ProductForm({ update, params, product }) {
             />
           </div>
         </div>
-        <div className="flex gap-6">
-          <div className="flex-1">
-            <Label htmlFor="categories" className="mb-2 block">
-              Category
+        <div>
+          <Label htmlFor="categories" className="mb-2 block">
+            Category
+          </Label>
+          <MultiSelect
+            value={formData.categories}
+            options={categories?.map(cat => ({ label: cat.name, value: cat._id }))}
+            onChange={selOptions => setFormData({ ...formData, categories: selOptions })}
+            required
+          />
+        </div>
+        <Separator/>
+
+        <div>
+          <Label htmlFor="shippingWeight" className="mb-2 block">
+            Shipping Weight
+          </Label>
+          <Input
+            type="number"
+            name="weight"
+            value={formData.shippingDetails.weight}
+            onChange={handleShippingChange}
+            id="shippingWeight"
+            disabled={pending}
+            placeholder="Weight"
+          />
+          <div className="mt-6">
+            <Label htmlFor="shippingDimensions" className="mb-2 block">
+              Dimensions
             </Label>
-            <MultiSelect
-              value={formData.categories}
-              options={categories?.map(cat => ({ label: cat.name, value: cat._id }))}
-              onChange={selOptions => setFormData({ ...formData, categories: selOptions })}
-              required
-            />
+            <div className="flex gap-6">
+              <Input
+                type="number"
+                name="length"
+                value={formData.shippingDetails.dimensions.length}
+                onChange={handleShippingChange}
+                id="shippingLength"
+                disabled={pending}
+                placeholder="Length"
+              />
+
+              <Input
+                type="number"
+                name="width"
+                value={formData.shippingDetails.dimensions.width}
+                onChange={handleShippingChange}
+                id="shippingWidth"
+                disabled={pending}
+                placeholder="Width"
+              />
+
+              <Input
+                type="number"
+                name="height"
+                value={formData.shippingDetails.dimensions.height}
+                onChange={handleShippingChange}
+                id="shippingHeight"
+                disabled={pending}
+                placeholder="Height"
+              />
+            </div>
           </div>
         </div>
+        <Separator/>
+        <div>
+          <div className="flex mb-4 justify-between items-center">
+            <Label htmlFor="details" className="block uppercase">
+              Additional Details
+            </Label>
+            <Button
+              type="button"
+              size="sm"
+              onClick={() =>
+                setFormData(prevData => ({
+                  ...prevData,
+                  details: [...prevData.details, { name: "", value: "" }],
+                }))
+              }
+              disabled={pending}
+            >
+              Add Detail
+            </Button>
+          </div>
+          {formData.details.map((detail, index) => (
+            <div key={index} className="mb-2 space-y-3">
+              <div className="grid grid-cols-4">
+                <Label htmlFor="details" className="cols-span-1">
+                  Name
+                </Label>
+                <Input
+                  type="text"
+                  name="name"
+                  value={detail.name}
+                  onChange={e => handleDetailsChange(index, e)}
+                  placeholder="Detail Name"
+                  disabled={pending}
+                  className="col-span-3"
+                />
+              </div>
+              <div className="grid grid-cols-4">
+                <Label htmlFor="details" className="cols-span-1">
+                  Value
+                </Label>
+                <Textarea
+                  type="text"
+                  name="value"
+                  value={detail.value}
+                  onChange={e => handleDetailsChange(index, e)}
+                  placeholder="Detail Value"
+                  disabled={pending}
+                  className="col-span-3"
+                />
+              </div>
+            </div>
+          ))}
+        </div>
+        <Separator/>
+
         <div>
           <Label htmlFor="images" className="mb-2 block">
             Upload Images
           </Label>
           <ImageUpload images={images} setImages={setImages} />
         </div>
-        {error && (
-          <div className="text-red-500 px-2 py-3 border border-red-300 text-sm mt-2">{error}</div>
-        )}
-        <Button disabled={pending} pending={pending} type="submit">
-          {!update ? "Add Product" : "Update Product"}
+        <Separator/>
+
+        <Button type="submit" className="mt-6" disabled={pending}>
+          {update ? "Update Product" : "Create Product"}
         </Button>
+        {error && <p className="text-red-500 mt-4">{error}</p>}
       </div>
     </form>
   );

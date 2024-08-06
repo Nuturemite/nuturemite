@@ -15,15 +15,10 @@ export const ProductSchema = new Schema(
     images: [String],
     shippingDetails: {
       weight: { type: Number },
-      dimensions: { type: String },
+      dimensions: { height: Number, width: Number, length: Number },
     },
-    weight: { type: Number },
-    details: [
-      {
-        name: String,
-        value: String,
-      },
-    ],
+    stockLimit: { type: Number, default: 0 },
+    details: [{ name: String, value: String }],
     approvalStatus: {
       type: String,
       enum: ["pending", "approved", "rejected"],

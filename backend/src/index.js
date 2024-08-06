@@ -15,6 +15,7 @@ import userRoutes from "./routes/user.route.js";
 import orderRoutes from "./routes/order.route.js";
 import vendorRoutes from "./routes/vendor.route.js";
 import { stripePaymentListener } from "./controllers/payment.controller.js";
+import { uploadImage } from "./utils/uploadFile.js";
 
 dotenv.config();
 
@@ -25,9 +26,9 @@ app.use(cors({ origin: process.env.CLIENT_URL, credentials: true }));
 app.post("/api/stripe/webhook", express.raw({ type: "application/json" }), stripePaymentListener);
 
 app.use(express.json({ limit: "50mb", extended: true }));
-app.use(fileUpload({ limits: { fileSize: 50 * 1024 * 1024 } }));
+app.use(fileUpload({ limits: { fileSize: 3 * 1024 * 1024 } }));
 
-app.use('/api/vendors', vendorRoutes)
+app.use("/api/vendors", vendorRoutes);
 app.use("/api", orderRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/reviews", reviewRoutes);
@@ -39,6 +40,27 @@ app.use("/api/auth", authRoute);
 app.use("/api/categories", categoryRoutes);
 app.use("/api/brands", brandRoutes);
 
+app.use("/api/upload/images", async (req, res) => {
+  try {
+    if (req.files) {
+      if (req.files.image) {
+        const url = await uploadImage(req.files.image.data, "nuturemite/product/uploads");
+        req.body.image = url;
+      }
+      if (req.files["images[]"]) {
+        const uploadPromises = req.files["images[]"].map(async image => {
+          const url = await uploadImage(image.data, "nuturemite/product/uploads");
+          return url;
+        });
+        images = await Promise.all(uploadPromises);
+      }
+    }
+    res.json({ data: images });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: error.message });
+  }
+});
 // Routes
 
 app.get("/", (req, res) => {
