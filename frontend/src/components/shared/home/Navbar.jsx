@@ -28,7 +28,6 @@ const accountItems = [
 
 const NavBar = () => {
   const { isAuthenticated, user, login, logout } = useAuthContext();
-  console.log(user);
   useEffect(() => {
     login();
   }, []);
@@ -69,8 +68,8 @@ const NavBar = () => {
       <Header />
       <nav className="bg-primary border-slate-200 border-b px-4 md:px-12 flex gap-16 items-center justify-between">
         <Link href="/">
-          <div className="flex items-center border-t border-primary gap-2">
-            <img className="h-24 " src="./logo.jpeg" alt="" />
+          <div className="flex items-center gap-2">
+            <img className="h-20 " src="./logo.jpeg" alt="" />
           </div>
         </Link>
 

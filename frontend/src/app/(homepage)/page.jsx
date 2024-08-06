@@ -14,7 +14,7 @@ export default function Page() {
           <div>
             <Hero />
           </div>
-          <div className="mt-16 px-4 md:px-16">
+          <div className="mt-8 px-4 md:px-16">
             <Featured />
           </div>
         </div>

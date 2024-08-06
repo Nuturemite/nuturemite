@@ -15,7 +15,7 @@ export const ProductSchema = new Schema(
     images: [String],
     shippingDetails: {
       weight: { type: Number },
-      dimensions: { height: Number, width: Number, length: Number },
+      dimensions: { length: Number, width: Number, height: Number },
     },
     stockLimit: { type: Number, default: 0 },
     details: [{ name: String, value: String }],

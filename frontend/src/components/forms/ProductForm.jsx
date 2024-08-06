@@ -9,6 +9,7 @@ import { useCategories } from "@/lib/data";
 import ImageUpload from "@/components/ui/image-upload";
 import MultiSelect from "@/components/ui/multi-select";
 import { Separator } from "../ui/separator";
+import { tst } from "@/lib/utils";
 
 const initialData = {
   name: "",
@@ -17,7 +18,6 @@ const initialData = {
   price: "",
   sku: "",
   categories: [],
-  brand: "",
   vendor: "",
   quantity: "",
   shippingDetails: {
@@ -46,7 +46,7 @@ function ProductForm({ update, params, product }) {
         categories: product.categories.map(cat => ({ value: cat._id, label: cat.name })),
         shippingDetails: {
           ...product.shippingDetails,
-          dimensions: { ...product.shippingDetails?.dimensions || "" },
+          dimensions: { ...(product.shippingDetails?.dimensions || "") },
         },
       });
       // setImages(product.images.map(img => ({ image: img })));
@@ -55,34 +55,24 @@ function ProductForm({ update, params, product }) {
 
   const handleChange = e => {
     const { name, value } = e.target;
-    if (["length", "width", "height"].includes(name)) {
-      setFormData(prevState => ({
-        ...prevState,
-        shippingDetails: {
-          ...prevState.shippingDetails,
-          dimensions: {
-            ...prevState.shippingDetails.dimensions,
-            [name]: value,
-          },
-        },
-      }));
-    } else {
-      setFormData(prevState => ({
-        ...prevState,
-        [name]: value,
-      }));
-    }
+    setFormData(prevState => ({
+      ...prevState,
+      [name]: value,
+    }));
   };
 
   const handleShippingChange = e => {
     const { name, value } = e.target;
-    setFormData(prevState => ({
-      ...prevState,
+    setFormData({
+      ...formData,
       shippingDetails: {
-        ...prevState.shippingDetails,
-        [name]: value,
+        ...formData.shippingDetails,
+        dimensions: {
+          ...formData.shippingDetails.dimensions,
+          [name]: value,
+        },
       },
-    }));
+    });
   };
 
   const handleDetailsChange = (index, e) => {
@@ -102,21 +92,21 @@ function ProductForm({ update, params, product }) {
     try {
       const payload = {
         ...formData,
-        images: images.map(image => image.image),
+        // images: images.map(image => image.image),
         categories: formData.categories.map(cat => cat.value),
       };
       if (!update) {
         await api.post("/products", payload, {
-          headers: { "Content-Type": "multipart/form-data" },
+          // headers: { "Content-Type": "multipart/form-data" },
         });
       } else {
         await api.put(`/products/${params.id}`, payload, {
-          headers: { "Content-Type": "multipart/form-data" },
+          // headers: { "Content-Type": "multipart/form-data" },
         });
       }
-      setError(null);
+      tst.success(update ? "Product updated successfully" : "Product created successfully");
     } catch (err) {
-      setError(err.response?.data?.message || "An error occurred");
+      tst.error(err);
     } finally {
       setPending(false);
     }
@@ -156,7 +146,7 @@ function ProductForm({ update, params, product }) {
             className="min-h-[10rem]"
           />
         </div>
-        <Separator/>
+        <Separator />
 
         <div className="flex gap-6">
           <div className="flex-1">
@@ -218,24 +208,29 @@ function ProductForm({ update, params, product }) {
             required
           />
         </div>
-        <Separator/>
+        <Separator />
 
         <div>
           <Label htmlFor="shippingWeight" className="mb-2 block">
-            Shipping Weight
+            Shipping Weight {"(gm)"}
           </Label>
           <Input
             type="number"
             name="weight"
             value={formData.shippingDetails.weight}
-            onChange={handleShippingChange}
+            onChange={e =>
+              setFormData({
+                ...formData,
+                shippingDetails: { ...formData.shippingDetails, weight: e.target.value },
+              })
+            }
             id="shippingWeight"
             disabled={pending}
             placeholder="Weight"
           />
           <div className="mt-6">
             <Label htmlFor="shippingDimensions" className="mb-2 block">
-              Dimensions
+              Dimensions (cm)
             </Label>
             <div className="flex gap-6">
               <Input
@@ -270,7 +265,7 @@ function ProductForm({ update, params, product }) {
             </div>
           </div>
         </div>
-        <Separator/>
+        <Separator />
         <div>
           <div className="flex mb-4 justify-between items-center">
             <Label htmlFor="details" className="block uppercase">
@@ -323,15 +318,15 @@ function ProductForm({ update, params, product }) {
             </div>
           ))}
         </div>
-        <Separator/>
+        <Separator />
 
-        <div>
+        {/* <div>
           <Label htmlFor="images" className="mb-2 block">
             Upload Images
           </Label>
           <ImageUpload images={images} setImages={setImages} />
-        </div>
-        <Separator/>
+        </div> */}
+        <Separator />
 
         <Button type="submit" className="mt-6" disabled={pending}>
           {update ? "Update Product" : "Create Product"}

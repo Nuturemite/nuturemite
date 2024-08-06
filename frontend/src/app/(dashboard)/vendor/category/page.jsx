@@ -22,7 +22,6 @@ const CategoryList = ({ searchParams }) => {
       mutate(categories.filter(category => category.id !== id));
       tst.success("Category deleted successfully");
     } catch (error) {
-      console.log(error);
       tst.error(error);
     } finally {
       setPending(false);
@@ -43,10 +42,10 @@ const CategoryList = ({ searchParams }) => {
 
   const actions = item => (
     <div className="flex gap-2">
-      <AlertBox onClick={() => handleCategoryDelete(item.id)}>
+      <AlertBox onClick={() => handleCategoryDelete(item._id)}>
         <Trash className="text-red-600 cursor-pointer" />
       </AlertBox>
-      <Link href={`/vendor/category/edit/${item.id}`}>
+      <Link href={`/vendor/category/edit/${item._id}`}>
         <Edit className="text-green-500 cursor-pointer" />
       </Link>
     </div>
