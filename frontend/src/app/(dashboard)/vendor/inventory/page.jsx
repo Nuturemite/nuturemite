@@ -27,7 +27,7 @@ const StockUpdateDialog = ({ product, mutate }) => {
   const [pending, setPending] = React.useState(false);
   const [quantity, setQuantity] = React.useState(product.quantity);
 
-  const handleStockUpdate = async (productId) => {
+  const handleStockUpdate = async productId => {
     try {
       setPending(true);
       await api.put(`/products/${productId}`, { quantity });
@@ -54,13 +54,13 @@ const StockUpdateDialog = ({ product, mutate }) => {
               Update the stock quantity and status for this product.
             </DialogDescription>
           </DialogHeader>
-          <form onSubmit={(e) => e.preventDefault()}>
+          <form onSubmit={e => e.preventDefault()}>
             <div className="my-4">
               <Label className="block mb-2">Inventory Quantity</Label>
               <Input
                 type="number"
                 value={quantity}
-                onChange={(e) => setQuantity(Number(e.target.value))}
+                onChange={e => setQuantity(Number(e.target.value))}
                 className="w-full border p-2"
               />
             </div>
@@ -92,9 +92,9 @@ const ProductList = ({ searchParams }) => {
   // Define columns and their data keys
   const columns = [
     {
-      key: 'name',
-      label: 'Name',
-      render: (product) => (
+      key: "name",
+      label: "Name",
+      render: product => (
         <div className="flex items-center gap-3">
           <img
             className="w-10 h-10 object-cover rounded"
@@ -105,13 +105,13 @@ const ProductList = ({ searchParams }) => {
         </div>
       ),
     },
-    { key: 'basePrice', label: 'MRP', render: (product) => `₹${product.basePrice}` },
-    { key: 'price', label: 'Sales Price', render: (product) => `₹${product.price}` },
-    { key: 'quantity', label: 'Quantity', render: (product) => product.quantity || 0 },
+    { key: "basePrice", label: "MRP", render: product => `₹${product.basePrice}` },
+    { key: "price", label: "Sales Price", render: product => `₹${product.price}` },
+    { key: "quantity", label: "Quantity", render: product => product.quantity || 0 },
     {
-      key: 'status',
-      label: 'Status',
-      render: (product) => (
+      key: "status",
+      label: "Status",
+      render: product => (
         <div
           className={`py-1 rounded-full w-max text-xs px-2 text-center ${
             product.quantity === 0 ? "bg-red-200 text-red-600" : "bg-green-200 text-green-600"
@@ -121,19 +121,13 @@ const ProductList = ({ searchParams }) => {
         </div>
       ),
     },
-    {
-      key: 'actions',
-      label: 'Action',
-      render: (product) => (
-        <div className="flex gap-2">
-          <StockUpdateDialog product={product} mutate={mutate} />
-          <Link href={`/admin/product/edit/${product._id}`}>
-            <Edit className="text-green-500 cursor-pointer" />
-          </Link>
-        </div>
-      ),
-    },
   ];
+
+  const actions = item => (
+    <>
+      <StockUpdateDialog product={item} mutate={mutate} />
+    </>
+  );
 
   return (
     <div className="container mx-auto p-4">
@@ -145,6 +139,7 @@ const ProductList = ({ searchParams }) => {
         data={products}
         isLoading={isLoading}
         caption="List of all products."
+        actions={actions}
       />
     </div>
   );
