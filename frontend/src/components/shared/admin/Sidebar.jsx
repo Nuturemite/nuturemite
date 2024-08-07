@@ -89,6 +89,32 @@ const sidebarItemsAdmin = [
     title: "Products",
     link: "/admin/products",
   },
+  {
+    icon: Package,
+    title: "Orders",
+    link: "/vendor/orders",
+  },
+  {
+    icon: Truck,
+    title: "Shipments",
+    link: "/vendor/shipments",
+  },
+  {
+    icon: FileText,
+    title: "Invoices",
+    link: "/vendor/invoices",
+  },
+  {
+    icon: CreditCard,
+    title: "Refunds",
+    link: "/vendor/refunds",
+  },
+  {
+    icon: List,
+    title: "Category",
+    link: "/vendor/category",
+  },
+ 
 ];
 
 function Sidebar({ className }) {

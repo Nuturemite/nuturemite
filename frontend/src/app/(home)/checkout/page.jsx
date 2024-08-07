@@ -7,10 +7,11 @@ import { Button } from "@/components/ui/button";
 import api from "@/lib/api";
 import { useRouter } from "next/navigation";
 import { tst } from "@/lib/utils";
+import { Textarea } from "@/components/ui/textarea";
 
 const initialData = {
-  firstName: "",
-  lastName: "",
+  fname: "",
+  lname: "",
   address: "",
   city: "",
   state: "",
@@ -27,9 +28,9 @@ const paymentOptions = [
 ];
 export default function Page() {
   const [pending, setPending] = useState(false);
-  const [shippingDetails, setShippshippingDetails] = useState(initialData);
+  const [shippingAddress, setShippingAddress] = useState(initialData);
   const [paymentMode, setPaymentMode] = useState("cod");
-  const router = useRouter()
+  const router = useRouter();
 
   const handlePaymentOptionChange = e => {
     setPaymentMode(e.target.value);
@@ -37,8 +38,8 @@ export default function Page() {
 
   const formDetails = [
     [
-      { label: "First Name", value: "firstName", section: "billing" },
-      { label: "Last Name", value: "lastName", section: "billing" },
+      { label: "First Name", value: "fname", section: "billing" },
+      { label: "Last Name", value: "lname", section: "billing" },
     ],
     [
       { label: "Email", value: "email", section: "billing" },
@@ -57,7 +58,7 @@ export default function Page() {
 
   const handleChange = e => {
     const { name, value } = e.target;
-    setShippshippingDetails(prevData => ({
+    setShippingAddress(prevData => ({
       ...prevData,
       [name]: value,
     }));
@@ -70,18 +71,16 @@ export default function Page() {
 
       if (paymentMode === "cod") {
         await api.post("/orders/place-order", {
-          shippingDetails: shippingDetails,
+          shippingAddress,
           paymentMode: "cod",
         });
         tst.success("Order placed successfully");
         router.push("/orders");
-
       } else {
-        const response = await api.post("/payment/create-checkout-session", { shippingDetails });
+        const response = await api.post("/payment/create-checkout-session", { shippingAddress });
         const url = response.data.url;
         router.push(url);
       }
-
     } catch (error) {
       console.log(error);
       tst.error(error);
@@ -111,7 +110,7 @@ export default function Page() {
                             type="text"
                             id={field.value}
                             name={field.value}
-                            value={shippingDetails[field.value] || ""}
+                            value={shippingAddress[field.value] || ""}
                             onChange={handleChange}
                           />
                         </div>
@@ -122,11 +121,11 @@ export default function Page() {
                       <Label className={"text-slate-600"} htmlFor={section.value}>
                         {section.label}
                       </Label>
-                      <Input
+                      <Textarea
                         type="text"
                         id={section.value}
                         name={section.value}
-                        value={shippingDetails[section.value] || ""}
+                        value={shippingAddress[section.value] || ""}
                         onChange={handleChange}
                       />
                     </div>

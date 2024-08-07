@@ -30,18 +30,7 @@ export const OrderSchema = new Schema(
       default: "pending",
     },
     comment: String,
-    shippingDetails: {
-      fname: String,
-      lname: String,
-      email: String,
-      phone: String,
-      address: String,
-      street: String,
-      country: String,
-      city: String,
-      state: String,
-      zipcode: String,
-    },
+    shippingAddress: { type: Schema.Types.ObjectId, ref: "Address", required: true },
     createdAt: { type: Date, required: true },
     processedAt: Date,
     deliveredAt: Date,
@@ -52,11 +41,11 @@ export const OrderSchema = new Schema(
   { timestamps: true }
 );
 
-OrderSchema.pre('find', function() {
+OrderSchema.pre("find", function () {
   this.sort({ _id: -1 });
 });
 
-OrderSchema.pre('findOne', function() {
+OrderSchema.pre("findOne", function () {
   this.sort({ _id: -1 });
 });
 
@@ -65,4 +54,3 @@ OrderSchema.virtual("suborders", {
   localField: "_id",
   foreignField: "order",
 });
-

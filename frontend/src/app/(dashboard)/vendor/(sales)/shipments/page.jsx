@@ -1,100 +1,76 @@
 "use client";
-
 import React, { useState } from "react";
-import {
-  Table,
-  TableBody,
-  TableCaption,
-  TableHead,
-  TableHeader,
-  TableRow,
-  TableCell,
-} from "@/components/ui/table";
+import { useVendorShipments } from "@/lib/data";
+import DataTable from "@/components/tables/DataTable";
+import { formatString } from "@/lib/utils";
+import Error from "@/components/shared/error";
+import { Edit } from "lucide-react";
+import SearchInput from "@/components/shared/search";
 import Link from "next/link";
-import { Eye } from "lucide-react";
+// import UpdateShipmentDialog from "@/components/dialogs/UpdateShipmentDialog"; // Import the dialog component
+import UpdateShipmentDialog from "./dialog";
+import OrderStatus from "@/components/shared/admin/OrderStatus";
 
-// Sample data for demonstration
-const sampleShipments = [
-  {
-    id: 1,
-    shipmentId: "SHIP123456",
-    orderId: "123456",
-    shipmentDate: new Date(),
-    carrier: "FedEx",
-    status: "In Transit",
-    shippedTo: "Jane Smith",
-    trackingNumber: "TRACK123456",
-  },
-  {
-    id: 2,
-    shipmentId: "SHIP789012",
-    orderId: "789012",
-    shipmentDate: new Date(),
-    carrier: "UPS",
-    status: "Delivered",
-    shippedTo: "John Doe",
-    trackingNumber: "TRACK789012",
-  },
-];
+const ShipmentTable = () => {
+  const { shipments, error, isLoading ,mutate} = useVendorShipments({ limit: 50 });
+  const [selectedShipmentId, setSelectedShipmentId] = useState(null);
 
-const ShipmentPage = () => {
-  const [shipments] = useState(sampleShipments); // Use API to fetch real data
+  if (error) return <Error />;
+
+  const columns = [
+    {
+      label: "Shipment ID",
+      render: item => item._id,
+    },
+    {
+      label: "Order ID",
+      render: item => item.order,
+    },
+    {
+      label: "Tracking ID",
+      render: item => item.trackingId,
+    },
+    {
+      label: "Carrier",
+      render: item => item.carrier,
+    },
+    {
+      label: "Address",
+      render: item => item.shippingAddress.address,
+    },
+    {
+      label: "Status",
+      render: item => (<OrderStatus status={item.status}/>),
+    },
+    {
+      label: "Date",
+      render: item => new Date(item.createdAt).toLocaleDateString(),
+    },
+  ];
+
+  const actions = item => (
+    <>
+      <UpdateShipmentDialog mutate={mutate} shipmentId={item._id} onClose={() => setSelectedShipmentId(null)} />
+      
+    </>
+  );
 
   return (
     <div className="container mx-auto p-4">
-      <div className="bg-white px-4">
-        <Table>
-          <TableCaption>List of all shipments.</TableCaption>
-          <TableHeader>
-            <TableRow>
-              <TableHead>Shipment ID</TableHead>
-              <TableHead>Order ID</TableHead>
-              <TableHead>Shipment Date</TableHead>
-              <TableHead>Carrier</TableHead>
-              <TableHead>Status</TableHead>
-              <TableHead>Shipped To</TableHead>
-              <TableHead>Tracking Number</TableHead>
-              <TableHead>Actions</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {shipments.length ? (
-              shipments.map((shipment) => (
-                <TableRow key={shipment.id}>
-                  <TableCell>{shipment.shipmentId}</TableCell>
-                  <TableCell>{shipment.orderId}</TableCell>
-                  <TableCell>{shipment.shipmentDate.toLocaleDateString()}</TableCell>
-                  <TableCell>{shipment.carrier}</TableCell>
-                  <TableCell>
-                    <div
-                      className={`text-xs p-1 rounded-full text-center ${
-                        shipment.status === "Delivered"
-                          ? "bg-green-200 text-green-600"
-                          : "bg-yellow-200 text-yellow-600"
-                      }`}
-                    >
-                      {shipment.status}
-                    </div>
-                  </TableCell>
-                  <TableCell>{shipment.shippedTo}</TableCell>
-                  <TableCell>{shipment.trackingNumber}</TableCell>
-                  <TableCell>
-                    <Link href={`/shipments/${shipment.id}`}>
-                      <Eye className="text-green-400 cursor-pointer" />
-                    </Link>
-                  </TableCell>
-                </TableRow>
-              ))
-            ) : (
-              <TableRow>
-                <TableCell colSpan="8">No shipments found.</TableCell>
-              </TableRow>
-            )}
-          </TableBody>
-        </Table>
+      <div className="flex justify-between text-center mb-6">
+        <div>
+          <SearchInput className="md:w-60" />
+        </div>
       </div>
+      <DataTable
+        columns={columns}
+        data={shipments}
+        isLoading={isLoading}
+        actions={actions}
+        caption="List of all shipments."
+      />
     </div>
   );
 };
 
-export default ShipmentPage;
+export default ShipmentTable;

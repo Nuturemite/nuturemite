@@ -1,76 +1,73 @@
 "use client";
-
-import {
-  Table,
-  TableBody,
-  TableCaption,
-  TableHead,
-  TableHeader,
-  TableRow,
-  TableCell,
-} from "@/components/ui/table";
+import React, { useState } from "react";
+import { Button } from "@/components/ui/button";
+import api from "@/lib/api";
+import { useVendorOrders } from "@/lib/data";
+import DataTable from "@/components/tables/DataTable";
+import { tst } from "@/lib/utils";
+import Error from "@/components/shared/error";
+import { Edit, Eye } from "lucide-react";
 import SearchInput from "@/components/shared/search";
 import Link from "next/link";
-import { Eye } from "lucide-react";
+import { Label } from "@/components/ui";
+import { Input } from "@/components/ui";
+import {
+  Dialog,
+  DialogPortal,
+  DialogClose,
+  DialogTrigger,
+  DialogContent,
+  DialogHeader,
+  DialogFooter,
+  DialogTitle,
+  DialogDescription,
+} from "@/components/ui/dialog";
+import OrderStatus from "@/components/shared/admin/OrderStatus";
 
-// Sample data for demonstration
-const sampleData = [
-  {
-    id: 1,
-    orderId: "123456",
-    subtotal: 100,
-    grandTotal: 110,
-    orderDate: new Date(),
-    status: "Pending",
-    billedTo: "John Doe",
-    shippedTo: "Jane Smith",
-    paymentMethod: "Credit Card",
-    shippingMethod: "Express",
-  },
-  {
-    id: 2,
-    orderId: "789012",
-    subtotal: 200,
-    grandTotal: 210,
-    orderDate: new Date(),
-    status: "Shipped",
-    billedTo: "Jane Smith",
-    shippedTo: "John Doe",
-    paymentMethod: "PayPal",
-    shippingMethod: "Standard",
-  },
-  {
-    id: 3,
-    orderId: "345678",
-    subtotal: 300,
-    grandTotal: 320,
-    orderDate: new Date(),
-    status: "Delivered",
-    billedTo: "Alice Johnson",
-    shippedTo: "Bob Brown",
-    paymentMethod: "Bank Transfer",
-    shippingMethod: "Next Day",
-  },
-  {
-    id: 4,
-    orderId: "901234",
-    subtotal: 150,
-    grandTotal: 160,
-    orderDate: new Date(),
-    status: "Cancelled",
-    billedTo: "Charlie Davis",
-    shippedTo: "Dana Lee",
-    paymentMethod: "Credit Card",
-    shippingMethod: "Two-Day",
-  },
-];
+const OrderList = () => {
+  const { orders, error, isLoading, mutate } = useVendorOrders({ limit: 50 });
+  const [pending, setPending] = useState(false);
 
-const ProductList = () => {
-  // const { order, isLoading, error } = useMyVendorOrders();
+  if (error) return <Error />;
 
-  // if(isLoading) return <Loader/>
-  // if(error) return <Error/>
-  
+  const columns = [
+    {
+      label: "Order ID",
+      render: item => item._id,
+    },
+    {
+      label: "Ordered By",
+      render: item => item.user.name,
+    },
+    {
+      label: "Address",
+      render: item => (
+        <span>{`${item.shippingAddress.address}, ${item.shippingAddress.city}, ${item.shippingAddress.state}, ${item.shippingAddress.zipcode}`}</span>
+      ),
+    },
+    {
+      label: "Total ",
+      render: item => `₹${item.total}`,
+    },
+    {
+      label: "Status",
+      render: item => <OrderStatus status={item.status} />,
+    },
+    {
+      label: "Date",
+      render: item => new Date(item.createdAt).toLocaleDateString(),
+    },
+  ];
+
+  const actions = item => (
+    <>
+      {item.status === "pending" && <ShipmentDialog orderId={item._id} />}
+      <Link href={`/vendor/orders/edit/${item._id}/`}>
+        <Eye className="text-green-500" />
+      </Link>
+    </>
+  );
+
   return (
     <div className="container mx-auto p-4">
       <div className="flex justify-between text-center mb-6">
@@ -78,61 +75,79 @@ const ProductList = () => {
           <SearchInput className="md:w-60" />
         </div>
       </div>
-      <div className="bg-white px-4">
-        <Table>
-          <TableCaption>List of all orders.</TableCaption>
-          <TableHeader>
-            <TableRow>
-              <TableHead>Order ID</TableHead>
-              <TableHead>Subtotal</TableHead>
-              <TableHead>Grand Total</TableHead>
-              <TableHead>Order Date</TableHead>
-              <TableHead>Status</TableHead>
-              <TableHead>Billed To</TableHead>
-              <TableHead>Shipped To</TableHead>
-              <TableHead>Payment Method</TableHead>
-              <TableHead>Shipping Method</TableHead>
-              <TableHead>Actions</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {sampleData.map(item => (
-              <TableRow key={item.id}>
-                <TableCell>{item.orderId}</TableCell>
-                <TableCell>&#8377; {item.subtotal}</TableCell>
-                <TableCell>&#8377; {item.grandTotal}</TableCell>
-                <TableCell>{item.orderDate.toLocaleDateString()}</TableCell>
-                <TableCell>
-                  <div
-                    className={`text-xs p-1 rounded-full text-center ${
-                      item.status === "Delivered"
-                        ? "bg-green-200 text-green-600"
-                        : item.status === "Shipped"
-                        ? "bg-blue-200 text-blue-600"
-                        : item.status === "Pending"
-                        ? "bg-yellow-200 text-yellow-600"
-                        : "bg-red-200 text-red-600"
-                    }`}
-                  >
-                    {item.status}
-                  </div>
-                </TableCell>
-                <TableCell>{item.billedTo}</TableCell>
-                <TableCell>{item.shippedTo}</TableCell>
-                <TableCell>{item.paymentMethod}</TableCell>
-                <TableCell>{item.shippingMethod}</TableCell>
-                <TableCell>
-                  <Link href={`/orders/${item.id}`}>
-                    <Eye className="text-green-400 cursor-pointer" />
-                  </Link>
-                </TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </div>
+      <DataTable
+        columns={columns}
+        data={orders}
+        isLoading={isLoading}
+        actions={actions}
+        caption="List of all orders."
+        pending={pending}
+      />
     </div>
   );
 };
 
-export default ProductList;
+const ShipmentDialog = ({ orderId }) => {
+  const [pending, setPending] = useState(false);
+  const [trackingId, setTrackingId] = useState("");
+  const [carrier, setCarrier] = useState("");
+
+  const handleShipment = async () => {
+    try {
+      setPending(true);
+      await api.post("/shipments", { orderId, trackingId, carrier });
+      tst.success("Shipment created successfully");
+    } catch (error) {
+      console.error(error);
+      tst.error(error);
+    } finally {
+      setPending(false);
+    }
+  };
+
+  return (
+    <Dialog>
+      <DialogTrigger asChild>
+        <Edit className="text-green-500 cursor-pointer" />
+      </DialogTrigger>
+      <DialogPortal>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Add Shipment Details</DialogTitle>
+            <DialogDescription>Enter tracking ID and carrier for the shipment.</DialogDescription>
+          </DialogHeader>
+          <form onSubmit={e => e.preventDefault()}>
+            <div className="my-4 grid grid-cols-4">
+              <Label className="">Tracking ID</Label>
+              <Input
+                type="text"
+                value={trackingId}
+                onChange={e => setTrackingId(e.target.value)}
+                className="col-span-3 "
+              />
+            </div>
+            <div className="my-4 grid grid-cols-4">
+              <Label className="">Carrier</Label>
+              <Input
+                type="text"
+                value={carrier}
+                onChange={e => setCarrier(e.target.value)}
+                className="col-span-3"
+              />
+            </div>
+            <DialogFooter>
+              <DialogClose>
+                <Button variant="destructive">Cancel</Button>
+              </DialogClose>
+              <Button pending={pending} type="submit" onClick={handleShipment}>
+                Save
+              </Button>
+            </DialogFooter>
+          </form>
+        </DialogContent>
+      </DialogPortal>
+    </Dialog>
+  );
+};
+
+export default OrderList;

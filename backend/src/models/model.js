@@ -10,6 +10,8 @@ import { VendorSchema } from "./vendor.model.js";
 import { WishlistSchema } from "./wishlist.model.js";
 import { UserSchema } from "./user.model.js";
 import { SubOrderSchema } from "./suborder.model.js";
+import { AddressSchema } from "./address.model.js";
+import { ShippingSchema } from "./shipping.model.js";
 
 export const User = mongoose.model("User", UserSchema);
 export const Category = mongoose.model("Category", CategorySchema);
@@ -21,37 +23,5 @@ export const Order = mongoose.model("Order", OrderSchema);
 export const SubOrder = mongoose.model("SubOrder", SubOrderSchema);
 export const Vendor = mongoose.model("Vendor", VendorSchema);
 export const Review = mongoose.model("Review", ReviewSchema);
-
-
-// const vendorSchema = new mongoose.Schema(
-//   {
-//     name: String,
-//     contactPerson: String,
-//     contactEmail: String,
-//     contactPhoneNumber: String,
-//     address: {
-//       street: String,
-//       city: String,
-//       state: String,
-//       postalCode: String,
-//       country: String,
-//     },
-//     businessInfo: {
-//       registrationNumber: String,
-//       taxId: String,
-//       businessType: String,
-//     },
-//     bankDetails: {
-//       bankName: String,
-//       accountNumber: String,
-//       routingNumber: String,
-//       swiftCode: String,
-//     },
-//     status: {
-//       type: String,
-//       enum: ["profile", "bank", "business", "complete"],
-//       default: "profile",
-//     },
-//   },
-//   { timestamps: true }
-// );
+export const Address = mongoose.model("Address", AddressSchema);
+export const Shipping = mongoose.model("Shipping", ShippingSchema);

@@ -1,16 +1,6 @@
-import { Cart, Order, Product, SubOrder, Vendor } from "../models/model.js";
+import { Address, Cart, Order, Product, Shipping, SubOrder, Vendor } from "../models/model.js";
 import mongoose from "mongoose";
-
-export const addShippingAddress = async (req, res) => {
-  try {
-    const shippingDetials = req.body;
-    const order = new Order({ userId: req.user._id, orderId: req.params.id });
-    order.shippingDetails = shippingDetials;
-    order.save();
-  } catch (error) {
-    console.log(error);
-  }
-};
+import { generateModelId } from "../utils/generateId.js";
 
 export const placeOrder = async (req, res) => {
   const session = await mongoose.startSession();
@@ -18,7 +8,7 @@ export const placeOrder = async (req, res) => {
 
   try {
     const userId = req.user.id;
-    const { paymentMode, shippingDetails } = req.body;
+    const { paymentMode, shippingAddress } = req.body;
 
     const cart = await Cart.findOne({ user: userId }).populate("items.product");
 
@@ -47,6 +37,11 @@ export const placeOrder = async (req, res) => {
       });
     }
 
+    // Save shipping address
+    shippingAddress.user = req.user.id;
+    const address = new Address(shippingAddress);
+    const { _id: shippingAddressId } = await address.save({ session });
+
     // Create Order
     const subtotal = cart.items.reduce((acc, item) => acc + item.product.price * item.quantity, 0);
     let total;
@@ -59,7 +54,7 @@ export const placeOrder = async (req, res) => {
       total,
       subtotal,
       paymentMode,
-      shippingDetails,
+      shippingAddress: shippingAddressId,
       user: userId,
       createdAt: new Date(),
     });
@@ -76,9 +71,14 @@ export const placeOrder = async (req, res) => {
       if (!vendorOrders[vendor]) {
         vendorOrders[vendor] = {
           order: newOrder._id,
+          user: req.user.id,
           vendor,
           orderItems: [],
-          totalAmount: 0,
+          subTotal: 0,
+          discount: 0,
+          disTotal: 0,
+          total: 0,
+          shippingAddress: shippingAddressId,
           createdAt: new Date(),
         };
       }
@@ -86,13 +86,17 @@ export const placeOrder = async (req, res) => {
       vendorOrders[vendor].orderItems.push({
         product: item.product._id,
         quantity: item.quantity,
-        basePrice: item.product.price,
-        price: item.product.price * item.quantity,
+        unitPrice: item.product.price,
+        totalPrice: item.product.price * item.quantity,
       });
-      vendorOrders[vendor].totalAmount += item.product.price * item.quantity;
+      vendorOrders[vendor].subTotal += item.product.basePrice * item.quantity;
+      vendorOrders[vendor].disTotal += item.product.price * item.quantity;
+      vendorOrders[vendor].discount = vendorOrders[vendor].subTotal - vendorOrders[vendor].disTotal;
+      vendorOrders[vendor].total = vendorOrders[vendor].disTotal;
     }
 
     for (const [vendor, subOrderData] of Object.entries(vendorOrders)) {
+      // subOrderData.orderId = "ORD" + (await generateModelId(SubOrder));
       const subOrder = new SubOrder(subOrderData);
       await subOrder.save({ session });
     }
@@ -133,7 +137,7 @@ export const getAllOrders = async (req, res) => {
 export const getUserOrders = async (req, res) => {
   const { userId } = req.params;
   try {
-    const orders = await Order.find({ user: userId });
+    const orders = await SubOrder.find({ user: userId });
     res.status(200).json({ data: orders });
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -144,23 +148,15 @@ export const getUserOrders = async (req, res) => {
 export const getOrderById = async (req, res) => {
   const { id } = req.params;
   try {
-    const order = await Order.findById(id);
-    const suborders = await SubOrder.find({ order: order._id })
+    const suborders = await SubOrder.findById(id)
       .populate({
         path: "orderItems.product",
         select: "_id vendor name price basePrice images",
       })
-      .populate({ path: "vendor" });
-    const orderWithSuborders = {
-      ...order.toObject(),
-      suborders,
-    };
+      .populate("shippingAddress")
+      .populate({ path: "vendor", select: "_id name businessName contactNumber address" });
 
-    if (order) {
-      res.status(200).json({ data: orderWithSuborders });
-    } else {
-      res.status(404).json({ message: "Order not found" });
-    }
+    res.status(200).json({ data: suborders });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -169,7 +165,10 @@ export const getOrderById = async (req, res) => {
 // Get orders by current authenticated user
 export const getMyOrders = async (req, res) => {
   try {
-    const orders = await Order.find({ user: req.user.id }).select("-shippingDetails -orderItems");
+    const orders = await SubOrder.find({ user: req.user.id }).select(
+      "-shippingDetails -orderItems"
+    );
+
     res.status(200).json({ data: orders });
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -190,29 +189,45 @@ export const getVendorOrders = async (req, res) => {
 // Get sub-orders by current authenticated vendor
 export const getMyOrdersAsVendor = async (req, res) => {
   try {
-    console.log(req.user.id);
-    const vendor = await Vendor.findOne({ user: req.user.id });
-    console.log(vendor._id);
-    const subOrders = await SubOrder.find({ vendor: vendor._id });
-
+    console.log(req.user.vendorId);
+    const subOrders = await SubOrder.find({ vendor: req.user.vendorId })
+      .select("-orderItems")
+      .populate("user", "name email")
+      .populate("shippingAddress")
     res.status(200).json({ data: subOrders });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 };
 
-
 // Update order by ID
 export const updateOrder = async (req, res) => {
   const { id } = req.params;
+  const { status, shippingDetails } = req.body;
+  const session = await mongoose.startSession();
+  session.startTransaction();
   try {
-    const order = await Order.findByIdAndUpdate(id, req.body, { new: true });
-    if (order) {
-      res.status(200).json({ data: order });
-    } else {
-      res.status(404).json({ message: "Order not found" });
+    const order = await SubOrder.findByIdAndUpdate(id, { status }, { session });
+    if (order.status === "pending") {
+      // shippingDetails.shipId = "SHIP" + (await generateModelId(Shipping, session));
+      shippingDetails.order = order._id;
+      // shippingDetails.orderId = order.orderId;
+      shippingDetails.shippingAddress = order.shippingAddress;
+      shippingDetails.vendor = req.user.vendorId;
+      const shippingDetailsModel = new Shipping(shippingDetails);
+      await shippingDetailsModel.save({ session });
     }
+    else {
+      const shippingDetailsModel = await Shipping.findOne({ order: order._id });
+      await Shipping.findOneAndUpdate({ _id: shippingDetailsModel._id }, { status }, { session });
+    }
+    await session.commitTransaction();
+    res.json();
   } catch (error) {
+    await session.abortTransaction();
     res.status(500).json({ message: error.message });
+  } finally {
+    session.endSession();
   }
 };
+

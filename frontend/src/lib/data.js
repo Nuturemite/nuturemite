@@ -167,3 +167,16 @@ export const useVendor  = id => {
   const { data, error, isLoading, mutate } = useSWR(`/vendors/${id}`, fetcher);
   return { vendor: data, error, isLoading, mutate };
 }
+
+
+export const useVendorOrders = () => {
+  const url = `/vendor/my/orders`;
+  const { data, error, isLoading, mutate } = useSWR(url, fetcher);
+  return { orders: data, error, isLoading, mutate };
+};
+
+export const useVendorShipments = () => {
+  const url = `/vendor/my/shipments`;
+  const { data, error, isLoading, mutate } = useSWR(url, fetcher);
+  return { shipments: data, error, isLoading, mutate };
+}

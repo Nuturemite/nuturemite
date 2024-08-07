@@ -28,10 +28,11 @@ export const asyncHandler = async (callback, message) => {
     tst.error(error);
   }
 };
-
 export const formatString = (str) => {
   return str
     .replace(/([A-Z])/g, ' $1') // Insert space before uppercase letters
-    .replace(/_/g, ' ') // Replace underscores with spaces
+    .replace(/[_-]/g, ' ') // Replace underscores and hyphens with spaces
     .replace(/\b\w/g, (char) => char.toUpperCase()); // Capitalize first letter of each word
 };
+
+
