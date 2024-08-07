@@ -9,8 +9,6 @@ import Error from "@/components/shared/error";
 import { Download, Edit, Eye } from "lucide-react";
 import SearchInput from "@/components/shared/search";
 import Link from "next/link";
-import { Label } from "@/components/ui";
-import { Input } from "@/components/ui";
 import {
   Dialog,
   DialogPortal,
@@ -45,11 +43,7 @@ const OrderList = () => {
       render: item => `₹${item.total}`,
     },
     {
-      label: "Status",
-      render: item => <OrderStatus status={item.status} />,
-    },
-    {
-      label: "Date",
+      label: "Invoice Date",
       render: item => new Date(item.createdAt).toLocaleDateString(),
     },
   ];

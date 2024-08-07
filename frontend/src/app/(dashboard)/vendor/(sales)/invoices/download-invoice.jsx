@@ -1,4 +1,5 @@
 // DownloadInvoiceButton.jsx
+"use client"
 import React, { useState } from "react";
 import generatePdf from "./generatePdf";
 import { Download } from "lucide-react";
