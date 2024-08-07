@@ -7,6 +7,7 @@ import { formatString } from "@/lib/utils";
 
 export default function Navbar() {
   const { user } = useAuthContext();
+  if(!user) return;
 
   return (
     <div>
