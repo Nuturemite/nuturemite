@@ -15,7 +15,7 @@ const statusColor = {
 
 export default function OrderStatus({ status }) {
   return (
-    <span className={`rounded-xl px-2 py-1 whitespace-nowrap text-xs ${statusColor[formatString(status || "")]}`}>
+    <span className={`rounded-xl px-4 py-1 whitespace-nowrap text-xs ${statusColor[formatString(status || "")]}`}>
       {formatString(status)}
     </span>
   );

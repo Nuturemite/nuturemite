@@ -168,7 +168,7 @@ function Sidebar({ className }) {
               </Link>
             </li>
           ))}
-          <li>
+          {/* <li>
             <div
               className={`flex items-center px-4 py-2 text-red-400 hover:bg-slate-100 hover:text-slate-800 transition duration-150 cursor-pointer ${
                 isMinimized && "justify-center"
@@ -179,7 +179,7 @@ function Sidebar({ className }) {
                 Sign out
               </span>
             </div>
-          </li>
+          </li> */}
         </ul>
       </div>
     </aside>

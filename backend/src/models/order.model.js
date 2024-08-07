@@ -11,7 +11,7 @@ export const OrderSchema = new Schema(
     paymentMode: { type: String, enum: ["cod", "online"], required: true },
     paymentStatus: {
       type: String,
-      enum: ["pending", "completed", "failed"],
+      enum: ["pending", "paid", "failed"],
       default: "pending",
     },
     status: {

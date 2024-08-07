@@ -23,7 +23,6 @@ import {
   DialogDescription,
 } from "@/components/ui/dialog";
 import OrderStatus from "@/components/shared/admin/OrderStatus";
-import DownloadInvoiceButton from "./download-invoice";
 
 const OrderList = () => {
   const { orders, error, isLoading, mutate } = useVendorOrders({ limit: 50 });
@@ -37,7 +36,7 @@ const OrderList = () => {
       render: item => item._id,
     },
     {
-      label: "Billed To",
+      label: "Ordered By",
       render: item => item.user.name,
     },
     {
@@ -56,7 +55,7 @@ const OrderList = () => {
 
   const actions = item => (
     <>
-        <DownloadInvoiceButton id={item._id} />
+        <Download className="text-green-500" />
     </>
   );
 

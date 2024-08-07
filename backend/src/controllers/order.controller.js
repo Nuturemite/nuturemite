@@ -154,7 +154,7 @@ export const getOrderById = async (req, res) => {
         select: "_id vendor name price basePrice images",
       })
       .populate("shippingAddress")
-      .populate({ path: "vendor", select: "_id name businessName contactNumber address" });
+      .populate({ path: "vendor", select: "_id name businessName contactNumber address" })
 
     res.status(200).json({ data: suborders });
   } catch (error) {
