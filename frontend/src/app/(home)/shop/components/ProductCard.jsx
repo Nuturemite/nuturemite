@@ -1,11 +1,22 @@
 import React from "react";
 import { ShoppingCart, Heart, Search } from "lucide-react";
-import AddToCart from "./AddToCart";
 import AddToWishlist from "./AddToWishlist";
 import Link from "next/link";
+import { tst } from "@/lib/utils";
+import api from "@/lib/api";
 
 export const ProductCard = ({ product, featured }) => {
-  const { _id, images, name, basePrice, price, avgRating, quantity } = product;
+  const { _id, images, name, basePrice, price, quantity } = product;
+  async function handleCartAdd(e, product) {
+    e.preventDefault();
+    try {
+      await api.post(`/cart`, { productId: product._id, quantity: quantity || 1 });
+      tst.success("Cart item added");
+    } catch (error) {
+      tst.error(error);
+    } finally {
+    }
+  }
 
   return (
     <Link href={`/shop/${_id}`}>
@@ -30,11 +41,9 @@ export const ProductCard = ({ product, featured }) => {
             </div>
           ) : (
             <div className="absolute z-10 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 p-2 group-hover:flex space-x-6 hidden">
-              <AddToCart product={product} isChild>
-                <div className="p-1 border border-tert-100">
-                  <ShoppingCart className="text-tert-100" />
-                </div>
-              </AddToCart>
+              <div onClick={e => handleCartAdd(e, product)} className="p-1 border border-tert-100">
+                <ShoppingCart className="text-tert-100" />
+              </div>
               <AddToWishlist product={product} isChild>
                 <div className="p-1 border border-tert-100">
                   <Heart className="text-tert-100" />

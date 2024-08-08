@@ -1,78 +1,63 @@
 "use client";
+import React, { useState } from "react";
 import { useMyOrders } from "@/lib/data";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHeader,
-  TableRow,
-  TableHead,
-  TableCaption,
-} from "@/components/ui/table";
-import Link from "next/link";
-import Error from "@/components/shared/common/error";
-import { Button } from "@/components/ui/button";
-import TableSkeleton from "@/components/shared/tableskeleton";
-import Loader from "@/components/shared/loader";
+import DataTable from "@/components/tables/DataTable";
+import Error from "@/components/shared/error";
 import { Eye } from "lucide-react";
-import { formatString } from "@/lib/utils";
+import SearchInput from "@/components/filters/search";
+import Link from "next/link";
+import OrderStatus from "@/components/shared/admin/OrderStatus";
+import Loader from "@/components/shared/loader";
 
-export default function OrderPage() {
-  const { orders, isLoading, error } = useMyOrders();
+const OrderList = () => {
+  const { orders, error, isLoading} = useMyOrders({ limit: 50 });
 
-  if (isLoading) return <Loader />;
+  if(isLoading) return <Loader />
   if (error) return <Error />;
 
+  const columns = [
+    {
+      label: "Order ID",
+      render: item => item._id,
+    },
+    {
+      label: "Status",
+      render: item => <OrderStatus status={item.status} />,
+    },
+    {
+      label: "Total ",
+      render: item => `₹${item.total}`,
+    },
+    {
+      label: "Date",
+      render: item => new Date(item.createdAt).toLocaleDateString(),
+    },
+  ];
+
+  const actions = item => (
+    <>
+      <Link href={`/orders/${item._id}/`}>
+        <Eye className="text-green-500" />
+      </Link>
+    </>
+  );
+
   return (
-    <div>
-      <h2 className="h2-primary">Orders</h2>
-      <Table className="bg-white">
-        <TableCaption>A list of your recent orders.</TableCaption>
-        <TableHeader>
-          <TableRow>
-            <TableHead>Order ID</TableHead>
-            <TableHead>Status</TableHead>
-            <TableHead>Total</TableHead>
-            <TableHead>Grand Total</TableHead>
-            <TableHead>Date</TableHead>
-            <TableHead>Actions</TableHead>
-          </TableRow>
-        </TableHeader>
-        {isLoading ? (
-          <TableSkeleton columnCount={5} />
-        ) : (
-          <TableBody>
-            {orders.map(order => (
-              <TableRow key={order._id}>
-                <TableCell>{order._id}</TableCell>
-                <TableCell>
-                  <div
-                    className={`text-xs p-1 rounded-full text-center ${
-                      order.status === "delivered"
-                        ? "bg-green-200 text-green-600"
-                        : order.status === "shipped"
-                        ? "bg-blue-200 text-blue-600"
-                        : order.status === "pending"
-                        ? "bg-red-200 text-red-600"
-                        : "bg-red-200 text-red-600"
-                    }`}
-                  >
-                    {formatString(order.status)}
-                  </div>
-                </TableCell>
-                <TableCell>{order.total}</TableCell>
-                <TableCell>{order.subtotal}</TableCell>
-                <TableCell>{new Date(order.createdAt).toLocaleDateString()}</TableCell>
-                <TableCell>
-                  <Link href={`/orders/${order._id}`}>
-                    <Eye className="text-green-400 cursor-pointer" />
-                  </Link>
-                </TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        )}
-      </Table>
+    <div className="container mx-auto p-4">
+      <div className="flex justify-between text-center mb-6">
+        <div>
+          <SearchInput className="md:w-60" />
+        </div>
+      </div>
+      <DataTable
+        columns={columns}
+        data={orders}
+        isLoading={isLoading}
+        actions={actions}
+        caption="List of all orders."
+      />
     </div>
   );
-}
+};
+
+export default OrderList;

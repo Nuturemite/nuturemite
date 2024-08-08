@@ -84,7 +84,7 @@ const AlertDialogCancel = React.forwardRef(({ className, ...props }, ref) => (
 ));
 AlertDialogCancel.displayName = AlertDialogPrimitive.Cancel.displayName;
 
-export const AlertBox = ({ title, desc, onClick, children }) => {
+export const AlertBox = ({ title, desc, onClick, children, btnName }) => {
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>{children}</AlertDialogTrigger>
@@ -99,7 +99,7 @@ export const AlertBox = ({ title, desc, onClick, children }) => {
             onClick={onClick}
             className={buttonVariants({ variant: "destructive" })}
           >
-            Delete
+            {btnName || "Delete"}
           </AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>

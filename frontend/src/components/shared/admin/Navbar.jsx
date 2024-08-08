@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import SearchInput from "../search";
+import SearchInput from "../../filters/search";
 import { usePathname } from "next/navigation";
 import { useAuthContext } from "@/context/authprovider";
 import { formatString } from "@/lib/utils";

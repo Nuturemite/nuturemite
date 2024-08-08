@@ -12,7 +12,7 @@ import {
 } from "@/components/ui/table";
 import TableSkeleton from "@/components/shared/tableskeleton";
 import Error from "@/components/shared/error";
-import SearchInput  from "@/components/shared/search";
+import SearchInput  from "@/components/filters/search";
 import Link  from "next/link";
 import { Eye, View } from "lucide-react";
 // import Loader from "@/components/shared/loader";

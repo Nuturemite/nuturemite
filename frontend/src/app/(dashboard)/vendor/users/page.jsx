@@ -5,7 +5,7 @@ import { tst } from "@/lib/utils";
 import { useUsers } from "@/lib/data";
 import DataTable from "@/components/tables/DataTable";
 import { Edit, Trash } from "lucide-react";
-import SearchInput from "@/components/shared/search";
+import SearchInput from "@/components/filters/search";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { AlertBox } from "@/components/ui/alert-dialog";
 import UserForm from "@/components/forms/UserForm";

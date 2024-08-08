@@ -4,7 +4,7 @@ import api from "@/lib/api";
 import { tst } from "@/lib/utils";
 import React, { useState } from "react";
 
-function AddToCart({ product, setPending, isChild, children, quantity }) {
+function AddToCart({ product, setPending , isChild, children, quantity }) {
   async function handleCartAdd(e) {
     e.preventDefault();
     try {

@@ -10,21 +10,16 @@ function SearchInput({ className }) {
   const pathname = usePathname();
   const { replace } = useRouter();
 
-  const handleSearch = useDebouncedCallback(
-    e => {
-      const params = new URLSearchParams(searchParams);
-      const value = e.target.value;
-      if (value) {
-        params.set("search", e.target.value);
-      } else {
-        params.delete("search");
-      }
-
-      replace(`${pathname}?${params.toString()}`);
-    },
-    300,
-    { leading: true, trailing: false }
-  );
+  const handleSearch = e => {
+    const params = new URLSearchParams(searchParams);
+    const value = e.target.value;
+    if (value) {
+      params.set("search", e.target.value);
+    } else {
+      params.delete("search");
+    }
+    replace(`${pathname}?${params.toString()}`);
+  };
 
   return (
     <>

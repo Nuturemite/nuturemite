@@ -74,6 +74,8 @@ export const useProducts = (queryParams = {}) => {
         if (minDiscount && product.discount < minDiscount) return false;
         if (minRating && product.rating < minRating) return false;
         if (search && !product.name.toLowerCase().includes(search.toLowerCase())) return false;
+        // if (search && !product.sku.toLowerCase().includes(search.toLowerCase())) return false;
+        // if(search && !product.categories.map(cat=>cat.name.toLowerCase()).includes(search.toLowerCase())) return false;
         if (productId && product.productId != productId) return false;
         if (active && !product.active) return false;
         return true;

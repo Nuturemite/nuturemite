@@ -16,7 +16,7 @@ import TableSkeleton from "@/components/shared/tableskeleton";
 import { tst } from "@/lib/utils";
 import Error from "@/components/shared/error";
 import { Plus, Edit, Trash } from "lucide-react";
-import SearchInput from "@/components/shared/search";
+import SearchInput from "@/components/filters/search";
 import Link from "next/link";
 import {
   AlertDialog,
