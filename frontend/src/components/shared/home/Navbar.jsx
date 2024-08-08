@@ -1,11 +1,9 @@
 "use client";
 import Link from "next/link";
-import React, { useEffect, useLayoutEffect } from "react";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import React, { useEffect } from "react";
 import Icon from "@/components/shared/common/icon";
 import { useAuthContext } from "@/context/authprovider";
 import ShoppingCart from "@/components/shared/home/ShoppingCart";
-import { LayoutDashboard, ListOrderedIcon, Heart, User } from "lucide-react";
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -18,13 +16,7 @@ import { cn } from "@/lib/utils";
 import { useCategories } from "@/lib/data";
 import ProductSearch from "./ProductSearch";
 import { Header } from "./Header";
-
-const accountItems = [
-  { icon: User, text: "Profile", href: "/dashboard/profile" },
-  { icon: ListOrderedIcon, text: "Orders", href: "/dashboard/orders" },
-  { icon: Heart, text: "Wishlist", href: "/dashboard/wishlist" },
-  { icon: LayoutDashboard, text: "Dashboard", href: "/admin" },
-];
+import HomeDrawer from "@/components/drawers/HomeDrawer";
 
 const NavBar = () => {
   const { isAuthenticated, user, login, logout } = useAuthContext();
@@ -70,50 +62,16 @@ const NavBar = () => {
       <nav className="bg-primary border-slate-200 border-b px-4 md:px-12 flex gap-16 items-center justify-between">
         <Link href="/">
           <div className="flex items-center gap-2">
-            <img className="h-20 " src="./logo.jpeg" alt="" />
+            <img className="h-12 md:h-16 lg:h-20 " src="./logo.jpeg" alt="" />
           </div>
         </Link>
-
         <div>
-          <div></div>
           <div>
-            <Sheet>
-              <SheetTrigger asChild>
-                <Icon icon="mingcute:menu-fill" className="text-3xl lg:hidden text-slate-200" />
-              </SheetTrigger>
-              <SheetContent side="right" className="bg-slate-800 text-slate-100">
-                <ul className="space-y-4 space-x-4 mt-10">
-                  {menuItems.map((menuItem, index) => (
-                    <li key={index}>
-                      <Link
-                        href={menuItem.href}
-                        className="block py-2 px-3 md:bg-transparent text-white"
-                        aria-current="page"
-                      >
-                        {menuItem.text}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </SheetContent>
-            </Sheet>
-
             <div className="hidden w-full md:block">
               <ul className="font-medium  items-center flex flex-col  border-slate-100  md:flex-row md:space-x-3 rtl:space-x-reverse md:mt-0 md:border-0  dark:border-slate-700">
                 <ProductSearch />
-
-                <li>
-                  <NavigationMenu>
-                    <NavigationMenuList>
-                      <NavigationMenuItem>
-                        <NavigationMenuTrigger className="navbar-heading">
-                          Categories
-                        </NavigationMenuTrigger>
-                        <CategoryBox />
-                      </NavigationMenuItem>
-                    </NavigationMenuList>
-                  </NavigationMenu>
-                </li>
+                <CatNav />
+                <li></li>
                 {menuItems.map((menuItem, index) => (
                   <li key={index}>
                     <Link href={menuItem.href} className="navbar-heading">
@@ -127,20 +85,6 @@ const NavBar = () => {
                   </li>
                 )}
 
-                <li className="md:hidden">
-                  <Sheet>
-                    <SheetTrigger asChild>
-                      <Icon
-                        icon="mynaui:cart"
-                        fontSize={28}
-                        className="text-orange-700 cursor-pointer "
-                      />
-                    </SheetTrigger>
-                    <SheetContent className=" max-w-6xl cursor-pointer" side="right">
-                      <ShoppingCart />
-                    </SheetContent>
-                  </Sheet>
-                </li>
                 <li className="max-sm:hidden">
                   <Link href={"/cart"}>
                     <Icon
@@ -151,6 +95,12 @@ const NavBar = () => {
                   </Link>
                 </li>
               </ul>
+            </div>
+            <div className="md:hidden flex gap-2 items-center">
+              <HomeDrawer />
+              <Link href={"/cart"}>
+                <Icon icon="mynaui:cart" fontSize={28} className="text-tert-100 cursor-pointer " />
+              </Link>
             </div>
           </div>
         </div>
@@ -204,48 +154,17 @@ const ListItem = React.forwardRef(({ className, title, children, ...props }, ref
   );
 });
 
-ListItem.displayName = "ListItem";
+const CatNav = () => {
+  return (
+    <NavigationMenu>
+      <NavigationMenuList>
+        <NavigationMenuItem>
+          <NavigationMenuTrigger className="navbar-heading">Categories</NavigationMenuTrigger>
+          <CategoryBox />
+        </NavigationMenuItem>
+      </NavigationMenuList>
+    </NavigationMenu>
+  );
+};
 
-{
-  /*  {!isAuthenticated ? (
-              <li>
-                <Link
-                  href={"/auth/signin"}
-                  className="block py-2 px-3  bg-blue-700  md:bg-transparent "
-                  aria-current="page"
-                >
-                  {"Signin"}
-                </Link>
-              </li>
-            ) : (
-              <li>
-                <DropdownMenu>
-                  <DropdownMenuTrigger asChild>
-                    <Button size="icon" variant="ghost">
-                      <Avatar name={user.name} />
-                    </Button>
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent className="w-48">
-                    <DropdownMenuLabel>My Account</DropdownMenuLabel>
-                    <DropdownMenuSeparator />
-                    <DropdownMenuGroup>
-                      {accountItems.map((item, index) => (
-                        <DropdownMenuItem key={index}>
-                          <Link href={item.href} className="flex items-center space-x-2">
-                            <item.icon className="mr-2 h-4 w-4" />
-                            <span>{item.text}</span>
-                          </Link>
-                        </DropdownMenuItem>
-                      ))}
-                      <DropdownMenuItem>
-                        <div onClick={handleLogout} className="flex items-center space-x-2">
-                          <LogOutIcon className="mr-2 h-4 w-4" />
-                          <span>Logout</span>
-                        </div>
-                      </DropdownMenuItem>
-                    </DropdownMenuGroup>
-                  </DropdownMenuContent>
-                </DropdownMenu>
-              </li>
-            )} */
-}
+ListItem.displayName = "ListItem";

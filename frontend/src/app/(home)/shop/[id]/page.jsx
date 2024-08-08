@@ -32,8 +32,8 @@ export default function Product({ params }) {
       <div className="mx-auto">
         <div className="flex flex-col md:flex-row gap-4">
           {/* Image Sidebar */}
-          <div className="basis-[7%] p-3 space-y-2 bg-white max-sm:hidden">
-            <div className="flex flex-col space-y-2">
+          <div className="basis-[7%] p-3 space-y-2 bg-white">
+            <div className="flex flew-row md:flex-col space-y-2">
               {product.images?.map((image, index) => (
                 <img
                   key={index}
@@ -47,8 +47,8 @@ export default function Product({ params }) {
           </div>
 
           {/* Selected Image Display */}
-          <div className="px-4 basis-[40%]">
-            <div className="h-[600px] p-4 bg-white mb-4">
+          <div className="md:px-4 md:basis-[40%]">
+            <div className="md:h-[600px] p-4 bg-white mb-4">
               <ImageZoom>
                 <img
                   className="w-full h-full object-cover overflow-hidden object-center"
@@ -60,7 +60,7 @@ export default function Product({ params }) {
           </div>
 
           {/* Product Details */}
-          <div className="md:flex-1 basis-[40%] p-10 bg-white">
+          <div className="md:flex-1 md:basis-[40%] p-4 md:p-10 bg-white">
             <p className="text-slate-600 text-3xl font-bold mb-4">{product.name}</p>
             <div className="mb-4 space-y-4">
               <div className="mr-4">

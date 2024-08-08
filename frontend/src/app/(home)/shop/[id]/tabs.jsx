@@ -138,7 +138,7 @@ const Tabs = ({ product }) => {
 
   return (
     <div className="bg-white mt-6 p-6">
-      <ul className="flex flex-wrap text-sm font-medium border-b text-center text-gray-500  border-gray-200 dark:border-gray-700 dark:text-gray-400">
+      <ul className="flex max-sm:overflow-scroll text-sm font-medium border-b text-center text-gray-500  border-gray-200 dark:border-gray-700 dark:text-gray-400">
         {tabs.map(tab => (
           <li key={tab.id} className="me-2">
             <button

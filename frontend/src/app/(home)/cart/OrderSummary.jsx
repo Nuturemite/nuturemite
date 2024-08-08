@@ -23,7 +23,7 @@ export default function OrderSummary({}) {
 
   return (
     <div>
-      <section aria-labelledby="summary-heading" className=" bg-white lg:p-4 ">
+      <section aria-labelledby="summary-heading" className=" bg-white p-4 ">
         <h2
           id="summary-heading"
           className=" border-b border-gray-200 py-3 text-lg font-medium text-gray-900 "

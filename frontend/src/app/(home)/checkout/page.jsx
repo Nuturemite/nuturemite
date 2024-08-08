@@ -92,8 +92,8 @@ export default function Page() {
   return (
     <div className={`${pending && "pointer-events-none opacity-50"}`}>
       <div className="mt-10 pb-10">
-        <div className="flex gap-20">
-          <div className="basis-3/5">
+        <div className="flex flex-col-reverse md:flex-row gap-20">
+          <div className="md:basis-3/5">
             {/* Shipping Details */}
             <h2 className="h2-primary">Shipping Details</h2>
             <div className="bg-white p-6">
@@ -174,7 +174,7 @@ export default function Page() {
           </div>
 
           {/* Order Summary */}
-          <div className="basis-2/5">
+          <div className="md:basis-2/5">
             <h2 className="h2-primary">Order Details</h2>
             <OrderSummary />
           </div>

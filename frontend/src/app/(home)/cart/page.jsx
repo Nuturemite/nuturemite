@@ -58,9 +58,9 @@ const ShoppingCart = () => {
       <div className="max-w-6xl mt-10 mx-auto">
         <h2 className="h2-primary">Shopping cart</h2>
 
-        <div className="mt-10 flex gap-16">
+        <div className="mt-10 flex flex-col md:flex-row gap-16">
           {/* Cart */}
-          <ul role="list" className="divide-y-4 divide-gray-200 w-3/5">
+          <ul role="list" className="divide-y-4 divide-gray-200 md:w-3/5">
             {cartItems.map(cartItem => (
               <li key={cartItem._id} className="flex p-4 bg-white">
                 <div className="h-24 w-24 flex-shrink-0 overflow-hidden border border-gray-200">
@@ -126,7 +126,7 @@ const ShoppingCart = () => {
             ))}
           </ul>
           {/* Order Summary */}
-          <div className="w-2/5">
+          <div className="md:w-2/5">
             <OrderSummary />
             {/* Checkout */}
             <Checkout isDisabled={isCheckoutDisabled} />
