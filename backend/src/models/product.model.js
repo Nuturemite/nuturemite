@@ -24,7 +24,7 @@ export const ProductSchema = new Schema(
       enum: ["pending", "approved", "rejected"],
       default: "pending",
     },
-    status: { type: String, enum: ["active", "inactive"], default: "active" },
+    active: { type: Boolean, default: true },
   },
   { timestamps: true, toJSON: { virtuals: true }, toObject: { virtuals: true } }
 );

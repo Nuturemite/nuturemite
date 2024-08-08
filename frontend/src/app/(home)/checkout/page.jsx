@@ -8,6 +8,7 @@ import api from "@/lib/api";
 import { useRouter } from "next/navigation";
 import { tst } from "@/lib/utils";
 import { Textarea } from "@/components/ui/textarea";
+import OutLoader from "@/components/ui/outloader";
 
 const initialData = {
   fname: "",
@@ -180,6 +181,8 @@ export default function Page() {
           </div>
         </div>
       </div>
+      <OutLoader loading={pending}/>
+
     </div>
   );
 }

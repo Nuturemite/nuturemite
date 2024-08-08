@@ -15,9 +15,9 @@ function SearchInput({ className }) {
       const params = new URLSearchParams(searchParams);
       const value = e.target.value;
       if (value) {
-        params.set("query", e.target.value);
+        params.set("search", e.target.value);
       } else {
-        params.delete("query");
+        params.delete("search");
       }
 
       replace(`${pathname}?${params.toString()}`);
@@ -48,7 +48,7 @@ function SearchInput({ className }) {
             )}
             placeholder="Search ..."
             onChange={handleSearch}
-            defaultValue={searchParams.get("query")?.toString()}
+            defaultValue={searchParams.get("search")?.toString()}
             required
           />
         </div>

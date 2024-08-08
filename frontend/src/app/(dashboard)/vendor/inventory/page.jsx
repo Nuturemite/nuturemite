@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import api from "@/lib/api";
 import { useProducts } from "@/lib/data";
 import DataTable from "@/components/tables/DataTable";
@@ -24,8 +24,8 @@ import Error from "@/components/shared/error";
 import { Button } from "@/components/ui";
 
 const StockUpdateDialog = ({ product, mutate }) => {
-  const [pending, setPending] = React.useState(false);
-  const [quantity, setQuantity] = React.useState(product.quantity);
+  const [pending, setPending] = useState(false);
+  const [quantity, setQuantity] = useState(product.quantity);
 
   const handleStockUpdate = async productId => {
     try {
@@ -85,7 +85,7 @@ const StockUpdateDialog = ({ product, mutate }) => {
 
 const ProductList = ({ searchParams }) => {
   const query = searchParams.query;
-  const { products, error, isLoading, mutate } = useProducts({ limit: 1000 });
+  const { products, error, isLoading, mutate } = useProducts({ limit: 1000, active: true });
 
   if (error) return <Error />;
 
@@ -106,8 +106,9 @@ const ProductList = ({ searchParams }) => {
       ),
     },
     { key: "basePrice", label: "MRP", render: product => `₹${product.basePrice}` },
-    { key: "price", label: "Sales Price", render: product => `₹${product.price}` },
+    { key: "price", label: "SP", render: product => `₹${product.price}` },
     { key: "quantity", label: "Quantity", render: product => product.quantity || 0 },
+    { key: "sku", label: "SKU", render: item => item.sku || "-", className: "whitespace-nowrap" },
     {
       key: "status",
       label: "Status",

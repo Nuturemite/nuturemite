@@ -4,8 +4,7 @@ import api from "@/lib/api";
 import { tst } from "@/lib/utils";
 import React, { useState } from "react";
 
-function AddToCart({ product, isChild, children, quantity }) {
-  const [pending, setPending] = useState(false);
+function AddToCart({ product, setPending, isChild, children, quantity }) {
   async function handleCartAdd(e) {
     e.preventDefault();
     try {
@@ -23,7 +22,7 @@ function AddToCart({ product, isChild, children, quantity }) {
     return React.cloneElement(children, { onClick: handleCartAdd });
   }
   return (
-    <Button pending={pending} onClick={handleCartAdd} size="lg">
+    <Button onClick={handleCartAdd} size="lg">
       Add to Cart
     </Button>
   );

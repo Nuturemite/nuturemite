@@ -92,16 +92,13 @@ function ProductForm({ update, params, product }) {
     try {
       const payload = {
         ...formData,
-        // images: images.map(image => image.image),
         categories: formData.categories.map(cat => cat.value),
       };
       if (!update) {
         await api.post("/products", payload, {
-          // headers: { "Content-Type": "multipart/form-data" },
         });
       } else {
         await api.put(`/products/${params.id}`, payload, {
-          // headers: { "Content-Type": "multipart/form-data" },
         });
       }
       tst.success(update ? "Product updated successfully" : "Product created successfully");
@@ -206,6 +203,22 @@ function ProductForm({ update, params, product }) {
             options={categories?.map(cat => ({ label: cat.name, value: cat._id }))}
             onChange={selOptions => setFormData({ ...formData, categories: selOptions })}
             required
+          />
+        </div>
+        <div>
+          <Label htmlFor="name" className="mb-2 block">
+            Keywords
+          </Label>
+          <Input
+            type="text"
+            name="keywords"
+            value={formData.keywords}
+            onChange={handleChange}
+            id="keywords"
+            disabled={pending}
+            placeholder="Product Keywords"
+            required
+            minLength="3"
           />
         </div>
         <Separator />

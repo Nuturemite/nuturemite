@@ -10,6 +10,8 @@ import { Plus, Edit, Trash } from "lucide-react";
 import SearchInput from "@/components/shared/search";
 import Link from "next/link";
 import { AlertBox } from "@/components/ui/alert-dialog";
+import { Switch } from "@mui/material";
+import OutLoader from "@/components/ui/outloader";
 
 const ProductList = () => {
   const { products, error, isLoading, mutate } = useProducts({ limit: 50 });
@@ -21,6 +23,19 @@ const ProductList = () => {
       await api.delete(`/products/${id}`);
       await mutate();
       tst.success("Product deleted successfully");
+    } catch (error) {
+      console.error(error);
+      tst.error(error);
+    } finally {
+      setPending(false);
+    }
+  };
+
+  const handleStatus = async (id, active) => {
+    try {
+      setPending(true);
+      await api.put(`/products/${id}`, { active: !active });
+      await mutate();
     } catch (error) {
       console.error(error);
       tst.error(error);
@@ -47,11 +62,19 @@ const ProductList = () => {
       ),
     },
     { key: "basePrice", label: "MRP", render: item => `₹${item.basePrice}` },
-    { key: "price", label: "Sales Price", render: item => `₹${item.price}` },
-    // { key: "status", label: "Status", render: item => `${item.status}` },
-    // { key: "quantity", label: "Quantity", render: item => item.quantity || 0 },
-    { key: "category", label: "Category", render: item => item.categories.map(cat => cat.name).join(" • ") || "-" },
-    { key: "sku", label: "SKU", render: item => item.sku || "-" },
+    { key: "price", label: "SP", render: item => `₹${item.price}` },
+    {
+      key: "category",
+      label: "Category",
+      render: item => item.categories.map(cat => cat.name).join(" • ") || "-",
+    },
+    {
+      key: "active",
+      label: "Active",
+      render: item => (
+        <Switch onChange={() => handleStatus(item._id, item.active)} checked={item.active} />
+      ),
+    },
   ];
 
   const actions = item => (
@@ -86,6 +109,7 @@ const ProductList = () => {
         caption="List of all products."
         pending={pending}
       />
+      <OutLoader loading={pending} />
     </div>
   );
 };

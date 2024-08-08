@@ -56,6 +56,7 @@ export const useProducts = (queryParams = {}) => {
     minRating,
     productId,
     sortBy,
+    active,
     vendorId,
     limit = 9,
     page = 1,
@@ -74,6 +75,7 @@ export const useProducts = (queryParams = {}) => {
         if (minRating && product.rating < minRating) return false;
         if (search && !product.name.toLowerCase().includes(search.toLowerCase())) return false;
         if (productId && product.productId != productId) return false;
+        if (active && !product.active) return false;
         return true;
       })
       .slice(limit * page - limit, limit * page);
@@ -158,16 +160,15 @@ export const useMyVendorOrders = () => {
   return { order: data, error, isLoading, mutate };
 };
 
-export const useVendors = ()=>{
+export const useVendors = () => {
   const { data, error, isLoading, mutate } = useSWR(`/vendors`, fetcher);
-return { vendors: data, error, isLoading, mutate };
-}
+  return { vendors: data, error, isLoading, mutate };
+};
 
-export const useVendor  = id => {
+export const useVendor = id => {
   const { data, error, isLoading, mutate } = useSWR(`/vendors/${id}`, fetcher);
   return { vendor: data, error, isLoading, mutate };
-}
-
+};
 
 export const useVendorOrders = () => {
   const url = `/vendor/my/orders`;
@@ -179,4 +180,4 @@ export const useVendorShipments = () => {
   const url = `/vendor/my/shipments`;
   const { data, error, isLoading, mutate } = useSWR(url, fetcher);
   return { shipments: data, error, isLoading, mutate };
-}
+};

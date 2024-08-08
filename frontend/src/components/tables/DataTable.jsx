@@ -40,7 +40,7 @@ const DataTable = ({
             {data.map((item) => (
               <TableRow key={item.id}>
                 {columns.map((column) => (
-                  <TableCell key={column.key}>
+                  <TableCell className={column.className} key={column.key}>
                     {column.render ? column.render(item) : item[column.key]}
                   </TableCell>
                 ))}

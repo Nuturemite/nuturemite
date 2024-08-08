@@ -15,12 +15,14 @@ import {
 } from "@/components/ui/select";
 import Tabs from "./tabs";
 import ImageZoom from "@/components/ui/image-zoom";
+import OutLoader from "@/components/ui/outloader";
 
 export default function Product({ params }) {
   const id = params.id;
   const { product, isLoading, error } = useProduct(id);
   const [quantity, setQuantity] = useState(1);
   const [selectedImage, setSelectedImage] = useState(null);
+  const [pending,setPending] = useState();
 
   if (isLoading) return <Loader />;
   if (error) return <Error />;
@@ -99,7 +101,7 @@ export default function Product({ params }) {
               <div className="text-red-600 text-xl font-bold mb-4">Out of Stock</div>
             ) : (
               // Add to cart
-              <div className="flex flex-col md:flex-row mb-4 gap-4 items-center">
+              <div className="flex flex-row mb-4 gap-4 items-center">
                 <Select
                   className="w-full"
                   value={quantity}
@@ -118,13 +120,14 @@ export default function Product({ params }) {
                     )}
                   </SelectContent>
                 </Select>
-                <AddToCart quantity={quantity} product={product} />
+                <AddToCart setPending={setPending} quantity={quantity} product={product} />
               </div>
             )}
           </div>
         </div>
         <Tabs product={product} />
       </div>
+      <OutLoader loading={pending}/>
     </div>
   );
 }

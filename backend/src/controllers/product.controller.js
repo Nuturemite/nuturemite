@@ -45,7 +45,7 @@ export const getProduct = async (req, res) => {
 export const getAllProducts = async (req, res) => {
   try {
     const { page = 1, limit = 10 } = req.query;
-    const products = await Product.find()
+    const products = await Product.find({})
       .populate("categories", "name id")
       .populate({
         path: "brands",

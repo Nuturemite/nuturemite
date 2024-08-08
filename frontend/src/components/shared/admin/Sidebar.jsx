@@ -1,135 +1,22 @@
 "use client";
 import React, { useState } from "react";
-import Icon from "@/components/shared/common/icon";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import {
-  Home,
-  User,
-  Settings,
-  ShoppingBag,
-  Package,
-  Truck,
-  FileText,
-  CreditCard,
-  Boxes,
-  List,
-  Minimize2,
-  User2,
-} from "lucide-react";
+import { Minimize2 } from "lucide-react";
 import { useAuthContext } from "@/context/authprovider";
 import Loader from "../loader";
 
-const sidebarItemsVendor = [
-  {
-    icon: Home,
-    title: "Dashboard",
-    link: "/vendor/",
-  },
-  {
-    icon: Boxes,
-    title: "Inventory",
-    link: "/vendor/inventory",
-  },
-  {
-    icon: ShoppingBag,
-    title: "Product",
-    link: "/vendor/product",
-  },
-  {
-    icon: Package,
-    title: "Orders",
-    link: "/vendor/orders",
-  },
-  {
-    icon: Truck,
-    title: "Shipments",
-    link: "/vendor/shipments",
-  },
-  {
-    icon: FileText,
-    title: "Invoices",
-    link: "/vendor/invoices",
-  },
-  {
-    icon: CreditCard,
-    title: "Refunds",
-    link: "/vendor/refunds",
-  },
-  // {
-  //   icon: User,
-  //   title: "Customers",
-  //   link: "/vendor/users",
-  // },
-  {
-    icon: List,
-    title: "Category",
-    link: "/vendor/category",
-  },
-  {
-    icon: User2,
-    title: "Profile",
-    link: "/vendor/profile/",
-  },
-];
-
-const sidebarItemsAdmin = [
-  {
-    icon: Home,
-    title: "Dashboard",
-    link: "/vendor/",
-  },
-  {
-    icon: User,
-    title: "Vendors",
-    link: "/admin/vendors",
-  },
-  {
-    icon: ShoppingBag,
-    title: "Products",
-    link: "/admin/products",
-  },
-  {
-    icon: Package,
-    title: "Orders",
-    link: "/vendor/orders",
-  },
-  {
-    icon: Truck,
-    title: "Shipments",
-    link: "/vendor/shipments",
-  },
-  {
-    icon: FileText,
-    title: "Invoices",
-    link: "/vendor/invoices",
-  },
-  {
-    icon: CreditCard,
-    title: "Refunds",
-    link: "/vendor/refunds",
-  },
-  {
-    icon: List,
-    title: "Category",
-    link: "/vendor/category",
-  },
- 
-];
-
-function Sidebar({ className }) {
+function Sidebar({ className, sidebarItems }) {
   const [isMinimized, setIsMinimized] = useState(false);
   const activePath = usePathname().split("/")[2];
-  const { user, isLoading } = useAuthContext();
+  const { isLoading } = useAuthContext();
   if (isLoading) <Loader />;
-
-  const sidebarItems = user.role === "vendor" ? sidebarItemsVendor : sidebarItemsAdmin;
 
   return (
     <aside
       aria-label="sidebar"
       aria-controls="default-sidebar"
-      className={`${className} sticky top-0 bottom-0 left-0 h-[100vh] bg-gray-800 font-urbanist ${
+      className={`${className} sticky top-0 bottom-0 left-0 h-[100vh] bg-gray-800 font-urbanist max-md:hidden ${
         isMinimized ? "w-[60px]" : "w-[260px]"
       } px-6 transition-width duration-300`}
     >

@@ -35,7 +35,7 @@ const iconList = [
 export function Header() {
   return (
     <header className="relative bg-white flex flex-row lg:flex-row items-center justify-between px-5 md:px-12 py-2 h-[7vh]">
-      <div className="flex flex-col md:flex-row md:items-center md:gap-5 md:w-full ">
+      <div className="flex max-sm:justify-between flex-row md:items-center md:gap-5 md:w-full ">
         <a
           href="tel:9675905075"
           className="flex gap-1 items-center text-sm md:text-sm"

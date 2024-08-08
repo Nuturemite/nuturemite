@@ -18,7 +18,9 @@ import CartIcon from "@mui/icons-material/ShoppingCart";
 import MenuIcon from "@mui/icons-material/Menu";
 import Link from "next/link";
 import { ToggleButton } from "@mui/material";
+import { useAuthContext } from "@/context/authprovider";
 
+// Define menu items
 const sections = [
   { text: "Home", icon: <HomeIcon />, path: "/" },
   { text: "Shop", icon: <ShopIcon />, path: "/shop" },
@@ -35,9 +37,14 @@ const cartItem = { text: "Cart", icon: <CartIcon />, path: "/cart" };
 
 export default function HomeDrawer() {
   const [open, setOpen] = React.useState(false);
+  const { isAuthenticated, logout } = useAuthContext();
 
   const toggleDrawer = newOpen => () => {
     setOpen(newOpen);
+  };
+
+  const handleLogout = () => {
+    logout();
   };
 
   const renderListItems = items =>
@@ -53,7 +60,7 @@ export default function HomeDrawer() {
   return (
     <div>
       <Button onClick={toggleDrawer(true)}>
-        <MenuIcon color="action" fontSize="large"/>
+        <MenuIcon color="inherit" fontSize="large" />
       </Button>
       <Drawer open={open} onClose={toggleDrawer(false)}>
         <Box sx={{ width: 250 }} role="presentation" onClick={toggleDrawer(false)}>
@@ -62,6 +69,24 @@ export default function HomeDrawer() {
           <List>{renderListItems(accountItems)}</List>
           <Divider />
           <List>{renderListItems([cartItem])}</List>
+          <Divider />
+          <List>
+            {!isAuthenticated ? (
+              <ListItem disablePadding>
+                <ListItemButton component={Link} href="/login">
+                  <ListItemIcon>{<AccountCircleIcon />}</ListItemIcon>
+                  <ListItemText primary="Login" />
+                </ListItemButton>
+              </ListItem>
+            ) : (
+              <ListItem disablePadding>
+                <ListItemButton onClick={handleLogout}>
+                  <ListItemIcon>{<AccountCircleIcon />}</ListItemIcon>
+                  <ListItemText primary="Logout" />
+                </ListItemButton>
+              </ListItem>
+            )}
+          </List>
         </Box>
       </Drawer>
     </div>

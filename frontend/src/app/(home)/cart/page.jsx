@@ -18,6 +18,7 @@ import { Button } from "@/components/ui/button";
 import OrderSummary from "./OrderSummary";
 import { useAuthContext } from "@/context/authprovider";
 import { Backdrop, CircularProgress } from "@mui/material";
+import OutLoader from "@/components/ui/outloader";
 
 const ShoppingCart = () => {
   const { cartItems, isLoading, error, mutate } = useCart();
@@ -49,12 +50,7 @@ const ShoppingCart = () => {
 
   return (
     <div>
-      <Backdrop
-        sx={{ color: "#fff", zIndex: theme => theme.zIndex.drawer + 1 }}
-        open={pending}
-      >
-        <CircularProgress color="inherit" />
-      </Backdrop>
+      <OutLoader loading={pending}/>
       <div className="max-w-6xl mt-10 mx-auto">
         <h2 className="h2-primary">Shopping cart</h2>
 

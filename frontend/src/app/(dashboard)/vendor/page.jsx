@@ -65,7 +65,7 @@ const Card = ({ title, value, icon: Icon, color }) => {
 // Dashboard Component
 export default function Dashboard() {
   return (
-    <div className="p-6 space-y-6">
+    <div className="p-2 md:p-6 space-y-6">
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
         <Card title="Orders" value="1,234" icon={ShoppingCart} color="#4ade80" />
         <Card title="Users" value="567" icon={Users} color="#38bdf8" />
@@ -74,7 +74,7 @@ export default function Dashboard() {
       </div>
       
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <ChartContainer config={salesConfig} className="min-h-[300px] bg-white">
+        <ChartContainer config={salesConfig} className="max-h-[300px] bg-white">
           <BarChart data={salesData} margin={{ top: 20, right: 20, bottom: 20, left: 0 }}>
             <CartesianGrid vertical={false} strokeDasharray="3 3" />
             <XAxis
@@ -92,7 +92,7 @@ export default function Dashboard() {
           </BarChart>
         </ChartContainer>
 
-        <ChartContainer config={ordersConfig} className="min-h-[300px] bg-white">
+        <ChartContainer config={ordersConfig} className="max-h-[300px] bg-white">
           <BarChart data={ordersData} margin={{ top: 20, right: 20, bottom: 20, left: 0 }}>
             <CartesianGrid vertical={false} strokeDasharray="3 3" />
             <XAxis

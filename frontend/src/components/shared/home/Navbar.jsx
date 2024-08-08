@@ -60,48 +60,53 @@ const NavBar = () => {
     <>
       <Header />
       <nav className="bg-primary border-slate-200 border-b px-4 md:px-12 flex gap-16 items-center justify-between">
-        <Link href="/">
-          <div className="flex items-center gap-2">
-            <img className="h-12 md:h-16 lg:h-20 " src="./logo.jpeg" alt="" />
+        {/* Mobile menu */}
+        <div className="flex gap-2 items-center text-white ">
+          <div className="md:hidden">
+            <HomeDrawer />
           </div>
-        </Link>
-        <div>
-          <div>
-            <div className="hidden w-full md:block">
-              <ul className="font-medium  items-center flex flex-col  border-slate-100  md:flex-row md:space-x-3 rtl:space-x-reverse md:mt-0 md:border-0  dark:border-slate-700">
-                <ProductSearch />
-                <CatNav />
-                <li></li>
-                {menuItems.map((menuItem, index) => (
-                  <li key={index}>
-                    <Link href={menuItem.href} className="navbar-heading">
-                      {menuItem.text}
-                    </Link>
-                  </li>
-                ))}
-                {isAuthenticated && (
-                  <li onClick={handleLogout} className="cursor-pointer navbar-heading">
-                    Logout
-                  </li>
-                )}
 
-                <li className="max-sm:hidden">
-                  <Link href={"/cart"}>
-                    <Icon
-                      icon="mynaui:cart"
-                      fontSize={28}
-                      className="text-tert-100 cursor-pointer "
-                    />
+          <Link href="/">
+            <div className="flex items-center gap-2">
+              <img className="h-12 md:h-16 lg:h-20 " src="./logo.jpeg" alt="" />
+            </div>
+          </Link>
+        </div>
+        {/* Desktop menu */}
+        <div>
+          <div className="hidden w-full md:block">
+            <ul className="font-medium  items-center flex flex-col  border-slate-100  md:flex-row md:space-x-3 rtl:space-x-reverse md:mt-0 md:border-0  dark:border-slate-700">
+              <ProductSearch />
+              <CatNav />
+              <li></li>
+              {menuItems.map((menuItem, index) => (
+                <li key={index}>
+                  <Link href={menuItem.href} className="navbar-heading">
+                    {menuItem.text}
                   </Link>
                 </li>
-              </ul>
-            </div>
-            <div className="md:hidden flex gap-2 items-center">
-              <HomeDrawer />
-              <Link href={"/cart"}>
-                <Icon icon="mynaui:cart" fontSize={28} className="text-tert-100 cursor-pointer " />
-              </Link>
-            </div>
+              ))}
+              {isAuthenticated && (
+                <li onClick={handleLogout} className="cursor-pointer navbar-heading">
+                  Logout
+                </li>
+              )}
+
+              <li className="max-sm:hidden">
+                <Link href={"/cart"}>
+                  <Icon
+                    icon="mynaui:cart"
+                    fontSize={28}
+                    className="text-tert-100 cursor-pointer "
+                  />
+                </Link>
+              </li>
+            </ul>
+          </div>
+          <div className="md:hidden flex gap-2 items-center">
+            <Link href={"/cart"}>
+              <Icon icon="mynaui:cart" fontSize={28} className="text-tert-100 cursor-pointer " />
+            </Link>
           </div>
         </div>
       </nav>
