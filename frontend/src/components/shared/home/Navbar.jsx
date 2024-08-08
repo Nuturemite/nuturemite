@@ -60,6 +60,7 @@ const NavBar = () => {
     menuItems = [
       { text: "Shop", href: "/shop" },
       { text: "Login", href: "/auth/signin" },
+      // { text: "Vendor Login", href: "/vendor-register" },
     ];
   }
 

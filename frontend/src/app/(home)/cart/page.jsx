@@ -17,19 +17,21 @@ import { tst } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import OrderSummary from "./OrderSummary";
 import { useAuthContext } from "@/context/authprovider";
+import { Backdrop, CircularProgress } from "@mui/material";
 
 const ShoppingCart = () => {
   const { cartItems, isLoading, error, mutate } = useCart();
   const [pending, setPending] = useState(false);
   const { isAuthenticated } = useAuthContext();
 
-
   if (isLoading) return <Loader />;
   if (!isAuthenticated) return <NotAuthenticated />;
   if (error) return <Error />;
   if (cartItems.length === 0) return <EmptyCart />;
 
-  const isCheckoutDisabled = cartItems.some(cartItem => cartItem.quantity > cartItem.product.quantity);
+  const isCheckoutDisabled = cartItems.some(
+    cartItem => cartItem.quantity > cartItem.product.quantity
+  );
 
   const handleQuantityChange = async (cartItem, value) => {
     try {
@@ -46,7 +48,13 @@ const ShoppingCart = () => {
   };
 
   return (
-    <div className={` ${pending && "opacity-50 pointer-events-none"}`}>
+    <div>
+      <Backdrop
+        sx={{ color: "#fff", zIndex: theme => theme.zIndex.drawer + 1 }}
+        open={pending}
+      >
+        <CircularProgress color="inherit" />
+      </Backdrop>
       <div className="max-w-6xl mt-10 mx-auto">
         <h2 className="h2-primary">Shopping cart</h2>
 
@@ -88,7 +96,10 @@ const ShoppingCart = () => {
                             <SelectValue placeholder="1" />
                           </SelectTrigger>
                           <SelectContent>
-                            {Array.from({ length: Math.min(100, cartItem.product.quantity) }, (_, i) => i + 1).map(i => (
+                            {Array.from(
+                              { length: Math.min(100, cartItem.product.quantity) },
+                              (_, i) => i + 1
+                            ).map(i => (
                               <SelectItem key={i} value={i}>
                                 {i}
                               </SelectItem>

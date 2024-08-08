@@ -22,11 +22,9 @@ export default function Product({ params }) {
   const [quantity, setQuantity] = useState(1);
   const [selectedImage, setSelectedImage] = useState(null);
 
-  if (isLoading) return <ProductPageSkeleton count={1} />;
-
+  if (isLoading) return <Loader />;
   if (error) return <Error />;
 
-  // Default image if none is selected
   const displayImage = selectedImage || product.images?.[0] || "./noimage.png";
 
   return (

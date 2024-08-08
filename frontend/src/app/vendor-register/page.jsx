@@ -102,6 +102,8 @@ export default function VendorRegistration() {
       heading: "Personal Details",
       fields: [
         { label: "Name", name: "name", type: "text" },
+        { label: "Email", name: "email", type: "email" },
+        { label: "Password", name: "password", type: "password" },
         { label: "Business Name", name: "businessName", type: "text" },
         { label: "Contact Number", name: "contactNumber", type: "text" },
         { label: "Tax ID", name: "taxId", type: "text" },
@@ -152,7 +154,7 @@ export default function VendorRegistration() {
   ];
 
   return (
-    <div className="w-full mb-40 max-w-4xl mt-10 mx-auto">
+    <div className="w-full mb-40 max-w-4xl mt-10 mx-auto bg-white p-10">
       {/* <h2 className="h3-primary">Vendor Registration</h2> */}
       <form onSubmit={handleSubmit}>
         {formSections.map((section, index) => (
