@@ -48,6 +48,10 @@ export const login = async (req, res) => {
 
     let vendor;
     if (user.role == "vendor") vendor = await Vendor.findOne({ user: user._id });
+    console.log(vendor);
+
+    if (vendor && vendor.apvStatus === "pending")
+      return res.status(401).json({ message: "Please wait for admin approval" });
 
     const token =
       user.role == "user" || user.role == "admin"
@@ -63,10 +67,6 @@ export const login = async (req, res) => {
             name: user.name,
             role: user.role,
             vendorId: vendor?._id,
-            isVerified: vendor?.isVerified || false,
-            detailsStatus: vendor?.detailsStatus,
-            appprovalStatus: vendor?.approvalStatus,
-            isRegistered: !!vendor,
           });
 
     res.setHeader("Authorization", `Bearer ${token}`);
@@ -82,6 +82,29 @@ export const getCurrentUser = async (req, res) => {
   try {
     const user = await User.findById(req.user.id).select("-password");
     res.json({ data: user });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+export const registerVendor = async (req, res) => {
+  try {
+    const { email, password, name} = req.body;
+    console.log(req.body);
+
+    const existingUser = await User.findOne({ email });
+    if (existingUser) {
+      return res.status(400).json({ message: "Email already exists" });
+    }
+
+    const hashedPassword = await bcrypt.hash(password, 10);
+    const user = new User({ email, password: hashedPassword, name, username: email, role: "vendor" });
+
+    await user.save();
+    req.body.user = user._id;
+
+    const vendor = await Vendor.create(req.body);
+    res.status(201).json({ message: "Vendor created successfully", data: vendor });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }

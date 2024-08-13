@@ -126,37 +126,8 @@ export const placeOrder = async (req, res) => {
 // Get all orders
 export const getAllOrders = async (req, res) => {
   try {
-    const orders = await Order.find();
+    const orders = await SubOrder.find().select("-shippingDetails -orderItems");
     res.status(200).json({ data: orders });
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
-};
-
-// Get orders by user
-export const getUserOrders = async (req, res) => {
-  const { userId } = req.params;
-  try {
-    const orders = await SubOrder.find({ user: userId });
-    res.status(200).json({ data: orders });
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
-};
-
-// Get order by ID
-export const getOrderById = async (req, res) => {
-  const { id } = req.params;
-  try {
-    const suborders = await SubOrder.findById(id)
-      .populate({
-        path: "orderItems.product",
-        select: "_id vendor name price basePrice images",
-      })
-      .populate("shippingAddress")
-      .populate({ path: "vendor", select: "_id name businessName contactNumber address" })
-
-    res.status(200).json({ data: suborders });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -186,6 +157,18 @@ export const getVendorOrders = async (req, res) => {
   }
 };
 
+// Get orders by user
+export const getUserOrders = async (req, res) => {
+  const { userId } = req.params;
+  try {
+    const orders = await SubOrder.find({ user: userId });
+    res.status(200).json({ data: orders });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+
 // Get sub-orders by current authenticated vendor
 export const getMyOrdersAsVendor = async (req, res) => {
   try {
@@ -193,8 +176,26 @@ export const getMyOrdersAsVendor = async (req, res) => {
     const subOrders = await SubOrder.find({ vendor: req.user.vendorId })
       .select("-orderItems")
       .populate("user", "name email")
-      .populate("shippingAddress")
+      .populate("shippingAddress");
     res.status(200).json({ data: subOrders });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+// Get order by ID
+export const getOrderById = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const suborders = await SubOrder.findById(id)
+      .populate({
+        path: "orderItems.product",
+        select: "_id vendor name price basePrice images",
+      })
+      .populate("shippingAddress")
+      .populate({ path: "vendor", select: "_id name businessName contactNumber address" });
+
+    res.status(200).json({ data: suborders });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -216,8 +217,7 @@ export const updateOrder = async (req, res) => {
       shippingDetails.vendor = req.user.vendorId;
       const shippingDetailsModel = new Shipping(shippingDetails);
       await shippingDetailsModel.save({ session });
-    }
-    else {
+    } else {
       const shippingDetailsModel = await Shipping.findOne({ order: order._id });
       await Shipping.findOneAndUpdate({ _id: shippingDetailsModel._id }, { status }, { session });
     }
@@ -230,4 +230,3 @@ export const updateOrder = async (req, res) => {
     session.endSession();
   }
 };
-

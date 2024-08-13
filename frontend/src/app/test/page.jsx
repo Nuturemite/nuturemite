@@ -3,8 +3,6 @@ import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import api from "@/lib/api";
 import { useProducts } from "@/lib/data";
-import DataTable from "@/components/tables/DataTable";
-import { tst } from "@/lib/utils";
 import Error from "@/components/shared/error";
 import { Plus, Edit, Trash } from "lucide-react";
 import SearchInput from "@/components/filters/search";
@@ -13,10 +11,12 @@ import { AlertBox } from "@/components/ui/alert-dialog";
 import { Switch } from "@mui/material";
 import OutLoader from "@/components/ui/outloader";
 import { useSearchParams } from "next/navigation";
+import { AgGridReact } from "ag-grid-react";
+import "ag-grid-community/styles/ag-grid.css";
+import "ag-grid-community/styles/ag-theme-alpine.css";
 
 const ProductList = () => {
   const searchParams = useSearchParams();
-
   const filters = {
     search: searchParams.get("search"),
   };
@@ -55,45 +55,58 @@ const ProductList = () => {
 
   const columns = [
     {
-      key: "name",
-      label: "Name",
-      render: item => (
+      headerName: "Name",
+      field: "name",
+      cellRendererFramework: (params) => (
         <div className="flex items-center gap-3">
           <img
             className="w-10 h-10 object-cover rounded"
-            src={item.images[1] || "./noimage.png"}
+            src={params.data.images[1] || "./noimage.png"}
             alt="product image"
           />
-          <span>{item.name}</span>
+          <span>{params.value}</span>
         </div>
       ),
     },
-    { key: "basePrice", label: "MRP", render: item => `₹${item.basePrice}` },
-    { key: "price", label: "SP", render: item => `₹${item.price}` },
     {
-      key: "category",
-      label: "Category",
-      render: item => item.categories.map(cat => cat.name).join(" • ") || "-",
+      headerName: "MRP",
+      field: "basePrice",
+      valueFormatter: (params) => `₹${params.value}`,
     },
     {
-      key: "active",
-      label: "Active",
-      render: item => (
-        <Switch onChange={() => handleStatus(item._id, item.active)} checked={item.active} />
+      headerName: "SP",
+      field: "price",
+      valueFormatter: (params) => `₹${params.value}`,
+    },
+    {
+      headerName: "Category",
+      field: "category",
+      valueGetter: (params) => params.data.categories.map(cat => cat.name).join(" • ") || "-",
+    },
+    {
+      headerName: "Active",
+      field: "active",
+      cellRenderer: (params) => (
+        <Switch
+          onChange={() => handleStatus(params.data._id, params.data.active)}
+          checked={params.value}
+        />
+      ),
+    },
+    {
+      headerName: "Actions",
+      cellRenderer: (params) => (
+        <div className="flex gap-2">
+          <AlertBox onClick={() => handleProductDelete(params.data._id)}>
+            <Trash className="text-red-600" />
+          </AlertBox>
+          <Link href={`/vendor/product/edit/${params.data._id}/`}>
+            <Edit className="text-green-500" />
+          </Link>
+        </div>
       ),
     },
   ];
-
-  const actions = item => (
-    <>
-      <AlertBox onClick={() => handleProductDelete(item._id)}>
-        <Trash className="text-red-600" />
-      </AlertBox>
-      <Link href={`/vendor/product/edit/${item._id}/`}>
-        <Edit className="text-green-500" />
-      </Link>
-    </>
-  );
 
   return (
     <div className="container mx-auto p-4">
@@ -108,14 +121,14 @@ const ProductList = () => {
           </Button>
         </Link>
       </div>
-      <DataTable
-        columns={columns}
-        data={products}
-        isLoading={isLoading}
-        actions={actions}
-        caption="List of all products."
-        pending={pending}
-      />
+      <div className={`ag-theme-alpine ${pending ? "opacity-50 pointer-events-none" : ""}`} style={{ height: 600, width: '100%' }}>
+        <AgGridReact
+          rowData={products}
+          columnDefs={columns}
+          domLayout="autoHeight"
+          loadingOverlayComponent={() => isLoading && <div>Loading...</div>}
+        />
+      </div>
       <OutLoader loading={pending} />
     </div>
   );

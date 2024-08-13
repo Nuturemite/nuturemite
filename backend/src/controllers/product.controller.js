@@ -50,7 +50,8 @@ export const getAllProducts = async (req, res) => {
       .populate({
         path: "brands",
         options: { strictPopulate: false },
-      });
+      })
+      .populate("vendor", "name id");
 
     const total = await Product.countDocuments();
 

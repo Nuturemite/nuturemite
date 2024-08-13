@@ -24,32 +24,6 @@ const ProductList = () => {
   const { products, error, isLoading, mutate } = useProducts({ limit: 50, ...filters });
   const [pending, setPending] = useState(false);
 
-  const handleVerify = async id => {
-    setPending(true);
-    try {
-      await api.put(`/products/${id}`, { apvStatus: "approved" });
-      await mutate();
-      tst.success("Product verified successfully");
-    } catch (error) {
-      tst.error(error);
-    } finally {
-      setPending(false);
-    }
-  };
-
-  const handleReject = async id => {
-    setPending(true);
-    try {
-      await api.put(`/products/${id}`, { apvStatus: "rejected" });
-      await mutate();
-      tst.success("Product has been rejected");
-    } catch (error) {
-      tst.error(error);
-    } finally {
-      setPending(false);
-    }
-  };
-
   const handleProductDelete = async id => {
     try {
       setPending(true);
@@ -64,7 +38,6 @@ const ProductList = () => {
     }
   };
 
-  
   const handleStatus = async (id, active) => {
     try {
       setPending(true);
@@ -78,7 +51,6 @@ const ProductList = () => {
     }
   };
 
-
   const handleFeatured = async (id, featured) => {
     try {
       setPending(true);
@@ -91,8 +63,6 @@ const ProductList = () => {
       setPending(false);
     }
   };
-
-
 
   if (error) return <Error />;
 
@@ -128,35 +98,26 @@ const ProductList = () => {
         <Switch onChange={() => handleStatus(item._id, item.active)} checked={item.active} />
       ),
     });
-    columns.push({
-      key: "featured",
-      label: "Featured",
-      render: item => (
-        <Switch onChange={() => handleFeatured(item._id, item.featured)} checked={item.featured} />
-      ),
-    });
   }
 
   const actions = item => {
     if (apvStatus === "pending")
       return (
         <>
-          <AlertBox btnName={"Verify"} onClick={() => handleVerify(item._id)}>
-            <Button size="xs">Approve</Button>
-          </AlertBox>
-          <AlertBox btnName={"Reject"} onClick={() => handleReject(item._id)}>
-            <Button variant={"destructive"} size="xs">
-              Reject
-            </Button>
+          <Link href={`/vendor/products/edit/${item._id}/`}>
+            <Edit className="text-green-500" />
+          </Link>
+          <AlertBox onClick={() => handleProductDelete(item._id)}>
+            <Trash className="text-red-600" />
           </AlertBox>
         </>
       );
     else if (apvStatus === "rejected")
       return (
         <>
-          <AlertBox btnName={"Verify"} onClick={() => handleVerify(item._id)}>
-            <Button size="xs">Approve</Button>
-          </AlertBox>
+          <Link href={`/vendor/products/edit/${item._id}/`}>
+            <Edit className="text-green-500" />
+          </Link>
           <AlertBox onClick={() => handleProductDelete(item._id)}>
             <Trash className="text-red-600" />
           </AlertBox>
@@ -178,9 +139,13 @@ const ProductList = () => {
   return (
     <div className="container mx-auto p-4">
       <div className="flex justify-between text-center mb-6">
-        <div>
-          <SearchInput className="md:w-60" />
-        </div>
+        <SearchInput className="md:w-60" />
+        <Link href="/vendor/products/new">
+          <Button>
+            <Plus className="mr-4" />
+            Add New
+          </Button>
+        </Link>
       </div>
       <DataTable
         columns={columns}

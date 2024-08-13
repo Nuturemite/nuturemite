@@ -19,12 +19,14 @@ export const ProductSchema = new Schema(
     },
     stockLimit: { type: Number, default: 0 },
     details: [{ name: String, value: String }],
-    approvalStatus: {
+    apvStatus: {
       type: String,
       enum: ["pending", "approved", "rejected"],
       default: "pending",
     },
+    rejRmk: String,
     active: { type: Boolean, default: true },
+    featured: { type: Boolean, default: false },
   },
   { timestamps: true, toJSON: { virtuals: true }, toObject: { virtuals: true } }
 );

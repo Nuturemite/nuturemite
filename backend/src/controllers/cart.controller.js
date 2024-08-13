@@ -72,7 +72,7 @@ export const removeItemFromCart = async (req, res) => {
 
 export const findCartByUserId = async userId => {
   try {
-    const cart = await Cart.findOne({ user: userId }).populate("items.product");
+    const cart = await Cart.findOne({ user: userId }).populate("items.product", "name price images basePrice quantity");
     if (!cart) {
       return null;
     }

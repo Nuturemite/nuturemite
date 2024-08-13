@@ -5,6 +5,12 @@ import { usePathname } from "next/navigation";
 import { Minimize2 } from "lucide-react";
 import { useAuthContext } from "@/context/authprovider";
 import Loader from "../loader";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 
 function Sidebar({ className, sidebarItems }) {
   const [isMinimized, setIsMinimized] = useState(false);
@@ -24,7 +30,7 @@ function Sidebar({ className, sidebarItems }) {
         <div className={`${!isMinimized && "flex justify-between items-center"} mb-4`}>
           <Link href="/">
             <span
-              className={`text-lg px-4 font-semibold tracking-wide text-slate-200 ${
+              className={`text-lg  font-semibold tracking-wide text-slate-200 ${
                 isMinimized && "hidden"
               }`}
             >
@@ -37,24 +43,61 @@ function Sidebar({ className, sidebarItems }) {
             size={20}
           />
         </div>
-        <ul className="flex flex-col gap-4">
-          {sidebarItems.map(item => (
-            <li key={item.title}>
-              <Link
-                href={item.link}
-                className={`${
-                  !isMinimized && "flex items-center px-4 py-2"
-                } p-1  text-slate-200 hover:bg-slate-100 hover:text-slate-800 transition duration-150 cursor-pointer ${
-                  activePath === item.title.toLowerCase() && "bg-slate-300 text-slate-800"
-                }`}
-              >
-                <item.icon size={20} />
-                <span className={`ml-4 text-sm tracking-wider ${isMinimized && "hidden"}`}>
-                  {item.title}
-                </span>
-              </Link>
-            </li>
-          ))}
+        <ul className="flex flex-col gap-4 mt-10">
+          {sidebarItems.map(item =>
+            item.items ? (
+              <Accordion key={item.title} type="single" collapsible >
+                <AccordionItem value={item.title}>
+                  <AccordionTrigger
+                    className={`flex items-center justify-between p-1 text-slate-200 hover:bg-slate-100 hover:text-slate-800 transition duration-150 cursor-pointer `}
+                  >
+                 <div className="flex items-center ">
+                      <item.icon size={20} />
+                      <span className={`ml-4 text-sm tracking-wider ${isMinimized && "hidden"}`}>
+                        {item.title}
+                      </span>
+                 </div>
+                  </AccordionTrigger>
+                  <AccordionContent className="pl-4">
+                    <ul>
+                      {item.items.map(subItem => (
+                        <li key={subItem.title}>
+                          <Link
+                            href={subItem.link}
+                            className={`flex items-center p-1 text-slate-200 hover:bg-slate-100 hover:text-slate-800 transition duration-150 cursor-pointer ${
+                              activePath === subItem.title.toLowerCase() &&
+                              "bg-slate-300 text-slate-800"
+                            }`}
+                          >
+                            <span>&bull;</span>
+                            <span
+                              className={`ml-4 text-sm tracking-wider ${isMinimized && "hidden"}`}
+                            >
+                              {subItem.title}
+                            </span>
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                  </AccordionContent>
+                </AccordionItem>
+              </Accordion>
+            ) : (
+              <li key={item.title}>
+                <Link
+                  href={item.link}
+                  className={`flex items-center p-1 text-slate-200 hover:bg-slate-100 hover:text-slate-800 transition duration-150 cursor-pointer ${
+                    activePath === item.title.toLowerCase() && "bg-slate-300 text-slate-800"
+                  }`}
+                >
+                  <item.icon size={20} />
+                  <span className={`ml-4 text-sm tracking-wider ${isMinimized && "hidden"}`}>
+                    {item.title}
+                  </span>
+                </Link>
+              </li>
+            )
+          )}
           {/* <li>
             <div
               className={`flex items-center px-4 py-2 text-red-400 hover:bg-slate-100 hover:text-slate-800 transition duration-150 cursor-pointer ${

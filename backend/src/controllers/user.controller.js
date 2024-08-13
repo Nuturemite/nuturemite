@@ -37,7 +37,10 @@ export const getUserProfile = async (req, res) => {
 
 export const getAllUsers = async (req, res) => {
   try {
-    const users = await User.find().select("-password"); // Exclude password field from response
+    const { role } = req.query;
+    const users = await User.find(role ? { role } : {})
+      .select("-password")
+      .limit(1000);
 
     res.json({ message: "Users fetched successfully!", data: users });
   } catch (error) {

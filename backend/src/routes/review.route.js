@@ -5,6 +5,6 @@ import isAuth from "../middlewares/auth.js";
 const router = express.Router();
 
 router.post("/", isAuth, createReview);
-router.get("/product/:productId", getReviewsByProductId);
+router.get("/product/:productId",getReviewsByProductId);
 
 export default router;

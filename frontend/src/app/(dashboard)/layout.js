@@ -15,6 +15,7 @@ import {
   List,
   Minimize2,
   User2,
+  User2Icon,
 } from "lucide-react";
 
 const sidebarItemsVendor = [
@@ -30,8 +31,21 @@ const sidebarItemsVendor = [
   },
   {
     icon: ShoppingBag,
-    title: "Product",
-    link: "/vendor/product",
+    title: "Products",
+    items: [
+      {
+        title: "Approved",
+        link: `/vendor/products?apvStatus=approved`,
+      },
+      {
+        title: "New Requests",
+        link: `/vendor/products?apvStatus=pending`,
+      },
+      {
+        title: "Rejected",
+        link: `/vendor/products?apvStatus=rejected`,
+      },
+    ],
   },
   {
     icon: Package,
@@ -79,22 +93,53 @@ const sidebarItemsAdmin = [
   {
     icon: User,
     title: "Vendors",
-    link: "/admin/vendors",
+    items: [
+      {
+        title: "Approved",
+        link: "/admin/vendors?apvStatus=approved",
+      },
+      {
+        title: "New Requests",
+        link: "/admin/vendors?apvStatus=pending",
+      },
+      {
+        title: "Rejected",
+        link: "/admin/vendors?apvStatus=rejected",
+      },
+    ],
   },
   {
     icon: ShoppingBag,
     title: "Products",
-    link: "/admin/products",
+    items: [
+      {
+        title: "Approved",
+        link: `/admin/products?apvStatus=approved`,
+      },
+      {
+        title: "New Requests",
+        link: `/admin/products?apvStatus=pending`,
+      },
+      {
+        title: "Rejected",
+        link: `/admin/products?apvStatus=rejected`,
+      },
+    ],
   },
   {
     icon: Package,
     title: "Orders",
-    link: "/vendor/orders",
+    link: "/admin/orders",
   },
   {
     icon: Truck,
     title: "Shipments",
     link: "/vendor/shipments",
+  },
+  {
+    icon: User2Icon,
+    title: "Customers",
+    link: "/admin/customers",
   },
   {
     icon: FileText,
@@ -111,20 +156,19 @@ const sidebarItemsAdmin = [
     title: "Category",
     link: "/vendor/category",
   },
- 
 ];
 
 export default function DashboardLayout({ children }) {
   const { user } = useAuthContext();
   if (!user) return;
   const sidebarItems = user.role === "vendor" ? sidebarItemsVendor : sidebarItemsAdmin;
-  
+
   return (
     <div className="text-slate-900 bg-gray-100">
       <div className="relative flex min-h-screen ">
         <Sidebar sidebarItems={sidebarItems} />
         <div className="w-full px-2 mt-1 relative ">
-          <Navbar sidebarItems={sidebarItems}/>
+          <Navbar sidebarItems={sidebarItems} />
           <div>{children}</div>
         </div>
       </div>

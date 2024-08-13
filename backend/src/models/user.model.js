@@ -11,20 +11,6 @@ export const UserSchema = new Schema(
     dateOfBirth: Date,
     mobile: String,
     gender: { type: String, enum: ["male", "female", "others"] },
-    address: [
-      {
-        fname: String,
-        lname: String,
-        email: String,
-        phone: String,
-        address: String,
-        street: String,
-        country: String,
-        city: String,
-        state: String,
-        zipcode: String,
-      },
-    ],
   },
   { timestamps: true }
 );

@@ -94,7 +94,7 @@ function LoginForm() {
           </Button>
           <div className="text-sm font-medium text-slate-800">
             Not registered?{" "}
-            <Link href="/auth/signup" className="text-blue-700 hover:underline">
+            <Link href="/auth/register" className="text-blue-700 hover:underline">
               Create account
             </Link>
           </div>

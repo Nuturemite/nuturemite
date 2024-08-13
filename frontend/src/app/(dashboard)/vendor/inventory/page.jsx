@@ -101,7 +101,7 @@ const ProductList = ({ searchParams }) => {
             src={product?.images[1] || "./noimage.png"}
             alt="product image"
           />
-          <span>{product.name}</span>
+          <span className="truncate w-60">{product.name}</span>
         </div>
       ),
     },

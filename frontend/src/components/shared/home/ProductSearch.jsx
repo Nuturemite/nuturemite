@@ -5,11 +5,11 @@ import { Input } from "@/components/ui/input";
 import { useProducts } from "@/lib/data";
 import { useState } from "react";
 import Link from "next/link";
+import { Separator } from "@/components/ui/separator";
 
 function ProductSearch({ className }) {
   const [search, setSearch] = useState("");
   const { products, isLoading, error } = useProducts({ search });
-  console.log(products);
 
   if (error) return <div>Error loading products</div>;
 
@@ -41,18 +41,26 @@ function ProductSearch({ className }) {
               <div>Loading..</div>
             ) : products.length > 0 ? (
               products.map(product => (
-                <Link
-                  key={product._id}
-                  href={`/shop?productId=${product.productId}`}
-                  onClick={() => setSearch("")}
-                >
-                  <div className="flex items-center gap-4 p-2">
-                    <img className="h-16" src="/noimage.png" alt={product.name} />
-                    <div>
-                      <p>{product.name}</p>
+                <>
+                  <Link
+                    key={product._id}
+                    href={`/shop/${product._id}`}
+                    onClick={() => setSearch("")}
+                    className="hover:bg-slate-200 group"
+                  >
+                    <div className="flex items-center gap-4 p-2 group:hover:translate-x-2 ">
+                      <img
+                        className="h-16"
+                        src={product.images[1] || "./noimage.png"}
+                        alt={"Product image"}
+                      />
+                      <div>
+                        <p>{product.name}</p>
+                      </div>
                     </div>
-                  </div>
-                </Link>
+                  </Link>
+                  <Separator />
+                </>
               ))
             ) : (
               <div>No products found</div>

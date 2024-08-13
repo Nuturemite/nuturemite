@@ -1,20 +1,10 @@
 import { Vendor } from "../models/model.js";
 
-export const registerVendor = async (req, res) => {
-  try {
-    req.body.user = req.user.id;
-    const vendor = await Vendor.create(req.body);
-    res.status(201).json({ message: "Vendor created successfully", data: vendor });
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
-};
-
 export const updateVendorDetails = async (req, res) => {
   try {
     const id = req.params.id;
-    console.log(id)
-    console.log(req.body)
+    console.log(id);
+    console.log(req.body);
     const response = await Vendor.findByIdAndUpdate(id, req.body);
     if (!response) {
       return res.status(404).json({ message: "Vendor not found" });

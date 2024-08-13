@@ -1,92 +1,165 @@
 "use client";
+
+import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
+import api from "@/lib/api";
 import { useVendors } from "@/lib/data";
-import {
-  Table,
-  TableBody,
-  TableCaption,
-  TableHead,
-  TableHeader,
-  TableRow,
-  TableCell,
-} from "@/components/ui/table";
-import TableSkeleton from "@/components/shared/tableskeleton";
+import DataTable from "@/components/tables/DataTable";
 import Error from "@/components/shared/error";
-import SearchInput  from "@/components/filters/search";
-import Link  from "next/link";
-import { Eye, View } from "lucide-react";
-// import Loader from "@/components/shared/loader";
+import { Trash, Edit, Eye } from "lucide-react";
+import SearchInput from "@/components/filters/search";
+import Link from "next/link";
+import OutLoader from "@/components/ui/outloader";
+import { useSearchParams } from "next/navigation";
+import { AlertBox } from "@/components/ui/alert-dialog";
+import { tst } from "@/lib/utils";
+import { Switch } from "@mui/material";
 
-const VendorList = ({ searchParams }) => {
-  const query = searchParams.query;
-  const { vendors, error, isLoading, mutate } = useVendors({ limit: 50 });
+const VendorList = () => {
+  const searchParams = useSearchParams();
+  const filters = {
+    search: searchParams.get("search"),
+    apvStatus: searchParams.get("apvStatus"),
+  };
+  const apvStatus = searchParams.get("apvStatus");
+  const { vendors, error, isLoading, mutate } = useVendors({ limit: 50, ...filters });
+  const [pending, setPending] = useState(false);
 
-  // if (isLoading) return <Loader />;
   if (error) return <Error />;
 
+  const handleVerify = async id => {
+    setPending(true);
+    try {
+      await api.put(`/vendors/${id}`, { apvStatus: "approved" });
+      await mutate();
+      tst.success("Vendor verified successfully");
+    } catch (error) {
+      tst.error(error);
+    } finally {
+      setPending(false);
+    }
+  };
+
+  const handleReject = async id => {
+    setPending(true);
+    try {
+      await api.put(`/vendors/${id}`, { apvStatus: "rejected" });
+      await mutate();
+      tst.success("Vendor has been rejected");
+    } catch (error) {
+      tst.error(error);
+    } finally {
+      setPending(false);
+    }
+  };
+
+
+  const handleStatus = async (id, active) => {
+    try {
+      setPending(true);
+      await api.put(`/vendors/${id}`, { active: !active });
+      await mutate();
+    } catch (error) {
+      console.error(error);
+      tst.error(error);
+    } finally {
+      setPending(false);
+    }
+  };
+
+  const handleDelete = async id => {
+    try {
+      setPending(true);
+      await api.delete(`/vendor/${id}`);
+      await mutate();
+      tst.success("Vendor deleted successfully");
+    } catch (error) {
+      console.error(error);
+      tst.error(error);
+    } finally {
+      setPending(false);
+    }
+  };
+
+  const columns = [
+    { key: "name", label: "Name", render: vendor => vendor.name },
+    { key: "businessName", label: "Business Name", render: vendor => vendor.businessName },
+    { key: "taxId", label: "GST ID", render: vendor => vendor.gstin },
+    { key: "contactNumber", label: "Contact Number", render: vendor => vendor.contactNumber },
+  ];
+
+  if (apvStatus === "approved") {
+    columns.push({
+      key: "active",
+      label: "Active",
+      render: vendor => (
+        <Switch onChange={() => handleStatus(vendor._id, vendor.active)} checked={vendor.active} />
+      ),
+    });
+  }
+
+  const actions = vendor => {
+    if (apvStatus === "pending")
+      return (
+        <>
+          <AlertBox btnName={"Verify"} onClick={() => handleVerify(vendor._id)}>
+            <Button size="xs">Approve</Button>
+          </AlertBox>
+          <AlertBox btnName={"Reject"} onClick={() => handleReject(vendor._id)}>
+            <Button variant={"destructive"} size="xs">
+              Reject
+            </Button>
+          </AlertBox>
+          <Link href={`/admin/vendors/${vendor._id}/`}>
+            <Button className="bg-green-500" size="xs">
+              View
+            </Button>
+          </Link>
+        </>
+      );
+    else if (apvStatus === "rejected")
+      return (
+        <>
+          <AlertBox btnName={"Verify"} onClick={() => handleVerify(vendor._id)}>
+            <Button size="xs">Approve</Button>
+          </AlertBox>
+          <AlertBox onClick={() => handleDelete(vendor._id)}>
+            <Trash className="text-red-600" />
+          </AlertBox>
+          <Link href={`/admin/vendors/${vendor._id}/`}>
+            <Button className="bg-green-500" size="xs">
+              View
+            </Button>
+          </Link>
+        </>
+      );
+    else
+      return (
+        <>
+          <Link href={`/admin/vendors/${vendor._id}/`}>
+            <Eye className="text-green-500" />
+          </Link>
+          <AlertBox onClick={() => handleProductDelete(vendor._id)}>
+            <Trash className="text-red-600" />
+          </AlertBox>
+        </>
+      );
+  };
 
   return (
     <div className="container mx-auto p-4">
       <div className="flex justify-between text-center mb-6">
-        <div>
-          <SearchInput className="md:w-60" />
-        </div>
+        <SearchInput className="md:w-60" />
       </div>
-      <div className={`bg-white px-4 ${isLoading ? "opacity-50 pointer-events-none" : ""}`}>
-        <Table>
-          <TableCaption>List of all vendors.</TableCaption>
-          <TableHeader>
-            <TableRow>
-              <TableHead>ID</TableHead>
-              <TableHead>Name</TableHead>
-              <TableHead>Business Name</TableHead>
-              <TableHead>Tax ID</TableHead>
-              <TableHead>Contact Number</TableHead>
-              <TableHead>Is Verified</TableHead>
-              <TableHead>Status</TableHead>
-              <TableHead>Action</TableHead>
-            </TableRow>
-          </TableHeader>
-          {isLoading ? (
-            <TableSkeleton columnCount={7} />
-          ) : (
-            <TableBody>
-              {vendors.map(vendor => (
-                <TableRow key={vendor._id}>
-                  <TableCell>{vendor._id}</TableCell>
-                  <TableCell>{vendor.name}</TableCell>
-                  <TableCell>{vendor.businessName}</TableCell>
-                  <TableCell>{vendor.taxId}</TableCell>
-                  <TableCell>{vendor.contactNumber}</TableCell>
-                  <TableCell>
-                    <div
-                      className={`text-center ${
-                        vendor.isVerified ? "bg-green-500 text-white" : "bg-red-500 text-white"
-                      } px-2.5 py-[0.2rem] rounded-md`}
-                    >
-                      {vendor.isVerified ? "Verified" : "Not Verified"}
-                    </div>
-                  </TableCell>
-                  <TableCell>
-                    <div
-                      className={`text-center ${
-                        vendor.status === "active" ? "bg-green-500 text-white" : "bg-red-500 text-white"
-                      } px-2.5 py-[0.2rem] rounded-md`}
-                    >
-                      {vendor.status}
-                    </div>
-                  </TableCell>
-                  <TableCell>
-                    <Link href={`/admin/vendors/${vendor._id}`}>
-                     <Eye className="text-green-500"/>
-                    </Link>
-                  </TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          )}
-        </Table>
-      </div>
+      <DataTable
+        columns={columns}
+        data={vendors}
+        isLoading={isLoading}
+        actions={actions}
+        caption="List of all vendors."
+        pending={pending}
+      />
+      <OutLoader loading={pending} />
     </div>
   );
 };

@@ -11,16 +11,16 @@ import {
 } from "@/components/ui/carousel";
 
 export const FeaturedProducts = () => {
-  const { products, isLoading, error } = useProducts({ limit: 20, minDiscount: 20 });
+  const { products, isLoading, error } = useProducts({
+    featured: true,
+  });
   if (isLoading) return <ProductSkeleton count={3} />;
 
   if (error) return <div>Error: {error.message}</div>;
 
   return (
     <div className="">
-      <h2 className="uppercase mb-10 text-3xl  font-medium text-center">
-        Featured Products
-      </h2>
+      <h2 className="uppercase mb-10 text-3xl  font-medium text-center">Featured Products</h2>
       <Carousel
         opts={{
           align: "start",

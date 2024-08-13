@@ -57,7 +57,7 @@ const OrderHeader = ({ orderData, user }) => {
         <div className="flex flex-col gap-4 ">
           <OrderStatus status={orderData.status} />
           {user && (
-            <AlertBox onClick={() => handleOrderCancel(orderData._id)}>
+            <AlertBox btnName={"Yes"} desc={"Are you sure you want to cancel the Order"} onClick={() => handleOrderCancel(orderData._id)}>
               <Button variant={"destructive"} size="xs">
                 Cancel
               </Button>

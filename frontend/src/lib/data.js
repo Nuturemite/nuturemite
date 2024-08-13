@@ -27,7 +27,11 @@ export const useBrands = (queryParams = {}) => {
   if (params.toString()) {
     url += `?${params.toString()}`;
   }
-  const { data, error, isLoading, mutate } = useSWR(url, fetcher);
+  const { data, error, isLoading, mutate } = useSWR(url, fetcher, {
+    revalidateOnFocus: false,
+    revalidateIfStale: false,
+    revalidateOnReconnect: false,
+  });
   return { brands: data, error, isLoading, mutate };
 };
 
@@ -60,8 +64,19 @@ export const useProducts = (queryParams = {}) => {
     vendorId,
     limit = 9,
     page = 1,
+    apvStatus = "approved",
+    featured,
   } = queryParams;
-  let { data = {}, error, isLoading, mutate } = useSWR("/products", fetcher2);
+  let {
+    data = {},
+    error,
+    isLoading,
+    mutate,
+  } = useSWR("/products", fetcher2, {
+    revalidateOnFocus: false,
+    revalidateIfStale: false,
+    revalidateOnReconnect: false,
+  });
   const totalPages = data?.totalPages || 1;
   data = data?.data || [];
 
@@ -74,10 +89,12 @@ export const useProducts = (queryParams = {}) => {
         if (minDiscount && product.discount < minDiscount) return false;
         if (minRating && product.rating < minRating) return false;
         if (search && !product.name.toLowerCase().includes(search.toLowerCase())) return false;
+        if (apvStatus && product.apvStatus != apvStatus) return false;
         // if (search && !product.sku.toLowerCase().includes(search.toLowerCase())) return false;
         // if(search && !product.categories.map(cat=>cat.name.toLowerCase()).includes(search.toLowerCase())) return false;
         if (productId && product.productId != productId) return false;
         if (active && !product.active) return false;
+        if (featured && !product.featured) return false;
         return true;
       })
       .slice(limit * page - limit, limit * page);
@@ -116,7 +133,11 @@ export const useCart = () => {
 };
 
 export const useWishlist = () => {
-  const { data, error, isLoading, mutate } = useSWR("/wishlist", fetcher);
+  const { data, error, isLoading, mutate } = useSWR("/wishlist", fetcher, {
+    revalidateOnFocus: false,
+    revalidateIfStale: false,
+    revalidateOnReconnect: false,
+  });
   return { wishlistItems: data, error, isLoading, mutate };
 };
 
@@ -143,12 +164,21 @@ export const useUser = () => {
 };
 
 export const useReviews = productId => {
-  const { data, error, isLoading, mutate } = useSWR(`/reviews/product/${productId}`, fetcher);
+  const { data, error, isLoading, mutate } = useSWR(`/reviews/product/${productId}`, fetcher, {
+    revalidateOnFocus: false,
+    revalidateIfStale: false,
+    revalidateOnReconnect: false,
+  });
   return { reviews: data, error, isLoading, mutate };
 };
 
 export const useMyOrders = () => {
   const { data, error, isLoading, mutate } = useSWR("/my/orders", fetcher);
+  return { orders: data, error, isLoading, mutate };
+};
+
+export const useAllOrders = () => {
+  const { data, error, isLoading, mutate } = useSWR("/orders", fetcher);
   return { orders: data, error, isLoading, mutate };
 };
 
@@ -162,13 +192,27 @@ export const useMyVendorOrders = () => {
   return { order: data, error, isLoading, mutate };
 };
 
-export const useVendors = () => {
-  const { data, error, isLoading, mutate } = useSWR(`/vendors`, fetcher);
-  return { vendors: data, error, isLoading, mutate };
+export const useVendors = (queryParams = {}) => {
+  const filter = v => {
+    if (queryParams.apvStatus && v.apvStatus !== queryParams.apvStatus) return false;
+    return true;
+  };
+
+  const { data, error, isLoading, mutate } = useSWR("/vendors", fetcher, {
+    revalidateOnFocus: false,
+    revalidateIfStale: false,
+    revalidateOnReconnect: false,
+  });
+  const vendors = data ? data.filter(filter) : [];
+  return { vendors, error, isLoading, mutate };
 };
 
 export const useVendor = id => {
-  const { data, error, isLoading, mutate } = useSWR(`/vendors/${id}`, fetcher);
+  const { data, error, isLoading, mutate } = useSWR(`/vendors/${id}`, fetcher, {
+    revalidateOnFocus: false,
+    revalidateIfStale: false,
+    revalidateOnReconnect: false,
+  });
   return { vendor: data, error, isLoading, mutate };
 };
 
@@ -182,4 +226,9 @@ export const useVendorShipments = () => {
   const url = `/vendor/my/shipments`;
   const { data, error, isLoading, mutate } = useSWR(url, fetcher);
   return { shipments: data, error, isLoading, mutate };
+};
+
+export const useCustomers = () => {
+  const { data, error, isLoading, mutate } = useSWR("/users?role=user", fetcher);
+  return { customers: data, error, isLoading, mutate };
 };

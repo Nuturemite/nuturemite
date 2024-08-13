@@ -3,11 +3,7 @@ import React, { useState } from "react";
 import { useVendor } from "@/lib/data";
 import { Table, TableBody, TableRow, TableCell } from "@/components/ui/table";
 import Error from "@/components/shared/error";
-import { Button } from "@/components/ui/button";
 import Loader from "@/components/shared/loader";
-import api from "@/lib/api";
-import { tst } from "@/lib/utils";
-import { useRouter } from "next/navigation";
 
 const renderTableRows = data => {
   return Object.entries(data).map(([key, value]) => (
@@ -21,31 +17,15 @@ const renderTableRows = data => {
 const VendorDetails = ({ params }) => {
   const id = params.id;
   const { vendor, isLoading, error } = useVendor(id);
-  const [pending, setPending] = useState(false);
   const [activeTab, setActiveTab] = useState("personal");
-  const router = useRouter();
-
-  const handleVerify = async () => {
-    setPending(true);
-    try {
-      await api.put(`/vendors/${id}`, { isVerified: true });
-      tst.success("Vendor verified successfully");
-      router.back();
-    } catch (error) {
-      tst.error(error);
-    } finally {
-      setPending(false);
-    }
-  };
 
   if (isLoading) return <Loader />;
   if (error) return <Error />;
   if (!vendor) return <div>No vendor found</div>;
 
   return (
-    <div className={`container mx-auto p-4 ${pending ? "pointer-events-none opacity-50" : ""}`}>
+    <div className={`container mx-auto p-4 `}>
 
-      {/* Tab Navigation */}
       <div className="mb-4">
         <div className="flex border-b border-gray-300 bg-white ">
           {["personal", "address", "bank", "license", "store"].map((tab) => (
@@ -122,14 +102,6 @@ const VendorDetails = ({ params }) => {
               })}
             </TableBody>
           </Table>
-        </div>
-      )}
-
-      {!vendor.isVerified && (
-        <div className="mt-6">
-          <Button onClick={handleVerify} pending={pending}>
-            Verify Vendor
-          </Button>
         </div>
       )}
     </div>

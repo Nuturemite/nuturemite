@@ -31,7 +31,7 @@ const OrderList = () => {
 
   const columns = [
     {
-      label: "Invoice ID",
+      label: "Order ID",
       render: item => item._id,
     },
     {

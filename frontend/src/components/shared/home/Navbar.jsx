@@ -1,9 +1,8 @@
 "use client";
 import Link from "next/link";
-import React, { useEffect } from "react";
+import React from "react";
 import Icon from "@/components/shared/common/icon";
 import { useAuthContext } from "@/context/authprovider";
-import ShoppingCart from "@/components/shared/home/ShoppingCart";
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -19,42 +18,39 @@ import { Header } from "./Header";
 import HomeDrawer from "@/components/drawers/HomeDrawer";
 
 const NavBar = () => {
-  const { isAuthenticated, user, login, logout } = useAuthContext();
-  useEffect(() => {
-    login();
-  }, []);
-
+  const { isAuthenticated, user, logout } = useAuthContext();
   const handleLogout = () => {
     logout();
   };
 
-  let menuItems;
-  if (isAuthenticated) {
-    if (user.role === "vendor" && !user.isRegistered) {
-      menuItems = [
-        { text: "Shop", href: "/shop" },
-        { text: "My Account", href: "/account" },
-        { text: "Dashboard", href: "/vendor-register" },
-      ];
-    } else if (user.role == "vendor") {
-      menuItems = [
-        { text: "Shop", href: "/shop" },
-        { text: "My Account", href: "/account" },
-        { text: "Dashboard", href: "/vendor" },
-      ];
+  const menuItems = () => {
+    if (isAuthenticated) {
+      if (user.role == "vendor") {
+        return [
+          { text: "Shop", href: "/shop" },
+          { text: "My Account", href: "/account" },
+          { text: "Dashboard", href: "/vendor" },
+        ];
+      } else if (user.role == "admin") {
+        return [
+          { text: "Shop", href: "/shop" },
+          { text: "My Account", href: "/account" },
+          { text: "Dashboard", href: "/admin" },
+        ];
+      } else {
+        return [
+          { text: "Shop", href: "/shop" },
+          { text: "My Account", href: "/account" },
+        ];
+      }
     } else {
-      menuItems = [
+      return [
         { text: "Shop", href: "/shop" },
-        { text: "My Account", href: "/account" },
+        { text: "Login", href: "/auth/login" },
       ];
     }
-  } else {
-    menuItems = [
-      { text: "Shop", href: "/shop" },
-      { text: "Login", href: "/auth/signin" },
-      // { text: "Vendor Login", href: "/vendor-register" },
-    ];
-  }
+  };
+
 
   return (
     <>
@@ -79,7 +75,7 @@ const NavBar = () => {
               <ProductSearch />
               <CatNav />
               <li></li>
-              {menuItems.map((menuItem, index) => (
+              {menuItems().map((menuItem, index) => (
                 <li key={index}>
                   <Link href={menuItem.href} className="navbar-heading">
                     {menuItem.text}

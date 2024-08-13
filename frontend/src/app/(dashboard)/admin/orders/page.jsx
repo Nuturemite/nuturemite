@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import api from "@/lib/api";
-import { useVendorOrders } from "@/lib/data";
+import { useAllOrders, useVendorOrders } from "@/lib/data";
 import DataTable from "@/components/tables/DataTable";
 import { tst } from "@/lib/utils";
 import Error from "@/components/shared/error";
@@ -25,7 +25,7 @@ import {
 import OrderStatus from "@/components/shared/admin/OrderStatus";
 
 const OrderList = () => {
-  const { orders, error, isLoading, mutate } = useVendorOrders({ limit: 50 });
+  const { orders, error, isLoading, mutate } = useAllOrders({ limit: 50 });
   const [pending, setPending] = useState(false);
 
   if (error) return <Error />;

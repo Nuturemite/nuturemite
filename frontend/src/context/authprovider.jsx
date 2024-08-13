@@ -32,8 +32,6 @@ export const AuthProvider = ({ children }) => {
             image: decodedToken.image,
             role: decodedToken.role,
             vendorId: decodedToken.vendorId,
-            isVerified: decodedToken.isVerified,
-            isRegistered: decodedToken.isRegistered,
           });
         }
       } else {

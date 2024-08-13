@@ -4,7 +4,6 @@ import Error from "@/components/shared/error";
 import Loader from "@/components/shared/loader";
 import { useProduct } from "@/lib/data";
 import { Icon } from "@iconify/react";
-import ProductPageSkeleton from "./skeleton";
 import AddToCart from "../components/AddToCart";
 import {
   Select,
@@ -13,7 +12,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import Tabs from "./tabs";
+import ProductTab from "./tabs/product-tab";
 import ImageZoom from "@/components/ui/image-zoom";
 import OutLoader from "@/components/ui/outloader";
 
@@ -125,7 +124,7 @@ export default function Product({ params }) {
             )}
           </div>
         </div>
-        <Tabs product={product} />
+        <ProductTab product={product} />
       </div>
       <OutLoader loading={pending}/>
     </div>

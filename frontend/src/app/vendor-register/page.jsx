@@ -88,7 +88,7 @@ export default function VendorRegistration() {
     e.preventDefault();
     setPending(true);
     try {
-      await api.post("/vendors/register", values);
+      await api.post("/auth/register/vendor", values);
       tst.success("Vendor registered successfully");
     } catch (error) {
       tst.error(error);
@@ -101,40 +101,55 @@ export default function VendorRegistration() {
     {
       heading: "Personal Details",
       fields: [
-        { label: "Name", name: "name", type: "text" },
-        { label: "Email", name: "email", type: "email" },
-        { label: "Password", name: "password", type: "password" },
-        { label: "Business Name", name: "businessName", type: "text" },
-        { label: "Contact Number", name: "contactNumber", type: "text" },
-        { label: "Tax ID", name: "taxId", type: "text" },
+        { label: "Name", name: "name", type: "text", required: true },
+        { label: "Email", name: "email", type: "email", required: true },
+        { label: "Password", name: "password", type: "password", required: true },
+        { label: "Business Name", name: "businessName", type: "text", required: true },
+        { label: "Contact Number", name: "contactNumber", type: "text", required: true },
+        { label: "GST ID", name: "gstin", type: "text", required: true },
       ],
     },
     {
       heading: "Address Details",
       fields: [
-        { label: "Street", name: "address.street", type: "text" },
-        { label: "City", name: "address.city", type: "text" },
-        { label: "State", name: "address.state", type: "text" },
-        { label: "Postal Code", name: "address.postalCode", type: "text" },
-        { label: "Country", name: "address.country", type: "text" },
+        { label: "Street", name: "address.street", type: "text", required: true },
+        { label: "City", name: "address.city", type: "text", required: true },
+        { label: "State", name: "address.state", type: "text", required: true },
+        { label: "Postal Code", name: "address.postalCode", type: "text", required: true },
+        { label: "Country", name: "address.country", type: "text", required: true },
       ],
     },
     {
       heading: "Bank Details",
       fields: [
-        { label: "Account Number", name: "bankAccount.accountNumber", type: "text" },
-        { label: "Bank Name", name: "bankAccount.bankName", type: "text" },
-        { label: "Branch Code", name: "bankAccount.branchCode", type: "text" },
+        {
+          label: "Account Number",
+          name: "bankAccount.accountNumber",
+          type: "text",
+          required: true,
+        },
+        { label: "Bank Name", name: "bankAccount.bankName", type: "text", required: true },
+        { label: "Branch Code", name: "bankAccount.branchCode", type: "text", required: true },
       ],
     },
     {
       heading: "Business License Details",
       fields: [
-        { label: "License Number", name: "businessLicense.licenseNumber", type: "text" },
-        { label: "Issued By", name: "businessLicense.issuedBy", type: "text" },
-        { label: "Issued Date", name: "businessLicense.issuedDate", type: "date" },
-        { label: "Expiry Date", name: "businessLicense.expiryDate", type: "date" },
-        { label: "Document URL", name: "businessLicense.documentUrl", type: "text" },
+        {
+          label: "License Number",
+          name: "businessLicense.licenseNumber",
+          type: "text",
+          required: true,
+        },
+        { label: "Issued By", name: "businessLicense.issuedBy", type: "text", required: true },
+        { label: "Issued Date", name: "businessLicense.issuedDate", type: "date", required: true },
+        { label: "Expiry Date", name: "businessLicense.expiryDate", type: "date", required: true },
+        {
+          label: "Document URL",
+          name: "businessLicense.documentUrl",
+          type: "text",
+          required: true,
+        },
       ],
     },
     {
@@ -169,7 +184,7 @@ export default function VendorRegistration() {
                     type={field.type}
                     placeholder={field.label}
                     name={field.name}
-                    required
+                    required={field.required}
                     value={field.name.split(".").reduce((acc, part) => acc[part], values)}
                     onChange={handleChange}
                   />

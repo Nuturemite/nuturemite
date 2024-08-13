@@ -14,7 +14,7 @@ import reviewRoutes from "./routes/review.route.js";
 import userRoutes from "./routes/user.route.js";
 import orderRoutes from "./routes/order.route.js";
 import vendorRoutes from "./routes/vendor.route.js";
-import shippingRoutes from "./routes/shipping.route.js"
+import shippingRoutes from "./routes/shipping.route.js";
 import { stripePaymentListener } from "./controllers/payment.controller.js";
 import { uploadImage } from "./utils/uploadFile.js";
 
@@ -44,12 +44,13 @@ app.use("/api/brands", brandRoutes);
 
 app.use("/api/upload/images", async (req, res) => {
   try {
+    let images = [];
+    console.log(req.files);
     if (req.files) {
-      if (req.files.image) {
-        const url = await uploadImage(req.files.image.data, "nuturemite/product/uploads");
-        req.body.image = url;
-      }
-      if (req.files["images[]"]) {
+      if (typeof req.files["images[]"] === "object") {
+        const url = await uploadImage(req.files["images[]"].data, "nuturemite/product/uploads");
+        images.push(url);
+      } else if (req.files["images[]"]) {
         const uploadPromises = req.files["images[]"].map(async image => {
           const url = await uploadImage(image.data, "nuturemite/product/uploads");
           return url;
@@ -63,7 +64,6 @@ app.use("/api/upload/images", async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 });
-// Routes
 
 app.get("/", (req, res) => {
   res.status(200).json({ message: "Server is running" });

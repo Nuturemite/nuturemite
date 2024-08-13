@@ -38,6 +38,9 @@ function ProductForm({ update, params, product }) {
   const [images, setImages] = useState([]);
   const [pending, setPending] = useState(false);
   const [error, setError] = useState(null);
+  const [imageUploading, setImageUploading] = useState(false);
+  const [thumbnailUploading, setThumbnailUploading] = useState(false);
+  const [thumbnail, setThumbnail] = useState(null);
 
   useEffect(() => {
     if (update && product) {
@@ -49,8 +52,8 @@ function ProductForm({ update, params, product }) {
           dimensions: { ...(product.shippingDetails?.dimensions || "") },
         },
       });
-      // setImages(product.images.map(img => ({ image: img })));
     }
+    setImages(product?.images || []);
   }, [update, product]);
 
   const handleChange = e => {
@@ -93,13 +96,12 @@ function ProductForm({ update, params, product }) {
       const payload = {
         ...formData,
         categories: formData.categories.map(cat => cat.value),
+        images,
       };
       if (!update) {
-        await api.post("/products", payload, {
-        });
+        await api.post("/products", payload, {});
       } else {
-        await api.put(`/products/${params.id}`, payload, {
-        });
+        await api.put(`/products/${params.id}`, payload, {});
       }
       tst.success(update ? "Product updated successfully" : "Product created successfully");
     } catch (err) {
@@ -333,15 +335,31 @@ function ProductForm({ update, params, product }) {
         </div>
         <Separator />
 
+        <div>
+          <Label htmlFor="images" className="mb-2 block">
+            Upload Images
+          </Label>
+          <ImageUpload
+            imageUploading={imageUploading}
+            setImageUploading={setImageUploading}
+            images={images}
+            setImages={setImages}
+          />
+        </div>
         {/* <div>
           <Label htmlFor="images" className="mb-2 block">
             Upload Images
           </Label>
-          <ImageUpload images={images} setImages={setImages} />
+          <SingleFileUpload
+            imageUploading={thumbnailUploading}
+            setImageUploading={setThumbnailUploading}
+            image={thumbnail}
+            setImage={setThumbnail}
+          />
         </div> */}
         <Separator />
 
-        <Button type="submit" className="mt-6" disabled={pending}>
+        <Button type="submit" className="mt-6" pending={pending || imageUploading}>
           {update ? "Update Product" : "Create Product"}
         </Button>
         {error && <p className="text-red-500 mt-4">{error}</p>}

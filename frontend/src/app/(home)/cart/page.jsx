@@ -148,7 +148,7 @@ const NotAuthenticated = () => (
   <div className="flex flex-col items-center justify-center h-full min-h-screen">
     <p className="text-gray-500">Please login to continue</p>
     <div className="mt-4">
-      <Link href="/auth/signin">
+      <Link href="/auth/login">
         <Button variant="outline">Login</Button>
       </Link>
     </div>
