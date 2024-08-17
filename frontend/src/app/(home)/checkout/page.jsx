@@ -76,7 +76,7 @@ export default function Page() {
           paymentMode: "cod",
         });
         tst.success("Order placed successfully");
-        router.push("/orders");
+        // router.push("/orders");
       } else {
         const response = await api.post("/payment/create-checkout-session", { shippingAddress });
         const url = response.data.url;

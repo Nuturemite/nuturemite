@@ -8,6 +8,7 @@ import {
   getMyOrders,
   getMyOrdersAsVendor,
   updateOrder,
+  confirmOrder,
 } from "../controllers/order.controller.js";
 import isAuth from "../middlewares/auth.js";
 
@@ -20,7 +21,7 @@ router.get("/vendors/:vendorId/orders", isAuth, getVendorOrders); // Get orders 
 
 // Vendor
 router.get("/vendor/my/orders", isAuth, getMyOrdersAsVendor); // Get logged-in vendor's orders
-
+router.post("/orders/:orderId/confirm", isAuth, confirmOrder);
 // User
 router.get("/my/orders", isAuth, getMyOrders); // Get logged-in user's orders
 router.get("/orders/:id", isAuth, getOrderById); // Get order by order ID

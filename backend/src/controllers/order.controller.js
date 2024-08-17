@@ -1,6 +1,18 @@
-import { Address, Cart, Order, Product, Shipping, SubOrder, Vendor } from "../models/model.js";
+import { Address, Cart, Order, Product, Shipping, SubOrder } from "../models/model.js";
 import mongoose from "mongoose";
-import { generateModelId } from "../utils/generateId.js";
+import {
+  // placeOrder,
+  getCart,
+  validateCart,
+  checkProductQuantities,
+  calculateTotals,
+  createOrder,
+  groupVendorOrders,
+  saveSubOrders,
+  updateProductQuantities,
+  saveShippingAddress,
+} from "../services/order.service.js";
+import axios from "axios";
 
 export const placeOrder = async (req, res) => {
   const session = await mongoose.startSession();
@@ -10,117 +22,152 @@ export const placeOrder = async (req, res) => {
     const userId = req.user.id;
     const { paymentMode, shippingAddress } = req.body;
 
-    const cart = await Cart.findOne({ user: userId }).populate("items.product");
+    const cart = await getCart(userId);
+    validateCart(cart);
 
-    if (!cart) {
-      return res.status(400).json({ message: "Cart not found " });
-    }
+    const quantityUpdates = await checkProductQuantities(cart, session);
+    const shippingAddressId = await saveShippingAddress(shippingAddress, userId, session);
 
-    if (cart.items.length === 0) {
-      return res.status(400).json({ message: "Cart is empty" });
-    }
+    const totals = calculateTotals(cart);
+    const newOrder = await createOrder(userId, totals, paymentMode, shippingAddressId, session);
 
-    // Check quantity levels and prepare quantity updates
-    const quantityUpdates = [];
-    for (const item of cart.items) {
-      const product = await Product.findById(item.product._id).session(session);
+    const vendorOrders = groupVendorOrders(cart, newOrder, shippingAddressId, userId);
+    await saveSubOrders(vendorOrders, session);
 
-      if (product.quantity < item.quantity) {
-        await session.abortTransaction();
-        return res.status(400).json({ message: "Insufficient quantity" });
-      }
-
-      // Prepare the quantity update
-      quantityUpdates.push({
-        product,
-        newQuantity: product.quantity - item.quantity,
-      });
-    }
-
-    // Save shipping address
-    shippingAddress.user = req.user.id;
-    const address = new Address(shippingAddress);
-    const { _id: shippingAddressId } = await address.save({ session });
-
-    // Create Order
-    const subtotal = cart.items.reduce((acc, item) => acc + item.product.price * item.quantity, 0);
-    let total;
-    if (subtotal <= 2000) {
-      total = subtotal + 200;
-    } else {
-      total = subtotal;
-    }
-    const newOrder = new Order({
-      total,
-      subtotal,
-      paymentMode,
-      shippingAddress: shippingAddressId,
-      user: userId,
-      createdAt: new Date(),
-    });
-
-    await newOrder.save({ session });
-
-    // Create SubOrders for each vendor
-    const vendorOrders = {};
-
-    for (const item of cart.items) {
-      const product = await Product.findById(item.product._id).session(session);
-      const vendor = product.vendor;
-
-      if (!vendorOrders[vendor]) {
-        vendorOrders[vendor] = {
-          order: newOrder._id,
-          user: req.user.id,
-          vendor,
-          orderItems: [],
-          subTotal: 0,
-          discount: 0,
-          disTotal: 0,
-          total: 0,
-          shippingAddress: shippingAddressId,
-          createdAt: new Date(),
-        };
-      }
-
-      vendorOrders[vendor].orderItems.push({
-        product: item.product._id,
-        quantity: item.quantity,
-        unitPrice: item.product.price,
-        totalPrice: item.product.price * item.quantity,
-      });
-      vendorOrders[vendor].subTotal += item.product.basePrice * item.quantity;
-      vendorOrders[vendor].disTotal += item.product.price * item.quantity;
-      vendorOrders[vendor].discount = vendorOrders[vendor].subTotal - vendorOrders[vendor].disTotal;
-      vendorOrders[vendor].total = vendorOrders[vendor].disTotal;
-    }
-
-    for (const [vendor, subOrderData] of Object.entries(vendorOrders)) {
-      // subOrderData.orderId = "ORD" + (await generateModelId(SubOrder));
-      const subOrder = new SubOrder(subOrderData);
-      await subOrder.save({ session });
-    }
-
-    // Apply the quantity updates
-    for (const { product, newQuantity } of quantityUpdates) {
-      product.quantity = newQuantity;
-      await product.save({ session });
-    }
-
-    // Clear the cart
-    await Cart.findOneAndUpdate({ user: userId }, { $set: { items: [] } }, { session });
+    await updateProductQuantities(quantityUpdates, userId, session);
 
     await session.commitTransaction();
-    session.endSession();
-
     res.status(201).json({ message: "Order placed successfully", order: newOrder });
   } catch (error) {
     await session.abortTransaction();
-    session.endSession();
-
     console.error("Error placing order:", error);
     res.status(500).json({ message: "Error placing order", error: error.message });
+  } finally {
+    session.endSession();
   }
+};
+
+export const confirmOrder = async (req, res) => {
+  const id = req.params.orderId;
+  const session = await mongoose.startSession();
+  session.startTransaction();
+  try {
+    const subOrder = await SubOrder.findById(id)
+      .populate("shippingAddress")
+      .populate("orderItems.product", "name");
+    const venShipping = await createShipment(subOrder);
+
+    const shipping = Shipping.create({
+      order: subOrder._id,
+      status: venShipping.status,
+      shipmentId: venShipping.shipment_id,
+      orderId: venShipping.order_id,
+      tracking_id: venShipping.awb_number,
+      carrier: venShipping.courier_name,
+      label: venShipping.label,
+      trackingUrl: venShipping.tracking_url,
+    });
+    subOrder.orderId = venShipping.order_id;
+    subOrder.status = "confirmed";
+    subOrder.confirmedAt = new Date();
+    subOrder.shipment = venShipping.order_id;
+    subOrder.shipInvoice = venShipping.label;
+    await subOrder.save({ session });
+    await shipping.save({ session });
+    await session.commitTransaction();
+
+    res.json({ sucesss: true, message: "Order confirmed successfully" });
+  } catch (error) {
+    await session.abortTransaction();
+    res.status(500).json({ message: error.message });
+  } finally {
+    session.endSession();
+  }
+};
+
+const createShipment = async order => {
+  try {
+    const data = createShipmentData(order);
+    console.log(data);
+    const logRes = await axios.post("https://shipment.xpressbees.com/api/users/login", {
+      email: process.env.XPRESS_EMAIL,
+      password: process.env.XPRESS_PASSWORD,
+    });
+    const XPRESS_TOKEN = logRes.data.data;
+    // console.log(XPRESS_TOKEN);
+    const response = await axios.post("https://shipment.xpressbees.com/api/shipments2", data, {
+      headers: {
+        Authorization: `Bearer ${XPRESS_TOKEN}`,
+      },
+    });
+    return response.data.data;
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+};
+
+const createShipmentData = order => {
+  return {
+    order_number: order._id,
+    unique_order_number: "yes",
+    shipping_charges: 0,
+    discount: order.discount,
+    cod_charges: 0,
+    payment_type: order.paymentMode == "cod" ? "cod" : "prepaid",
+    order_amount: order.total,
+    package_weight: 1000,
+    // package_length: 10,
+    // package_breadth: 10,
+    // package_height: 10,
+    request_auto_pickup: "yes",
+    consignee: {
+      // name: "Customer Name",
+      // address: "190, ABC Road",
+      // address_2: "Near Bus Stand",
+      // city: "Mumbai",
+      // state: "Maharastra",
+      // pincode: "251001",
+      // phone: "9999999999",
+      name: order.shippingAddress.fname + " " + order.shippingAddress.lname,
+      address: order.shippingAddress.address,
+      city: order.shippingAddress.city,
+      state: order.shippingAddress.state,
+      // pincode: order.shippingAddress.zipcode,
+      pincode: 208023,
+      // phone: order.shippingAddress.phone,
+      phone: "9999999999",
+    },
+    pickup: {
+      warehouse_name: "warehouse 1",
+      name: "Nitish Kumar (Xpressbees Private Limited)",
+      address: "140, MG Road",
+      address_2: "Near metro station",
+      city: "Gurgaon",
+      state: "Haryana",
+      pincode: "251001",
+      phone: "9999999999",
+      // ...order.vendor.address,
+    },
+    order_items: [
+      ...order.orderItems.map(o => ({
+        name: o.product.name,
+        qty: o.quantity,
+        price: o.unitPrice,
+        sku: o.sku,
+      })),
+    ],
+    // order_items: [
+    //   {
+    //     name: "product 1",
+    //     qty: "18",
+    //     price: "100",
+    //     sku: "sku001",
+    //   },
+    // ],
+    // courier_id: "",
+    collectable_amount: order.paymentMode == "cod" ? order.total  : 0,
+  };
 };
 
 // Get all orders
@@ -167,7 +214,6 @@ export const getUserOrders = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
-
 
 // Get sub-orders by current authenticated vendor
 export const getMyOrdersAsVendor = async (req, res) => {

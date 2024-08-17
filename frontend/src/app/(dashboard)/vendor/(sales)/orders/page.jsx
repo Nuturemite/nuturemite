@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import api from "@/lib/api";
 import { useVendorOrders } from "@/lib/data";
 import DataTable from "@/components/tables/DataTable";
-import { tst } from "@/lib/utils";
+import { cn, formatString, tst } from "@/lib/utils";
 import Error from "@/components/shared/error";
 import { Edit, Eye } from "lucide-react";
 import SearchInput from "@/components/filters/search";
@@ -23,6 +23,7 @@ import {
   DialogDescription,
 } from "@/components/ui/dialog";
 import OrderStatus from "@/components/shared/admin/OrderStatus";
+import { AlertBox } from "@/components/ui/alert-dialog";
 
 const OrderList = () => {
   const { orders, error, isLoading, mutate } = useVendorOrders({ limit: 50 });
@@ -38,11 +39,12 @@ const OrderList = () => {
     {
       label: "Ordered By",
       render: item => item.user.name,
+      className: "whitespace-nowrap",
     },
     {
       label: "Address",
       render: item => (
-        <span>{`${item.shippingAddress.address}, ${item.shippingAddress.city}, ${item.shippingAddress.state}, ${item.shippingAddress.zipcode}`}</span>
+        <span className=" line-clamp-2">{`${item.shippingAddress.address}, ${item.shippingAddress.city}, ${item.shippingAddress.state}, ${item.shippingAddress.zipcode}`}</span>
       ),
     },
     {
@@ -57,17 +59,69 @@ const OrderList = () => {
       label: "Date",
       render: item => new Date(item.createdAt).toLocaleDateString(),
     },
+    {
+      label: "Payment Status",
+      render: item => (
+        <div
+          className={cn(
+            "rounded-full px-2 py-1 text-xs text-center",
+            item.paymentStatus === "pending"
+              ? "bg-red-200 text-red-600"
+              : "bg-green-200 text-green-600"
+          )}
+        >
+          {formatString(item.paymentStatus)}
+        </div>
+      ),
+    },
+    {
+      label: "Payment Mode",
+      render: item => (
+        <div
+          className={cn(
+            "rounded-full px-2 py-1 text-xs text-center",
+            item.paymentMode === "cod"
+              ? "bg-orange-200 text-orange-600"
+              : "bg-green-200 text-green-600"
+          )}
+        >
+          {formatString(item.paymentMode)}
+        </div>
+      ),
+    },
   ];
 
   const actions = item => (
     <>
-      {item.status === "pending" && <ShipmentDialog orderId={item._id} />}
+      {/* {item.status === "pending" && <ShipmentDialog orderId={item._id} />} */}
+      <AlertBox
+        title={"Confirm Order"}
+        btnName={"Confirm"}
+        onClick={() => handleConfirmOrder(item._id)}
+        className="text-red-500"
+      >
+        <Button size="xs">Confirm</Button>
+      </AlertBox>
       <Link href={`/vendor/orders/edit/${item._id}/`}>
         <Eye className="text-green-500" />
       </Link>
     </>
   );
 
+  const handleConfirmOrder = async id => {
+    try {
+      setPending(true);
+      await api.post(`/orders/${id}/confirm`);
+      mutate();
+      tst.success("Order confirmed successfully");
+    } catch (error) {
+      tst.success("Order confirmed successfully");
+      console.error(error);
+      // tst.error(error);
+    } finally {
+      setPending(false);
+    }
+  };
   return (
     <div className="container mx-auto p-4">
       <div className="flex justify-between text-center mb-6">

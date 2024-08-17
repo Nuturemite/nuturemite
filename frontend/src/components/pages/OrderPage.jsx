@@ -28,7 +28,7 @@ const OrderPage = ({ params, user }) => {
     <div className="max-w-2xl mx-auto mt-10 p-6 bg-white border border-gray-200 mb-10">
       <OrderHeader orderData={orderData} user />
       <OrderItems items={orderData.orderItems} />
-      <div className="flex flex-col md:flex-row gap-10">
+      <div className="flex flex-col md:flex-row gap-10 justify-between">
         <ShippingAddressDetails shippingAddress={orderData.shippingAddress} />
         <OrderDetails orderData={orderData} />
       </div>
@@ -111,7 +111,7 @@ const OrderDetails = ({ orderData }) => {
         <TableBody>
           {[
             { name: "Order Date", value: new Date(orderData.createdAt).toLocaleDateString() },
-            { name: "MRP", value: orderData.subTotal },
+            { name: "Total", value: orderData.subTotal },
             { name: "Discount", value: orderData.discount },
             { name: "Delivery charges", value: orderData.delCharges || 0 },
             { name: "Total", value: orderData.total },

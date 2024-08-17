@@ -106,7 +106,7 @@ function BrandForm({ update, params }) {
   if (update && isLoading) return <Loader />;
 
   return (
-    <form className="p-10 max-w-2xl mx-auto" onSubmit={handleSubmit}>
+    <form className="p-2 md:p-10 md:max-w-2xl mx-auto" onSubmit={handleSubmit}>
       <div className="grid gap-8 py-4">
         <div>
           <Label htmlFor="name" className="mb-2 block">

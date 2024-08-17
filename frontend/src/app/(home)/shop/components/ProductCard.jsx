@@ -10,7 +10,7 @@ export const ProductCard = ({ product, featured }) => {
   async function handleCartAdd(e, product) {
     e.preventDefault();
     try {
-      await api.post(`/cart`, { productId: product._id, quantity: quantity || 1 });
+      await api.post(`/cart`, { productId: product._id, quantity: 1 });
       tst.success("Cart item added");
     } catch (error) {
       tst.error(error);
@@ -35,7 +35,7 @@ export const ProductCard = ({ product, featured }) => {
             {product.discountPercent} % off
           </div> */}
           {/* Sold Out Badge */}
-          {(!quantity || quantity === 0) && !featured ? (
+          {quantity === 0  && !featured ? (
             <div className="absolute z-10 top-1/2 text-center -rotate-45 w-full bg-black bg-opacity-50 text-white  font-bold">
               Out of Stock
             </div>

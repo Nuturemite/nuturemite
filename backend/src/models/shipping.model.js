@@ -5,8 +5,8 @@ export const ShippingSchema = new Schema(
   {
     order: { type: Schema.Types.ObjectId, ref: "SubOrder" },
     vendor: { type: Schema.Types.ObjectId, ref: "Vendor" },
-    // orderId: { type: String, required: true, unique: true },
-    // shipId: { type: String, required: true, unique: true },
+    orderId: { type: String, required: true },
+    shipmentId: { type: String, required: true },
     shippingAddress: {
       type: Schema.Types.ObjectId,
       ref: "Address",
@@ -14,11 +14,15 @@ export const ShippingSchema = new Schema(
     },
     trackingId: { type: String, required: true },
     carrier: { type: String, required: true },
+    label: { type: String },
+    trackingUrl: { type: String },
+    
     status: {
       type: String,
       enum: [
         "pending",
         "picked",
+        "booked",
         "shipped",
         "in-transit",
         "out-for-delivery",

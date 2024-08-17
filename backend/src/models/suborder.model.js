@@ -5,11 +5,18 @@ export const SubOrderSchema = new Schema(
   {
     user: { type: Schema.Types.ObjectId, ref: "User", required: true },
     order: { type: Schema.Types.ObjectId, ref: "Order", required: true },
-    // orderId: { type: String, required: true, unique: true },
+    orderId: { type: String },
+    paymentMode: { type: String, enum: ["cod", "online"], default: "cod" },
+    paymentStatus: {
+      type: String,
+      enum: ["pending", "paid"],
+      default: "pending",
+    },
     vendor: { type: Schema.Types.ObjectId, ref: "Vendor", required: true },
     orderItems: [
       {
         product: { type: Schema.Types.ObjectId, ref: "Product", required: true },
+        sku: String,
         quantity: Number,
         unitPrice: Number,
         totalPrice: Number,
@@ -25,7 +32,9 @@ export const SubOrderSchema = new Schema(
       type: String,
       enum: [
         "pending",
+        "booked",
         "processing",
+        "confirmed",
         "shipped",
         "in-transit",
         "out-for-delivery",
@@ -35,7 +44,9 @@ export const SubOrderSchema = new Schema(
       ],
       default: "pending",
     },
+    shipInvoice: String,
     createdAt: { type: Date, required: true },
+    confirmedAt: Date,
     processedAt: Date,
     deliveredAt: Date,
     returnedAt: Date,
@@ -45,7 +56,6 @@ export const SubOrderSchema = new Schema(
   { timestamps: true }
 );
 
-
 SubOrderSchema.pre("find", function () {
   this.sort({ _id: -1 });
 });
@@ -53,6 +63,5 @@ SubOrderSchema.pre("find", function () {
 SubOrderSchema.pre("findOne", function () {
   this.sort({ _id: -1 });
 });
-
 
 export const SubOrder = mongoose.model("SubOrder", SubOrderSchema);

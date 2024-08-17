@@ -9,6 +9,7 @@ import Loader from "@/components/shared/loader";
 import Error from "@/components/shared/common/error";
 import { Button } from "@/components/ui/button";
 import CustomSelect from "@/components/ui/custrom-select";
+import { useAuthContext } from "@/context/authprovider";
 
 export default function UpdateUser() {
   const { user, isLoading, error } = useUser();
@@ -96,18 +97,6 @@ export default function UpdateUser() {
             onChange={value => setFormData({ ...formData, gender: value })}
           />
         </div>
-        {/*   <div>
-          <Label htmlFor="bio" className="mb-2">
-            Bio
-          </Label>
-          <Textarea
-            name="bio"
-            id="bio"
-            placeholder="Tell us something about yourself..."
-            value={formData.bio}
-            onChange={handleChange}
-          />
-        </div> */}
         <div>
           <Label htmlFor="dateOfBirth" className="mb-2">
             Date of Birth

@@ -10,8 +10,9 @@ import {
   TableCell,
 } from "@/components/ui/table";
 import TableSkeleton from "@/components/shared/tableskeleton";
+import Pagination from "../ui/pagination";
 
-const DataTable = ({ columns, data, isLoading, actions, caption, pending }) => {
+const DataTable = ({ columns, data, isLoading, actions, caption, pending, rowPerPage = 3 }) => {
   return (
     <div className={`bg-white px-4 ${pending ? "opacity-50 pointer-events-none" : ""}`}>
       <Table>
@@ -45,6 +46,7 @@ const DataTable = ({ columns, data, isLoading, actions, caption, pending }) => {
           </TableBody>
         )}
       </Table>
+      <Pagination totalPages={data?.length / rowPerPage} />
     </div>
   );
 };
