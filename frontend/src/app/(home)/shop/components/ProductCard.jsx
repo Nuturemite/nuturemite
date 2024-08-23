@@ -4,14 +4,17 @@ import AddToWishlist from "./AddToWishlist";
 import Link from "next/link";
 import { tst } from "@/lib/utils";
 import api from "@/lib/api";
+import { useSWRConfig } from "swr";
 
 export const ProductCard = ({ product, featured }) => {
   const { _id, images, name, basePrice, price, quantity } = product;
+  const {mutate} = useSWRConfig();
   async function handleCartAdd(e, product) {
     e.preventDefault();
     try {
       await api.post(`/cart`, { productId: product._id, quantity: 1 });
       tst.success("Cart item added");
+      mutate("/cart");
     } catch (error) {
       tst.error(error);
     } finally {

@@ -66,6 +66,7 @@ export const confirmOrder = async (req, res) => {
       carrier: venShipping.courier_name,
       label: venShipping.label,
       trackingUrl: venShipping.tracking_url,
+      shippingAddress: subOrder.shippingAddress,
     });
     subOrder.orderId = venShipping.order_id;
     subOrder.status = "confirmed";
@@ -73,11 +74,12 @@ export const confirmOrder = async (req, res) => {
     subOrder.shipment = venShipping.order_id;
     subOrder.shipInvoice = venShipping.label;
     await subOrder.save({ session });
-    await shipping.save({ session });
+    // await shipping.save({ session });
     await session.commitTransaction();
 
     res.json({ sucesss: true, message: "Order confirmed successfully" });
   } catch (error) {
+    console.log(error);
     await session.abortTransaction();
     res.status(500).json({ message: error.message });
   } finally {
@@ -115,7 +117,7 @@ const createShipmentData = order => {
     discount: order.discount,
     cod_charges: 0,
     payment_type: order.paymentMode == "cod" ? "cod" : "prepaid",
-    order_amount: order.total,
+    order_amount: order.total + order.discount,
     package_weight: 1000,
     // package_length: 10,
     // package_breadth: 10,
@@ -166,7 +168,7 @@ const createShipmentData = order => {
     //   },
     // ],
     // courier_id: "",
-    collectable_amount: order.paymentMode == "cod" ? order.total  : 0,
+    collectable_amount: order.paymentMode == "cod" ? order.total - order.discount : 0,
   };
 };
 

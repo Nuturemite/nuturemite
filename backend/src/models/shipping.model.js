@@ -12,8 +12,8 @@ export const ShippingSchema = new Schema(
       ref: "Address",
       required: true,
     },
-    trackingId: { type: String, required: true },
-    carrier: { type: String, required: true },
+    trackingId: { type: String, },
+    carrier: { type: String },
     label: { type: String },
     trackingUrl: { type: String },
     

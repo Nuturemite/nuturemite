@@ -12,6 +12,7 @@ import { UserSchema } from "./user.model.js";
 import { SubOrderSchema } from "./suborder.model.js";
 import { AddressSchema } from "./address.model.js";
 import { ShippingSchema } from "./shipping.model.js";
+import {RefundSchema} from "./refund.model.js";
 
 export const User = mongoose.model("User", UserSchema);
 export const Category = mongoose.model("Category", CategorySchema);
@@ -25,3 +26,4 @@ export const Vendor = mongoose.model("Vendor", VendorSchema);
 export const Review = mongoose.model("Review", ReviewSchema);
 export const Address = mongoose.model("Address", AddressSchema);
 export const Shipping = mongoose.model("Shipping", ShippingSchema);
+export const Refund = mongoose.model("Refund", RefundSchema);

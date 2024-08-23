@@ -9,6 +9,7 @@ import { useRouter } from "next/navigation";
 import { tst } from "@/lib/utils";
 import { Textarea } from "@/components/ui/textarea";
 import OutLoader from "@/components/ui/outloader";
+import { useSWRConfig } from "swr";
 
 const initialData = {
   fname: "",
@@ -32,6 +33,7 @@ export default function Page() {
   const [shippingAddress, setShippingAddress] = useState(initialData);
   const [paymentMode, setPaymentMode] = useState("cod");
   const router = useRouter();
+  const { mutate } = useSWRConfig();
 
   const handlePaymentOptionChange = e => {
     setPaymentMode(e.target.value);
@@ -76,7 +78,8 @@ export default function Page() {
           paymentMode: "cod",
         });
         tst.success("Order placed successfully");
-        // router.push("/orders");
+        mutate("/cart");
+        router.push("/orders");
       } else {
         const response = await api.post("/payment/create-checkout-session", { shippingAddress });
         const url = response.data.url;
@@ -181,8 +184,7 @@ export default function Page() {
           </div>
         </div>
       </div>
-      <OutLoader loading={pending}/>
-
+      <OutLoader loading={pending} />
     </div>
   );
 }

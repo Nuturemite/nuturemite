@@ -108,16 +108,16 @@ const OrderList = () => {
     </>
   );
 
-  const handleConfirmOrder = async id => {
+  const handleConfirmOrder = async orderId => {
     try {
       setPending(true);
-      await api.post(`/orders/${id}/confirm`);
+      await api.post(`/orders/${orderId}/confirm`);
       mutate();
       tst.success("Order confirmed successfully");
     } catch (error) {
-      tst.success("Order confirmed successfully");
+      // tst.success("Order confirmed successfully");
       console.error(error);
-      // tst.error(error);
+      tst.error(error);
     } finally {
       setPending(false);
     }
