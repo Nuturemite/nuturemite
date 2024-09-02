@@ -1,14 +1,13 @@
 "use client";
 
-import React, { useState } from "react";
-import { useVendorRefunds } from "@/lib/data";
+import { useRefunds} from "@/lib/data";
 import DataTable from "@/components/tables/DataTable";
 import { formatString } from "@/lib/utils";
 import Error from "@/components/shared/error";
 import SearchInput from "@/components/filters/search";
 
 const RefundTable = () => {
-  const { refunds, error, isLoading, mutate } = useVendorRefunds();
+  const { refunds, error, isLoading} = useRefunds();
 
   if (error) return <Error />;
 

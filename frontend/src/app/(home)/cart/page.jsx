@@ -74,7 +74,7 @@ const ShoppingCart = () => {
                         <span className="ml-6"> &#8377;{cartItem.product.price}</span>
                         <span className="ml-2 line-through text-sm text-red-600">
                           {" "}
-                          &#8377;{cartItem.product.basePrice}
+                          &#8377;{cartItem.product.mrp}
                         </span>
                       </div>
                     </div>

@@ -93,7 +93,7 @@ export const groupVendorOrders = (
       sku: product.sku || "",
       totalPrice: itemTotal,
     });
-    vendorOrders[vendor].subTotal += product.basePrice * item.quantity;
+    vendorOrders[vendor].subTotal += product.mrp * item.quantity;
     vendorOrders[vendor].disTotal += itemTotal;
     vendorOrders[vendor].discount = vendorOrders[vendor].subTotal - vendorOrders[vendor].disTotal;
     vendorOrders[vendor].total = vendorOrders[vendor].disTotal;

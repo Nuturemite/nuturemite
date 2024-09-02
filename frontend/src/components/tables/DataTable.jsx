@@ -11,14 +11,16 @@ import {
 } from "@/components/ui/table";
 import TableSkeleton from "@/components/shared/tableskeleton";
 import Pagination from "../ui/pagination";
+import OutLoader from "../ui/outloader";
 
 const DataTable = ({ columns, data, isLoading, actions, caption, pending, rowPerPage = 3 }) => {
   return (
-    <div className={`bg-white px-4 ${pending ? "opacity-50 pointer-events-none" : ""}`}>
+    <div className={`bg-white px-2`}>
       <Table>
         {caption && <TableCaption>{caption}</TableCaption>}
         <TableHeader>
           <TableRow>
+          <TableHead>S.No</TableHead>
             {columns.map(column => (
               <TableHead key={column.key}>{column.label}</TableHead>
             ))}
@@ -29,8 +31,10 @@ const DataTable = ({ columns, data, isLoading, actions, caption, pending, rowPer
           <TableSkeleton columnCount={columns.length + 1} />
         ) : (
           <TableBody>
+
             {data.map(item => (
               <TableRow key={item.id}>
+                <TableCell>{data.indexOf(item) + 1}</TableCell>
                 {columns.map(column => (
                   <TableCell className={column.className} key={column.key}>
                     {column.render ? column.render(item) : item[column.key]}
@@ -46,7 +50,8 @@ const DataTable = ({ columns, data, isLoading, actions, caption, pending, rowPer
           </TableBody>
         )}
       </Table>
-      <Pagination totalPages={data?.length / rowPerPage} />
+      <Pagination totalPages={Math.ceil(data?.length / rowPerPage)} />
+      <OutLoader loading={pending} />
     </div>
   );
 };

@@ -12,6 +12,7 @@ const statusColor = {
   Cancelled: "bg-red-200 text-red-600",
   Returned: "bg-purple-200 text-purple-600",
   Confirmed: "bg-pink-200 text-pink-600",
+  Booked: "bg-amber-200 text-amber-600",
 };
 
 export default function OrderStatus({ status }) {

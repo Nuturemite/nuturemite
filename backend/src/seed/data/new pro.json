@@ -2,7 +2,7 @@
   {
     "sku": "NM/S-3",
     "name": "Nano curcumin piperine 60 Veg capsules",
-    "basePrice": 743,
+    "mrp": 743,
     "SALE PRICE": 669.0,
     "description": "Curcumin is the principle curcuminoid of turmeric and powerful antioxidant, which has less bio availability because of low water solubility. Nanocurcumin, which has high bioavailability than curcumin 95% extract. Piperine (black pepper extract) that promotes absorption of nutrients in the digestive tract. Nanocurcumin with Piperine has anti-inflammatory properties to help relieve joint pain and provides strong immunity\n",
     "benefits": "100% Natural and vegetarian\nNanoCurcumin has high bioavailability than curcumin 95%\nPiperine Enhances the activity of Curcumin\nSuper Antioxidant, help to fight free radicals\nImmune booster",
@@ -28,7 +28,7 @@
   {
     "sku": "NM/S-5",
     "name": "Cranberry 500 mg 60 Veg capsules",
-    "basePrice": 649,
+    "mrp": 649,
     "SALE PRICE": 584.0,
     "description": "Cranberry is a natural antioxidant, Detoxifier and it contain Vitamin C and E, Vitamin C supports immune system and Vitamn E helps fight cell damage free radical in the bosy. Cranberry prevents the urinary tract infection, reduces the risk of kidney stomes. Cranberry promotes oral care",
     "benefits": "It contains 100% natural and safe ingredients extracted from natural sources\nImproves kidneys function\nPrevents urinary tract infection\nImmune Health\nHealthy digestive tract\n",
@@ -63,7 +63,7 @@
   {
     "sku": "NM/S-7",
     "name": "Co Enzyme Q10 120 mg 60 Veg capsules",
-    "basePrice": 1255,
+    "mrp": 1255,
     "SALE PRICE": 1130.0,
     "description": "Co-Enzyme Q10 (COQ10) is fat-soluble vitamin like substance and super antioxidant, which protect the cells from damage and plays an important role in metabolism. Co enzyme Q10 has many health benefits",
     "benefits": "Co enzyme Q10 is a super antioxidant\nCoQ10 can help lower oxidative damage, promote exercise capacity and decrease fatigue\nCoQ10 can help increase insulin sensitivity and improve blood sugar levels\n\tCoQ10 reduces inflammation",
@@ -89,7 +89,7 @@
   {
     "sku": "NM/S-8",
     "name": "AstaReal - Astaxanthin 6 mg 60 Veg Capsules",
-    "basePrice": 516,
+    "mrp": 516,
     "SALE PRICE": 464.0,
     "description": "AstaReal-Astaxanthin is a natural from haematococcus pluvialis, it is super antioxidnat. Astaxanthin has many health benefits like immune health, muscle endurance, brain health, Vision & Eye health, gastric healt, Skin health\n",
     "benefits": "AstaReal-Astaxanthin is a natural from haematococcus pluvialis\nAstaReal-Astaxanthin from Japan clinically proven for many health benefits\nAstaReal-Astaxanthin powerful antioxidant for eye and skin health",
@@ -118,7 +118,7 @@
   {
     "sku": "NM/S-9",
     "name": "AstaReal - Astaxanthin 7 mg, DHA, Glutathione, Lutein 60 Veg capsules",
-    "basePrice": 619,
+    "mrp": 619,
     "SALE PRICE": 557.0,
     "description": "AstaReal-Astaxanthin is a natural from haematococcus pluvialis, it is super antioxidnat. Astaxanthin in combination with Docosahexaenoic acid, Glutathione, Lutein has many health benefits like immune health, muscle endurance, brain health, Vision & Eye health, gastric healt, Skin health",
     "benefits": "AstaReal-Astaxanthin is a natural from haematococcus pluvialis\nAstaReal-Astaxanthin from Japan clinically proven for many health benefits\nAstaReal-Astaxanthin powerful antioxidant for eye and skin health",
@@ -147,7 +147,7 @@
   {
     "sku": "NM/S-10",
     "name": "Glutathione, Vitamin C, Hyaluronic acid, Aloevera, Blueberry, Vitamin E - Effervescent tablets - 20 Orange flavor for skin Health",
-    "basePrice": 1099,
+    "mrp": 1099,
     "SALE PRICE": 799.0,
     "description": "sku Glutathione, Vitamin C, Hyaluronic acid, Aloevera, Blueberry, Vitamin E - Effervescent tablets are good antioxidant, anti-aging product. This combination regulates melanin synthesis, which helps in reducing pigmentation. It helps in reducing wrinkles and increases skin elasticity and provide healthy looking skin.",
     "benefits": "Brightening and Even Skin Tone: This product to reduce melanin production, encouraging lighter melanin formation, which results in a brighter and more even skin tone\nIncreased Collagen Production: The combination of Glutathione and Vitamin C boosts collagen production in the body, promoting youthful and healthy skin\nSkin Moisturization: Hyaluronic Acid helps keep the skin moisturized, which is further enhanced by Vitamin C's ability to protect from sun damage and help fade skin discoloration\nImproved Skin Luminosity and Reduced Imperfections: Some formulations are clinically proven to increase skin luminosity and reduce skin imperfections",
@@ -173,7 +173,7 @@
   {
     "sku": "NM/S-11",
     "name": "Amla Powder 250 gms",
-    "basePrice": 160,
+    "mrp": 160,
     "SALE PRICE": 155.0,
     "description": "Amla powder, also known as Indian gooseberry powder or emblica officinallis has been used as Ayurvedic medicine for centuries to treat various diseases. Amla is in rich in vitamin C, Phosphorous, Iron, calcium, other antioxidants boost immunity and help in skin cell regenerate, slow down ageing. Amla powder topical application to skin reduces acne and pimples. Topical application of amla powder to hair is helpful in hair growth, reduces the dandruff.",
     "benefits": "Amla powder is full of antioxidant, it reduces the effect of free radicals thus reduces the cell damage\nAmla powder contains Vitamin C, is effective for lighting the skin\nAmla powder regular apply to hair nourishes the scalp and roots and promotes the growth of long and healthy hair. \n",
@@ -199,7 +199,7 @@
   {
     "sku": "NM/S-12",
     "name": "Amla Powder 450 gms",
-    "basePrice": 276,
+    "mrp": 276,
     "SALE PRICE": 270.0,
     "description": "Amla powder, also known as Indian gooseberry powder or emblica officinallis has been used as Ayurvedic medicine for centuries to treat various diseases. Amla is in rich in vitamin C, Phosphorous, Iron, calcium, other antioxidants boost immunity and help in skin cell regenerate, slow down ageing. Amla powder topical application to skin reduces acne and pimples. Topical application of amla powder to hair is helpful in hair growth, reduces the dandruff.",
     "benefits": "Amla powder is full of antioxidant, it reduces the effect of free radicals thus reduces the cell damage\nAmla powder contains Vitamin C, is effective for lighting the skin\nAmla powder regular apply to hair nourishes the scalp and roots and promotes the growth of long and healthy hair. \n",
@@ -225,7 +225,7 @@
   {
     "sku": "NM/S-13",
     "name": "Amla Powder 900 gms",
-    "basePrice": 450,
+    "mrp": 450,
     "SALE PRICE": 440.0,
     "description": "Amla powder, also known as Indian gooseberry powder or emblica officinallis has been used as Ayurvedic medicine for centuries to treat various diseases. Amla is in rich in vitamin C, Phosphorous, Iron, calcium, other antioxidants boost immunity and help in skin cell regenerate, slow down ageing. Amla powder topical application to skin reduces acne and pimples. Topical application of amla powder to hair is helpful in hair growth, reduces the dandruff.",
     "benefits": "Amla powder is full of antioxidant, it reduces the effect of free radicals thus reduces the cell damage\nAmla powder contains Vitamin C, is effective for lighting the skin\nAmla powder regular apply to hair nourishes the scalp and roots and promotes the growth of long and healthy hair. \n",
@@ -251,7 +251,7 @@
   {
     "sku": "NM/S-14",
     "name": "Ashwagandha Powder 250 gms",
-    "basePrice": 325,
+    "mrp": 325,
     "SALE PRICE": 300.0,
     "description": "Ashwagandha (Withania somnifera) is an evergreen shrub that grows in India. The herb is considered one of the most important herbs in the ayurvedic medicine system. Ashwagandha promotes physical fitness, relieves stress, and supports brain function. It improves the immunity and is anti-inflammatory reduce the pain and joint aches, improves the fertility in both men and women",
     "benefits": "100% Pure Withania somnifera (Ashwagandha) powder helping the body to respond and adapt to the physical and mental stress that plagues our busy lifestyles\nAshwagandha is a powerful adaptogen soothes nervous system, providing a quick safe, and natural way to relieve stress, anxiety and insomnia\nAshwagandha is an antioxidant eliminates the free radicals, thereby reduce the inflammation, soothing pain and joint aches\nAshwagandha inhibit the most of the phytopathogenic fungi and bacteria\n",
@@ -277,7 +277,7 @@
   {
     "sku": "NM/S-15",
     "name": "Ashwagandha Powder 450 gms",
-    "basePrice": 610,
+    "mrp": 610,
     "SALE PRICE": 590.0,
     "description": "Ashwagandha (Withania somnifera) is an evergreen shrub that grows in India. The herb is considered one of the most important herbs in the ayurvedic medicine system. Ashwagandha promotes physical fitness, relieves stress, and supports brain function. It improves the immunity and is anti-inflammatory reduce the pain and joint aches, improves the fertility in both men and women",
     "benefits": "100% Pure Withania somnifera (Ashwagandha) powder helping the body to respond and adapt to the physical and mental stress that plagues our busy lifestyles\nAshwagandha is a powerful adaptogen soothes nervous system, providing a quick safe, and natural way to relieve stress, anxiety and insomnia\nAshwagandha is an antioxidant eliminates the free radicals, thereby reduce the inflammation, soothing pain and joint aches\nAshwagandha inhibit the most of the phytopathogenic fungi and bacteria\n",
@@ -303,7 +303,7 @@
   {
     "sku": "NM/S-16",
     "name": "Ashwagandha Powder 900 gms",
-    "basePrice": 1055,
+    "mrp": 1055,
     "SALE PRICE": 990.0,
     "description": "Ashwagandha (Withania somnifera) is an evergreen shrub that grows in India. The herb is considered one of the most important herbs in the ayurvedic medicine system. Ashwagandha promotes physical fitness, relieves stress, and supports brain function. It improves the immunity and is anti-inflammatory reduce the pain and joint aches, improves the fertility in both men and women",
     "benefits": "100% Pure Withania somnifera (Ashwagandha) powder helping the body to respond and adapt to the physical and mental stress that plagues our busy lifestyles\nAshwagandha is a powerful adaptogen soothes nervous system, providing a quick safe, and natural way to relieve stress, anxiety and insomnia\nAshwagandha is an antioxidant eliminates the free radicals, thereby reduce the inflammation, soothing pain and joint aches\nAshwagandha inhibit the most of the phytopathogenic fungi and bacteria\n",
@@ -329,7 +329,7 @@
   {
     "sku": "NM/S-17",
     "name": "Shatavari Powder 250 gms",
-    "basePrice": 300,
+    "mrp": 300,
     "SALE PRICE": 297.0,
     "description": "Shatavari powder is well known for its effect on the female reproduction system. It is also effective in a number of other systems of the body and is therefore of use to both men and women. Shatavari is perhaps best known as a female rejuvenate.",
     "benefits": "Shatavari helps to improve and support the female immune system\nIt not only supports a woman's overall health but also helps to balance her hormones\nIt is also advised for nursing mothers improving immunity and health of the infant\nRegulates disturbed menstruation cycles\nRelieves symptoms of pms (premenstrual syndrome), premenopausal and menopausal syndrome\n",
@@ -358,7 +358,7 @@
   {
     "sku": "NM/S-18",
     "name": "Shatavari Powder 450 gms",
-    "basePrice": 540,
+    "mrp": 540,
     "SALE PRICE": 520.8,
     "description": "Shatavari powder is well known for its effect on the female reproduction system. It is also effective in a number of other systems of the body and is therefore of use to both men and women. Shatavari is perhaps best known as a female rejuvenate.",
     "benefits": "Shatavari helps to improve and support the female immune system\nIt not only supports a woman's overall health but also helps to balance her hormones\nIt is also advised for nursing mothers improving immunity and health of the infant\nRegulates disturbed menstruation cycles\nRelieves symptoms of pms (premenstrual syndrome), premenopausal and menopausal syndrome\n",
@@ -387,7 +387,7 @@
   {
     "sku": "NM/S-19",
     "name": "Shatavari Powder 900 gms",
-    "basePrice": 999,
+    "mrp": 999,
     "SALE PRICE": 976.5,
     "description": "Shatavari powder is well known for its effect on the female reproduction system. It is also effective in a number of other systems of the body and is therefore of use to both men and women. Shatavari is perhaps best known as a female rejuvenate.",
     "benefits": "Shatavari helps to improve and support the female immune system\nIt not only supports a woman's overall health but also helps to balance her hormones\nIt is also advised for nursing mothers improving immunity and health of the infant\nRegulates disturbed menstruation cycles\nRelieves symptoms of pms (premenstrual syndrome), premenopausal and menopausal syndrome\n",
@@ -416,7 +416,7 @@
   {
     "sku": "NM/S-20",
     "name": "Safed musli Powder 250 gms",
-    "basePrice": 800,
+    "mrp": 800,
     "SALE PRICE": 799.0,
     "description": " Safed musli is a traditional ayurvedic medicine. Safed musli used for arthritis, cancer, diabetes, boosting vitality, improving sexual performance, general overall health in both men and women and for many other uses. ",
     "benefits": "Safed musli contains Saponins having anti-inflammatory and anti-arthritic activity\nSafed musli helps in improving growth hormone levels, which helps in muscle building\nSafed musli is used as an aphrodisiac, which might improve the sperm count\nSafed musli improves quality and flow of milk in breastfeeding mothers\nSafed Musli might help manage stress due to its anti-stress and adaptogenic activity\n",
@@ -442,7 +442,7 @@
   {
     "sku": "NM/S-21",
     "name": "Safed musli Powder 450 gms",
-    "basePrice": 1650,
+    "mrp": 1650,
     "SALE PRICE": 1645.0,
     "description": " Safed musli is a traditional ayurvedic medicine. Safed musli used for arthritis, cancer, diabetes, boosting vitality, improving sexual performance, general overall health in both men and women and for many other uses. ",
     "benefits": "Safed musli contains Saponins having anti-inflammatory and anti-arthritic activity\nSafed musli helps in improving growth hormone levels, which helps in muscle building\nSafed musli is used as an aphrodisiac, which might improve the sperm count\nSafed musli improves quality and flow of milk in breastfeeding mothers\nSafed Musli might help manage stress due to its anti-stress and adaptogenic activity. \n",
@@ -468,7 +468,7 @@
   {
     "sku": "NM/S-22",
     "name": "Wheat grass Powder 250 gms",
-    "basePrice": 380,
+    "mrp": 380,
     "SALE PRICE": 372.0,
     "description": "wheat grass powder is a rich source of antioxidants and important micronutrients which protects the body from the damage caused by free radicals and reduces oxidative stress in the body. It can also be used to treat and prevent heart conditions and acts as a remedy for pains related to arthritis and rheumatism. As a heart health tonic, it reduces high cholesterol levels and prevent heart failure.",
     "benefits": "Wheat grass powder is a super food\nIt is rich in chlorophyll, hence a source of stored energy\nWheat grass powder is a detoxifying agent, which eliminates toxins from body\nWheat grass powder can help in digestion and boosts your metabolism\nWheat grass powder can lowers the blood pressure and helps in diabetic control\n",
@@ -497,7 +497,7 @@
   {
     "sku": "NM/S-23",
     "name": "Wheat grass Powder 450 gms",
-    "basePrice": 700,
+    "mrp": 700,
     "SALE PRICE": 697.5,
     "description": "wheat grass powder is a rich source of antioxidants and important micronutrients which protects the body from the damage caused by free radicals and reduces oxidative stress in the body. It can also be used to treat and prevent heart conditions and acts as a remedy for pains related to arthritis and rheumatism. As a heart health tonic, it reduces high cholesterol levels and prevent heart failure.",
     "benefits": "Wheat grass powder is a super food\nIt is rich in chlorophyll, hence a source of stored energy\nWheat grass powder is a detoxifying agent, which eliminates toxins from body\nWheat grass powder can help in digestion and boosts your metabolism\nWheat grass powder can lowers the blood pressure and helps in diabetic control\n",
@@ -526,7 +526,7 @@
   {
     "sku": "NM/S-24",
     "name": "Wheat grass Powder 900 gms",
-    "basePrice": 1225,
+    "mrp": 1225,
     "SALE PRICE": 1209.0,
     "description": "wheat grass powder is a rich source of antioxidants and important micronutrients which protects the body from the damage caused by free radicals and reduces oxidative stress in the body. It can also be used to treat and prevent heart conditions and acts as a remedy for pains related to arthritis and rheumatism. As a heart health tonic, it reduces high cholesterol levels and prevent heart failure.",
     "benefits": "Wheat grass powder is a super food\nIt is rich in chlorophyll, hence a source of stored energy\nWheat grass powder is a detoxifying agent, which eliminates toxins from body\nWheat grass powder can help in digestion and boosts your metabolism\nWheat grass powder can lowers the blood pressure and helps in diabetic control\n",
@@ -555,7 +555,7 @@
   {
     "sku": "NM/S-25",
     "name": "Bhringaraj Powder 250 gms",
-    "basePrice": 150,
+    "mrp": 150,
     "SALE PRICE": 139.5,
     "description": "Bhringraj is ruler of hair, it is rich in protein, vitamins, and antioxidants which can protect body from other diseases. Bhringraj with hair oil can effectively promotes hair growth as well as reduces the grey hair. Bhringraj juice rejuvenates the skin helps in anti-aging, Bhringraj powder has anti-microbial property which can manage skin infections. Bhringraj powder protects liver cells and manages cholesterol levels.",
     "benefits": "Bhringraj powder has nutrients which will protect the hair growth\nBhringraj powder can reduces the wrinkles, patchy skin and improves skin health\nBhringraj powder has antioxidant property which can protect the cells, caused by free radicals, improves liver and kidney related diseases\nBhringraj powder has anti-inflammatory activity, which used as pain reliever\nBhringraj powder regulates blood pressure and lowers cholesterol levels\n",
@@ -581,7 +581,7 @@
   {
     "sku": "NM/S-26",
     "name": "Bhringaraj Powder 450 gms",
-    "basePrice": 250,
+    "mrp": 250,
     "SALE PRICE": 232.5,
     "description": "Bhringraj is ruler of hair, it is rich in protein, vitamins, and antioxidants which can protect body from other diseases. Bhringraj with hair oil can effectively promotes hair growth as well as reduces the grey hair. Bhringraj juice rejuvenates the skin helps in anti-aging, Bhringraj powder has anti-microbial property which can manage skin infections. Bhringraj powder protects liver cells and manages cholesterol levels.",
     "benefits": "Bhringraj powder has nutrients which will protect the hair growth\nBhringraj powder can reduces the wrinkles, patchy skin and improves skin health\nBhringraj powder has antioxidant property which can protect the cells, caused by free radicals, improves liver and kidney related diseases\nBhringraj powder has anti-inflammatory activity, which used as pain reliever\nBhringraj powder regulates blood pressure and lowers cholesterol levels\n",
@@ -607,7 +607,7 @@
   {
     "sku": "NM/S-27",
     "name": "Bhringaraj Powder 900 gms",
-    "basePrice": 350,
+    "mrp": 350,
     "SALE PRICE": 325.5,
     "description": "Bhringraj is ruler of hair, it is rich in protein, vitamins, and antioxidants which can protect body from other diseases. Bhringraj with hair oil can effectively promotes hair growth as well as reduces the grey hair. Bhringraj juice rejuvenates the skin helps in anti-aging, Bhringraj powder has anti-microbial property which can manage skin infections. Bhringraj powder protects liver cells and manages cholesterol levels.",
     "benefits": "Bhringraj powder has nutrients which will protect the hair growth\nBhringraj powder can reduces the wrinkles, patchy skin and improves skin health\nBhringraj powder has antioxidant property which can protect the cells, caused by free radicals, improves liver and kidney related diseases\nBhringraj powder has anti-inflammatory activity, which used as pain reliever\nBhringraj powder regulates blood pressure and lowers cholesterol levels\n",

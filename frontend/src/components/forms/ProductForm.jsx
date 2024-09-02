@@ -14,7 +14,7 @@ import { tst } from "@/lib/utils";
 const initialData = {
   name: "",
   description: "",
-  basePrice: "",
+  mrp: "",
   price: "",
   sku: "",
   categories: [],
@@ -149,15 +149,15 @@ function ProductForm({ update, params, product }) {
 
         <div className="flex gap-6">
           <div className="flex-1">
-            <Label htmlFor="basePrice" className="mb-2 block">
+            <Label htmlFor="mrp" className="mb-2 block">
               MRP
             </Label>
             <Input
               type="number"
-              name="basePrice"
-              value={formData.basePrice}
+              name="mrp"
+              value={formData.mrp}
               onChange={handleChange}
-              id="basePrice"
+              id="mrp"
               disabled={pending}
               placeholder="Product MRP"
               required

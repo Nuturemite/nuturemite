@@ -134,7 +134,7 @@ const sidebarItemsAdmin = [
   {
     icon: Truck,
     title: "Shipments",
-    link: "/vendor/shipments",
+    link: "/admin/shipments",
   },
   {
     icon: User2Icon,

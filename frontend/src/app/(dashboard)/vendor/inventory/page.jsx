@@ -105,7 +105,7 @@ const ProductList = ({ searchParams }) => {
         </div>
       ),
     },
-    { key: "basePrice", label: "MRP", render: product => `₹${product.basePrice}` },
+    { key: "mrp", label: "MRP", render: product => `₹${product.mrp}` },
     { key: "price", label: "SP", render: product => `₹${product.price}` },
     { key: "quantity", label: "Quantity", render: product => product.quantity || 0 },
     { key: "sku", label: "SKU", render: item => item.sku || "-", className: "whitespace-nowrap" },

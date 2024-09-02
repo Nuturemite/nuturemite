@@ -26,7 +26,7 @@ import OrderStatus from "@/components/shared/admin/OrderStatus";
 import { AlertBox } from "@/components/ui/alert-dialog";
 
 const OrderList = () => {
-  const { orders, error, isLoading, mutate } = useVendorOrders({ limit: 50 });
+  const { orders,totalItems, error, isLoading, mutate } = useVendorOrders({ limit: 50 });
   const [pending, setPending] = useState(false);
 
   if (error) return <Error />;
@@ -94,14 +94,16 @@ const OrderList = () => {
   const actions = item => (
     <>
       {/* {item.status === "pending" && <ShipmentDialog orderId={item._id} />} */}
-      <AlertBox
-        title={"Confirm Order"}
-        btnName={"Confirm"}
-        onClick={() => handleConfirmOrder(item._id)}
-        className="text-red-500"
-      >
-        <Button size="xs">Confirm</Button>
-      </AlertBox>
+      {item.status === "pending" && (
+        <AlertBox
+          title={"Confirm Order"}
+          btnName={"Confirm"}
+          onClick={() => handleConfirmOrder(item._id)}
+          className="text-red-500"
+        >
+          <Button size="xs">Confirm</Button>
+        </AlertBox>
+      )}
       <Link href={`/vendor/orders/edit/${item._id}/`}>
         <Eye className="text-green-500" />
       </Link>
@@ -115,7 +117,6 @@ const OrderList = () => {
       mutate();
       tst.success("Order confirmed successfully");
     } catch (error) {
-      // tst.success("Order confirmed successfully");
       console.error(error);
       tst.error(error);
     } finally {
@@ -136,6 +137,7 @@ const OrderList = () => {
         actions={actions}
         caption="List of all orders."
         pending={pending}
+        rowPerPage={totalItems/orders.length}
       />
     </div>
   );

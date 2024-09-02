@@ -51,7 +51,7 @@ const Wishlist = () => {
                       <span>Price: </span>
                       <span> &#8377;{wishlistItem.product.price} </span>
                       <span className="font-normal text-sm line-through text-red-500 ">
-                        &#8377;{wishlistItem.product.basePrice}
+                        &#8377;{wishlistItem.product.mrp}
                       </span>
                     </div>
                   </Link>

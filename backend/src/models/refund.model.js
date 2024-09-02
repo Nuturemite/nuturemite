@@ -19,3 +19,7 @@ export const RefundSchema = new Schema(
   { timestamps: true }
 );
 
+RefundSchema.pre("find", function () {
+  this.sort({ createdAt: -1 });
+});
+

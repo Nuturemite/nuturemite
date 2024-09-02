@@ -50,7 +50,6 @@ export const useBrand = brandId => {
   return { brand: data, error, isLoading, mutate };
 };
 
-
 export const useBaseProducts = (queryParams = {}) => {
   let { data, error, isLoading, mutate } = useSWR("/products", fetcher);
   return { products: data, error, isLoading, mutate };
@@ -129,7 +128,7 @@ export const useOrder = orderId => {
 };
 
 export const useMyVendorOrders = () => {
-  const { data, error, isLoading, mutate } = useSWR(`/vendor/my/orders`, fetcher);
+  const { data, error, isLoading, mutate } = useSWR(`/my-vendor-orders`, fetcher);
   return { order: data, error, isLoading, mutate };
 };
 
@@ -158,13 +157,19 @@ export const useVendor = id => {
 };
 
 export const useVendorOrders = () => {
-  const url = `/vendor/my/orders`;
-  const { data, error, isLoading, mutate } = useSWR(url, fetcher);
-  return { orders: data, error, isLoading, mutate };
+  const url = `/my-vendor-orders`;
+  const { data, error, isLoading, mutate } = useSWR(url, fetcher2);
+  console.log(data);
+  return { orders: data.data, totalItems:data.totalItems, error, isLoading, mutate };
+};
+
+export const useShipments = () => {
+  const { data, error, isLoading, mutate } = useSWR("/shipments", fetcher);
+  return { shipments: data, error, isLoading, mutate };
 };
 
 export const useVendorShipments = () => {
-  const url = `/vendor/my/shipments`;
+  const url = `/my-vendor-shipments`;
   const { data, error, isLoading, mutate } = useSWR(url, fetcher);
   return { shipments: data, error, isLoading, mutate };
 };
@@ -172,6 +177,25 @@ export const useVendorShipments = () => {
 export const useCustomers = () => {
   const { data, error, isLoading, mutate } = useSWR("/users?role=user", fetcher);
   return { customers: data, error, isLoading, mutate };
+};
+
+export const useVendorRefunds = () => {
+  const { data, error, isLoading, mutate } = useSWR("/my-vendor-refunds", fetcher);
+  return { refunds: data, error, isLoading, mutate };
+};
+export const useRefunds = () => {
+  const { data, error, isLoading, mutate } = useSWR("/refunds", fetcher);
+  return { refunds: data, error, isLoading, mutate };
+};
+
+export const useVendorCoupons = () => {
+  const { data, error, isLoading, mutate } = useSWR("/my-vendor-coupons", fetcher);
+  return { coupons: data, error, isLoading, mutate };
+};
+
+export const useCoupons = () => {
+  const { data, error, isLoading, mutate } = useSWR("/coupons", fetcher);
+  return { coupons: data, error, isLoading, mutate };
 };
 
 export const useProducts = (queryParams = {}) => {

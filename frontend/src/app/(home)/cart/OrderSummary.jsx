@@ -12,7 +12,7 @@ export default function OrderSummary({}) {
 
   const totalDiscount = cartItems?.reduce((total, cartItem) => {
     const itemDiscount =
-      cartItem.quantity * (cartItem.product.basePrice - cartItem.product.price);
+      cartItem.quantity * (cartItem.product.mrp - cartItem.product.price);
     return total + itemDiscount;
   }, 0);
 

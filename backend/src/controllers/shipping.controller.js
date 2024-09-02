@@ -9,6 +9,14 @@ export const getAllMyShipmentsAsVendor = async (req, res) => {
   }
 };
 
+export const getAllShipments = async (req, res) => {
+  try {
+    const response = await Shipping.find().populate("shippingAddress");
+    res.json({ data: response });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+}
 
 export const createShipment = async (req, res) => {
   try {

@@ -7,7 +7,7 @@ import api from "@/lib/api";
 import { useSWRConfig } from "swr";
 
 export const ProductCard = ({ product, featured }) => {
-  const { _id, images, name, basePrice, price, quantity } = product;
+  const { _id, images, name, mrp, price, quantity } = product;
   const {mutate} = useSWRConfig();
   async function handleCartAdd(e, product) {
     e.preventDefault();
@@ -29,9 +29,10 @@ export const ProductCard = ({ product, featured }) => {
           <img
             className={`w-full ${
               featured && "max-h-44"
-            } aspect-auto object-cover p-2 group-hover:scale-110 group-hover:brightness-50 transition duration-500`}
+            } aspect-auto object-cover  p-2 group-hover:scale-110 group-hover:brightness-50 transition duration-500`}
             src={images?.length ? images[1] : "./noimage.png"}
             alt={name}
+            // style={{ backgroundImage: `url(${'/noimage.png'})` }}
           />
 
           {/* <div className="absolute top-2 left-2 bg-red-700 rounded-full text-xs text-white h-12 w-12 flex justify-center items-center">
@@ -69,7 +70,7 @@ export const ProductCard = ({ product, featured }) => {
           </a>
           <div className="flex items-center justify-center mt-2">
             <h5 className="font-semibold">&#8377;{price}</h5>
-            <h6 className="text-xs text-gray-500 ml-2 line-through">&#8377; {basePrice}</h6>
+            <h6 className="text-xs text-gray-500 ml-2 line-through">&#8377; {mrp}</h6>
           </div>
           <div className="flex items-center justify-center mb-1">
             {[...Array(5)].map((_, index) => (

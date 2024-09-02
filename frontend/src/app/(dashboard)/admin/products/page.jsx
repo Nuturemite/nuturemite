@@ -111,7 +111,7 @@ const ProductList = () => {
         </div>
       ),
     },
-    { key: "basePrice", label: "MRP", render: item => `₹${item.basePrice}` },
+    { key: "mrp", label: "MRP", render: item => `₹${item.mrp}` },
     { key: "price", label: "SP", render: item => `₹${item.price}` },
     {
       key: "category",

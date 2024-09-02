@@ -37,7 +37,11 @@ export const register = async (req, res) => {
 export const login = async (req, res) => {
   try {
     const { username, password } = req.body;
-    const user = await User.findOne({ username });
+    const user = await User.findOne({ username});
+    
+    if(!user.active) return res.status(409).json({message:"Your account has been deactivated. Please contact support."});
+    if(user.blocked) return res.status(409).json({message:"Your account has been blocked. Please contact support."});
+
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }

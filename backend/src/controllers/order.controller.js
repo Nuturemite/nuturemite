@@ -13,6 +13,7 @@ import {
   saveShippingAddress,
 } from "../services/order.service.js";
 import axios from "axios";
+import sendOrderConfirmation from "../utils/sendOrderConfirmation.js";
 
 export const placeOrder = async (req, res) => {
   const session = await mongoose.startSession();
@@ -37,6 +38,8 @@ export const placeOrder = async (req, res) => {
     await updateProductQuantities(quantityUpdates, userId, session);
 
     await session.commitTransaction();
+
+    sendOrderConfirmation(userId, newOrder._id);
     res.status(201).json({ message: "Order placed successfully", order: newOrder });
   } catch (error) {
     await session.abortTransaction();
@@ -56,13 +59,15 @@ export const confirmOrder = async (req, res) => {
       .populate("shippingAddress")
       .populate("orderItems.product", "name");
     const venShipping = await createShipment(subOrder);
+    console.log(venShipping);
 
-    const shipping = Shipping.create({
+    const shipping = new Shipping({
       order: subOrder._id,
+      vendor: subOrder.vendor,
       status: venShipping.status,
       shipmentId: venShipping.shipment_id,
       orderId: venShipping.order_id,
-      tracking_id: venShipping.awb_number,
+      trackingId: venShipping.awb_number,
       carrier: venShipping.courier_name,
       label: venShipping.label,
       trackingUrl: venShipping.tracking_url,
@@ -74,7 +79,7 @@ export const confirmOrder = async (req, res) => {
     subOrder.shipment = venShipping.order_id;
     subOrder.shipInvoice = venShipping.label;
     await subOrder.save({ session });
-    // await shipping.save({ session });
+    await shipping.save({ session });
     await session.commitTransaction();
 
     res.json({ sucesss: true, message: "Order confirmed successfully" });
@@ -168,15 +173,46 @@ const createShipmentData = order => {
     //   },
     // ],
     // courier_id: "",
-    collectable_amount: order.paymentMode == "cod" ? order.total - order.discount : 0,
+    collectable_amount: order.paymentMode == "cod" ? order.total  : 0,
   };
 };
 
 // Get all orders
 export const getAllOrders = async (req, res) => {
   try {
-    const orders = await SubOrder.find().select("-shippingDetails -orderItems");
-    res.status(200).json({ data: orders });
+    console.log(req.user.vendorId);
+    const subOrders = await SubOrder.find({ })
+      .select("-orderItems")
+      .populate("user", "name email")
+      .populate("shippingAddress")
+      .populate("vendor", "name ");
+    const count = await SubOrder.countDocuments();
+    res.status(200).json({ data: subOrders, totalItems:count});
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+// Get sub-orders by current authenticated vendor
+export const getMyOrdersAsVendor = async (req, res) => {
+  try {
+    console.log(req.user.vendorId);
+    const subOrders = await SubOrder.find({ vendor: req.user.vendorId })
+      .select("-orderItems")
+      .populate("user", "name email")
+      .populate("shippingAddress");
+    const count = await SubOrder.countDocuments({ vendor: req.user.vendorId });
+    res.status(200).json({ data: subOrders, totalItems:count});
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+// Get all sub-orders by vendor
+export const getVendorOrders = async (req, res) => {
+  const { vendorId } = req.params;
+  try {
+    const subOrders = await SubOrder.find({ vendor: vendorId });
+    res.status(200).json({ data: subOrders });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -195,16 +231,6 @@ export const getMyOrders = async (req, res) => {
   }
 };
 
-// Get all sub-orders by vendor
-export const getVendorOrders = async (req, res) => {
-  const { vendorId } = req.params;
-  try {
-    const subOrders = await SubOrder.find({ vendor: vendorId });
-    res.status(200).json({ data: subOrders });
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
-};
 
 // Get orders by user
 export const getUserOrders = async (req, res) => {
@@ -217,19 +243,7 @@ export const getUserOrders = async (req, res) => {
   }
 };
 
-// Get sub-orders by current authenticated vendor
-export const getMyOrdersAsVendor = async (req, res) => {
-  try {
-    console.log(req.user.vendorId);
-    const subOrders = await SubOrder.find({ vendor: req.user.vendorId })
-      .select("-orderItems")
-      .populate("user", "name email")
-      .populate("shippingAddress");
-    res.status(200).json({ data: subOrders });
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
-};
+
 
 // Get order by ID
 export const getOrderById = async (req, res) => {
@@ -238,7 +252,7 @@ export const getOrderById = async (req, res) => {
     const suborders = await SubOrder.findById(id)
       .populate({
         path: "orderItems.product",
-        select: "_id vendor name price basePrice images",
+        select: "_id vendor name price mrp images",
       })
       .populate("shippingAddress")
       .populate({ path: "vendor", select: "_id name businessName contactNumber address" });

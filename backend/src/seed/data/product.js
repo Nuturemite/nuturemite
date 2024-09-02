@@ -2,7 +2,7 @@ export const productData = [
     {
       _id: "6698b519d18d60d47a344de5",
       name: "Nuturemite Abso curcumin 500 mg Veg capsules",
-      basePrice: 858,
+      mrp: 858,
       categories: ["6698ad5fd18d60d47a344ddc", "6698ad5fd18d60d47a344de2"],
       images: [
         "http://res.cloudinary.com/dt0h1catc/image/upload/v1721283945/Products-20240718T061315Z-001/Products/2-Abso%20Curcumin/Abso_Curcumin_3_Mockup_t3btuz.jpg",
@@ -14,7 +14,7 @@ export const productData = [
     {
       _id: "6698b519d18d60d47a344df9",
       name: "Nuturemite Curcumin piperine Veg capsules",
-      basePrice: 638,
+      mrp: 638,
       categories: ["6698ad5fd18d60d47a344de0"],
       images: [
         "http://res.cloudinary.com/dt0h1catc/image/upload/v1721283869/Products-20240718T061315Z-001/Products/1-Curcumin%20Pepperine/Curcumin_Pepperine_3_Mockup_prak5d.jpg",
@@ -26,7 +26,7 @@ export const productData = [
     {
       _id: "6698b519d18d60d47a344dec",
       name: "Nuturemite AstaReal – Astaxanthin 6 mg Veg Capsules",
-      basePrice: 413,
+      mrp: 413,
       categories: ["6698ad5fd18d60d47a344dd6", "6698ad5fd18d60d47a344de1"],
       images: [
         "http://res.cloudinary.com/dt0h1catc/image/upload/v1721284182/Products-20240718T061315Z-001/Products/9-Astaxanthin%207/Astazanthin_7_3_Mockup_b4r3rj.jpg",
@@ -38,7 +38,7 @@ export const productData = [
     {
       _id: "6698b519d18d60d47a344ded",
       name: "Nuturemite AstaReal – Astaxanthin 7 mg, DHA, Glutathione, Lutein capsules",
-      basePrice: 495,
+      mrp: 495,
       categories: ["6698ad5fd18d60d47a344dd6", "6698ad5fd18d60d47a344dda"],
       images: [
         "http://res.cloudinary.com/dt0h1catc/image/upload/v1721284034/Products-20240718T061315Z-001/Products/8-Astaxanthin/Astazanthin_3_Mockup_uzlu2p.jpg",
@@ -50,7 +50,7 @@ export const productData = [
     {
       _id: "6698b519d18d60d47a344de6",
       name: "Nuturemite Amla Powder 250 gms",
-      basePrice: 128,
+      mrp: 128,
       categories: ["6698ad5fd18d60d47a344dd7"],
       images: [
         "http://res.cloudinary.com/dt0h1catc/image/upload/v1721284034/Products-20240718T061315Z-001/Products/11-Amla%20250g/Amla_Back_Side_CMYK_250g_v3_ggzsge.jpg",
@@ -62,7 +62,7 @@ export const productData = [
     {
       _id: "6698b519d18d60d47a344de7",
       name: "Nuturemite Amla Powder 450 gms",
-      basePrice: 221,
+      mrp: 221,
       categories: ["6698ad5fd18d60d47a344dd7"],
       images: [
         "http://res.cloudinary.com/dt0h1catc/image/upload/v1721283930/Products-20240718T061315Z-001/Products/12-Amla%20450g/Amla_Back_Side_CMYK_450g_v3_h0sx74.jpg",
@@ -74,7 +74,7 @@ export const productData = [
     {
       _id: "6698b519d18d60d47a344de8",
       name: "Nuturemite Amla Powder 900 gms",
-      basePrice: 360,
+      mrp: 360,
       categories: ["6698ad5fd18d60d47a344dd7"],
       images: [
         "http://res.cloudinary.com/dt0h1catc/image/upload/v1721284108/Products-20240718T061315Z-001/Products/13-Amla%20900g/Amla_Back_Side_CMYK_900g_v3_o8mmhw.jpg",
@@ -86,7 +86,7 @@ export const productData = [
     {
       _id: "6698b519d18d60d47a344de9",
       name: "Nuturemite Ashwagandha Powder 250 gms",
-      basePrice: 260,
+      mrp: 260,
       categories: ["6698ad5fd18d60d47a344dd7"],
       images: [
         "http://res.cloudinary.com/dt0h1catc/image/upload/v1721283810/Products-20240718T061315Z-001/Products/14-Ashwagandha%20250g/Ashwagandha_Back_Side_CMYK_250g_v3_ixangx.jpg",
@@ -98,7 +98,7 @@ export const productData = [
     {
       _id: "6698b519d18d60d47a344dea",
       name: "Nuturemite Ashwagandha Powder 450 gms",
-      basePrice: 488,
+      mrp: 488,
       categories: ["6698ad5fd18d60d47a344dd6"],
       images: [
         "http://res.cloudinary.com/dt0h1catc/image/upload/v1721284233/Products-20240718T061315Z-001/Products/15-Ashwagandha%20450g/Ashwagandha_Back_Side_CMYK_450g_v3_fhvqhm.jpg",
@@ -110,7 +110,7 @@ export const productData = [
     {
       _id: "6698b519d18d60d47a344deb",
       name: "Nuturemite Ashwagandha Powder 900 gms",
-      basePrice: 844,
+      mrp: 844,
       categories: ["6698ad5fd18d60d47a344dd7"],
       images: [
         "http://res.cloudinary.com/dt0h1catc/image/upload/v1721284239/Products-20240718T061315Z-001/Products/16-Ashwagandha%20900g/Ashwagandha_Back_Side_CMYK_900g_v3_iqbu3z.jpg",
@@ -123,7 +123,7 @@ export const productData = [
     {
       _id: "6698b519d18d60d47a344dee",
       name: "Nuturemite Banana fruit Spray dried Powder 250 gms",
-      basePrice: 224,
+      mrp: 224,
       categories: ["6698ad5fd18d60d47a344dd6"],
       images: [
           "http://res.cloudinary.com/dt0h1catc/image/upload/v1721283843/Products-20240718T061315Z-001/Products/31-Banana%20250g/Banana_Back_Side_CMYK_250g_v3_wtsx58.jpg",
@@ -135,7 +135,7 @@ export const productData = [
     {
       _id: "6698b519d18d60d47a344def",
       name: "Nuturemite Banana fruit Spray dried Powder 450 gms",
-      basePrice: 368,
+      mrp: 368,
       categories: [
         "6698ad5fd18d60d47a344ddb",
         "6698ad5fd18d60d47a344ddc",
@@ -151,7 +151,7 @@ export const productData = [
     {
       _id: "6698b519d18d60d47a344df0",
       name: "Nuturemite Banana fruit Spray dried Powder 900 gms",
-      basePrice: 640,
+      mrp: 640,
       categories: [
         "6698ad5fd18d60d47a344dd8",
         "6698ad5fd18d60d47a344dd9",
@@ -167,7 +167,7 @@ export const productData = [
     {
       _id: "6698b519d18d60d47a344df1",
       name: "Nuturemite Beet root Powder 250 gms",
-      basePrice: 224,
+      mrp: 224,
       categories: ["6698ad5fd18d60d47a344dd6"],
       images: [
         "http://res.cloudinary.com/dt0h1catc/image/upload/v1721284110/Products-20240718T061315Z-001/Products/37-Beetroot%20250g/Beet_Root_Back_Side_CMYK_250g_v3_dgcqq9.jpg",
@@ -179,7 +179,7 @@ export const productData = [
     {
       _id: "6698b519d18d60d47a344df2",
       name: "Nuturemite Beet root Powder 450 gms",
-      basePrice: 368,
+      mrp: 368,
       categories: ["6698ad5fd18d60d47a344dd6"],
       images: [
         "http://res.cloudinary.com/dt0h1catc/image/upload/v1721283956/Products-20240718T061315Z-001/Products/38-Beetroot%20450g/Beet_Root_Back_Side_CMYK_450g_v3_kpfdx2.jpg",
@@ -191,7 +191,7 @@ export const productData = [
     {
       _id: "6698b519d18d60d47a344df3",
       name: "Nuturemite Beet root Powder 900 gms",
-      basePrice: 640,
+      mrp: 640,
       categories: ["6698ad5fd18d60d47a344dd6"],
       images: [
         "http://res.cloudinary.com/dt0h1catc/image/upload/v1721283959/Products-20240718T061315Z-001/Products/39-Beetroot%20900g/Beet_Root_Back_Side_CMYK_900g_v3_xdl4dt.jpg",
@@ -203,7 +203,7 @@ export const productData = [
     {
       _id: "6698b519d18d60d47a344df4",
       name: "Nuturemite Bhringaraj Powder 250 gms",
-      basePrice: 120,
+      mrp: 120,
       categories: ["6698ad5fd18d60d47a344dd6"],
       images: [
         "http://res.cloudinary.com/dt0h1catc/image/upload/v1721283984/Products-20240718T061315Z-001/Products/25-Bhingraj%20250g/Bhingraj_Back_Side_CMYK_250g_v3_tlbbgc.jpg",
@@ -215,7 +215,7 @@ export const productData = [
     {
       _id: "6698b519d18d60d47a344df5",
       name: "Nuturemite Bhringaraj Powder 450 gms",
-      basePrice: 200,
+      mrp: 200,
       categories: ["6698ad5fd18d60d47a344dd6"],
       images: [
         "http://res.cloudinary.com/dt0h1catc/image/upload/v1721284068/Products-20240718T061315Z-001/Products/26-Bhingraj%20450g/Bhingraj_Back_Side_CMYK_450g_v3_goy65l.jpg",
@@ -227,7 +227,7 @@ export const productData = [
     {
       _id: "6698b519d18d60d47a344df6",
       name: "Nuturemite Bhringaraj Powder 900 gms",
-      basePrice: 280,
+      mrp: 280,
       categories: ["6698ad5fd18d60d47a344dd6"],
       images: [
         "http://res.cloudinary.com/dt0h1catc/image/upload/v1721283910/Products-20240718T061315Z-001/Products/27-Bhingraj%20900g/Bhingraj_Back_Side_CMYK_900g_v3_xh0ui6.jpg",
@@ -239,7 +239,7 @@ export const productData = [
     {
       _id: "6698b519d18d60d47a344df7",
       name: "Nuturemite Co Enzyme Q10 120 mg Veg capsules",
-      basePrice: 1004,
+      mrp: 1004,
       categories: ["6698ad5fd18d60d47a344dd6"],
       images: [
         "http://res.cloudinary.com/dt0h1catc/image/upload/v1721284175/Products-20240718T061315Z-001/Products/7-Co%20Enzyme/Co_Enzyme_3_Mockup_dimwn0.jpg",
@@ -251,7 +251,7 @@ export const productData = [
     {
       _id: "6698b519d18d60d47a344df8",
       name: "Nuturemite Cranberry 500 mg Veg capsules",
-      basePrice: 519,
+      mrp: 519,
       categories: [
         "6698ad5fd18d60d47a344dd6",
         "6698ad5fd18d60d47a344dda",
@@ -269,7 +269,7 @@ export const productData = [
     {
       _id: "6698b519d18d60d47a344dfa",
       name: "Nuturemite Ginkgo biloba 160 mg Veg capsules",
-      basePrice: 413,
+      mrp: 413,
       categories: [
         "6698ad5fd18d60d47a344dda",
         "6698ad5fd18d60d47a344ddc",
@@ -285,7 +285,7 @@ export const productData = [
     {
       _id: "6698b519d18d60d47a344dfb",
       name: "Nuturemite Ginseng Ginkgibiloba Veg capsules",
-      basePrice: 495,
+      mrp: 495,
       categories: ["6698ad5fd18d60d47a344dd6", "6698ad5fd18d60d47a344dda"],
       images: [
         "http://res.cloudinary.com/dt0h1catc/image/upload/v1721283876/Products-20240718T061315Z-001/Products/10-Ginkgo%20Biloba%20Ginseng/Ginkgo_Biloba_Ginseng_3_Mockup_xgvcvb.jpg",
@@ -297,7 +297,7 @@ export const productData = [
     {
       _id: "6698b519d18d60d47a344dfc",
       name: "Nuturemite Mango fruit Spray dried Powder 250 gms",
-      basePrice: 240,
+      mrp: 240,
       categories: ["6698ad5fd18d60d47a344dd6"],
       images: [
           "http://res.cloudinary.com/dt0h1catc/image/upload/v1721284013/Products-20240718T061315Z-001/Products/40-Mango%20250g/Mango_Back_Side_CMYK_250g_v3_m4gp3e.jpg",
@@ -309,7 +309,7 @@ export const productData = [
     {
       _id: "6698b519d18d60d47a344dfd",
       name: "Nuturemite Mango fruit Spray dried Powder 450 gms",
-      basePrice: 416,
+      mrp: 416,
       categories: ["6698ad5fd18d60d47a344dd6"],
       images: [
           "http://res.cloudinary.com/dt0h1catc/image/upload/v1721284162/Products-20240718T061315Z-001/Products/41-Mango%20450g/Mango_Back_Side_CMYK_450g_v3_fguyyi.jpg",
@@ -321,7 +321,7 @@ export const productData = [
     {
       _id: "6698b519d18d60d47a344dfe",
       name: "Nuturemite Mango fruit Spray dried Powder 900 gms",
-      basePrice: 720,
+      mrp: 720,
       categories: [
         "6698ad5fd18d60d47a344dd9",
         "6698ad5fd18d60d47a344ddb",
@@ -338,7 +338,7 @@ export const productData = [
     {
       _id: "6698b519d18d60d47a344dff",
       name: "Nuturemite Nano curcumin piperine Veg capsules",
-      basePrice: 594,
+      mrp: 594,
       categories: ["6698ad5fd18d60d47a344dd6", "6698ad5fd18d60d47a344de1"],
       images: [
         "http://res.cloudinary.com/dt0h1catc/image/upload/v1721284023/Products-20240718T061315Z-001/Products/3-Nano%20Curcumin%20Pepperine/Nano_Curcumin_Pepperine_3_Mockup_hgz2b7.jpg",
@@ -350,7 +350,7 @@ export const productData = [
     {
       _id: "6698b519d18d60d47a344e00",
       name: "Nuturemite Orange fruit Spray dried Powder 250 gms",
-      basePrice: 272,
+      mrp: 272,
       categories: ["6698ad5fd18d60d47a344dda"],
       images: [
         "http://res.cloudinary.com/dt0h1catc/image/upload/v1721283905/Products-20240718T061315Z-001/Products/34-Orange%20250g/Orange_Back_Side_CMYK_250g_v3_kr0vai.jpg",
@@ -362,7 +362,7 @@ export const productData = [
     {
       _id: "6698b519d18d60d47a344e01",
       name: "Nuturemite Orange fruit Spray dried Powder 450 gms",
-      basePrice: 472,
+      mrp: 472,
       categories: ["6698ad5fd18d60d47a344dd6"],
       images: [
         "http://res.cloudinary.com/dt0h1catc/image/upload/v1721283809/Products-20240718T061315Z-001/Products/35-Orange%20450g/Orange_Back_Side_CMYK_450g_v3_ewot4a.jpg",
@@ -374,7 +374,7 @@ export const productData = [
     {
       _id: "6698b519d18d60d47a344e02",
       name: "Nuturemite Orange fruit Spray dried Powder 900 gms",
-      basePrice: 800,
+      mrp: 800,
       categories: ["6698ad5fd18d60d47a344dd6", "6698ad5fd18d60d47a344ddd"],
       images: [
         "http://res.cloudinary.com/dt0h1catc/image/upload/v1721284205/Products-20240718T061315Z-001/Products/36-Orange%20900g/Orange_Back_Side_CMYK_900g_v3_kvvgmk.jpg",
@@ -386,7 +386,7 @@ export const productData = [
     {
       _id: "6698b519d18d60d47a344e03",
       name: "Nuturemite Pineapple fruit Spray dried Powder 250 gms",
-      basePrice: 280,
+      mrp: 280,
       categories: ["6698ad5fd18d60d47a344dd6"],
       images: [
         "http://res.cloudinary.com/dt0h1catc/image/upload/v1721283910/Products-20240718T061315Z-001/Products/46-Pineapple%20250g/Pineapple_Back_Side_CMYK_250g_v3_wkggf4.jpg",
@@ -398,7 +398,7 @@ export const productData = [
     {
       _id: "6698b519d18d60d47a344e04",
       name: "Nuturemite Pineapple fruit Spray dried Powder 450 gms",
-      basePrice: 480,
+      mrp: 480,
       categories: ["6698ad5fd18d60d47a344ddb", "6698ad5fd18d60d47a344dde"],
       images: [
         "http://res.cloudinary.com/dt0h1catc/image/upload/v1721284051/Products-20240718T061315Z-001/Products/47-Pineapple%20450g/Pineapple_Back_Side_CMYK_450g_v3_fkarto.jpg",
@@ -410,7 +410,7 @@ export const productData = [
     {
       _id: "6698b519d18d60d47a344e05",
       name: "Nuturemite Pineapple fruit Spray dried Powder 900 gms",
-      basePrice: 800,
+      mrp: 800,
       categories: ["6698ad5fd18d60d47a344dde"],
       images: [
         "http://res.cloudinary.com/dt0h1catc/image/upload/v1721284085/Products-20240718T061315Z-001/Products/48-Pineapple%20900g/Pineapple_Back_Side_CMYK_900g_v3_bo3ac8.jpg",
@@ -422,7 +422,7 @@ export const productData = [
     {
       _id: "6698b519d18d60d47a344e06",
       name: "Nuturemite Safed musli Powder 250 gms",
-      basePrice: 640,
+      mrp: 640,
       categories: ["6698ad5fd18d60d47a344dd7"],
       images: [
         "http://res.cloudinary.com/dt0h1catc/image/upload/v1721284176/Products-20240718T061315Z-001/Products/20-Safed%20Musli%20250g/Safed_Musli_Back_Side_CMYK_250g_v3_kpdauf.jpg",
@@ -434,7 +434,7 @@ export const productData = [
     {
       _id: "6698b519d18d60d47a344e07",
       name: "Nuturemite Safed musli Powder 450 gms",
-      basePrice: 1320,
+      mrp: 1320,
       categories: ["6698ad5fd18d60d47a344dd7"],
       images: [
         "http://res.cloudinary.com/dt0h1catc/image/upload/v1721283862/Products-20240718T061315Z-001/Products/21-Safed%20Musli%20450g/Safed_Musli_Back_Side_CMYK_450g_v3_pomd2d.jpg",
@@ -446,7 +446,7 @@ export const productData = [
     {
       _id: "6698b519d18d60d47a344e08",
       name: "Nuturemite Shatavari Powder 250 gms",
-      basePrice: 240,
+      mrp: 240,
       categories: ["6698ad5fd18d60d47a344dd6", "6698ad5fd18d60d47a344ddf"],
       images: [
         "http://res.cloudinary.com/dt0h1catc/image/upload/v1721283997/Products-20240718T061315Z-001/Products/17-Shatavari%20250g/Shatavari_Back_Side_CMYK_250g_v3_onr4zi.jpg",
@@ -458,7 +458,7 @@ export const productData = [
     {
       _id: "6698b519d18d60d47a344e09",
       name: "Nuturemite Shatavari Powder 450 gms",
-      basePrice: 432,
+      mrp: 432,
       categories: ["6698ad5fd18d60d47a344dd7", "6698ad5fd18d60d47a344ddf"],
       images: [
         "http://res.cloudinary.com/dt0h1catc/image/upload/v1721284071/Products-20240718T061315Z-001/Products/18-Shatavari%20450g/Shatavari_Back_Side_CMYK_450g_v3_iniyg9.jpg",
@@ -470,7 +470,7 @@ export const productData = [
     {
       _id: "6698b519d18d60d47a344e0a",
       name: "Nuturemite Shatavari Powder 900 gms",
-      basePrice: 799,
+      mrp: 799,
       categories: ["6698ad5fd18d60d47a344dd7", "6698ad5fd18d60d47a344ddf"],
       images: [
         "http://res.cloudinary.com/dt0h1catc/image/upload/v1721284145/Products-20240718T061315Z-001/Products/19-Shatavari%20900g/Shatavari_Back_Side_CMYK_900g_v3_m0brfy.jpg",
@@ -482,7 +482,7 @@ export const productData = [
     {
       _id: "6698b519d18d60d47a344e0b",
       name: "Nuturemite Strawberry fruit Spray dried Powder 250 gms",
-      basePrice: 360,
+      mrp: 360,
       categories: ["6698ad5fd18d60d47a344dd6"],
       images: [
         "http://res.cloudinary.com/dt0h1catc/image/upload/v1721284008/Products-20240718T061315Z-001/Products/43-Straw%20Berry%20250g/Straw_Berry_Mockup_White_250g_jiqoq4.jpg",
@@ -494,7 +494,7 @@ export const productData = [
     {
       _id: "6698b519d18d60d47a344e0c",
       name: "Nuturemite Strawberry fruit Spray dried Powder 450 gms",
-      basePrice: 680,
+      mrp: 680,
       categories: ["6698ad5fd18d60d47a344dd6"],
       images: [
         "http://res.cloudinary.com/dt0h1catc/image/upload/v1721284105/Products-20240718T061315Z-001/Products/44-Straw%20Berry%20450g/Straw_Berry_Mockup_White_450g_ekwyuv.jpg",
@@ -506,7 +506,7 @@ export const productData = [
     {
       _id: "6698b519d18d60d47a344e0d",
       name: "Nuturemite Strawberry fruit Spray dried Powder 900 gms",
-      basePrice: 1200,
+      mrp: 1200,
       categories: [
         "6698ad5fd18d60d47a344dd6",
         "6698ad5fd18d60d47a344dd9",
@@ -523,7 +523,7 @@ export const productData = [
     {
       _id: "6698b519d18d60d47a344e0e",
       name: "Nuturemite Wheat grass Powder 250 gms",
-      basePrice: 304,
+      mrp: 304,
       categories: ["6698ad5fd18d60d47a344dd6", "6698ad5fd18d60d47a344dd7"],
       images: [
         "http://res.cloudinary.com/dt0h1catc/image/upload/v1721283937/Products-20240718T061315Z-001/Products/22-Wheat%20Grass%20250g/Wheat_Grass_Back_Side_CMYK_250g_v3_bynuq0.jpg",
@@ -535,7 +535,7 @@ export const productData = [
     {
       _id: "6698b519d18d60d47a344e0f",
       name: "Nuturemite Wheat grass Powder 450 gms",
-      basePrice: 560,
+      mrp: 560,
       categories: ["6698ad5fd18d60d47a344dd6", "6698ad5fd18d60d47a344dd7"],
       images: [
         "http://res.cloudinary.com/dt0h1catc/image/upload/v1721283970/Products-20240718T061315Z-001/Products/23-Wheat%20Grass%20450g/Wheat_Grass_Back_Side_CMYK_450g_v3_fjcjx5.jpg",
@@ -547,7 +547,7 @@ export const productData = [
     {
       _id: "6698b519d18d60d47a344e10",
       name: "Nuturemite Wheat grass Powder 900 gms",
-      basePrice: 980,
+      mrp: 980,
       categories: ["6698ad5fd18d60d47a344dd6", "6698ad5fd18d60d47a344dd7"],
       images: [
         "http://res.cloudinary.com/dt0h1catc/image/upload/v1721283851/Products-20240718T061315Z-001/Products/24-Wheat%20Grass%20900g/Wheat_Grass_Back_Side_CMYK_900g_v3_lilcir.jpg",

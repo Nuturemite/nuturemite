@@ -36,7 +36,7 @@ export const getCartByUserId = async (req, res) => {
   try {
     const cart = await Cart.findOne({ user: userId }).populate({
       path: "items.product",
-      select: "_id name price images basePrice vendor quantity",
+      select: "_id name price images mrp vendor quantity",
     });
     if (!cart) {
       return res.status(200).json({ data: [] });
@@ -72,7 +72,7 @@ export const removeItemFromCart = async (req, res) => {
 
 export const findCartByUserId = async userId => {
   try {
-    const cart = await Cart.findOne({ user: userId }).populate("items.product", "name price images basePrice quantity");
+    const cart = await Cart.findOne({ user: userId }).populate("items.product", "name price images mrp quantity");
     if (!cart) {
       return null;
     }

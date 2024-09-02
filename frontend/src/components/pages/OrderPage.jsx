@@ -17,8 +17,20 @@ import api from "@/lib/api";
 import OrderStatus from "@/components/shared/admin/OrderStatus";
 import { AlertBox } from "../ui/alert-dialog";
 import OutLoader from "../ui/outloader";
+import RefundForm from "../forms/RefundForm";
+import {
+  Dialog,
+  DialogPortal,
+  DialogClose,
+  DialogTrigger,
+  DialogContent,
+  DialogHeader,
+  DialogFooter,
+  DialogTitle,
+  DialogDescription,
+} from "@/components/ui/dialog";
 
-const OrderPage = ({ params, user }) => {
+const OrderPage = ({ params, isAdmin = false, isUser = false }) => {
   const { order: orderData, error, isLoading } = useOrder(params.id);
 
   if (isLoading) return <Loader />;
@@ -26,7 +38,7 @@ const OrderPage = ({ params, user }) => {
 
   return (
     <div className="max-w-2xl mx-auto mt-10 p-6 bg-white border border-gray-200 mb-10">
-      <OrderHeader orderData={orderData} user />
+      <OrderHeader orderData={orderData} isAdmin={isAdmin} isUser={isUser} />
       <OrderItems items={orderData.orderItems} />
       <div className="flex flex-col md:flex-row gap-10 justify-between">
         <ShippingAddressDetails shippingAddress={orderData.shippingAddress} />
@@ -36,7 +48,7 @@ const OrderPage = ({ params, user }) => {
   );
 };
 
-const OrderHeader = ({ orderData, user }) => {
+const OrderHeader = ({ orderData, isUser, isAdmin }) => {
   const [pending, setPending] = useState();
 
   const handleOrderCancel = () => {
@@ -56,8 +68,34 @@ const OrderHeader = ({ orderData, user }) => {
         <h2 className="h4-primary">Order Details</h2>
         <div className="flex flex-col gap-4 ">
           <OrderStatus status={orderData.status} />
-          {user && (
-            <AlertBox btnName={"Yes"} desc={"Are you sure you want to cancel the Order"} onClick={() => handleOrderCancel(orderData._id)}>
+          {isAdmin && orderData.paymentStatus != "refunded" && orderData.status == "delivered" && (
+            <Dialog>
+              <DialogTrigger asChild>
+                <Button variant={"destructive"} size="xs">
+                  Refund
+                </Button>
+              </DialogTrigger>
+              <DialogPortal>
+                <DialogContent>
+                  <DialogHeader>
+                    <DialogTitle>Refund Money</DialogTitle>
+                    <DialogDescription>Refund the money to the customer.</DialogDescription>
+                  </DialogHeader>
+                  <RefundForm
+                    order={orderData}
+                    orderId={orderData._id}
+                    onClose={() => setPending(false)}
+                  />
+                </DialogContent>
+              </DialogPortal>
+            </Dialog>
+          )}
+          {isUser && orderData.status !== "delivered" && (
+            <AlertBox
+              btnName={"Yes"}
+              desc={"Are you sure you want to cancel the Order"}
+              onClick={() => handleOrderCancel(orderData._id)}
+            >
               <Button variant={"destructive"} size="xs">
                 Cancel
               </Button>

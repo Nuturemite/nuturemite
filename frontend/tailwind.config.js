@@ -18,6 +18,9 @@ module.exports = {
       },
     },
     extend: {
+      // backgroundImage: {
+      //   "noimage": "url('../public/noimage.png')",
+      // },
       colors: {
         tert: {
           100: "#F5A823",

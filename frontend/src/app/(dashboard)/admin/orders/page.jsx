@@ -9,19 +9,6 @@ import Error from "@/components/shared/error";
 import { Edit, Eye } from "lucide-react";
 import SearchInput from "@/components/filters/search";
 import Link from "next/link";
-import { Label } from "@/components/ui";
-import { Input } from "@/components/ui";
-import {
-  Dialog,
-  DialogPortal,
-  DialogClose,
-  DialogTrigger,
-  DialogContent,
-  DialogHeader,
-  DialogFooter,
-  DialogTitle,
-  DialogDescription,
-} from "@/components/ui/dialog";
 import OrderStatus from "@/components/shared/admin/OrderStatus";
 
 const OrderList = () => {
@@ -38,6 +25,10 @@ const OrderList = () => {
     {
       label: "Ordered By",
       render: item => item.user.name,
+    },
+    {
+      label:"Vendor",
+      render: item => item.vendor?.name
     },
     {
       label: "Address",
@@ -61,7 +52,6 @@ const OrderList = () => {
 
   const actions = item => (
     <>
-      {item.status === "pending" && <ShipmentDialog orderId={item._id} />}
       <Link href={`/vendor/orders/edit/${item._id}/`}>
         <Eye className="text-green-500" />
       </Link>
@@ -87,67 +77,6 @@ const OrderList = () => {
   );
 };
 
-const ShipmentDialog = ({ orderId }) => {
-  const [pending, setPending] = useState(false);
-  const [trackingId, setTrackingId] = useState("");
-  const [carrier, setCarrier] = useState("");
 
-  const handleShipment = async () => {
-    try {
-      setPending(true);
-      await api.post("/shipments", { orderId, trackingId, carrier });
-      tst.success("Shipment created successfully");
-    } catch (error) {
-      console.error(error);
-      tst.error(error);
-    } finally {
-      setPending(false);
-    }
-  };
-
-  return (
-    <Dialog>
-      <DialogTrigger asChild>
-        <Edit className="text-green-500 cursor-pointer" />
-      </DialogTrigger>
-      <DialogPortal>
-        <DialogContent>
-          <DialogHeader>
-            <DialogTitle>Add Shipment Details</DialogTitle>
-            <DialogDescription>Enter tracking ID and carrier for the shipment.</DialogDescription>
-          </DialogHeader>
-          <form onSubmit={e => e.preventDefault()}>
-            <div className="my-4 grid grid-cols-4">
-              <Label className="">Tracking ID</Label>
-              <Input
-                type="text"
-                value={trackingId}
-                onChange={e => setTrackingId(e.target.value)}
-                className="col-span-3 "
-              />
-            </div>
-            <div className="my-4 grid grid-cols-4">
-              <Label className="">Carrier</Label>
-              <Input
-                type="text"
-                value={carrier}
-                onChange={e => setCarrier(e.target.value)}
-                className="col-span-3"
-              />
-            </div>
-            <DialogFooter>
-              <DialogClose>
-                <Button variant="destructive">Cancel</Button>
-              </DialogClose>
-              <Button pending={pending} type="submit" onClick={handleShipment}>
-                Save
-              </Button>
-            </DialogFooter>
-          </form>
-        </DialogContent>
-      </DialogPortal>
-    </Dialog>
-  );
-};
 
 export default OrderList;

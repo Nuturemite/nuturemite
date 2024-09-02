@@ -4,7 +4,7 @@
         "$oid": "6698b519d18d60d47a344de6"
       },
       "name": "Nuturemite Amla Powder 250 gms",
-      "basePrice": 128,
+      "mrp": 128,
       "categories": [
         {
           "$oid": "6698ad5fd18d60d47a344dd7"
@@ -32,7 +32,7 @@
         "$oid": "6698b519d18d60d47a344de7"
       },
       "name": "Nuturemite Amla Powder 450 gms",
-      "basePrice": 221,
+      "mrp": 221,
       "categories": [
         {
           "$oid": "6698ad5fd18d60d47a344dd7"
@@ -60,7 +60,7 @@
         "$oid": "6698b519d18d60d47a344de8"
       },
       "name": "Nuturemite Amla Powder 900 gms",
-      "basePrice": 360,
+      "mrp": 360,
       "categories": [
         {
           "$oid": "6698ad5fd18d60d47a344dd7"
@@ -88,7 +88,7 @@
         "$oid": "6698b519d18d60d47a344de9"
       },
       "name": "Nuturemite Ashwagandha Powder 250 gms",
-      "basePrice": 260,
+      "mrp": 260,
       "categories": [
         {
           "$oid": "6698ad5fd18d60d47a344dd7"
@@ -116,7 +116,7 @@
         "$oid": "6698b519d18d60d47a344dea"
       },
       "name": "Nuturemite Ashwagandha Powder 450 gms",
-      "basePrice": 488,
+      "mrp": 488,
       "categories": [
         {
           "$oid": "6698ad5fd18d60d47a344dd6"
@@ -144,7 +144,7 @@
         "$oid": "6698b519d18d60d47a344deb"
       },
       "name": "Nuturemite Ashwagandha Powder 900 gms",
-      "basePrice": 844,
+      "mrp": 844,
       "categories": [
         {
           "$oid": "6698ad5fd18d60d47a344dd7"
@@ -172,7 +172,7 @@
         "$oid": "6698b519d18d60d47a344df4"
       },
       "name": "Nuturemite Bhringaraj Powder 250 gms",
-      "basePrice": 120,
+      "mrp": 120,
       "categories": [
         {
           "$oid": "6698ad5fd18d60d47a344dd6"
@@ -200,7 +200,7 @@
         "$oid": "6698b519d18d60d47a344df5"
       },
       "name": "Nuturemite Bhringaraj Powder 450 gms",
-      "basePrice": 200,
+      "mrp": 200,
       "categories": [
         {
           "$oid": "6698ad5fd18d60d47a344dd6"
@@ -228,7 +228,7 @@
         "$oid": "6698b519d18d60d47a344df6"
       },
       "name": "Nuturemite Bhringaraj Powder 900 gms",
-      "basePrice": 280,
+      "mrp": 280,
       "categories": [
         {
           "$oid": "6698ad5fd18d60d47a344dd6"
@@ -256,7 +256,7 @@
         "$oid": "6698b519d18d60d47a344e06"
       },
       "name": "Nuturemite Safed musli Powder 250 gms",
-      "basePrice": 640,
+      "mrp": 640,
       "categories": [
         {
           "$oid": "6698ad5fd18d60d47a344dd7"
@@ -284,7 +284,7 @@
         "$oid": "6698b519d18d60d47a344e07"
       },
       "name": "Nuturemite Safed musli Powder 450 gms",
-      "basePrice": 1320,
+      "mrp": 1320,
       "categories": [
         {
           "$oid": "6698ad5fd18d60d47a344dd7"
@@ -312,7 +312,7 @@
         "$oid": "6698b519d18d60d47a344e08"
       },
       "name": "Nuturemite Shatavari Powder 250 gms",
-      "basePrice": 240,
+      "mrp": 240,
       "categories": [
         {
           "$oid": "6698ad5fd18d60d47a344dd6"
@@ -343,7 +343,7 @@
         "$oid": "6698b519d18d60d47a344e09"
       },
       "name": "Nuturemite Shatavari Powder 450 gms",
-      "basePrice": 432,
+      "mrp": 432,
       "categories": [
         {
           "$oid": "6698ad5fd18d60d47a344dd7"
@@ -374,7 +374,7 @@
         "$oid": "6698b519d18d60d47a344e0a"
       },
       "name": "Nuturemite Shatavari Powder 900 gms",
-      "basePrice": 799,
+      "mrp": 799,
       "categories": [
         {
           "$oid": "6698ad5fd18d60d47a344dd7"
@@ -405,7 +405,7 @@
         "$oid": "6698b519d18d60d47a344e0e"
       },
       "name": "Nuturemite Wheat grass Powder 250 gms",
-      "basePrice": 304,
+      "mrp": 304,
       "categories": [
         {
           "$oid": "6698ad5fd18d60d47a344dd6"
@@ -436,7 +436,7 @@
         "$oid": "6698b519d18d60d47a344e0f"
       },
       "name": "Nuturemite Wheat grass Powder 450 gms",
-      "basePrice": 560,
+      "mrp": 560,
       "categories": [
         {
           "$oid": "6698ad5fd18d60d47a344dd6"
@@ -467,7 +467,7 @@
         "$oid": "6698b519d18d60d47a344e10"
       },
       "name": "Nuturemite Wheat grass Powder 900 gms",
-      "basePrice": 980,
+      "mrp": 980,
       "categories": [
         {
           "$oid": "6698ad5fd18d60d47a344dd6"
@@ -504,7 +504,7 @@
         "https://res.cloudinary.com/dt0h1catc/image/upload/v1722250400/1.%20SUPPLEMENTS/1.%20L-GLUTATHIONE/Promotion_2_lynssf.jpg",
         "https://res.cloudinary.com/dt0h1catc/image/upload/v1722250396/1.%20SUPPLEMENTS/1.%20L-GLUTATHIONE/Promotion_3_rgoz2q.jpg"
       ],
-      "basePrice": "160",
+      "mrp": "160",
       "categories": [
         {
           "$oid": "6698ad5fd18d60d47a344de0"
@@ -516,7 +516,7 @@
         "$oid": "6698b519d18d60d47a344df9"
       },
       "name": "Nuturemite Nano Curcumin piperine 60 Veg capsules",
-      "basePrice": 743,
+      "mrp": 743,
       "categories": [
         {
           "$oid": "6698ad5fd18d60d47a344de0"
@@ -544,7 +544,7 @@
         "$oid": "6698b519d18d60d47a344dec"
       },
       "name": "Nuturemite AstaReal – Astaxanthin 6 mg Veg Capsules",
-      "basePrice": 413,
+      "mrp": 413,
       "categories": [
         {
           "$oid": "6698ad5fd18d60d47a344dd6"
@@ -575,7 +575,7 @@
         "$oid": "6698b519d18d60d47a344ded"
       },
       "name": "Nuturemite AstaReal – Astaxanthin 7 mg, DHA, Glutathione, Lutein capsules",
-      "basePrice": 495,
+      "mrp": 495,
       "categories": [
         {
           "$oid": "6698ad5fd18d60d47a344dd6"
@@ -606,7 +606,7 @@
         "$oid": "6698b519d18d60d47a344df7"
       },
       "name": "Nuturemite Co Enzyme Q10 120 mg Veg capsules",
-      "basePrice": 1004,
+      "mrp": 1004,
       "categories": [
         {
           "$oid": "6698ad5fd18d60d47a344dd6"
@@ -634,7 +634,7 @@
         "$oid": "6698b519d18d60d47a344df8"
       },
       "name": "Nuturemite Cranberry 500 mg Veg capsules",
-      "basePrice": 519,
+      "mrp": 519,
       "categories": [
         {
           "$oid": "6698ad5fd18d60d47a344dd6"

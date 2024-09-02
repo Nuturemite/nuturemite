@@ -20,7 +20,7 @@ router.get("/users/:userId/orders", isAuth, getUserOrders); // Get orders by use
 router.get("/vendors/:vendorId/orders", isAuth, getVendorOrders); // Get orders by vendor ID
 
 // Vendor
-router.get("/vendor/my/orders", isAuth, getMyOrdersAsVendor); // Get logged-in vendor's orders
+router.get("/my-vendor-orders", isAuth, getMyOrdersAsVendor); // Get logged-in vendor's orders
 router.post("/orders/:orderId/confirm", isAuth, confirmOrder);
 // User
 router.get("/my/orders", isAuth, getMyOrders); // Get logged-in user's orders

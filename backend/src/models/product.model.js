@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 export const ProductSchema = new Schema(
   {
     name: { type: String, required: true },
-    basePrice: { type: Number, required: true },
+    mrp: { type: Number, required: true },
     price: { type: Number, required: true },
     description: String,
     categories: [{ type: Schema.Types.ObjectId, ref: "Category", required: true }],
@@ -32,9 +32,9 @@ export const ProductSchema = new Schema(
 );
 
 ProductSchema.virtual("discount").get(function () {
-  return this.basePrice - this.price;
+  return this.mrp - this.price;
 });
 
 ProductSchema.virtual("discountPercent").get(function () {
-  return Math.round(((this.basePrice - this.price) / this.basePrice) * 100);
+  return Math.round(((this.mrp - this.price) / this.mrp) * 100);
 });

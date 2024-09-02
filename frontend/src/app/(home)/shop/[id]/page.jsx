@@ -67,7 +67,7 @@ export default function Product({ params }) {
               <div className="mr-4">
                 <span className="text-2xl text-slate-500">&#8377;{product.price} </span>
                 <span className="line-through text-red-600 text-lg">
-                  &#8377;{product.basePrice}
+                  &#8377;{product.mrp}
                 </span>
                 <span className="text-green-600 ">
                   {" "}{product.discountPercent}% off

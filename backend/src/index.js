@@ -15,6 +15,8 @@ import userRoutes from "./routes/user.route.js";
 import orderRoutes from "./routes/order.route.js";
 import vendorRoutes from "./routes/vendor.route.js";
 import shippingRoutes from "./routes/shipping.route.js";
+import refundRoutes from "./routes/refund.route.js";
+import couponRoutes from "./routes/coupon.route.js";
 import { stripePaymentListener } from "./controllers/payment.controller.js";
 import { uploadImage } from "./utils/uploadFile.js";
 
@@ -29,6 +31,8 @@ app.post("/api/stripe/webhook", express.raw({ type: "application/json" }), strip
 app.use(express.json({ limit: "50mb", extended: true }));
 app.use(fileUpload({ limits: { fileSize: 3 * 1024 * 1024 } }));
 
+app.use('/api', couponRoutes);
+app.use("/api", refundRoutes);
 app.use("/api", shippingRoutes);
 app.use("/api/vendors", vendorRoutes);
 app.use("/api", orderRoutes);

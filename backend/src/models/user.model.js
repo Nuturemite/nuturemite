@@ -11,6 +11,8 @@ export const UserSchema = new Schema(
     dateOfBirth: Date,
     mobile: String,
     gender: { type: String, enum: ["male", "female", "others"] },
+    active: { type: Boolean, default: true },
+    blocked: { type: Boolean, default: false },
   },
   { timestamps: true }
 );

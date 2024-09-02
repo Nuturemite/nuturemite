@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 export const ShippingSchema = new Schema(
   {
     order: { type: Schema.Types.ObjectId, ref: "SubOrder" },
-    vendor: { type: Schema.Types.ObjectId, ref: "Vendor" },
+    vendor: { type: Schema.Types.ObjectId, ref: "Vendor", required: true },
     orderId: { type: String, required: true },
     shipmentId: { type: String, required: true },
     shippingAddress: {
@@ -38,3 +38,8 @@ export const ShippingSchema = new Schema(
   },
   { timestamps: true }
 );
+
+ShippingSchema.pre("find", function () {
+  this.sort({ _id: -1 });
+});
+
