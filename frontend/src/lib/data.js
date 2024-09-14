@@ -67,8 +67,8 @@ export const useProduct = id => {
   return { product: data, error, isLoading, mutate };
 };
 
-export const useCart = () => {
-  const { data, error, isLoading, mutate } = useSWR("/cart", fetcher);
+export const useCart = (isAuthenticated) => {
+  const { data, error, isLoading, mutate } = useSWR(isAuthenticated ? "/cart" : null, fetcher);
   return { cartItems: data, error, isLoading, mutate };
 };
 
@@ -96,6 +96,16 @@ export const useUsers = (queryParams = {}) => {
 export const useAddresses = () => {
   const { data, error, isLoading, mutate } = useSWR("/addresses", fetcher);
   return { addresses: data, error, isLoading, mutate };
+};
+
+export const useMyAddresses  = () => {
+  const { data, error, isLoading, mutate } = useSWR("/my-addresses", fetcher);
+  return { addresses: data, error, isLoading, mutate };
+};
+
+export const useAddress = addressId => {
+  const { data, error, isLoading, mutate } = useSWR(`/addresses/${addressId}`, fetcher);
+  return { address: data, error, isLoading, mutate };
 };
 
 export const useUser = () => {
@@ -158,9 +168,8 @@ export const useVendor = id => {
 
 export const useVendorOrders = () => {
   const url = `/my-vendor-orders`;
-  const { data, error, isLoading, mutate } = useSWR(url, fetcher2);
-  console.log(data);
-  return { orders: data.data, totalItems:data.totalItems, error, isLoading, mutate };
+  const { data, error, isLoading, mutate } = useSWR(url, fetcher);
+  return { orders: data, error, isLoading, mutate };
 };
 
 export const useShipments = () => {
@@ -200,7 +209,7 @@ export const useCoupons = () => {
 
 export const useProducts = (queryParams = {}) => {
   const {
-    search,
+    search = "",
     minPrice,
     maxPrice,
     categoryId,
@@ -214,9 +223,16 @@ export const useProducts = (queryParams = {}) => {
     apvStatus = "approved",
     featured,
   } = queryParams;
-  let { data = {}, error, isLoading, mutate } = useSWR("/products", fetcher2, {});
+
+  const { data = {}, error, isLoading, mutate } = useSWR("/products", fetcher2);
+
   const totalPages = data?.totalPages || 1;
-  data = data?.data || [];
+  let products = data?.data || [];
+
+  if (sortBy === "price-low-to-high") products.sort((a, b) => a.price - b.price);
+  if (sortBy === "price-high-to-low") products.sort((a, b) => b.price - a.price);
+  if (sortBy === "discount") products.sort((a, b) => b.discount - a.discount);
+  if (sortBy === "latest") products.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
 
   const filterProducts = products => {
     return products
@@ -226,22 +242,22 @@ export const useProducts = (queryParams = {}) => {
         if (categoryId && !product.categories.map(c => c._id).includes(categoryId)) return false;
         if (minDiscount && product.discount < minDiscount) return false;
         if (minRating && product.rating < minRating) return false;
-        if (search && !product.name.toLowerCase().includes(search.toLowerCase())) return false;
-        if (apvStatus && product.apvStatus != apvStatus) return false;
-        if (productId && product.productId != productId) return false;
+        if (search) {
+          const searchLower = search.toLowerCase();
+          const productName = product.name.toLowerCase();
+          const productKeywords = (product.keywords || '').toLowerCase();
+          if (!productName.includes(searchLower) && !productKeywords.includes(searchLower)) return false;
+        }
+        if (apvStatus && product.apvStatus !== apvStatus) return false;
+        if (productId && product.productId !== productId) return false;
         if (active && !product.active) return false;
         if (featured && !product.featured) return false;
         return true;
       })
-      .slice(limit * page - limit, limit * page);
+      .slice(limit * (page - 1), limit * page);
   };
 
-  if (sortBy == "price-low-to-high") data.sort((a, b) => a.price - b.price);
-  if (sortBy == "price-high-to-low") data.sort((a, b) => b.price - a.price);
-  if (sortBy == "discount") data.sort((a, b) => b.discount - a.discount);
-  if (sortBy == "latest") data.sort((a, b) => b.createdAt - a.createdAt);
-
-  const filteredProducts = filterProducts(data);
+  const filteredProducts = filterProducts(products);
 
   return { products: filteredProducts, error, isLoading, mutate, totalPages };
 };

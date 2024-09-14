@@ -1,75 +1,112 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import {
-  Mail,
-  Phone,
-  MapPin,
-  Twitter,
-  Facebook,
-  Instagram,
-  Youtube,
-  Linkedin,
-} from "lucide-react";
+import { Mail, Phone, MapPin, Twitter, Facebook, Instagram, Youtube, Linkedin } from "lucide-react";
+import { useCategories } from "@/lib/data";
+import Link from "next/link";
 
 const Footer = () => {
-  const categories = [
-    "Antioxidants",
-    "Ayurvedic",
-    "Digestive Health",
-    "General Health",
-    "Herbal, Specialty Supplements",
-    "Immune Health",
-    "Men Health",
-    "Women Health",
-    "Personal Care",
-    "Vitamins & Minerals",
+  const { categories, isLoading } = useCategories();
+
+  const socialMedia = [
+    {
+      id: 1,
+      icon: <Twitter className="text-tert-100" />,
+      title: "Twitter",
+      link: "https://twitter.com/nuturemite",
+    },
+    {
+      id: 2,
+      icon: <Facebook className="text-tert-100" />,
+      title: "Facebook",
+      link: "https://www.facebook.com/Nuturemite/",
+    },
+    {
+      id: 3,
+      icon: <Instagram className="text-tert-100" />,
+      link: "https://www.instagram.com/nuturemite_blog/",
+    },
+    {
+      id: 4,
+      icon: <Youtube className="text-tert-100" />,
+      link: "https://www.youtube.com/channel/UCX1EgOA4GP0PJO893cHtbbA",
+    },
+    {
+      id: 5,
+      icon: <Linkedin className="text-tert-100" />,
+      link: "https://www.linkedin.com/showcase/nuturemite/about/",
+    },
   ];
- 
+  const customerServices = [
+    {
+      name: "Help & FAQs",
+      link: "/faq",
+    },
+    {
+      name: "Return Policy",
+      link: "/return-and-refund",
+    },
+    {
+      name: "Shipping Policy",
+      link: "/shipping-policy",
+    },
+    {
+      name: "Privacy Policy",
+      link: "/privacy-policy",
+    },
+    {
+      name: "Terms & Conditions",
+      link: "/terms-conditions",
+    },
+  ];
+
+  const aboutLinks = [
+    {
+      name: "About Us",
+      link: "/about-us",
+    },
+    {
+      name: "Our Story",
+      link: "/our-story",
+    },
+    {
+      name: "Contact Us",
+      link: "/contact-us",
+    },
+  ];
+
   return (
     <div className="container-fluid bg-primary text-secondary mt-5 p-10  text-sm ">
       <div className="flex flex-wrap justify-center px-4 lg:px-0">
         {/* Left Column */}
         <div className="w-full  mb-5 lg:mb-0 pr-4 lg:w-1/5">
-          <h5 className="text-secondary text-uppercase mb-4">Get In Touch</h5>
-          <p className="mb-2 flex items-center">
+          <div className="flex gap-2 ">
             <MapPin className="text-tert-100 mr-3" />
-            Plot No. 37/Part S.No376/A
+            <span className="text-secondary text-uppercase mb-4">Get In Touch</span>
+          </div>
+          <p className="mb-2 flex items-center">
+            NUTUREMITE 5-5-35/201/NR.PRASHANTI NAGER, NEAR GANESH KANTA, Hyderabad, Telangana-500072
           </p>
           <p className="mb-2 flex items-center">
-            2nd Floor, Rajiv Ganghi Nagar, IDA Kukatpally - 500072
+            5-5-35/201/NR.PRASHANTI NAGER, NEAR GANESH KANTA, Kukatpally Circle No 24, Hyderabad,
+            Telangana-500072
           </p>
-          <p className="mb-0 flex items-center">Telangana,India</p>
         </div>
-
-        {/* Right Columns */}
         <div className="w-full lg:w-4/5 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
-          {/* Quick Shop and My Account Columns */}
           {[
             {
               title: "Customer Service",
-              links: [
-                "Help & FAQs",
-                "Order Tracking",
-                "Shipping & Delivery",
-                "Orders History",
-                "Advanced Search",
-                "Login",
-              ],
+              links: customerServices ?? [],
             },
             {
-              title: "",
-              links: [
-                "About Us",
-                "Careers",
-                "Our Stores",
-                "Corporate Sales",
-                "Careers",
-              ],
+              title: "About",
+              links: aboutLinks,
             },
             {
               title: "Popular categories",
-              links: categories
+              links:
+                categories?.map(cat => ({ link: `/shop?categoryId=${cat._id}`, name: cat.name })) ??
+                [],
             },
             { title: "Newsletter", links: [] },
           ].map(({ title, links }, index) => (
@@ -78,14 +115,10 @@ const Footer = () => {
               {links.length > 0 ? (
                 <div className="flex flex-col">
                   {links.map((link, idx) => (
-                    <a
-                      key={idx}
-                      href="#"
-                      className="text-secondary mb-2 flex items-center"
-                    >
+                    <Link key={idx} href={link.link} className="text-secondary mb-2 flex items-center">
                       <i className="fa fa-angle-right mr-2"></i>
-                      {link}
-                    </a>
+                      {link.name}
+                    </Link>
                   ))}
                 </div>
               ) : (
@@ -100,60 +133,23 @@ const Footer = () => {
                         className="form-control flex-1"
                         placeholder="Your Email Address"
                       />
-                      <Button className="btn bg-tert-100 text-white ml-2">
-                        Sign Up
-                      </Button>
+                      <Button className="btn bg-tert-100 text-white ml-2">Sign Up</Button>
                     </div>
                   </form>
-                  <h6 className="text-secondary text-uppercase mb-3">
-                    Follow Us
-                  </h6>
+                  <h6 className="text-secondary text-uppercase mb-3">Follow Us</h6>
                   <div className="flex">
-                    <a
-                      href="https://facebook.com/nuturemite"
-                      rel="nofollow noopener noreferrer"
-                      target="_blank"
-                      className="btn text-tert-100 btn-square mr-2"
-                      title="Facebook"
-                    >
-                      <Facebook />
-                    </a>
-                    <a
-                      href="https://twitter.com/nuturemite"
-                      rel="nofollow noopener noreferrer"
-                      target="_blank"
-                      className="btn text-tert-100 btn-square mr-2"
-                      title="Twitter"
-                    >
-                      <Twitter />
-                    </a>
-                    <a
-                      href="https://www.youtube.com/c/Nuturemitehealth"
-                      rel="nofollow noopener noreferrer"
-                      target="_blank"
-                      className="btn text-tert-100 btn-square mr-2"
-                      title="Youtube"
-                    >
-                      <Youtube />
-                    </a>
-                    <a
-                      href="https://www.instagram.com/nuturemite_blog"
-                      rel="nofollow noopener noreferrer"
-                      target="_blank"
-                      className="btn text-tert-100 btn-square mr-2"
-                      title="Instagram"
-                    >
-                      <Instagram />
-                    </a>
-                    <a
-                      href="https://www.linkedin.com/showcase/nuturemite/"
-                      rel="nofollow noopener noreferrer"
-                      target="_blank"
-                      className="btn text-tert-100 btn-square"
-                      title="LinkedIn"
-                    >
-                      <Linkedin />
-                    </a>
+                    {socialMedia.map((item, index) => (
+                      <a
+                        key={index}
+                        href={item.link}
+                        rel="nofollow noopener noreferrer"
+                        target="_blank"
+                        className="btn text-tert-100 btn-square mr-2"
+                        title={item.title}
+                      >
+                        {item.icon}
+                      </a>
+                    ))}
                   </div>
                 </>
               )}

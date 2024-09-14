@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useLayoutEffect, useState } from "react";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import OrderSummary from "../cart/OrderSummary";
@@ -10,6 +10,7 @@ import { tst } from "@/lib/utils";
 import { Textarea } from "@/components/ui/textarea";
 import OutLoader from "@/components/ui/outloader";
 import { useSWRConfig } from "swr";
+import { useAuthContext } from "@/context/authprovider";
 
 const initialData = {
   fname: "",
@@ -34,6 +35,13 @@ export default function Page() {
   const [paymentMode, setPaymentMode] = useState("cod");
   const router = useRouter();
   const { mutate } = useSWRConfig();
+  const { isAuthenticated } = useAuthContext();
+
+  useLayoutEffect(() => {
+    if (!isAuthenticated) {
+      router.replace("/auth/login");
+    }
+  }, [isAuthenticated]);
 
   const handlePaymentOptionChange = e => {
     setPaymentMode(e.target.value);

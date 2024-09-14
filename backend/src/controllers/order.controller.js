@@ -192,6 +192,7 @@ export const getAllOrders = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+
 // Get sub-orders by current authenticated vendor
 export const getMyOrdersAsVendor = async (req, res) => {
   try {
@@ -201,6 +202,7 @@ export const getMyOrdersAsVendor = async (req, res) => {
       .populate("user", "name email")
       .populate("shippingAddress");
     const count = await SubOrder.countDocuments({ vendor: req.user.vendorId });
+    console.log(subOrders, count);
     res.status(200).json({ data: subOrders, totalItems:count});
   } catch (error) {
     res.status(500).json({ message: error.message });

@@ -9,9 +9,7 @@ import { Separator } from "@/components/ui/separator";
 
 function ProductSearch({ className }) {
   const [search, setSearch] = useState("");
-  const { products, isLoading, error } = useProducts({ search });
-
-  if (error) return <div>Error loading products</div>;
+  const { products, isLoading, error } = useProducts({ search, limit: 100 });
 
   return (
     <div className={cn("w-[400px]", className)}>
@@ -37,6 +35,7 @@ function ProductSearch({ className }) {
         />
         {search.length >= 3 && (
           <div className="absolute z-50 top-10 -left-20 bg-white w-[600px] max-h-[400px] overflow-y-scroll animate-height divide-y-2">
+            {error && <div>{"Something went wrong"}</div>}
             {isLoading ? (
               <div>Loading..</div>
             ) : products.length > 0 ? (

@@ -15,6 +15,7 @@ export default function UpdateUser() {
   const { user, isLoading, error } = useUser();
   const [formData, setFormData] = useState({});
   const [pending, setPending] = useState(false);
+  const { logout } = useAuthContext();
 
   useEffect(() => {
     if (user) {

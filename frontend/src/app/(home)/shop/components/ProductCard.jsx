@@ -5,16 +5,24 @@ import Link from "next/link";
 import { tst } from "@/lib/utils";
 import api from "@/lib/api";
 import { useSWRConfig } from "swr";
+import { useAuthContext } from "@/context/authprovider";
+import { useCartContext } from "@/context/cartprovider";
 
 export const ProductCard = ({ product, featured }) => {
   const { _id, images, name, mrp, price, quantity } = product;
-  const {mutate} = useSWRConfig();
+  const { mutate } = useSWRConfig();
+  const { isAuthenticated } = useAuthContext();
+  const { addToCart } = useCartContext();
+
   async function handleCartAdd(e, product) {
     e.preventDefault();
     try {
-      await api.post(`/cart`, { productId: product._id, quantity: 1 });
+      if (isAuthenticated) {
+        await api.post(`/cart`, { productId: product._id, quantity: 1 });
+        mutate("/cart");
+      }
+      addToCart(product, 1);
       tst.success("Cart item added");
-      mutate("/cart");
     } catch (error) {
       tst.error(error);
     } finally {
@@ -32,14 +40,8 @@ export const ProductCard = ({ product, featured }) => {
             } aspect-auto object-cover  p-2 group-hover:scale-110 group-hover:brightness-50 transition duration-500`}
             src={images?.length ? images[1] : "./noimage.png"}
             alt={name}
-            // style={{ backgroundImage: `url(${'/noimage.png'})` }}
           />
-
-          {/* <div className="absolute top-2 left-2 bg-red-700 rounded-full text-xs text-white h-12 w-12 flex justify-center items-center">
-            {product.discountPercent} % off
-          </div> */}
-          {/* Sold Out Badge */}
-          {quantity === 0  && !featured ? (
+          {quantity === 0 && !featured ? (
             <div className="absolute z-10 top-1/2 text-center -rotate-45 w-full bg-black bg-opacity-50 text-white  font-bold">
               Out of Stock
             </div>

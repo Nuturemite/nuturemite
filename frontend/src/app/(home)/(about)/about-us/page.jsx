@@ -1,5 +1,3 @@
-import React from "react";
-
 const sections = [
   {
     title: "Nuturemite",
@@ -32,7 +30,7 @@ const sections = [
   {
     title: "Customer Service",
     content: (
-      <ul className="list-disc list-inside pl-5 text-lg">
+      <ul className="list-disc list-inside pl-5 text-gray-700 mb-4">
         <li>Help & FAQs</li>
         <li>Order Tracking</li>
         <li>Shipping & Delivery</li>
@@ -45,7 +43,7 @@ const sections = [
   {
     title: "More Information",
     content: (
-      <ul className="list-disc list-inside pl-5 text-lg">
+      <ul className="list-disc list-inside pl-5 text-gray-700 mb-4">
         <li>Affiliates</li>
         <li>Refer a Friend</li>
         <li>Student Beans Offers</li>
@@ -58,14 +56,6 @@ const sections = [
     content: (
       <div className="flex space-x-4">
         <a
-          href="https://facebook.com/nuturemite"
-          rel="nofollow noopener noreferrer"
-          target="_blank"
-          className="text-blue-600 hover:underline"
-        >
-          Facebook
-        </a>
-        <a
           href="https://twitter.com/nuturemite"
           rel="nofollow noopener noreferrer"
           target="_blank"
@@ -74,15 +64,15 @@ const sections = [
           Twitter
         </a>
         <a
-          href="https://www.youtube.com/c/Nuturemitehealth"
+          href="https://www.facebook.com/Nuturemite/"
           rel="nofollow noopener noreferrer"
           target="_blank"
-          className="text-red-600 hover:underline"
+          className="text-blue-600 hover:underline"
         >
-          YouTube
+          Facebook
         </a>
         <a
-          href="https://www.instagram.com/nuturemite_blog"
+          href="https://www.instagram.com/nuturemite_blog/"
           rel="nofollow noopener noreferrer"
           target="_blank"
           className="text-pink-500 hover:underline"
@@ -90,7 +80,15 @@ const sections = [
           Instagram
         </a>
         <a
-          href="https://www.linkedin.com/showcase/nuturemite/"
+          href="https://www.youtube.com/channel/UCX1EgOA4GP0PJO893cHtbbA"
+          rel="nofollow noopener noreferrer"
+          target="_blank"
+          className="text-red-600 hover:underline"
+        >
+          YouTube
+        </a>
+        <a
+          href="https://www.linkedin.com/showcase/nuturemite/about/"
           rel="nofollow noopener noreferrer"
           target="_blank"
           className="text-blue-800 hover:underline"
@@ -115,7 +113,7 @@ const AboutUs = () => {
         </section>
       ))}
       <footer className="text-center mt-8">
-        <p className="text-lg text-gray-600">&copy; 2022 Nuturemite. All Rights Reserved.</p>
+        <p className="text-lg text-gray-600">&copy; 2024 Nuturemite. All Rights Reserved.</p>
       </footer>
     </div>
   );

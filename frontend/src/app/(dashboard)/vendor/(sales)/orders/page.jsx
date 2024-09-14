@@ -26,7 +26,7 @@ import OrderStatus from "@/components/shared/admin/OrderStatus";
 import { AlertBox } from "@/components/ui/alert-dialog";
 
 const OrderList = () => {
-  const { orders,totalItems, error, isLoading, mutate } = useVendorOrders({ limit: 50 });
+  const { orders,error, isLoading, mutate } = useVendorOrders({ limit: 50 });
   const [pending, setPending] = useState(false);
 
   if (error) return <Error />;
@@ -137,7 +137,7 @@ const OrderList = () => {
         actions={actions}
         caption="List of all orders."
         pending={pending}
-        rowPerPage={totalItems/orders.length}
+        rowPerPage={40}
       />
     </div>
   );

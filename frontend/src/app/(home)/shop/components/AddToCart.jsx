@@ -3,14 +3,23 @@ import { Button } from "@/components/ui/button";
 import api from "@/lib/api";
 import { tst } from "@/lib/utils";
 import React, { useState } from "react";
+import { useAuthContext } from "@/context/authprovider";
+import { useCartContext } from "@/context/cartprovider";
 
-function AddToCart({ product, setPending , isChild, children, quantity }) {
+function AddToCart({ product, setPending, isChild, children, quantity }) {
+  const { isAuthenticated } = useAuthContext();
+  const { addToCart } = useCartContext();
   async function handleCartAdd(e) {
     e.preventDefault();
     try {
       setPending(true);
-      await api.post(`/cart`, { productId: product._id, quantity: quantity || 1 });
-      tst.success("Cart item added");
+      if (isAuthenticated) {
+        await api.post(`/cart`, { productId: product._id, quantity: quantity || 1 });
+        tst.success("Cart item added");
+      } else {
+        addToCart(product);
+        tst.success("Cart item added");
+      }
     } catch (error) {
       tst.error(error);
     } finally {

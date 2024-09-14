@@ -72,7 +72,10 @@ export const removeItemFromCart = async (req, res) => {
 
 export const findCartByUserId = async userId => {
   try {
-    const cart = await Cart.findOne({ user: userId }).populate("items.product", "name price images mrp quantity");
+    const cart = await Cart.findOne({ user: userId }).populate(
+      "items.product",
+      "name price images mrp quantity"
+    );
     if (!cart) {
       return null;
     }
@@ -80,5 +83,23 @@ export const findCartByUserId = async userId => {
   } catch (error) {
     console.log(error);
     return null;
+  }
+};
+
+export const saveCart = async (req, res) => {
+  const userId = req.user.id;
+  console.log(JSON.stringify(req.body));
+  try {
+    const cart = await Cart.findOne({ user: userId });
+    if (!cart) {
+      return res.status(404).json({ message: "Cart not found" });
+    }
+    cart.items = req.body.cartItems;
+
+    await cart.save();
+    res.status(200).json(cart);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: "Error removing item from cart", error });
   }
 };

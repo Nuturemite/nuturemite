@@ -1,5 +1,4 @@
 "use client";
-import PendingButton from "@/components/shared/loadbtn";
 import { Button } from "@/components/ui/button";
 import { useAuthContext } from "@/context/authprovider";
 import api from "@/lib/api";
@@ -7,6 +6,7 @@ import { tst } from "@/lib/utils";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
+import { useCartContext } from "@/context/cartprovider";
 
 function LoginForm() {
   const [formData, setFormData] = useState({
@@ -14,8 +14,10 @@ function LoginForm() {
     password: "",
   });
   const [pending, setPending] = useState(false);
-  const { login, user } = useAuthContext();
+  const { login} = useAuthContext();
   const router = useRouter();
+  const { emptyCart } = useCartContext();
+  const { cart } = useCartContext();
 
   const handleChange = event => {
     const { name, value, type, checked } = event.target;
@@ -38,11 +40,14 @@ function LoginForm() {
         localStorage.setItem("token", token);
       }
       login();
+      await api.post("/cart/save", { cartItems: cart });
+      emptyCart();
       if (user.role === "vendor" && vendor || user.role === "admin") router.push("/vendor");
       else if (user.role === "vendor") router.push("/vendor-register");
       else router.push("/");
       tst.success("Signin success");
     } catch (error) {
+      console.info(error);
       tst.error(error);
     } finally {
       setPending(false);
@@ -63,7 +68,7 @@ function LoginForm() {
               name="username"
               id="username"
               className="bg-slate-300 border border-slate-300 text-slate-700 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 placeholder-slate-400"
-              placeholder="E.g. anoop@gmail.com"
+              placeholder="Enter your email"
               value={formData.username}
               onChange={handleChange}
               required
@@ -77,7 +82,7 @@ function LoginForm() {
               type="password"
               name="password"
               id="password"
-              placeholder="E.g. welcome"
+              placeholder="Enter your password"
               className="bg-slate-300 border border-slate-300 text-slate-700 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 placeholder-slate-400"
               value={formData.password}
               onChange={handleChange}

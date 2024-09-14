@@ -12,23 +12,25 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import api from "@/lib/api";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { tst } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import OrderSummary from "./OrderSummary";
 import { useAuthContext } from "@/context/authprovider";
-import { Backdrop, CircularProgress } from "@mui/material";
 import OutLoader from "@/components/ui/outloader";
+import { useCartContext } from "@/context/cartprovider";
 
 const ShoppingCart = () => {
-  const { cartItems, isLoading, error, mutate } = useCart();
-  const [pending, setPending] = useState(false);
   const { isAuthenticated } = useAuthContext();
+  const { cartItems: onlineCart, isLoading, error, mutate } = useCart(isAuthenticated);
+  const { cart: localCart,changeQuantity } = useCartContext();
+  const cartItems = isAuthenticated ? onlineCart : localCart;
+  const [pending, setPending] = useState(false);
 
   if (isLoading) return <Loader />;
-  if (!isAuthenticated) return <NotAuthenticated />;
   if (error) return <Error />;
-  if (cartItems.length === 0) return <EmptyCart />;
+  if (!cartItems) return <EmptyCart />;
+  if (cartItems?.length === 0) return <EmptyCart />;
 
   const isCheckoutDisabled = cartItems.some(
     cartItem => cartItem.quantity > cartItem.product.quantity
@@ -37,7 +39,11 @@ const ShoppingCart = () => {
   const handleQuantityChange = async (cartItem, value) => {
     try {
       setPending(true);
-      await api.post(`/cart/`, { productId: cartItem.product._id, quantity: value });
+      if(isAuthenticated){
+        await api.post(`/cart/`, { productId: cartItem.product._id, quantity: value });
+      }else{
+        changeQuantity(cartItem.product, value);
+      }
       await mutate();
       tst.success("Quantity updated successfully");
     } catch (error) {
@@ -50,7 +56,7 @@ const ShoppingCart = () => {
 
   return (
     <div>
-      <OutLoader loading={pending}/>
+      <OutLoader loading={pending} />
       <div className="max-w-6xl mt-10 mx-auto">
         <h2 className="h2-primary">Shopping cart</h2>
 
@@ -156,12 +162,13 @@ const NotAuthenticated = () => (
 );
 
 const Checkout = ({ isDisabled }) => {
+  const { isAuthenticated } = useAuthContext();
   return (
     <div className="space-y-2 border-gray-200 px-4 py-6 sm:px-6">
       <div className="mt-6">
-        <Link href="/checkout">
+        <Link href={isAuthenticated ? "/checkout" : "/auth/login"}>
           <Button className="w-full" disabled={isDisabled}>
-            {"Checkout"}
+            {isAuthenticated ? "Checkout" : "Login to Checkout"}
           </Button>
         </Link>
       </div>

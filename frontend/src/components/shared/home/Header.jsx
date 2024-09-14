@@ -41,7 +41,7 @@ export function Header() {
           className="flex gap-1 items-center text-sm md:text-sm"
         >
           <CiMobile1 />
-          +1 7678-232 32
+          +91 891 999 3233
         </a>
         <a
           href="mailto:Info@newlondonhospitality.com"

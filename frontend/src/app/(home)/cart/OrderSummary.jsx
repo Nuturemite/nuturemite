@@ -1,8 +1,13 @@
+"use client"
 import { useCart } from "@/lib/data";
 import React from "react";
-
+import { useAuthContext } from "@/context/authprovider";
+import { useCartContext } from "@/context/cartprovider";
 export default function OrderSummary({}) {
-  const { cartItems, isLoading, error } = useCart();
+  const {isAuthenticated} = useAuthContext();
+  const { cartItems: onlineCart, isLoading, error } = useCart(isAuthenticated);
+  const { cart: localCart } = useCartContext();
+  const cartItems = isAuthenticated ? onlineCart : localCart;
 
   if (isLoading) return;
 
