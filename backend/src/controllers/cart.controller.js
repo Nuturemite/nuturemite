@@ -88,7 +88,7 @@ export const findCartByUserId = async userId => {
 
 export const saveCart = async (req, res) => {
   const userId = req.user.id;
-  console.log(JSON.stringify(req.body));
+  
   try {
     const cart = await Cart.findOne({ user: userId });
     if (!cart) {

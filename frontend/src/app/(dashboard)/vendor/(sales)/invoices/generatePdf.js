@@ -2,7 +2,7 @@
 import { pdf } from '@react-pdf/renderer';
 import { saveAs } from 'file-saver';
 import Invoice from './invoice-pdf';
-import InvoicePDF from './invoice';
+// import InvoicePDF from './invoice';
 
 const invoiceData = {
   invoiceNo: 'C026882400000043',
@@ -33,7 +33,7 @@ const invoiceData = {
 };
 
 const generatePdf = async () => {
-  const blob = await pdf(<InvoicePDF invoiceData={invoiceData} />).toBlob();
+  const blob = await pdf(<Invoice invoiceData={invoiceData} />).toBlob();
   saveAs(blob, 'invoice.pdf');
 };
 

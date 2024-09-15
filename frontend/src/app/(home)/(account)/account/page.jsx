@@ -9,13 +9,11 @@ import Loader from "@/components/shared/loader";
 import Error from "@/components/shared/common/error";
 import { Button } from "@/components/ui/button";
 import CustomSelect from "@/components/ui/custrom-select";
-import { useAuthContext } from "@/context/authprovider";
 
 export default function UpdateUser() {
   const { user, isLoading, error } = useUser();
   const [formData, setFormData] = useState({});
   const [pending, setPending] = useState(false);
-  const { logout } = useAuthContext();
 
   useEffect(() => {
     if (user) {
