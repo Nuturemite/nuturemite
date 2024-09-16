@@ -5,12 +5,13 @@ import { tst } from "@/lib/utils";
 import React, { useState } from "react";
 import { useAuthContext } from "@/context/authprovider";
 import { useCartContext } from "@/context/cartprovider";
+import { useCart } from "@/lib/data";
 
 function AddToCart({ product, setPending, isChild, children, quantity }) {
   const { isAuthenticated } = useAuthContext();
   const { addToCart } = useCartContext();
   const { mutate } = useCart();
-  
+
   async function handleCartAdd(e) {
     e.preventDefault();
     try {
