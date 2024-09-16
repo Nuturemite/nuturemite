@@ -18,7 +18,6 @@ import shippingRoutes from "./routes/shipping.route.js";
 import refundRoutes from "./routes/refund.route.js";
 import couponRoutes from "./routes/coupon.route.js";
 import addressRoutes from "./routes/address.route.js";
-import { stripePaymentListener } from "./controllers/payment.controller.js";
 import { uploadImage } from "./utils/uploadFile.js";
 
 dotenv.config();
@@ -27,7 +26,6 @@ const app = express();
 
 app.use(cors({ origin: process.env.CLIENT_URL, credentials: true }));
 
-app.post("/api/stripe/webhook", express.raw({ type: "application/json" }), stripePaymentListener);
 
 app.use(express.json({ limit: "50mb", extended: true }));
 app.use(fileUpload({ limits: { fileSize: 3 * 1024 * 1024 } }));

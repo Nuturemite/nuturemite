@@ -80,24 +80,57 @@ export default function Page() {
     try {
       setPending(true);
 
-      if (paymentMode === "cod") {
-        await api.post("/orders/place-order", {
-          shippingAddress,
-          paymentMode: "cod",
-        });
-        tst.success("Order placed successfully");
-        mutate("/cart");
-        router.push("/orders");
-      } else {
-        const response = await api.post("/payment/create-checkout-session", { shippingAddress });
-        const url = response.data.url;
-        router.push(url);
-      }
+      await api.post("/orders/place-order", {
+        shippingAddress,
+        paymentMode: "cod",
+      });
+      await mutate("/cart");
+      tst.success("Order placed successfully");
+      router.push("/orders");
     } catch (error) {
       console.log(error);
       tst.error(error);
     } finally {
       setPending(false);
+    }
+  };
+
+  const initializeRazorpay = data => {
+    const options = {
+      key: process.env.NEXT_PUBLIC_RAZORPAY_KEY,
+      amount: data.amount,
+      currency: data.currency,
+      name: "Nuturemite",
+      description: "Payment for your order",
+      image: "https://example.com/favicon.png",
+      order_id: data.id,
+      handler: async function (res) {
+        try {
+          const response = await api.post("/payment/verify-razorpay-order", {
+            ...res,
+            shippingAddressId: data.shippingAddressId,
+          });
+          if (response.data.success) {
+            console.log("welcome");
+          }
+        } catch (error) {
+          console.log("something went wrong");
+        }
+      },
+    };
+    const rzp1 = new window.Razorpay(options);
+    rzp1.open();
+  };
+
+  const handleRazorpayOrder = async e => {
+    e.preventDefault();
+    try {
+      const response = await api.post("/payment/create-razorpay-order", { shippingAddress });
+      console.log(response.data.data);
+      initializeRazorpay(response.data.data);
+    } catch (error) {
+      console.log(error);
+      tst.error(error);
     }
   };
 
@@ -177,7 +210,11 @@ export default function Page() {
                 <Button
                   pending={pending}
                   className="w-full mt-2"
-                  onClick={e => handleCheckout(e, paymentMode)}
+                  onClick={e =>
+                    paymentMode === "cod"
+                      ? handleCheckout(e, paymentMode)
+                      : handleRazorpayOrder(e, paymentMode)
+                  }
                 >
                   Checkout
                 </Button>

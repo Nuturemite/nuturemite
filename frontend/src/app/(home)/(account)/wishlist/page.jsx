@@ -13,7 +13,7 @@ const Wishlist = () => {
   async function handleItemRemove(wishlistItem) {
     try {
       await api.delete(`/wishlist/${wishlistItem.product._id}`);
-      mutate();
+      await mutate();
     } catch (error) {
       tst.error(error);
     }

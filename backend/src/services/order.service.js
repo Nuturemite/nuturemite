@@ -122,6 +122,16 @@ export const updateProductQuantities = async (quantityUpdates, userId, session) 
   ]);
 };
 
+export const updateProductQuantitiesForPayment = async (quantityUpdates, userId, session) => {
+  const updatePromises = quantityUpdates.map(({ product, newQuantity }) => {
+    product.quantity = newQuantity;
+    return product.save({ session });
+  });
+  await Promise.all([
+    ...updatePromises,
+  ]);
+};
+
 // const placeOrder = async (userId, orderDto, session) => {
 //   try {
 //     const { paymentMode, shippingAddress } = orderDto;

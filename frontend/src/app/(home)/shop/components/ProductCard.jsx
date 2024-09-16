@@ -7,19 +7,20 @@ import api from "@/lib/api";
 import { useSWRConfig } from "swr";
 import { useAuthContext } from "@/context/authprovider";
 import { useCartContext } from "@/context/cartprovider";
+import { useCart } from "@/lib/data";
 
 export const ProductCard = ({ product, featured }) => {
   const { _id, images, name, mrp, price, quantity } = product;
-  const { mutate } = useSWRConfig();
   const { isAuthenticated } = useAuthContext();
   const { addToCart } = useCartContext();
+  const {mutate} = useCart();
 
   async function handleCartAdd(e, product) {
     e.preventDefault();
     try {
       if (isAuthenticated) {
         await api.post(`/cart`, { productId: product._id, quantity: 1 });
-        mutate("/cart");
+        mutate();
       }
       addToCart(product, 1);
       tst.success("Cart item added");

@@ -24,7 +24,7 @@ const ShoppingCart = () => {
   const { isAuthenticated } = useAuthContext();
   const { cartItems: onlineCart, isLoading, error, mutate } = useCart(isAuthenticated);
   const { cart: localCart,changeQuantity } = useCartContext();
-  const cartItems = isAuthenticated ? onlineCart : localCart;
+  const cartItems = !isAuthenticated ? localCart : onlineCart;
   const [pending, setPending] = useState(false);
 
   if (isLoading) return <Loader />;

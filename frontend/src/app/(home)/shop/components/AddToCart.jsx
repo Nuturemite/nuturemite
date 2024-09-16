@@ -9,12 +9,15 @@ import { useCartContext } from "@/context/cartprovider";
 function AddToCart({ product, setPending, isChild, children, quantity }) {
   const { isAuthenticated } = useAuthContext();
   const { addToCart } = useCartContext();
+  const { mutate } = useCart();
+  
   async function handleCartAdd(e) {
     e.preventDefault();
     try {
       setPending(true);
       if (isAuthenticated) {
         await api.post(`/cart`, { productId: product._id, quantity: quantity || 1 });
+        await mutate();
         tst.success("Cart item added");
       } else {
         addToCart(product);

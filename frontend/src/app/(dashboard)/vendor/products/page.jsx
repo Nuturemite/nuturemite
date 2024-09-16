@@ -51,18 +51,6 @@ const ProductList = () => {
     }
   };
 
-  const handleFeatured = async (id, featured) => {
-    try {
-      setPending(true);
-      await api.put(`/products/${id}`, { featured: !featured });
-      await mutate();
-    } catch (error) {
-      console.error(error);
-      tst.error(error);
-    } finally {
-      setPending(false);
-    }
-  };
 
   if (error) return <Error />;
 

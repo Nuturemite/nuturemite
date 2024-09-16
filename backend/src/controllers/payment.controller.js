@@ -10,125 +10,87 @@ import {
   saveSubOrders,
   updateProductQuantities,
   saveShippingAddress,
+  updateProductQuantitiesForPayment,
 } from "../services/order.service.js";
 import mongoose from "mongoose";
-const stripe = Stripe(process.env.STRIPE_SECRET_KEY);
-const DELIVERY_CHARGE = 200;
-const MIN_PRICE_FOR_FREE_DELIVERY = 2000;
+import crypto from "crypto";
+import Razorpay from "razorpay";
 
-export const createCheckoutSession = async (req, res) => {
+export const createRazorpayOrder = async (req, res) => {
   const mongoSession = await mongoose.startSession();
   mongoSession.startTransaction();
-
   try {
+    const instance = new Razorpay({
+      key_id: process.env.RAZORPAY_API_KEY_TEST,
+      key_secret: process.env.RAZORPAY_API_SECRET_TEST,
+    });
+
     const shippingAddress = req.body.shippingAddress;
     const userId = req.user.id;
 
     const cart = await getCart(userId);
     validateCart(cart);
 
-    const quantityUpdates = await checkProductQuantities(cart, mongoSession);
     const { _id: shippingAddressId } = await saveShippingAddress(
       shippingAddress,
       userId,
       mongoSession
     );
-    await updateProductQuantities(quantityUpdates, userId, mongoSession);
-    // console.log("quantityUpdates", quantityUpdates);
-    // console.log("shippingAddressId", shippingAddressId);
-    // console.log("shippingAddressId", shippingAddressId.toString());
-    const itemData = cart.items.map(item => {
-      return {
-        price_data: {
-          currency: "inr",
-          product_data: {
-            name: item.product.name,
-            // vendorId: item.product.vendor,
-          },
-          unit_amount: item.product.price * 100,
-        },
-        quantity: item.quantity,
-      };
-    });
-    // console.log(itemData);
+    const quantityUpdates = await checkProductQuantities(cart, mongoSession);
+    await updateProductQuantitiesForPayment(quantityUpdates, userId, mongoSession);
 
-    const session = await stripe.checkout.sessions.create({
-      payment_method_types: ["card"],
-      line_items: itemData,
-      mode: "payment",
-      payment_intent_data: {
-        metadata: {
-          userId: req.user.id,
-          shippingAddressId: shippingAddressId.toString(),
-        },
-      },
-      success_url: `${process.env.CLIENT_URL}/orders`,
-      cancel_url: `${process.env.CLIENT_URL}/payment/cancel`,
-    });
-    res.json({ url: session.url });
+    const amount = cart.items.reduce((acc, item) => acc + item.product.price * item.quantity, 0);
+
+    const options = {
+      amount: amount * 100,
+      currency: "INR",
+      receipt: crypto.randomBytes(16).toString("hex"),
+    };
+    const order = await instance.orders.create(options);
+    if (!order) return res.status(500).send("Some error occured");
     await mongoSession.commitTransaction();
-  } catch (error) {
-    await mongoSession.abortTransaction();
-    console.error("Error placing order:", error);
-    res.status(500).json({ message: "Error placing order", error: error.message });
-  } finally {
-    mongoSession.endSession();
-  }
-};
-
-const endpointSecret = process.env.STRIPE_WEBHOOK_SECRET;
-
-export const stripePaymentListener = async (req, res) => {
-  try {
-    const sig = req.headers["stripe-signature"];
-    let event;
-    try {
-      event = stripe.webhooks.constructEvent(req.body, sig, endpointSecret);
-    } catch (err) {
-      console.log(err);
-      res.status(400).send(`Webhook Error: ${err.message}`);
-      return;
-    }
-    console.log(event.type);
-    switch (event.type) {
-      case "payment_intent.succeeded":
-        const paymentIntent = event.data.object;
-
-        const userId = paymentIntent.metadata.userId;
-        const orderDto = {
-          paymentMode: "online",
-          shippingAddressId: paymentIntent.metadata.shippingAddressId,
-          paymentId: paymentIntent.id,
-        };
-        await placeOrder(userId, orderDto);
-        break;
-      // case "payment_intent.payment_failed":
-      //   const failedPaymentIntent = event.data.object;
-      //   const failedUserId = failedPaymentIntent.metadata.userId;
-
-      //   await handleFailedPayment(failedUserId, failedPaymentIntent);
-      //   break;
-
-      default:
-        console.log(`Unhandled event type ${event.type}`);
-    }
-    res.json();
+    res.json({ success: true, data: { ...order, shippingAddressId } });
   } catch (error) {
     console.log(error);
+    await mongoSession.abortTransaction();
+    res.status(500).send(error);
   }
 };
 
-// const rollbackProductQuantities = async (originalQuantities, userId) => {
-//   for (const [productId, originalQuantity] of Object.entries(originalQuantities)) {
-//     await updateProductQuantity(productId, originalQuantity, userId); // Implement this to set the product quantity back to original
-//   }
-// };
+export const verifyRazorpayOrder = async (req, res) => {
+  try {
+    const { razorpay_order_id, razorpay_payment_id, razorpay_signature, shippingAddressId } = req.body;
+    const userId = req.user.id;
+
+    console.log(razorpay_order_id, razorpay_payment_id, razorpay_signature);
+    const generatedSignature = crypto
+      .createHmac("sha256", process.env.RAZORPAY_API_SECRET_TEST)
+      .update(`${razorpay_order_id}|${razorpay_payment_id}`)
+      .digest("hex");
+    if (generatedSignature === razorpay_signature) {
+      const orderDto = {
+        paymentMode: "online",
+        shippingAddressId: shippingAddressId,
+        paymentId: razorpay_payment_id,
+      };
+      await placeOrder(userId, orderDto);
+      console.log("Payment is sucess");
+      res.json({ success: true, message: "Payment successful" });
+    } else {
+
+      console.log("Payment verification failed");
+      res.json({ success: false, message: "Payment verification failed" });
+    }
+  } catch (error) {
+    console.log(error);
+    res.status(500).send(error);
+  }
+};
 
 export const placeOrder = async (userId, orderDto) => {
   const session = await mongoose.startSession();
   session.startTransaction();
   const paymentStatus = "paid";
-  const paymentMode = "online";
 
   try {
     const { paymentMode, shippingAddressId, paymentId } = orderDto;

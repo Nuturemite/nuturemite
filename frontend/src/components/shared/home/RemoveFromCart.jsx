@@ -10,8 +10,6 @@ export default function RemoveFromCart({ cartItem, pending, setPending }) {
   const {removeFromCart} = useCartContext();
   async function handleCartRemove() {
     try {
-      console.log("first");
-      console.log(cartItem);
       setPending(true);
       if(isAuthenticated){
         await api.delete(`/cart/${cartItem.product._id}`);

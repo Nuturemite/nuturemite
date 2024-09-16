@@ -10,7 +10,6 @@ api.interceptors.request.use(
   config => {
     const token = localStorage.getItem("token");
     const newToken = `Bearer ${token}`
-    console.log(newToken)
 
     if (token) {
       config.headers.Authorization = newToken
