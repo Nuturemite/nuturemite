@@ -3,6 +3,7 @@ import React from "react";
 import { Page, Text, View, Document, StyleSheet } from "@react-pdf/renderer";
 
 const Invoice = ({ invoiceData }) => {
+  console.log(invoiceData);
   const styles = StyleSheet.create({
     page: {
       padding: 30,
@@ -106,7 +107,6 @@ const Invoice = ({ invoiceData }) => {
             {invoiceData.shippingAddress.city}, {invoiceData.shippingAddress.state}{" "}
             {invoiceData.shippingAddress.zipcode}
           </Text>
-          <Text>{invoiceData.shippingAddress.country}</Text>
           <Text>Email: {invoiceData.shippingAddress.email}</Text>
           <Text>Phone: {invoiceData.shippingAddress.phone}</Text>
         </View>

@@ -271,9 +271,7 @@ export const updateOrder = async (req, res) => {
   try {
     const order = await SubOrder.findByIdAndUpdate(id, { status }, { session });
     if (order.status === "pending") {
-      // shippingDetails.shipId = "SHIP" + (await generateModelId(Shipping, session));
       shippingDetails.order = order._id;
-      // shippingDetails.orderId = order.orderId;
       shippingDetails.shippingAddress = order.shippingAddress;
       shippingDetails.vendor = req.user.vendorId;
       const shippingDetailsModel = new Shipping(shippingDetails);
@@ -292,15 +290,31 @@ export const updateOrder = async (req, res) => {
   }
 };
 
-const xpressCancelOrder = async awb => {
+const xpressCancelOrder = async (awb, XPRESS_TOKEN) => {
   try {
-    const response = await axios.post(`https://shipment.xpressbees.com/api/shipments2/cancel`, {
-      awb: awbNumber,
-    });
+    const response = await axios.post(
+      `https://shipment.xpressbees.com/api/shipments2/cancel`,
+      {
+        awb: awb,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${XPRESS_TOKEN}`,
+        },
+      }
+    );
     return response.data;
   } catch (error) {
     console.log(error);
   }
+};
+
+const getXpressToken = async () => {
+  const logRes = await axios.post("https://shipment.xpressbees.com/api/users/login", {
+    email: process.env.XPRESS_EMAIL,
+    password: process.env.XPRESS_PASSWORD,
+  });
+  return logRes.data.data;
 };
 
 export const cancelOrder = async (req, res) => {
@@ -308,13 +322,21 @@ export const cancelOrder = async (req, res) => {
   const session = await mongoose.startSession();
   session.startTransaction();
   try {
-    const shipping = await Shipping.findOne({ order: id });
-    const cancelRes = await xpressCancelOrder(shipping.trackingId);
-    console.log(cancelRes);
-    shipping.status = "cancelled";
-    await shipping.save({ session });
-    const order = await SubOrder.findByIdAndUpdate(id, { status: "cancelled" }, { session });
-    res.json({ order });
+    const order = await SubOrder.findById(id);
+    if (order.status == "pending") {
+      await SubOrder.findByIdAndUpdate(id, { status: "cancelled" }, { session });
+    } else {
+      const XPRESS_TOKEN = await getXpressToken();
+
+      const shipping = await Shipping.findOne({ order: id });
+      const cancelRes = await xpressCancelOrder(shipping.trackingId, XPRESS_TOKEN);
+      console.log(cancelRes);
+      shipping.status = "cancelled";
+      await shipping.save({ session });
+      await SubOrder.findByIdAndUpdate(id, { status: "cancelled" }, { session });
+    }
+    await session.commitTransaction();
+    res.json();
   } catch (error) {
     await session.abortTransaction();
     res.status(500).json({ message: error.message });

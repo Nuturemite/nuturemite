@@ -1,12 +1,12 @@
 // DownloadInvoiceButton.jsx
-"use client"
+"use client";
 import React, { useState } from "react";
 import generatePdf from "./generatePdf";
 import { Download } from "lucide-react";
 import api from "@/lib/api";
 import { tst } from "@/lib/utils";
 
-const DownloadInvoiceButton = ({ id }) => {
+const DownloadInvoiceButton = ({ id, isChild = false, children }) => {
   const [loading, setLoading] = useState(false);
 
   const handleDownload = async () => {
@@ -25,7 +25,7 @@ const DownloadInvoiceButton = ({ id }) => {
 
   return (
     <button onClick={handleDownload} disabled={loading}>
-      {loading ? "Generating..." : <Download className="text-green-500" />}
+      {loading ? "Generating..." : isChild ? children : <Download className="text-green-500" />}
     </button>
   );
 };

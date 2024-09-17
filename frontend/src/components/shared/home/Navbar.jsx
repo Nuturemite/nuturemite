@@ -16,6 +16,7 @@ import { useCategories } from "@/lib/data";
 import ProductSearch from "./ProductSearch";
 import { Header } from "./Header";
 import HomeDrawer from "@/components/drawers/HomeDrawer";
+import logo from "@/assests/logo.jpeg";
 
 const NavBar = () => {
   const { isAuthenticated, user, logout } = useAuthContext();
@@ -64,7 +65,7 @@ const NavBar = () => {
 
           <Link href="/">
             <div className="flex items-center gap-2">
-              <img className="h-12 md:h-16 lg:h-20 " src="./logo.jpeg" alt="" />
+              <img className="h-12 md:h-16 lg:h-20 " src={logo.src} alt="" />
             </div>
           </Link>
         </div>

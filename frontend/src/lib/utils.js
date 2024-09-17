@@ -36,3 +36,7 @@ export const formatString = (str) => {
 };
 
 
+const downloadInvoice = async (id) => {
+  const res = await api.get(`/api/orders/invoice/${id}`);
+  console.log(res);
+};

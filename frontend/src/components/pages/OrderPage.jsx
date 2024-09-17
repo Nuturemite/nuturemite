@@ -29,6 +29,9 @@ import {
   DialogTitle,
   DialogDescription,
 } from "@/components/ui/dialog";
+import { tst } from "@/lib/utils";
+import { downloadInvoice } from "@/lib/utils";
+import DownloadInvoiceButton from "@/app/(dashboard)/vendor/(sales)/invoices/download-invoice";
 
 const OrderPage = ({ params, isAdmin = false, isUser = false }) => {
   const { order: orderData, error, isLoading } = useOrder(params.id);
@@ -54,8 +57,9 @@ const OrderHeader = ({ orderData, isUser, isAdmin }) => {
   const handleOrderCancel = () => {
     try {
       setPending(true);
-      api.put(`/shipments/${orderData._id}`, { status: "cancel" });
+      api.post(`/orders/${orderData._id}/cancel`);
     } catch (error) {
+      tst.error(error);
       console.log(error);
     } finally {
       setPending(false);
@@ -90,7 +94,7 @@ const OrderHeader = ({ orderData, isUser, isAdmin }) => {
               </DialogPortal>
             </Dialog>
           )}
-          {isUser && orderData.status !== "delivered" && (
+          {isUser && orderData.status !== "delivered" && orderData.status !== "cancelled" && (
             <AlertBox
               btnName={"Yes"}
               desc={"Are you sure you want to cancel the Order"}
@@ -101,6 +105,11 @@ const OrderHeader = ({ orderData, isUser, isAdmin }) => {
               </Button>
             </AlertBox>
           )}
+          <DownloadInvoiceButton id={orderData._id} isChild={true}>
+            <Button variant={"outline"} size="xs">
+              Download Invoice
+            </Button>
+          </DownloadInvoiceButton>
         </div>
       </div>
       <div className="space-y-2 text-sm">
