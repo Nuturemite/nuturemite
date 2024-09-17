@@ -4,10 +4,12 @@ import React from "react";
 import Link from "next/link";
 import { useMyAddresses } from "@/lib/data";
 import AddressCard from "./AddressCard";
+import Loader from "@/components/shared/loader";
 
 const AddressPage = () => {
   const { addresses, isLoading } = useMyAddresses();
-  if (isLoading) return;
+  if (isLoading) return <Loader />; 
+  console.log(addresses);
 
   return (
     <div className="p-6 max-w-4xl mx-auto">

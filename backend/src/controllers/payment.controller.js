@@ -25,17 +25,12 @@ export const createRazorpayOrder = async (req, res) => {
       key_secret: process.env.RAZORPAY_API_SECRET_TEST,
     });
 
-    const shippingAddress = req.body.shippingAddress;
+    const shippingAddressId = req.body.shippingAddressId;
     const userId = req.user.id;
 
     const cart = await getCart(userId);
     validateCart(cart);
 
-    const { _id: shippingAddressId } = await saveShippingAddress(
-      shippingAddress,
-      userId,
-      mongoSession
-    );
     const quantityUpdates = await checkProductQuantities(cart, mongoSession);
     await updateProductQuantitiesForPayment(quantityUpdates, userId, mongoSession);
 

@@ -38,3 +38,8 @@ ProductSchema.virtual("discount").get(function () {
 ProductSchema.virtual("discountPercent").get(function () {
   return Math.round(((this.mrp - this.price) / this.mrp) * 100);
 });
+
+ProductSchema.pre('find', function(next){
+  this.sort({_id: -1});
+  next();
+})

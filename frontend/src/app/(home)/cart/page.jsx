@@ -19,29 +19,31 @@ import OrderSummary from "./OrderSummary";
 import { useAuthContext } from "@/context/authprovider";
 import OutLoader from "@/components/ui/outloader";
 import { useCartContext } from "@/context/cartprovider";
-
+import { useLayoutEffect } from "react";
 const ShoppingCart = () => {
-  const { isAuthenticated } = useAuthContext();
+  const { isAuthenticated = false } = useAuthContext();
   const { cartItems: onlineCart, isLoading, error, mutate } = useCart(isAuthenticated);
-  const { cart: localCart,changeQuantity } = useCartContext();
+  const { cart: localCart, changeQuantity } = useCartContext();
   const cartItems = !isAuthenticated ? localCart : onlineCart;
   const [pending, setPending] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
 
-  if (isLoading) return <Loader />;
-  if (error) return <Error />;
-  if (!cartItems) return <EmptyCart />;
-  if (cartItems?.length === 0) return <EmptyCart />;
+  useLayoutEffect(() => {
+    setIsMounted(true);
+  }, []);
 
-  const isCheckoutDisabled = cartItems.some(
+  if (!isMounted) return null;
+
+  const isCheckoutDisabled = cartItems?.some(
     cartItem => cartItem.quantity > cartItem.product.quantity
   );
 
   const handleQuantityChange = async (cartItem, value) => {
     try {
       setPending(true);
-      if(isAuthenticated){
+      if (isAuthenticated) {
         await api.post(`/cart/`, { productId: cartItem.product._id, quantity: value });
-      }else{
+      } else {
         changeQuantity(cartItem.product, value);
       }
       await mutate();
@@ -53,6 +55,12 @@ const ShoppingCart = () => {
       setPending(false);
     }
   };
+
+  if (isLoading) return <Loader />;
+  if (error) return <Error />;
+  if (!cartItems) return <EmptyCart />;
+  if (cartItems?.length === 0) return <EmptyCart />;
+
 
   return (
     <div>

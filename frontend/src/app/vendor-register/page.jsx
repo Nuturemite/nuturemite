@@ -52,12 +52,7 @@ export default function VendorRegistration() {
   const [values, setValues] = useState(initialFormValues);
   const { user, isLoading } = useAuthContext();
   const router = useRouter();
-  // console.log(user);
-  // if (isLoading) return;
-
-  // if (user.role !== "vendor") return;
-  // if (!user.isVerified) router.push("/vendor-register/in-process");
-
+  
   const handleChange = e => {
     const { name, value } = e.target;
     const nameParts = name.split(".");
@@ -129,7 +124,7 @@ export default function VendorRegistration() {
           required: true,
         },
         { label: "Bank Name", name: "bankAccount.bankName", type: "text", required: true },
-        { label: "Branch Code", name: "bankAccount.branchCode", type: "text", required: true },
+        { label: "IFSC Code", name: "bankAccount.branchCode", type: "text", required: true },
       ],
     },
     {
@@ -148,7 +143,6 @@ export default function VendorRegistration() {
           label: "Document URL",
           name: "businessLicense.documentUrl",
           type: "text",
-          required: true,
         },
       ],
     },
@@ -170,7 +164,6 @@ export default function VendorRegistration() {
 
   return (
     <div className="w-full mb-40 max-w-4xl mt-10 mx-auto bg-white p-10">
-      {/* <h2 className="h3-primary">Vendor Registration</h2> */}
       <form onSubmit={handleSubmit}>
         {formSections.map((section, index) => (
           <div key={index} className="mb-16">

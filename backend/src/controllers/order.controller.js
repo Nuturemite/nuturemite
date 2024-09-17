@@ -21,16 +21,17 @@ export const placeOrder = async (req, res) => {
 
   try {
     const userId = req.user.id;
-    const { paymentMode, shippingAddress } = req.body;
+    const { paymentMode, shippingAddressId } = req.body;
+    console.log(req.body);
 
     const cart = await getCart(userId);
     validateCart(cart);
 
     const quantityUpdates = await checkProductQuantities(cart, session);
-    const shippingAddressId = await saveShippingAddress(shippingAddress, userId, session);
 
     const totals = calculateTotals(cart);
-    const newOrder = await createOrder(userId, totals, paymentMode, shippingAddressId, session);
+    const shippingAddress = await Address.findById(shippingAddressId);
+    const newOrder = await createOrder(userId, totals, paymentMode, shippingAddress, session);
 
     const vendorOrders = groupVendorOrders(cart, newOrder, shippingAddressId, userId);
     await saveSubOrders(vendorOrders, session);
@@ -173,7 +174,7 @@ const createShipmentData = order => {
     //   },
     // ],
     // courier_id: "",
-    collectable_amount: order.paymentMode == "cod" ? order.total  : 0,
+    collectable_amount: order.paymentMode == "cod" ? order.total : 0,
   };
 };
 
@@ -181,13 +182,13 @@ const createShipmentData = order => {
 export const getAllOrders = async (req, res) => {
   try {
     console.log(req.user.vendorId);
-    const subOrders = await SubOrder.find({ })
+    const subOrders = await SubOrder.find({})
       .select("-orderItems")
       .populate("user", "name email")
       .populate("shippingAddress")
       .populate("vendor", "name ");
     const count = await SubOrder.countDocuments();
-    res.status(200).json({ data: subOrders, totalItems:count});
+    res.status(200).json({ data: subOrders, totalItems: count });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -202,8 +203,7 @@ export const getMyOrdersAsVendor = async (req, res) => {
       .populate("user", "name email")
       .populate("shippingAddress");
     const count = await SubOrder.countDocuments({ vendor: req.user.vendorId });
-    console.log(subOrders, count);
-    res.status(200).json({ data: subOrders, totalItems:count});
+    res.status(200).json({ data: subOrders, totalItems: count });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -233,7 +233,6 @@ export const getMyOrders = async (req, res) => {
   }
 };
 
-
 // Get orders by user
 export const getUserOrders = async (req, res) => {
   const { userId } = req.params;
@@ -244,8 +243,6 @@ export const getUserOrders = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
-
-
 
 // Get order by ID
 export const getOrderById = async (req, res) => {
@@ -287,6 +284,37 @@ export const updateOrder = async (req, res) => {
     }
     await session.commitTransaction();
     res.json();
+  } catch (error) {
+    await session.abortTransaction();
+    res.status(500).json({ message: error.message });
+  } finally {
+    session.endSession();
+  }
+};
+
+const xpressCancelOrder = async awb => {
+  try {
+    const response = await axios.post(`https://shipment.xpressbees.com/api/shipments2/cancel`, {
+      awb: awbNumber,
+    });
+    return response.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const cancelOrder = async (req, res) => {
+  const { id } = req.params;
+  const session = await mongoose.startSession();
+  session.startTransaction();
+  try {
+    const shipping = await Shipping.findOne({ order: id });
+    const cancelRes = await xpressCancelOrder(shipping.trackingId);
+    console.log(cancelRes);
+    shipping.status = "cancelled";
+    await shipping.save({ session });
+    const order = await SubOrder.findByIdAndUpdate(id, { status: "cancelled" }, { session });
+    res.json({ order });
   } catch (error) {
     await session.abortTransaction();
     res.status(500).json({ message: error.message });

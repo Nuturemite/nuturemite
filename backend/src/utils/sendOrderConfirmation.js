@@ -1,7 +1,7 @@
 import { Resend } from "resend";
 import { User, Order } from "../models/model.js";
 
-const resend = new Resend("re_123456789");
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 async function sendOrderConfirmation(userId, orderId) {
   try {
@@ -14,11 +14,6 @@ async function sendOrderConfirmation(userId, orderId) {
     if (!subOrder) {
       throw new Error("Order not found");
     }
-
-    // const itemsList = subOrder.orderItems.map(
-    //   item => `<li>${item.quantity} x ${item.product.name} - $${item.unitPrice.toFixed(2)}</li>`
-    // ).join('');
-
     const emailBody = `
       <p>Dear ${user.email},</p>
       <p>Thank you for your order!</p>

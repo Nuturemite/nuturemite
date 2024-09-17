@@ -11,6 +11,11 @@ import { Textarea } from "@/components/ui/textarea";
 import OutLoader from "@/components/ui/outloader";
 import { useSWRConfig } from "swr";
 import { useAuthContext } from "@/context/authprovider";
+import { useMyAddresses } from "@/lib/data";
+import Loader from "@/components/shared/loader";
+import { useCartContext } from "@/context/cartprovider";
+import { useCart } from "@/lib/data";
+import Link from "next/link";
 
 const initialData = {
   fname: "",
@@ -34,14 +39,12 @@ export default function Page() {
   const [shippingAddress, setShippingAddress] = useState(initialData);
   const [paymentMode, setPaymentMode] = useState("cod");
   const router = useRouter();
+  const { addresses, isLoading: isAddressLoading } = useMyAddresses();
+  const [selectedAddress, setSelectedAddress] = useState(null);
+  const [showAddressForm, setShowAddressForm] = useState(false);
   const { mutate } = useSWRConfig();
-  const { isAuthenticated } = useAuthContext();
 
-  useLayoutEffect(() => {
-    if (!isAuthenticated) {
-      router.replace("/auth/login");
-    }
-  }, [isAuthenticated]);
+  if (isAddressLoading) return <Loader />;
 
   const handlePaymentOptionChange = e => {
     setPaymentMode(e.target.value);
@@ -75,17 +78,33 @@ export default function Page() {
     }));
   };
 
+  const handleSaveAddress = async e => {
+    e.preventDefault();
+    try {
+      setPending(true);
+      await api.post("/addresses", shippingAddress);
+      await mutate("/my-addresses");
+      setShowAddressForm(false);
+      tst.success("Address saved successfully");
+    } catch (error) {
+      console.log(error);
+      tst.error(error);
+    } finally {
+      setPending(false);
+    }
+  };
+
   const handleCheckout = async (e, paymentMode) => {
     e.preventDefault();
     try {
       setPending(true);
-
       await api.post("/orders/place-order", {
-        shippingAddress,
+        shippingAddressId: selectedAddress,
         paymentMode: "cod",
       });
-      await mutate("/cart");
       tst.success("Order placed successfully");
+      await mutate("/cart");
+      await mutate("/my-orders");
       router.push("/orders");
     } catch (error) {
       console.log(error);
@@ -108,29 +127,40 @@ export default function Page() {
         try {
           const response = await api.post("/payment/verify-razorpay-order", {
             ...res,
-            shippingAddressId: data.shippingAddressId,
+            shippingAddressId: selectedAddress,
           });
           if (response.data.success) {
-            console.log("welcome");
+            await mutate("/cart");
+            tst.success("Order placed successfully");
+            router.push("/orders");
           }
         } catch (error) {
           console.log("something went wrong");
         }
       },
     };
-    const rzp1 = new window.Razorpay(options);
-    rzp1.open();
+    try {
+      const rzp1 = new window.Razorpay(options);
+      rzp1.open();
+    } catch (error) {
+      console.log(error);
+      tst.error(error);
+    }
   };
 
   const handleRazorpayOrder = async e => {
     e.preventDefault();
     try {
-      const response = await api.post("/payment/create-razorpay-order", { shippingAddress });
-      console.log(response.data.data);
+      setPending(true);
+      const response = await api.post("/payment/create-razorpay-order", {
+        shippingAddressId: selectedAddress,
+      });
       initializeRazorpay(response.data.data);
     } catch (error) {
       console.log(error);
       tst.error(error);
+    } finally {
+      setPending(false);
     }
   };
 
@@ -139,44 +169,90 @@ export default function Page() {
       <div className="mt-10 pb-10">
         <div className="flex flex-col-reverse md:flex-row gap-20">
           <div className="md:basis-3/5">
-            {/* Shipping Details */}
-            <h2 className="h2-primary">Shipping Details</h2>
-            <div className="bg-white p-6">
-              {formDetails.map((section, index) => (
-                <div key={index} className="mb-4">
-                  {Array.isArray(section) ? (
-                    <div className="flex gap-10">
-                      {section.map((field, idx) => (
-                        <div key={idx} className="w-full">
-                          <Label className={"text-slate-600"} htmlFor={field.value}>
-                            {field.label}
-                          </Label>
-                          <Input
-                            type="text"
-                            id={field.value}
-                            name={field.value}
-                            value={shippingAddress[field.value] || ""}
-                            onChange={handleChange}
-                          />
+            {/* Address Selection */}
+            <div className="w-full mt-12">
+              <h2 className="h2-primary">Select Address</h2>
+              <div className="bg-white p-6 border border-gray-200">
+                {addresses &&
+                  addresses.length > 0 &&
+                  addresses.map(address => (
+                    <div
+                      key={address.id}
+                      className="flex items-center border-b border-gray-300 last:border-b-0"
+                    >
+                      <input
+                        type="radio"
+                        id={`address-${address._id}`}
+                        name="address"
+                        value={address.id}
+                        className="h-5 w-5 border-gray-300 focus:ring-tert-100 bg-tert-100"
+                        checked={selectedAddress === address._id}
+                        onChange={() => setSelectedAddress(address._id)}
+                      />
+                      <label
+                        htmlFor={`address-${address._id}`}
+                        className="ml-3 w-full p-4 text-gray-800 text-sm font-medium"
+                      >
+                        <span className="text-gray-700">{address.address}</span>,{" "}
+                        <span className="text-gray-700">{address.city}</span>,{" "}
+                        <span className="text-gray-700">{address.state}</span>,{" "}
+                        <span className="text-gray-700">{address.zipcode}</span>,{" "}
+                        <span className="text-gray-700">{address.country}</span>
+                      </label>
+                    </div>
+                  ))}
+                <>
+                  {(addresses.length === 0 || showAddressForm) && (
+                    <div className="bg-white pt-8">
+                      {formDetails.map((section, index) => (
+                        <div key={index} className="mb-4">
+                          {Array.isArray(section) ? (
+                            <div className="flex gap-10">
+                              {section.map((field, idx) => (
+                                <div key={idx} className="w-full">
+                                  <Label className={"text-slate-600"} htmlFor={field.value}>
+                                    {field.label}
+                                  </Label>
+                                  <Input
+                                    type="text"
+                                    id={field.value}
+                                    name={field.value}
+                                    value={shippingAddress[field.value] || ""}
+                                    onChange={handleChange}
+                                  />
+                                </div>
+                              ))}
+                            </div>
+                          ) : (
+                            <div>
+                              <Label className={"text-slate-600"} htmlFor={section.value}>
+                                {section.label}
+                              </Label>
+                              <Textarea
+                                type="text"
+                                id={section.value}
+                                name={section.value}
+                                value={shippingAddress[section.value] || ""}
+                                onChange={handleChange}
+                              />
+                            </div>
+                          )}
                         </div>
                       ))}
                     </div>
-                  ) : (
-                    <div>
-                      <Label className={"text-slate-600"} htmlFor={section.value}>
-                        {section.label}
-                      </Label>
-                      <Textarea
-                        type="text"
-                        id={section.value}
-                        name={section.value}
-                        value={shippingAddress[section.value] || ""}
-                        onChange={handleChange}
-                      />
-                    </div>
+                  )}
+                </>
+                <div className="flex gap-4">
+                  <Button className="mt-4" onClick={() => setShowAddressForm(!showAddressForm)}>
+                    {showAddressForm ? "Cancel" : "Add New Address"}
+                  </Button>
+                  {showAddressForm && (
+                    <Button className="mt-4" onClick={handleSaveAddress}>
+                      Save
+                    </Button>
                   )}
                 </div>
-              ))}
+              </div>
             </div>
 
             {/* Payment Method  */}
@@ -208,7 +284,7 @@ export default function Page() {
                   ))}
                 </div>
                 <Button
-                  pending={pending}
+                  disabled={pending || !selectedAddress }
                   className="w-full mt-2"
                   onClick={e =>
                     paymentMode === "cod"
@@ -233,3 +309,14 @@ export default function Page() {
     </div>
   );
 }
+
+const EmptyCart = () => (
+  <div className="flex flex-col items-center justify-center h-full min-h-screen">
+    <p className="text-gray-500">No items in cart</p>
+    <div className="mt-4">
+      <Link href="/shop">
+        <Button variant="outline">Start Shopping</Button>
+      </Link>
+    </div>
+  </div>
+);

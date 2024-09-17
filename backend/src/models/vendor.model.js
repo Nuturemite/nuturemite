@@ -1,4 +1,3 @@
-// const mongoose = require("mongoose");
 import mongoose from "mongoose";
 const Schema = mongoose.Schema;
 // Address Schema
@@ -30,7 +29,7 @@ const businessLicenseSchema = new mongoose.Schema(
     issuedBy: { type: String, required: true },
     issuedDate: { type: Date, required: true },
     expiryDate: { type: Date, required: true },
-    documentUrl: { type: String, required: true }, // URL to the uploaded license document
+    documentUrl: { type: String },
   },
   { index: false }
 );
@@ -39,8 +38,8 @@ const businessLicenseSchema = new mongoose.Schema(
 const storeSchema = new mongoose.Schema(
   {
     storeName: { type: String },
-    logoUrl: { type: String }, // URL to the uploaded store logo
-    bannerUrl: { type: String }, // URL to the uploaded store banner
+    logoUrl: { type: String },
+    bannerUrl: { type: String },
     description: { type: String },
     returnPolicy: { type: String },
     shippingMethods: [String],

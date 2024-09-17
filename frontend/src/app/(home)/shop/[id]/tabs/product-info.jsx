@@ -30,7 +30,7 @@ const ProductInfo = ({ product }) => (
         </TableRow>
         <TableRow>
           <TableCell className="font-medium">MRP:</TableCell>
-          <TableCell>₹{product.basePrice}</TableCell>
+          <TableCell>₹{product.mrp}</TableCell>
         </TableRow>
         <TableRow>
           <TableCell className="font-medium">Sales Price:</TableCell>

@@ -14,7 +14,7 @@ export const createAddress = async (req, res) => {
 
 export const getMyAddresses = async (req, res) => {
   try {
-    const addresses = await Address.find({ user: req.user.id });
+    const addresses = await Address.find({ user: req.user.id, isDeleted: false });
     res.json({ data: addresses });
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -52,7 +52,7 @@ export const updateAddress = async (req, res) => {
 export const deleteAddress = async (req, res) => {
   try {
     const { id } = req.params;
-    const deletedAddress = await Address.findByIdAndDelete(id);
+    const deletedAddress = await Address.findByIdAndUpdate(id, { isDeleted: true });
     if (!deletedAddress) {
       return res.status(404).json({ message: "Address not found" });
     }

@@ -6,9 +6,9 @@ const fetcher2 = url => api.get(url).then(res => res.data);
 
 const useSWRWithParams = (url, fetcher, options = {}) => {
   return useSWR(url, fetcher, {
-    revalidateOnFocus: false,
-    revalidateIfStale: false,
-    revalidateOnReconnect: false,
+    revalidateOnFocus: true,
+    revalidateIfStale: true,
+    revalidateOnReconnect: true,
     ...options,
   });
 };

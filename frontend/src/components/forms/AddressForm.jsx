@@ -6,8 +6,10 @@ import api from "@/lib/api";
 import { Button } from "@/components/ui/button";
 import { tst } from "@/lib/utils";
 import { Textarea } from "@/components/ui/textarea";
+import { useSWRConfig } from "swr";
 
 export default function AddressForm({ update, address }) {
+  const { mutate } = useSWRConfig();
   const [formData, setFormData] = useState({
     fname: "",
     lname: "",
@@ -45,7 +47,7 @@ export default function AddressForm({ update, address }) {
       setPending(true);
       if (update) await api.put(`/addresses/${address._id}`, formData);
       else await api.post("/addresses", formData);
-
+      await mutate("/my-addresses");
       tst.success("Address Added");
     } catch (error) {
       console.log(error);
@@ -87,7 +89,7 @@ export default function AddressForm({ update, address }) {
         </div>
         <div>
           <Label htmlFor="email" className="mb-2">
-            Lname
+            Email
           </Label>
           <Input
             type="text"
