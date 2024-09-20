@@ -12,10 +12,17 @@ import {
   DialogDescription,
 } from "@/components/ui/dialog";
 import { useReviews } from "@/lib/data";
-
+import { useAuthContext } from "@/context/authprovider";
 const ReviewComponent = ({ product }) => {
   const { reviews, isLoading, error } = useReviews(product._id);
+  const { isAuthenticated } = useAuthContext();
 
+  if (!isAuthenticated) {
+    return <div>Please login to add a review</div>;
+  }
+  if (!product.hasUserBought) {
+    return <div>You need to buy the product to add a review</div>;
+  }
   if (error) return <Error />;
   if (isLoading) return <Loader />;
 

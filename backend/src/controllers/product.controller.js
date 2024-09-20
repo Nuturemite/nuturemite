@@ -1,4 +1,4 @@
-import { Product } from "../models/model.js";
+import { Product, SubOrder } from "../models/model.js";
 import { uploadImage } from "../utils/uploadFile.js";
 
 // Create a new product
@@ -30,15 +30,30 @@ export const createProduct = async (req, res) => {
   }
 };
 
-// Get a single product
 export const getProduct = async (req, res) => {
   try {
     const product = await Product.findById(req.params.id).populate("categories", "name");
     if (!product) return res.status(404).json({ message: "Product not found" });
+    if (req.user) {
+      product.hasUserBought = await hasUserBoughtProduct(req.params.id, req.user.id);
+    }
     res.json({ data: product });
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: error.message });
+  }
+};
+
+
+export const hasUserBoughtProduct = async (productId, userId) => {
+  try {
+    const hasBought = await SubOrder.findOne({
+      product: productId,
+      user: userId,
+    });
+    return hasBought;
+  } catch (error) {
+    console.log(error);
   }
 };
 
