@@ -158,14 +158,14 @@ const OrderDetails = ({ orderData }) => {
         <TableBody>
           {[
             { name: "Order Date", value: new Date(orderData.createdAt).toLocaleDateString() },
-            { name: "Total", value: orderData.subTotal },
+            { name: "Total MRP", value: orderData.subTotal },
             { name: "Discount", value: orderData.discount },
             { name: "Delivery charges", value: orderData.delCharges || 0 },
-            { name: "Total", value: orderData.total },
+            { name: "Total Price", value: orderData.total },
           ].map((item, index) => (
             <TableRow key={index} className="py-0">
               <TableCell className="text-sm py-1 whitespace-nowrap">{item.name}</TableCell>
-              <TableCell className="text-sm py-1">{item.value || "N/A"}</TableCell>
+              <TableCell className="text-sm py-1">{item.value}</TableCell>
             </TableRow>
           ))}
         </TableBody>
