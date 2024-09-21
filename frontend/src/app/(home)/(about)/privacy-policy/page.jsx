@@ -1,3 +1,8 @@
+export const metadata = {
+  title: "Privacy Policy",
+  description: "Read our Privacy Policy to understand how we collect, use, and protect your information when you visit our website.",
+}
+
 const PrivacyPolicy = () => {
   return (
     <div className="max-w-4xl mx-auto px-4 py-8">

@@ -1,3 +1,8 @@
+export const metadata = {
+  title: "Refund and Return Policy",
+  description: "Learn about our refund and return policy for your purchases from Nuturemite.",
+}
+
 const RefundAndReturnPolicy = () => {
   return (
     <div className="max-w-4xl mx-auto px-4 py-8">

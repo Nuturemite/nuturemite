@@ -130,21 +130,12 @@ const createShipmentData = order => {
     // package_height: 10,
     request_auto_pickup: "yes",
     consignee: {
-      // name: "Customer Name",
-      // address: "190, ABC Road",
-      // address_2: "Near Bus Stand",
-      // city: "Mumbai",
-      // state: "Maharastra",
-      // pincode: "251001",
-      // phone: "9999999999",
       name: order.shippingAddress.fname + " " + order.shippingAddress.lname,
       address: order.shippingAddress.address,
       city: order.shippingAddress.city,
       state: order.shippingAddress.state,
-      // pincode: order.shippingAddress.zipcode,
-      pincode: 208023,
-      // phone: order.shippingAddress.phone,
-      phone: "9999999999",
+      pincode: order.shippingAddress.zipcode,
+      phone: order.shippingAddress.phone,
     },
     pickup: {
       warehouse_name: "warehouse 1",
@@ -174,7 +165,7 @@ const createShipmentData = order => {
     //   },
     // ],
     // courier_id: "",
-    collectable_amount: order.paymentMode == "cod" ? order.total : 0,
+    collectable_amount: order.paymentMode == "cod" ? Math.round(order.total) : 0,
   };
 };
 

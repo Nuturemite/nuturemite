@@ -100,6 +100,11 @@ const sections = [
   },
 ];
 
+export const metadata = {
+  title: "About Us",
+  description: "Nuturemite is a website that offers credible information, which helps you in making healthy eating choices. It serves as a gateway and provides reliable information on nutrition, healthy eating, physical activity, and food safety for consumers. Our website receives guidance from professionals like doctors, nutritionists, dietitians, fitness gurus, and the best nutrition counselors, who work as a team for making a healthy society.",
+}
+
 const AboutUs = () => {
   return (
     <div className="container mx-auto px-4 py-8">

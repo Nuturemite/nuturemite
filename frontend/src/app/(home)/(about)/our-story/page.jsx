@@ -1,3 +1,8 @@
+export const metadata = {
+  title: "Our Story",
+  description: "Learn about the journey and mission of Nuturemite, a platform dedicated to providing credible health and nutrition information.",
+}
+
 const OurStory = () => {
   return (
     <div className="container mx-auto px-4 py-8">

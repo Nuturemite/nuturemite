@@ -36,6 +36,8 @@ export const ProductCard = ({ product, featured }) => {
         {/* Product Image and Sold Out Badge */}
         <div className="relative bg-white mb-4 overflow-hidden">
           <img
+            width={100}
+            height={100}
             className={`w-full ${
               featured && "max-h-44"
             } aspect-auto object-cover  p-2 group-hover:scale-110 group-hover:brightness-50 transition duration-500`}

@@ -43,15 +43,17 @@ function ProductSearch({ className }) {
                 <>
                   <Link
                     key={product._id}
-                    href={`/shop/${product._id}`}
+                    href={`/shop/${product.slug}`}
                     onClick={() => setSearch("")}
                     className="hover:bg-slate-200 group"
                   >
                     <div className="flex items-center gap-4 p-2 group:hover:translate-x-2 ">
                       <img
+                        width={64}
+                        height={64}
                         className="h-16"
                         src={product.images[1] || "./noimage.png"}
-                        alt={"Product image"}
+                        alt={product.name}
                       />
                       <div>
                         <p>{product.name}</p>

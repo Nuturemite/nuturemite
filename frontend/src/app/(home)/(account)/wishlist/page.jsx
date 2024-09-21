@@ -43,7 +43,7 @@ const Wishlist = () => {
                 </div>
 
                 <div className="ml-4 flex flex-1 flex-col gap-6 ">
-                  <Link href={`/shop/${wishlistItem.product._id}`} className="flex">
+                  <Link href={`/shop/${wishlistItem.product.slug}`} className="flex">
                     <div>
                       <div className="text-base font-medium text-gray-900">
                         <h3>{wishlistItem.product.name}</h3>

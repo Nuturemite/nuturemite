@@ -15,10 +15,11 @@ import {
 import ProductTab from "./tabs/product-tab";
 import ImageZoom from "@/components/ui/image-zoom";
 import OutLoader from "@/components/ui/outloader";
+import Head from "next/head";
 
 export default function Product({ params }) {
-  const id = params.id;
-  const { product, isLoading, error } = useProduct(id);
+  const slug = params.slug;
+  const { product, isLoading, error } = useProduct(slug);
   const [quantity, setQuantity] = useState(1);
   const [selectedImage, setSelectedImage] = useState(null);
   const [pending,setPending] = useState();
@@ -29,6 +30,12 @@ export default function Product({ params }) {
   const displayImage = selectedImage || product.images?.[0] || "./noimage.png";
 
   return (
+    <>
+    <Head>
+      <title>{product.name}</title>
+      <meta name="description" content={product.description} />
+      <meta name="keywords" content={product.keywords} />
+    </Head>
     <div className="py-8 pt-10">
       <div className="mx-auto">
         <div className="flex flex-col md:flex-row gap-4">
@@ -40,7 +47,7 @@ export default function Product({ params }) {
                   key={index}
                   className="w-full h-20 object-cover cursor-pointer border-2 border-transparent hover:border-slate-600"
                   src={image || "./noimage.png"}
-                  alt={`Thumbnail ${index + 1}`}
+                  alt={product.name}
                   onClick={() => setSelectedImage(image)}
                 />
               ))}
@@ -128,5 +135,6 @@ export default function Product({ params }) {
       </div>
       <OutLoader loading={pending}/>
     </div>
+    </>
   );
 }

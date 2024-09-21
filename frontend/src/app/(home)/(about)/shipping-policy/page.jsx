@@ -1,3 +1,8 @@
+export const metadata = {
+  title: "Shipping Policy",
+  description: "Learn about our shipping policy for your purchases from Nuturemite.",
+}
+
 const ShippingPolicy = () => {
   return (
     <div className="max-w-4xl mx-auto px-4 py-8">

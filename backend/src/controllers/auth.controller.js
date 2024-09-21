@@ -1,6 +1,9 @@
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import { User, Vendor } from "../models/model.js";
+import ejs from "ejs";
+import path from "path";
+import { sendEmail } from "../utils/sendMail.js";
 
 const createActivationToken = (user) => {
   const activationCode = Math.floor(1000 + Math.random() * 9000).toString();
