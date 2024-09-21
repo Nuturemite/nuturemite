@@ -47,8 +47,8 @@ export const useBaseProduct = id => {
   return { product: data, error, isLoading, mutate };
 };
 
-export const useProduct = id => {
-  const { data, error, isLoading, mutate } = useSWRWithParams(`/products/${id}`, fetcher);
+export const useProduct = slug => {
+  const { data, error, isLoading, mutate } = useSWRWithParams(`/products/slug/${slug}`, fetcher);
   return { product: data, error, isLoading, mutate };
 };
 

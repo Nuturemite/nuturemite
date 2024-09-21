@@ -1,32 +1,26 @@
 import { Product, SubOrder } from "../models/model.js";
-import { uploadImage } from "../utils/uploadFile.js";
-
+import slugify from "slugify";
 // Create a new product
 export const createProduct = async (req, res) => {
   try {
-    let images = [];
-    console.log(req.body);
-    if (req.files) {
-      if (req.files.image) {
-        const url = await uploadImage(req.files.image.data, "nuturemite/product/uploads");
-        req.body.image = url;
-      }
-      if (req.files["images[]"]) {
-        const uploadPromises = req.files["images[]"].map(async image => {
-          const url = await uploadImage(image.data, "nuturemite/product/uploads");
-          return url;
-        });
-        images = await Promise.all(uploadPromises);
-        req.body.images = images;
-      }
-    }
     req.body.vendor = req.user.vendorId;
+    req.body.slug = await createSlug(req.body.name);
     const product = new Product(req.body);
     await product.save();
+    console.log(product);
     res.status(201).json({ message: "Product created successfully!", data: product });
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: error.message });
+  }
+};
+
+export const findBySlug = async (slug) => {
+  try {
+    const product = await Product.findOne({ slug });
+    return product;
+  } catch (error) {
+    console.log(error);
   }
 };
 
@@ -44,6 +38,16 @@ export const getProduct = async (req, res) => {
   }
 };
 
+export const getProductBySlug = async (req, res) => {
+  try {
+    const product = await findBySlug(req.params.slug);
+    if (!product) return res.status(404).json({ message: "Product not found" });
+    res.json({ data: product });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: error.message });
+  }
+};
 
 export const hasUserBoughtProduct = async (productId, userId) => {
   try {
@@ -84,20 +88,8 @@ export const getAllProducts = async (req, res) => {
 // Update a product
 export const updateProduct = async (req, res) => {
   try {
-    let images = [];
-    if (req.files) {
-      if (req.files.image) {
-        const url = await uploadImage(req.files.image.data, "nuturemite/product/uploads");
-        req.body.image = url;
-      }
-      if (req.files["images[]"]) {
-        const uploadPromises = req.files["images[]"].map(async image => {
-          const url = await uploadImage(image.data, "nuturemite/product/uploads");
-          return url;
-        });
-        images = await Promise.all(uploadPromises);
-        req.body.images = images;
-      }
+    if(req.body.name) {
+      req.body.slug = await createSlug(req.body.name);
     }
     const product = await Product.findByIdAndUpdate(req.params.id, req.body, { new: true });
     if (!product) return res.status(404).json({ message: "Product not found" });
@@ -117,4 +109,14 @@ export const deleteProduct = async (req, res) => {
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
+};
+
+
+const createSlug = async (name) => {
+  const slug = slugify(name, { lower: true, strict: true, trim: true });
+  const product = await Product.findOne({ slug });
+  if (product) {
+    return slugify(name + " " + Date.now(), { lower: true, strict: true, trim: true });
+  }
+  return slug;
 };
