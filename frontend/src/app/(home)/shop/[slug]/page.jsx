@@ -27,7 +27,7 @@ export default function Product({ params }) {
 
   if (isLoading) return <Loader />;
   if (error) return <Error />;
-  const displayImage = selectedImage || `${IMAGE_URL}/${product.images[0]}` || "./noimage.png";
+  const displayImage = `${IMAGE_URL}/${selectedImage || product.images[0]}` || "./noimage.png";
 
   return (
     <>
