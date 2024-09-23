@@ -16,6 +16,7 @@ import ProductTab from "./tabs/product-tab";
 import ImageZoom from "@/components/ui/image-zoom";
 import OutLoader from "@/components/ui/outloader";
 import Head from "next/head";
+import { IMAGE_URL } from "@/constants";
 
 export default function Product({ params }) {
   const slug = params.slug;
@@ -26,8 +27,7 @@ export default function Product({ params }) {
 
   if (isLoading) return <Loader />;
   if (error) return <Error />;
-
-  const displayImage = selectedImage || product.images?.[0] || "./noimage.png";
+  const displayImage = selectedImage || `${IMAGE_URL}/${product.images[0]}` || "./noimage.png";
 
   return (
     <>
@@ -46,7 +46,7 @@ export default function Product({ params }) {
                 <img
                   key={index}
                   className="w-full h-20 object-cover cursor-pointer border-2 border-transparent hover:border-slate-600"
-                  src={image || "./noimage.png"}
+                  src={`${IMAGE_URL}/${image}` || "./noimage.png"}
                   alt={product.name}
                   onClick={() => setSelectedImage(image)}
                 />

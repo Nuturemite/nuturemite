@@ -20,6 +20,7 @@ import { useAuthContext } from "@/context/authprovider";
 import OutLoader from "@/components/ui/outloader";
 import { useCartContext } from "@/context/cartprovider";
 import { useLayoutEffect } from "react";
+import { IMAGE_URL } from "@/constants";
 
 const ShoppingCart = () => {
   const { isAuthenticated = false } = useAuthContext();
@@ -76,7 +77,7 @@ const ShoppingCart = () => {
               <li key={cartItem._id} className="flex p-4 bg-white">
                 <div className="h-24 w-24 flex-shrink-0 overflow-hidden border border-gray-200">
                   <img
-                    src={cartItem.product?.images[1] || "/test1.png"}
+                    src={`${IMAGE_URL}/${cartItem.product.images[0]}` || "/test1.png"}
                     className="h-full w-full object-cover object-center"
                   />
                 </div>

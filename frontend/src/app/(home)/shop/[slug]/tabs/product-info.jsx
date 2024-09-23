@@ -8,6 +8,7 @@ import {
 } from "@/components/ui/table";
 import ImagePreview from "@/components/ui/image-preivew";
 import LineBreak from "@/components/ui/line-break";
+import { IMAGE_URL } from "@/constants";
 
 const ProductInfo = ({ product }) => (
   <div className="py-4">
@@ -62,7 +63,7 @@ const ProductInfo = ({ product }) => (
                 <ImagePreview>
                   <img
                     key={index}
-                    src={url}
+                    src={`${IMAGE_URL}/${url}`}
                     alt={`Product image ${index + 1}`}
                     className="w-24 h-24 object-cover"
                   />

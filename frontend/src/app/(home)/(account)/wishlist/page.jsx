@@ -6,6 +6,7 @@ import Error from "@/components/shared/common/error";
 import { tst } from "@/lib/utils";
 import api from "@/lib/api";
 import { Button } from "@/components/ui";
+import { IMAGE_URL } from "@/constants";
 
 const Wishlist = () => {
   const { wishlistItems, isLoading, error, mutate } = useWishlist();
@@ -35,7 +36,7 @@ const Wishlist = () => {
                   <img
                     src={
                       wishlistItem.product.images.length != 0
-                        ? wishlistItem.product.images[1]
+                        ? `${IMAGE_URL}/${wishlistItem.product.images[0]}`
                         : "./noimage.png"
                     }
                     className="h-full w-full object-cover object-center"

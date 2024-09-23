@@ -32,6 +32,7 @@ import {
 import { tst } from "@/lib/utils";
 import { downloadInvoice } from "@/lib/utils";
 import DownloadInvoiceButton from "@/app/(dashboard)/vendor/(sales)/invoices/download-invoice";
+import { IMAGE_URL } from "@/constants";
 
 const OrderPage = ({ params, isAdmin = false, isUser = false }) => {
   const { order: orderData, error, isLoading } = useOrder(params.id);
@@ -192,7 +193,7 @@ const OrderItems = ({ items }) => {
             <TableRow key={item._id}>
               <TableCell className="flex gap-2 items-center">
                 <img
-                  src={item.product.images[0]}
+                  src={`${IMAGE_URL}/${item.product.images[0]}`}
                   alt={item.product.name}
                   className="w-12 h-12 object-cover "
                 />

@@ -1,22 +1,23 @@
-import mongoose from "mongoose";
-import { Product, VendorProduct } from "../models/model.js";
-import { vendorProductData } from "./data/vendorProduct.js";
-import { productData } from "./data/product.js";
+import { v2 as cloudinary } from 'cloudinary';
+import fs from 'fs';
+import dotenv from "dotenv"
+dotenv.config();
 
-async function main() {
-  try {
-    await mongoose.connect("mongodb://localhost:27017/nuturemite");
-    console.log("Seeding...");
-    await Product.deleteMany();
-    await VendorProduct.deleteMany();
-    await Product.insertMany(productData);
-    await VendorProduct.insertMany(vendorProductData);
-    console.log("Seeding done");
-    process.exit(1);
-  } catch (error) {
-    console.log(error);
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+});
+
+cloudinary.api.resources({ type: 'upload', prefix: '', all: true, max_results: 100},
+  (error, result) => {
+    if (error) console.error(error);
+    else {
+      console.log(result);
+      const data = result.resources.map(img => img.url).join('\n');
+      console.log(data);
+      fs.writeFileSync('image_urls.txt', data);
+      console.log('Data written to image_urls.txt');
+    }
   }
-}
-main();
-
-
+);

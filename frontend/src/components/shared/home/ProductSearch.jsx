@@ -33,7 +33,7 @@ function ProductSearch({ className }) {
           placeholder="Search ..."
           onChange={e => setSearch(e.target.value)}
         />
-        {search.length >= 3 && (
+        {search.length >= 1 && (
           <div className="absolute z-50 top-10 -left-20 bg-white w-[600px] max-h-[400px] overflow-y-scroll animate-height divide-y-2">
             {error && <div>{"Something went wrong"}</div>}
             {isLoading ? (

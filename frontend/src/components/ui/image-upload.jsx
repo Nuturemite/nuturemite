@@ -3,6 +3,7 @@ import { ImagePlus, Trash } from "lucide-react";
 import api from "@/lib/api";
 import Image from "next/image";
 import { AlertBox } from "./alert-dialog";
+import { IMAGE_URL } from "@/constants";
 
 const FileImagePlus = ({ images, setImages, imageUploading, setImageUploading }) => {
   const [dragActive, setDragActive] = useState(false);
@@ -109,7 +110,7 @@ const FileImagePlus = ({ images, setImages, imageUploading, setImageUploading })
                 onDragOver={handleDragOver}
                 onDrop={handleDrop}
               >
-                <img src={imagesrc} alt="Preview" className="w-full" />
+                <img src={`${IMAGE_URL}/${imagesrc}`} alt="Preview" className="w-full" />
                 <AlertBox onClick={() => handleRemoveImage(index)}>
                   <Trash size={24} className="absolute top-0 right-0 text-red-500 cursor-pointer" />
                 </AlertBox>

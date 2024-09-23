@@ -26,12 +26,11 @@ const app = express();
 
 app.use(cors({ origin: process.env.CLIENT_URL, credentials: true }));
 
-
 app.use(express.json({ limit: "50mb", extended: true }));
 app.use(fileUpload({ limits: { fileSize: 3 * 1024 * 1024 } }));
 
 app.use("/api", addressRoutes);
-app.use('/api', couponRoutes);
+app.use("/api", couponRoutes);
 app.use("/api", refundRoutes);
 app.use("/api", shippingRoutes);
 app.use("/api/vendors", vendorRoutes);
@@ -49,15 +48,18 @@ app.use("/api/brands", brandRoutes);
 app.use("/api/upload/images", async (req, res) => {
   try {
     let images = [];
-    console.log(req.files);
     if (req.files) {
       if (typeof req.files["images[]"] === "object") {
-        const url = await uploadImage(req.files["images[]"].data, "nuturemite/product/uploads");
-        images.push(url);
+        const url = await uploadImage(req.files["images[]"].data, "nuturemite/products/uploads");
+        const newUrl = "nuturemite/products/uploads/" + url.split("/").pop();
+        console.log(newUrl);
+        images.push(newUrl);
       } else if (req.files["images[]"]) {
         const uploadPromises = req.files["images[]"].map(async image => {
-          const url = await uploadImage(image.data, "nuturemite/product/uploads");
-          return url;
+          console.log("images - image.data", image.data);
+          const url = await uploadImage(image.data, "nuturemite/products/uploads");
+          const newUrl = "nuturemite/products/uploads/" + url.split("/").pop();
+          return newUrl;
         });
         images = await Promise.all(uploadPromises);
       }
