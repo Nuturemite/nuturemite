@@ -17,22 +17,25 @@ async function sendOrderConfirmation(userId, orderId) {
     const emailBody = `
       <p>Dear ${user.email},</p>
       <p>Thank you for your order!</p>
-      <p>Your order ID is <strong>${subOrder.orderId}</strong>.</p>
+      <p>Your order ID is <strong>${subOrder._id}</strong>.</p>
       <p>Here are the details of your order:</p>
-      <p><strong>Total: $${subOrder.total.toFixed(2)}</strong></p>
-      <p>Shipping Address: ${subOrder.shippingAddress.addressLine1}, ${
+      <p><strong>Total: ₹${Math.round(subOrder.total)}</strong></p>
+      <p>Shipping Address: ${subOrder.shippingAddress.address}, ${
       subOrder.shippingAddress.city
-    }, ${subOrder.shippingAddress.zipCode}</p>
+    }, ${subOrder.shippingAddress.zipcode}</p>
       <p>We will notify you once your order is shipped. If you have any questions, feel free to reply to this email.</p>
-      <p>Best regards,<br>Acme Team</p>
+      <p>Best regards,<br>Nuturemite</p>
     `;
 
-    await resend.emails.send({
-      from: "Acme <onboarding@resend.dev>",
-      to: ["anoop102910@gmail.com"],
+    console.log(emailBody);
+
+    const res = await resend.emails.send({
+      from: "Nuturemite <onboarding@resend.dev>",
+      to: [user.email],
       subject: "Your Order Confirmation",
       html: emailBody,
     });
+    console.log(res);
 
     console.log("Order confirmation email sent successfully.");
   } catch (error) {
@@ -41,5 +44,5 @@ async function sendOrderConfirmation(userId, orderId) {
 }
 
 export default sendOrderConfirmation;
-    
-    
+
+

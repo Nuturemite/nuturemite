@@ -32,17 +32,8 @@ function LoginForm() {
     e.preventDefault();
     try {
       setPending(true);
-
-      const response = await api.post("/auth/register", formData);
-      const user = response.data.user;
-      const authHeader = response.headers.get("Authorization");
-      if (authHeader) {
-        const token = authHeader.replace("Bearer ", "");
-        localStorage.setItem("token", token);
-        login();
-        router.push("/");
-        toast.success("Signup success");
-      }
+      await api.post("/auth/register", formData);
+      router.push("/auth/email-sent");
     } catch (error) {
       tst.error(error);
     } finally {
