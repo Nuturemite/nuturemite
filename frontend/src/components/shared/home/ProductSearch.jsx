@@ -6,6 +6,7 @@ import { useProducts } from "@/lib/data";
 import { useState } from "react";
 import Link from "next/link";
 import { Separator } from "@/components/ui/separator";
+import { IMAGE_URL } from "@/constants";
 
 function ProductSearch({ className }) {
   const [search, setSearch] = useState("");
@@ -52,7 +53,7 @@ function ProductSearch({ className }) {
                         width={64}
                         height={64}
                         className="h-16"
-                        src={product.images[1] || "./noimage.png"}
+                        src={`${IMAGE_URL}/${product.images[0]}` || "./noimage.png"}
                         alt={product.name}
                       />
                       <div>

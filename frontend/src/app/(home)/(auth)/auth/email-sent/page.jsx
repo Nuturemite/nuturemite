@@ -1,11 +1,12 @@
 function EmailSentPage() {
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
-      <h1 className="text-4xl font-bold mb-4">Email Verification</h1>
-      <p className="text-lg mb-4">
-        An email has been sent to your email address. Please click the link in the email to verify
-        your account.
-      </p>
+    <div class="relative flex min-h-screen flex-col items-center justify-center overflow-hidden py-6 sm:py-12 ">
+      <div class="max-w-xl px-5 text-center">
+        <h2 class="mb-2 text-[42px] font-bold text-zinc-800">Check your inbox</h2>
+        <p class="mb-2 text-lg text-zinc-500">
+          We are glad, that you’re with us ? We’ve sent you a verification link to your email address{" "}
+        </p>
+      </div>
     </div>
   );
 }

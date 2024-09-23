@@ -1,6 +1,4 @@
 import { CircularProgress } from "@mui/material";
-import { LoaderCircle } from "lucide-react";
-import React from "react";
 
 function Loader({height}) {
   return (
