@@ -31,23 +31,27 @@ const NavBar = () => {
           { text: "Shop", href: "/shop" },
           { text: "My Account", href: "/account" },
           { text: "Dashboard", href: "/vendor" },
+          { text: "Blogs", href: "/blogs" },
         ];
       } else if (user.role == "admin") {
         return [
           { text: "Shop", href: "/shop" },
           { text: "My Account", href: "/account" },
           { text: "Dashboard", href: "/admin" },
+          { text: "Blogs", href: "/blogs" },
         ];
       } else {
         return [
           { text: "Shop", href: "/shop" },
           { text: "My Account", href: "/account" },
+          { text: "Blogs", href: "/blogs" },
         ];
       }
     } else {
       return [
         { text: "Shop", href: "/shop" },
         { text: "Login", href: "/auth/login" },
+        { text: "Blogs", href: "/blogs" },
       ];
     }
   };

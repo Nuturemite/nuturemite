@@ -10,12 +10,12 @@ const fetchData = async (url) => {
     return res.json()
 }
 
-export const getProducts = async () => {
-    const res = await fetchData(`/api/products`)
+export const getBlogs = async () => {
+    const res = await fetchData(`/blogs`)
     return res.json()
 }
 
-export const getProduct = async (slug) => {
-    const res = await fetchData(`/api/products/${slug}`)
+export const getBlog = async (slug) => {
+    const res = await fetchData(`/blogs/${slug}`)
     return res.json()
 }

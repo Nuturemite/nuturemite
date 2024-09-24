@@ -16,6 +16,7 @@ import {
   Minimize2,
   User2,
   User2Icon,
+  Rss
 } from "lucide-react";
 
 const sidebarItemsVendor = [
@@ -82,6 +83,7 @@ const sidebarItemsVendor = [
     title: "Profile",
     link: "/vendor/profile/",
   },
+  
 ];
 
 const sidebarItemsAdmin = [
@@ -155,6 +157,11 @@ const sidebarItemsAdmin = [
     icon: List,
     title: "Category",
     link: "/vendor/category",
+  },
+  {
+    icon: FileText,
+    title: "Blogs",
+    link: "/admin/blogs",
   },
 ];
 

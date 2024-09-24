@@ -176,6 +176,16 @@ export const useCoupons = () => {
   return { coupons: data, error, isLoading, mutate };
 };
 
+export const useBlogs = (queryParams = {}) => {
+  const { data, error, isLoading, mutate } = useSWRWithParams("/blogs", fetcher);
+  return { blogs: data, error, isLoading, mutate };
+};
+
+export const useBlog = id => {
+  const { data, error, isLoading, mutate } = useSWRWithParams(`/blogs/${id}`, fetcher);
+  return { blog: data, error, isLoading, mutate };
+};
+
 export const useProducts = (queryParams = {}) => {
   const {
     search = "",

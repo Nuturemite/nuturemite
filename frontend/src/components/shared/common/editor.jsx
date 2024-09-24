@@ -2,38 +2,9 @@ import React, { useState, useRef } from "react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 
-const MyEditor = () => {
-  const [editorHtml, setEditorHtml] = useState("");
+const Editor = ({ value, onChange }) => {
   const quillRef = useRef(null);
 
-  const handleChange = html => {
-    setEditorHtml(html);
-  };
-
-  const handleImageUpload = () => {
-    const input = document.createElement("input");
-    input.setAttribute("type", "file");
-    input.setAttribute("accept", "image/*");
-    input.click();
-
-    input.onchange = async () => {
-      const file = input.files[0];
-      const formData = new FormData();
-      formData.append("image", file);
-
-      // Replace the URL below with your image upload endpoint
-      const response = await fetch("https://example.com/upload-image", {
-        method: "POST",
-        body: formData,
-      });
-
-      const imageUrl = await response.json();
-
-      const editor = quillRef.current.getEditor();
-      const range = editor.getSelection();
-      editor.insertEmbed(range.index, "image", imageUrl);
-    };
-  };
   const modules = {
     toolbar: {
       container: [
@@ -53,12 +24,12 @@ const MyEditor = () => {
       <ReactQuill
         ref={quillRef}
         theme="snow"
-        value={editorHtml}
-        onChange={handleChange}
+        value={value}
+        onChange={onChange}
         modules={modules}
       />
     </div>
   );
 };
 
-export default MyEditor;
+export default Editor;
