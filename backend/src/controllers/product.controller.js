@@ -85,6 +85,32 @@ export const getAllProducts = async (req, res) => {
   }
 };
 
+
+export const getAllMyVendorProducts = async (req, res) => {
+  try {
+    const { page = 1, limit = 10 } = req.query;
+    const products = await Product.find({ vendor: req.user.vendorId })
+      .populate("categories", "name id")
+      .populate({
+        path: "brands",
+        options: { strictPopulate: false },
+      })
+      .populate("vendor", "name id");
+
+    const total = await Product.countDocuments();
+
+    res.json({
+      data: products,
+      currentPage: Number(page),
+      totalPages: Math.ceil(total / limit),
+      totalItems: total,
+    });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+
 // Update a product
 export const updateProduct = async (req, res) => {
   try {

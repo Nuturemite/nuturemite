@@ -188,11 +188,11 @@ export const getAllOrders = async (req, res) => {
 // Get sub-orders by current authenticated vendor
 export const getMyOrdersAsVendor = async (req, res) => {
   try {
-    console.log(req.user.vendorId);
     const subOrders = await SubOrder.find({ vendor: req.user.vendorId })
       .select("-orderItems")
       .populate("user", "name email")
       .populate("shippingAddress");
+    console.log(subOrders);
     const count = await SubOrder.countDocuments({ vendor: req.user.vendorId });
     res.status(200).json({ data: subOrders, totalItems: count });
   } catch (error) {

@@ -15,6 +15,7 @@ import { ShippingSchema } from "./shipping.model.js";
 import {RefundSchema} from "./refund.model.js";
 import { CouponSchema } from "./coupon.model.js";
 import { BlogSchema } from "./blog.model.js";
+import { SubscribeSchema } from "./subscribe.model.js";
 
 export const User = mongoose.model("User", UserSchema);
 export const Category = mongoose.model("Category", CategorySchema);
@@ -31,3 +32,4 @@ export const Shipping = mongoose.model("Shipping", ShippingSchema);
 export const Refund = mongoose.model("Refund", RefundSchema);
 export const Coupon = mongoose.model("Coupon", CouponSchema);
 export const Blog = mongoose.model("Blog", BlogSchema);
+export const Subscribe = mongoose.model("Subscribe", SubscribeSchema);

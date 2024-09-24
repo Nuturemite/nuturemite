@@ -28,7 +28,7 @@ const DataTable = ({ columns, data, isLoading, actions, caption, pending, rowPer
           </TableRow>
         </TableHeader>
         {isLoading ? (
-          <TableSkeleton columnCount={columns.length + 1} />
+          <TableSkeleton columnCount={columns.length + 2} />
         ) : (
           <TableBody>
 

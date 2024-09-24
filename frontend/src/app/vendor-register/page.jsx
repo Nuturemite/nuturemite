@@ -84,6 +84,7 @@ export default function VendorRegistration() {
     setPending(true);
     try {
       await api.post("/auth/register/vendor", values);
+      router.push("/vendor-register/success");
       tst.success("Vendor registered successfully");
     } catch (error) {
       tst.error(error);

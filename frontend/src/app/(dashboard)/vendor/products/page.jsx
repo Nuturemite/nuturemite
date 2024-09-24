@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import api from "@/lib/api";
-import { useProducts } from "@/lib/data";
+import { useMyVendorProducts } from "@/lib/data";
 import DataTable from "@/components/tables/DataTable";
 import { tst } from "@/lib/utils";
 import Error from "@/components/shared/error";
@@ -14,6 +14,7 @@ import OutLoader from "@/components/ui/outloader";
 import { useSearchParams } from "next/navigation";
 import { Switch } from "@mui/material";
 import { IMAGE_URL } from "@/constants";
+import { useAuthContext } from "@/context/authprovider";
 
 const ProductList = () => {
   const searchParams = useSearchParams();
@@ -21,8 +22,14 @@ const ProductList = () => {
     search: searchParams.get("search"),
     apvStatus: searchParams.get("apvStatus"),
   };
+  const { user } = useAuthContext();
+  const vendorId = user?.vendorId;
   const apvStatus = searchParams.get("apvStatus");
-  const { products, error, isLoading, mutate } = useProducts({ limit: 50, ...filters });
+  const { products, error, isLoading, mutate } = useMyVendorProducts({
+    limit: 50,
+    ...filters,
+    vendorId: vendorId,
+  });
   const [pending, setPending] = useState(false);
 
   const handleProductDelete = async id => {
@@ -51,7 +58,6 @@ const ProductList = () => {
       setPending(false);
     }
   };
-
 
   if (error) return <Error />;
 

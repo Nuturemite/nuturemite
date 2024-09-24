@@ -72,7 +72,9 @@ export const login = async (req, res) => {
   try {
     const { username, password } = req.body;
     const user = await User.findOne({ username });
-
+    if (!user) {
+      return res.status(404).json({ message: "Invalid credentials" });
+    }
     if (!user.active)
       return res.status(409).json({
         message: "Your account has been deactivated. Please contact support.",
@@ -82,10 +84,7 @@ export const login = async (req, res) => {
         message: "Your account has been blocked. Please contact support.",
       });
     
-
-    if (!user) {
-      return res.status(404).json({ message: "User not found" });
-    }
+   
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
       return res.status(401).json({ message: "Invalid credentials" });

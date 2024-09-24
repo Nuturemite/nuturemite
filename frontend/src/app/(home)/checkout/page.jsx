@@ -43,7 +43,10 @@ export default function Page() {
   const [selectedAddress, setSelectedAddress] = useState(null);
   const [showAddressForm, setShowAddressForm] = useState(false);
   const { mutate } = useSWRConfig();
-
+  const { cartItems } = useCart();
+  const [coupon, setCoupon] = useState(null);
+  
+  if (cartItems.length === 0) return <EmptyCart />;
   if (isAddressLoading) return <Loader />;
 
   const handlePaymentOptionChange = e => {
@@ -170,7 +173,7 @@ export default function Page() {
         <div className="flex flex-col-reverse md:flex-row gap-20">
           <div className="md:basis-3/5">
             {/* Address Selection */}
-            <div className="w-full mt-12">
+            <div className="w-full ">
               <h2 className="h2-primary">Select Address</h2>
               <div className="bg-white p-6 border border-gray-200">
                 {addresses &&
@@ -302,13 +305,30 @@ export default function Page() {
           <div className="md:basis-2/5">
             <h2 className="h2-primary">Order Details</h2>
             <OrderSummary />
+            {/* <div className="mt-12">
+              <h2 className="h2-primary">Apply Coupon</h2>
+              <ApplyCoupon coupon={coupon} setCoupon={setCoupon} />
+            </div> */}
           </div>
+          
         </div>
       </div>
       <OutLoader loading={pending} />
     </div>
   );
 }
+
+const ApplyCoupon = ({coupon, setCoupon}) => {
+  return (
+    <div className="flex items-center gap-4 bg-white md:p-6 ">
+      <Input
+        type="text"
+        placeholder="Enter coupon code"
+      />
+      <Button>Apply Coupon</Button>
+    </div>
+  );
+};
 
 const EmptyCart = () => (
   <div className="flex flex-col items-center justify-center h-full min-h-screen">

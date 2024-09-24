@@ -47,7 +47,6 @@ function LoginForm() {
       else router.push("/");
       tst.success("Signin success");
     } catch (error) {
-      console.info(error);
       tst.error(error);
     } finally {
       setPending(false);

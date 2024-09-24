@@ -10,6 +10,11 @@ const fetchData = async (url) => {
     return res.json()
 }
 
+export const getAnalytics = async () => {
+    const res = await fetchData(`/analytics`)
+    return res.json()
+}
+
 export const getBlogs = async () => {
     const res = await fetchData(`/blogs`)
     return res.json()

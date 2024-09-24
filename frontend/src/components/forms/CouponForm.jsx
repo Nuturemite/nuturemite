@@ -15,6 +15,10 @@ const initialCouponData = {
   expiryDate: "",
 };
 
+const generateCouponCode = () => {
+  return 'COUPON-' + Math.random().toString(36).substring(2, 8).toUpperCase();
+}
+
 function CouponForm() {
   const [couponData, setCouponData] = useState(initialCouponData);
   const [pending, setPending] = useState(false);
@@ -45,22 +49,27 @@ function CouponForm() {
   };
 
   return (
-    <form className="w-full" onSubmit={handleSubmit}>
+    <form className="p-2 md:p-10 md:max-w-2xl mx-auto" onSubmit={handleSubmit}>
       <div className="grid gap-6 py-4">
         <div>
           <Label htmlFor="code" className="mb-2 block">
             Coupon Code
           </Label>
-          <Input
-            type="text"
-            name="code"
-            value={couponData.code}
-            onChange={handleChange}
-            id="code"
-            disabled={pending}
-            placeholder="Enter coupon code"
-            required
-          />
+         <div className="flex items-center gap-2 ">
+            <Input
+              type="text"
+              name="code"
+              value={couponData.code}
+              onChange={handleChange}
+              id="code"
+              disabled={pending}
+              placeholder="Enter coupon code"
+              required
+            />
+            <Button type="button" onClick={() => setCouponData(prev => ({ ...prev, code: generateCouponCode() }))}>
+              Generate Code
+            </Button>
+         </div>
         </div>
 
         <div>
@@ -68,7 +77,7 @@ function CouponForm() {
             Description
           </Label>
           <Textarea
-            name="description"
+            name="desc"
             value={couponData.description}
             onChange={handleChange}
             disabled={pending}

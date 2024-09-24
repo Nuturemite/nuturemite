@@ -22,6 +22,7 @@ import { Label } from "@/components/ui/label";
 import { tst } from "@/lib/utils";
 import Error from "@/components/shared/error";
 import { Button } from "@/components/ui";
+import { IMAGE_URL } from "@/constants";
 
 const StockUpdateDialog = ({ product, mutate }) => {
   const [pending, setPending] = useState(false);
@@ -98,7 +99,7 @@ const ProductList = ({ searchParams }) => {
         <div className="flex items-center gap-3">
           <img
             className="w-10 h-10 object-cover rounded"
-            src={product?.images[1] || "./noimage.png"}
+            src={`${IMAGE_URL}/${product?.images[1] || "./noimage.png"}`}
             alt="product image"
           />
           <span className="truncate w-60">{product.name}</span>

@@ -20,6 +20,8 @@ import couponRoutes from "./routes/coupon.route.js";
 import addressRoutes from "./routes/address.route.js";
 import { uploadImage } from "./utils/uploadFile.js";
 import blogRoutes from "./routes/blog.route.js";
+import analyticsRoutes from "./routes/analytics.route.js";
+import subscribeRoutes from "./routes/subscribe.route.js";
 dotenv.config();
 
 const app = express();
@@ -29,7 +31,9 @@ app.use(cors({ origin: process.env.CLIENT_URL, credentials: true }));
 app.use(express.json({ limit: "50mb", extended: true }));
 app.use(fileUpload({ limits: { fileSize: 3 * 1024 * 1024 } }));
 
+app.use("/api/analytics", analyticsRoutes);
 app.use("/api/blogs", blogRoutes);
+app.use("/api", subscribeRoutes);
 app.use("/api", addressRoutes);
 app.use("/api", couponRoutes);
 app.use("/api", refundRoutes);
