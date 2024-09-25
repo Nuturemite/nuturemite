@@ -6,6 +6,7 @@ import { useCategories } from "@/lib/data";
 import Link from "next/link";
 import api from "@/lib/api";
 import { useState } from "react";
+import { tst } from "@/lib/utils";
 const Footer = () => {
   const { categories, isLoading } = useCategories();
   const [email, setEmail] = useState("");
@@ -77,13 +78,14 @@ const Footer = () => {
     },
   ];
 
-  const handleSubscribe = async () => {
+  const handleSubscribe = async (e) => {
+    e.preventDefault();
     try {
       const res = await api.post("/subscribe", { email });
-      toast.success("Subscribed successfully");
+      tst.success("Subscribed successfully");
       console.log(res);
     } catch (error) {
-      toast.error("Something went wrong");
+      tst.error("Something went wrong");
       console.log(error);
     }
   };
@@ -147,13 +149,13 @@ const Footer = () => {
                     <div className="flex items-center">
                       <Input
                         type="text"
-                        className="form-control flex-1"
+                        className="text-slate-900"
                         placeholder="Your Email Address"
                         value={email}
                         onChange={e => setEmail(e.target.value)}
                       />
                       <Button className="btn bg-tert-100 text-white ml-2" onClick={handleSubscribe}>
-                        Sign Up
+                        Subscribe
                       </Button>
                     </div>
                   </form>

@@ -22,7 +22,6 @@ export const placeOrder = async (req, res) => {
   try {
     const userId = req.user.id;
     const { paymentMode, shippingAddressId } = req.body;
-    console.log(req.body);
 
     const cart = await getCart(userId);
     validateCart(cart);
@@ -172,7 +171,6 @@ const createShipmentData = order => {
 // Get all orders
 export const getAllOrders = async (req, res) => {
   try {
-    console.log(req.user.vendorId);
     const subOrders = await SubOrder.find({})
       .select("-orderItems")
       .populate("user", "name email")
@@ -192,7 +190,6 @@ export const getMyOrdersAsVendor = async (req, res) => {
       .select("-orderItems")
       .populate("user", "name email")
       .populate("shippingAddress");
-    console.log(subOrders);
     const count = await SubOrder.countDocuments({ vendor: req.user.vendorId });
     res.status(200).json({ data: subOrders, totalItems: count });
   } catch (error) {

@@ -11,22 +11,22 @@ import {
 } from "@/components/ui/chart";
 import Loader from "@/components/shared/loader";
 import Error from "@/components/shared/error";
-import { useSalesAnalytics } from "@/lib/data";
+import { useOrdersAnalytics } from "@/lib/data";
 
 const config = {
-  totalSales: {
-    label: "Total Sales",
+  totalOrders: {
+    label: "Total Orders",
     color: "#34d399",
   },
 };
 
-const SalesChart = ({}) => {
-  const { salesAnalytics, isLoading, error } = useSalesAnalytics();
+const OrderChart = ({}) => {
+  const { ordersAnalytics, isLoading, error } = useOrdersAnalytics();
   if (isLoading) return <Loader />;
   if (error) return <Error />;
   return (
     <ChartContainer config={config} className="max-h-[300px] bg-white">
-      <BarChart data={salesAnalytics} margin={{ top: 20, right: 20, bottom: 20, left: 0 }}>
+      <BarChart data={ordersAnalytics} margin={{ top: 20, right: 20, bottom: 20, left: 0 }}>
         <CartesianGrid vertical={false} strokeDasharray="3 3" />
         <XAxis
           dataKey="month"
@@ -39,10 +39,10 @@ const SalesChart = ({}) => {
         <YAxis tickFormatter={value => `₹${value}`} className="text-gray-600" />
         <Tooltip content={<ChartTooltipContent />} />
         <ChartLegend content={<ChartLegendContent />} />
-        <Bar dataKey="totalSales" fill={config.totalSales.color} />
+        <Bar dataKey="totalOrders" fill={config.totalOrders.color} />
       </BarChart>
     </ChartContainer>
   );
 };
 
-export default SalesChart;
+export default OrderChart;

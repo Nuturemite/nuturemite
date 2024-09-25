@@ -16,7 +16,6 @@ export const getOrderAnalytics = async (req, res) => {
         },
       },
     ]);
-    console.log(totalOrders, totalUsers, totalRevenue, totalPayments);
     res.json({
       data: {
         totalOrders,
@@ -63,8 +62,49 @@ export const getRevenuePerUser = async (req, res) => {
         },
       },
     ]);
-    console.log(revenuePerUser);
     res.json({ data: revenuePerUser });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: error.message });
+  }
+};
+
+export const getSalesAnalytics = async (req, res) => {
+  try {
+    const salesAnalytics = await SubOrder.aggregate([
+      {
+        $group: {
+          _id: "$month",
+          totalSales: { $sum: "$total" },
+        },
+      },
+    ]);
+    res.json({ data: salesAnalytics });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: error.message });
+  }
+};
+
+export const getOrdersAnalytics = async (req, res) => {
+  try {
+    const ordersAnalytics = await SubOrder.aggregate([
+      {
+        $match: {
+          createdAt: {
+            $gte: new Date(new Date().setMonth(new Date().getMonth() - 1)),
+            $lt: new Date(),
+          },
+        },
+      },
+      {
+        $group: {
+          _id: { $month: "$createdAt" },
+          totalOrders: { $sum: 1 },
+        },
+      },
+    ]);
+    res.json({ data: ordersAnalytics });
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: error.message });

@@ -191,6 +191,16 @@ export const useAnalytics = () => {
   return { analytics: data, error, isLoading, mutate };
 };
 
+export const useSalesAnalytics = () => {
+  const { data, error, isLoading, mutate } = useSWRWithParams("/analytics/sales-analytics", fetcher);
+  return { salesAnalytics: data, error, isLoading, mutate };
+};
+
+export const useOrdersAnalytics = () => {
+  const { data, error, isLoading, mutate } = useSWRWithParams("/analytics/orders-analytics", fetcher);
+  return { ordersAnalytics: data, error, isLoading, mutate };
+};
+
 export const useRevenuePerUser = () => {
   const { data, error, isLoading, mutate } = useSWRWithParams("/analytics/revenue-per-user", fetcher);
   return { revenuePerUser: data, error, isLoading, mutate };
