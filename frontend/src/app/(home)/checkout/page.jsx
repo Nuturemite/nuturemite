@@ -46,7 +46,7 @@ export default function Page() {
   const { cartItems } = useCart();
   const [coupon, setCoupon] = useState(null);
   
-  if (cartItems.length === 0) return <EmptyCart />;
+  // if (cartItems.length === 0) return <EmptyCart />;
   if (isAddressLoading) return <Loader />;
 
   const handlePaymentOptionChange = e => {
