@@ -1,7 +1,8 @@
 "use client";
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Input, Label, Button } from "@/components/ui/index";
-
+import api from "@/lib/api";
+import { tst } from "@/lib/utils";
 const ChangePasswordForm = () => {
   const [formData, setFormData] = useState({
     currentPassword: "",
@@ -10,7 +11,7 @@ const ChangePasswordForm = () => {
   });
   const [formEnabled, setFormEnabled] = useState(false);
   const [passwordsMatch, setPasswordsMatch] = useState(true);
-
+  const [pending, setPending] = useState(false);
   const handleInputChange = e => {
     const { name, value } = e.target;
     setFormData(prevData => ({
@@ -19,20 +20,31 @@ const ChangePasswordForm = () => {
     }));
   };
 
-  const handleSubmit = e => {
+  const handleSubmit = async e => {
     e.preventDefault();
     if (formData.newPassword !== formData.confirmNewPassword) {
       setPasswordsMatch(false);
       return;
     }
-    console.log("Submitted Data:", formData);
+    setPending(true);
+    try {
+      await api.put("/vendors/me/password", {
+        currentPassword: formData.currentPassword,
+        newPassword: formData.newPassword,
+      });
+      tst.success("Password updated successfully");
+    } catch (error) {
+      tst.error(error);
+    } finally {
+      setPending(false);
+    }
   };
 
   useEffect(() => {
     setFormEnabled(
       formData.currentPassword.trim() !== "" &&
-      formData.newPassword.trim() !== "" &&
-      formData.confirmNewPassword.trim() !== ""
+        formData.newPassword.trim() !== "" &&
+        formData.confirmNewPassword.trim() !== ""
     );
   }, [formData]);
 
@@ -42,7 +54,9 @@ const ChangePasswordForm = () => {
         <h2 className="h4-primary">Change Password Form</h2>
         <form onSubmit={handleSubmit} className="space-y-6">
           <div className="flex items-center space-x-4">
-            <Label htmlFor="currentPassword" className="w-32 ">Current Password</Label>
+            <Label htmlFor="currentPassword" className="w-32 ">
+              Current Password
+            </Label>
             <Input
               id="currentPassword"
               name="currentPassword"
@@ -53,7 +67,9 @@ const ChangePasswordForm = () => {
             />
           </div>
           <div className="flex items-center space-x-4">
-            <Label htmlFor="newPassword" className="w-32 ">New Password</Label>
+            <Label htmlFor="newPassword" className="w-32 ">
+              New Password
+            </Label>
             <Input
               id="newPassword"
               name="newPassword"
@@ -64,7 +80,9 @@ const ChangePasswordForm = () => {
             />
           </div>
           <div className="flex items-center space-x-4">
-            <Label htmlFor="confirmNewPassword" className="w-32 ">Confirm New Password</Label>
+            <Label htmlFor="confirmNewPassword" className="w-32 ">
+              Confirm New Password
+            </Label>
             <Input
               id="confirmNewPassword"
               name="confirmNewPassword"
@@ -75,7 +93,7 @@ const ChangePasswordForm = () => {
             />
           </div>
           {!passwordsMatch && <p className="text-red-500">Passwords do not match.</p>}
-          <Button type="submit" className="w-full" disabled={!formEnabled}>
+          <Button type="submit" className="w-full" disabled={!formEnabled} pending={pending}>
             Change Password
           </Button>
         </form>

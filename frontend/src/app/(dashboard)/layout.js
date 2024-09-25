@@ -16,7 +16,7 @@ import {
   Minimize2,
   User2,
   User2Icon,
-  Rss
+  Receipt
 } from "lucide-react";
 
 const sidebarItemsVendor = [
@@ -68,11 +68,6 @@ const sidebarItemsVendor = [
     title: "Refunds",
     link: "/vendor/refunds",
   },
-  // {
-  //   icon: User,
-  //   title: "Customers",
-  //   link: "/vendor/users",
-  // },
   {
     icon: List,
     title: "Category",
@@ -82,6 +77,11 @@ const sidebarItemsVendor = [
     icon: User2,
     title: "Profile",
     link: "/vendor/profile/",
+  },
+  {
+    icon: Receipt,
+    title: "Coupons",
+    link: "/vendor/coupons",
   },
   
 ];

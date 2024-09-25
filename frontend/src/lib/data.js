@@ -211,6 +211,15 @@ export const useSubscribers = () => {
   return { subscribers: data, error, isLoading, mutate };
 };
 
+export const useTodayReviews = () => {
+  const { data, error, isLoading, mutate } = useSWRWithParams("/analytics/today-reviews", fetcher);
+  return { todayReviews: data, error, isLoading, mutate };
+};
+
+export const useVendorProfile = () => {
+  const { data, error, isLoading, mutate } = useSWRWithParams("/vendors/me/details", fetcher);
+  return { vendor: data, error, isLoading, mutate };
+};
 
 export const useProducts = (queryParams = {}) => {
   const { data = {}, error, isLoading, mutate } = useSWRWithParams("/products", fetcher2);

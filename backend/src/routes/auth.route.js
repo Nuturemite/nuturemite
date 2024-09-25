@@ -6,6 +6,7 @@ import {
   register,
   registerVendor,
   verifyEmail,
+  updatePassword,
 } from "../controllers/auth.controller.js";
 
 const router = express.Router();
@@ -15,4 +16,5 @@ router.post("/register/vendor", registerVendor);
 router.post("/login", login);
 router.get("/me", isAuth, getCurrentUser);
 router.route("/verify-email").post(verifyEmail).get(verifyEmail);
+router.put("/update-password/:id", updatePassword);
 export default router;

@@ -2,6 +2,8 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import { Input, Label, Button } from "@/components/ui/index";
+import api from "@/lib/api";
+import { tst } from "@/lib/utils";
 
 const AddressForm = () => {
   const [formData, setFormData] = useState({
@@ -11,6 +13,14 @@ const AddressForm = () => {
     postalCode: "",
     country: "",
   });
+  const [pending, setPending] = useState(false);
+  useEffect(() => {
+    const fetchVendorDetails = async () => {
+      const response = await api.get("/vendors/me/details");
+      setFormData(response.data.data.address);
+    };
+    fetchVendorDetails();
+  }, []);
   const [formEnabled, setFormEnabled] = useState(false);
 
   const handleInputChange = e => {
@@ -21,16 +31,24 @@ const AddressForm = () => {
     }));
   };
 
-  const handleSubmit = e => {
+  const handleSubmit = async e => {
     e.preventDefault();
-    console.log("Submitted Data:", formData);
-    // Add your submission logic here
+    try {
+      setPending(true);
+      await api.put("/vendors/me/details", {
+        address: formData,
+      });
+      tst.success("Address updated successfully");
+    } catch (error) {
+      tst.error("Failed to update address");
+      console.error(error);
+    } finally {
+      setPending(false);
+    }
   };
 
   useEffect(() => {
-    setFormEnabled(
-      Object.values(formData).every(value => value.trim() !== "")
-    );
+    setFormEnabled(Object.values(formData).every(value => value.trim() !== ""));
   }, [formData]);
 
   return (
@@ -39,7 +57,9 @@ const AddressForm = () => {
         <h2 className="h4-primary">Address Form</h2>
         <form onSubmit={handleSubmit} className="space-y-6">
           <div className="flex items-center space-x-4">
-            <Label htmlFor="street" className="w-32">Street</Label>
+            <Label htmlFor="street" className="w-32">
+              Street
+            </Label>
             <Input
               id="street"
               name="street"
@@ -49,7 +69,9 @@ const AddressForm = () => {
             />
           </div>
           <div className="flex items-center space-x-4">
-            <Label htmlFor="city" className="w-32">City</Label>
+            <Label htmlFor="city" className="w-32">
+              City
+            </Label>
             <Input
               id="city"
               name="city"
@@ -59,7 +81,9 @@ const AddressForm = () => {
             />
           </div>
           <div className="flex items-center space-x-4">
-            <Label htmlFor="state" className="w-32">State</Label>
+            <Label htmlFor="state" className="w-32">
+              State
+            </Label>
             <Input
               id="state"
               name="state"
@@ -69,7 +93,9 @@ const AddressForm = () => {
             />
           </div>
           <div className="flex items-center space-x-4">
-            <Label htmlFor="postalCode" className="w-32">Postal Code</Label>
+            <Label htmlFor="postalCode" className="w-32">
+              Postal Code
+            </Label>
             <Input
               id="postalCode"
               name="postalCode"
@@ -79,7 +105,9 @@ const AddressForm = () => {
             />
           </div>
           <div className="flex items-center space-x-4">
-            <Label htmlFor="country" className="w-32">Country</Label>
+            <Label htmlFor="country" className="w-32">
+              Country
+            </Label>
             <Input
               id="country"
               name="country"
@@ -88,7 +116,7 @@ const AddressForm = () => {
               className="flex-1"
             />
           </div>
-          <Button type="submit" className="w-full " disabled={!formEnabled}>
+          <Button type="submit" pending={pending} className="w-full " disabled={!formEnabled}>
             Submit
           </Button>
         </form>

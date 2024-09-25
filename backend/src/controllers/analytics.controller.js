@@ -1,4 +1,4 @@
-import { SubOrder, User } from "../models/model.js";
+import { SubOrder, User, Review } from "../models/model.js";
 
 export const getOrderAnalytics = async (req, res) => {
   try {
@@ -105,6 +105,16 @@ export const getOrdersAnalytics = async (req, res) => {
       },
     ]);
     res.json({ data: ordersAnalytics });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: error.message });
+  }
+};
+
+export const getTodayReviews = async (req, res) => {
+  try {
+    const reviews = await Review.find({}).populate("author", "name _id").limit(10);
+    res.json({ data: reviews });
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: error.message });

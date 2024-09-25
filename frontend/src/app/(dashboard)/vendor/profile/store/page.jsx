@@ -1,6 +1,8 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import { Input, Label, Button } from "@/components/ui/index";
+import api from "@/lib/api";
+import { tst } from "@/lib/utils";
 
 const StoreForm = () => {
   const [formData, setFormData] = useState({
@@ -16,7 +18,29 @@ const StoreForm = () => {
       instagram: "",
     },
   });
-  const [formEnabled, setFormEnabled] = useState(false);
+  const [pending, setPending] = useState(false);
+  useEffect(() => {
+    const fetchVendorDetails = async () => {
+      const response = await api.get("/vendors/me/details");
+      setFormData(response.data.data.store);
+    };
+    fetchVendorDetails();
+  }, []);
+  const handleSubmit = async e => {
+    e.preventDefault();
+    try {
+      setPending(true);
+      await api.put("/vendors/me/details", {
+        store: formData,
+      });
+      tst.success("Store updated successfully");
+    } catch (error) {
+      tst.error("Failed to update store");
+      console.error(error);
+    } finally {
+      setPending(false);
+    }
+  };
 
   const handleInputChange = e => {
     const { name, value } = e.target;
@@ -37,10 +61,7 @@ const StoreForm = () => {
     }
   };
 
-  const handleSubmit = e => {
-    e.preventDefault();
-    console.log("Submitted Data:", formData);
-  };
+  const [formEnabled, setFormEnabled] = useState(false);
 
   useEffect(() => {
     const checkFormFilled = () => {

@@ -47,6 +47,20 @@ export const getMyVendorDetails = async (req, res) => {
     }
     res.status(200).json({ data: vendor });
   } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: error.message });
+  }
+};
+
+export const updateMyVendorDetails = async (req, res) => {
+  try {
+    const vendorId = req.user.vendorId;
+    const vendor = await Vendor.findByIdAndUpdate(vendorId, req.body);
+    if (!vendor) {
+      return res.status(404).json({ message: "Vendor with the given ID not found" });
+    }
+    res.status(200).json({ data: vendor });
+  } catch (error) {
     res.status(500).json({ message: error.message });
   }
 };
