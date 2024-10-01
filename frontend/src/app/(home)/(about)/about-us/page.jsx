@@ -36,7 +36,7 @@ const sections = [
         <li>Shipping & Delivery</li>
         <li>Orders History</li>
         <li>Advanced Search</li>
-        <li>Login</li>
+        <li>Login.</li>
       </ul>
     ),
   },
@@ -102,8 +102,9 @@ const sections = [
 
 export const metadata = {
   title: "About Us",
-  description: "Nuturemite is a website that offers credible information, which helps you in making healthy eating choices. It serves as a gateway and provides reliable information on nutrition, healthy eating, physical activity, and food safety for consumers. Our website receives guidance from professionals like doctors, nutritionists, dietitians, fitness gurus, and the best nutrition counselors, who work as a team for making a healthy society.",
-}
+  description:
+    "Nuturemite is a website that offers credible information, which helps you in making healthy eating choices. It serves as a gateway and provides reliable information on nutrition, healthy eating, physical activity, and food safety for consumers. Our website receives guidance from professionals like doctors, nutritionists, dietitians, fitness gurus, and the best nutrition counselors, who work as a team for making a healthy society.",
+};
 
 const AboutUs = () => {
   return (
@@ -113,12 +114,16 @@ const AboutUs = () => {
         <section key={index} className="mb-12">
           <h2 className="text-2xl font-semibold mb-4">{section.title}</h2>
           <div className="text-lg mb-4">
-            {typeof section.content === "string" ? section.content : section.content}
+            {typeof section.content === "string"
+              ? section.content
+              : section.content}
           </div>
         </section>
       ))}
       <footer className="text-center mt-8">
-        <p className="text-lg text-gray-600">&copy; 2024 Nuturemite. All Rights Reserved.</p>
+        <p className="text-lg text-gray-600">
+          &copy; 2024 Nuturemite. All Rights Reserved.
+        </p>
       </footer>
     </div>
   );
