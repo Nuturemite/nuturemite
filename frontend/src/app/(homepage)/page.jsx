@@ -1,9 +1,8 @@
-"use client";
+'use client'
 import { Featured } from "./components/features";
 import { Categories } from "./components/categories";
 import { Hero } from "./components/hero";
 import { RecentProducts } from "./components/recent";
-import { Offer } from "./components/offer";
 import { FeaturedProducts } from "./components/featured";
 import Head from "next/head";
 export default function Page() {
@@ -34,9 +33,6 @@ export default function Page() {
               <RecentProducts />
             </div>
           </div>
-          {/* <div className="px-16">
-          <Offer />
-        </div> */}
           <div className="px-16">
             <FeaturedProducts />
           </div>

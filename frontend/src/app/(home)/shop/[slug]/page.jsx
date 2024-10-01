@@ -94,10 +94,6 @@ export default function Product({ params }) {
 
             <div>
               <p className="text-slate-600 mt-2 mb-8">{product.description}</p>
-              {/* <p className="text-slate-600 mt-2 mb-8">
-                <strong>Keywords: </strong>
-                {product.keywords}
-              </p> */}
               <p className="text-slate-600 mt-2 mb-8">
                 <strong>Categories: </strong>
                 {product.categories.map(category => category.name).join(", ")}
