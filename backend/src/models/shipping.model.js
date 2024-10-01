@@ -19,17 +19,6 @@ export const ShippingSchema = new Schema(
     
     status: {
       type: String,
-      enum: [
-        "pending",
-        "picked",
-        "booked",
-        "shipped",
-        "in-transit",
-        "out-for-delivery",
-        "delivered",
-        "returned",
-        "cancelled",
-      ],
       default: "pending",
     },
     shippedAt: Date,

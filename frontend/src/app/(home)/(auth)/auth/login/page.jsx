@@ -40,14 +40,13 @@ function LoginForm() {
         localStorage.setItem("token", token);
       }
       login();
-      await api.post("/cart/save", { cartItems: cart });
+      if(cart.length > 0) await api.post("/cart/save", { cartItems: cart });
       emptyCart();
       if (user.role === "vendor" && vendor || user.role === "admin") router.push("/vendor");
       else if (user.role === "vendor") router.push("/vendor-register");
       else router.push("/");
       tst.success("Signin success");
     } catch (error) {
-      console.info(error);
       tst.error(error);
     } finally {
       setPending(false);

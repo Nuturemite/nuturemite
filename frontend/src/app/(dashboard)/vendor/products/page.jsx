@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import api from "@/lib/api";
-import { useProducts } from "@/lib/data";
+import { useMyVendorProducts } from "@/lib/data";
 import DataTable from "@/components/tables/DataTable";
 import { tst } from "@/lib/utils";
 import Error from "@/components/shared/error";
@@ -13,6 +13,8 @@ import { AlertBox } from "@/components/ui/alert-dialog";
 import OutLoader from "@/components/ui/outloader";
 import { useSearchParams } from "next/navigation";
 import { Switch } from "@mui/material";
+import { IMAGE_URL } from "@/constants";
+import { useAuthContext } from "@/context/authprovider";
 
 const ProductList = () => {
   const searchParams = useSearchParams();
@@ -20,8 +22,14 @@ const ProductList = () => {
     search: searchParams.get("search"),
     apvStatus: searchParams.get("apvStatus"),
   };
+  const { user } = useAuthContext();
+  const vendorId = user?.vendorId;
   const apvStatus = searchParams.get("apvStatus");
-  const { products, error, isLoading, mutate } = useProducts({ limit: 50, ...filters });
+  const { products, error, isLoading, mutate } = useMyVendorProducts({
+    limit: 50,
+    ...filters,
+    vendorId: vendorId,
+  });
   const [pending, setPending] = useState(false);
 
   const handleProductDelete = async id => {
@@ -51,7 +59,6 @@ const ProductList = () => {
     }
   };
 
-
   if (error) return <Error />;
 
   const columns = [
@@ -62,7 +69,7 @@ const ProductList = () => {
         <div className="flex items-center gap-3">
           <img
             className="w-10 h-10 object-cover rounded"
-            src={item.images[1] || "./noimage.png"}
+            src={`${IMAGE_URL}/${item.images[0]}` || "./noimage.png"}
             alt="product image"
           />
           <span className="truncate w-60">{item.name}</span>

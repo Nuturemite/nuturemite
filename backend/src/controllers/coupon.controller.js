@@ -2,6 +2,9 @@ import { Coupon } from "../models/model.js";
 
 export const createCoupon = async (req, res) => {
     try {
+        if(req.user.vendorId) {
+            req.body.vendor = req?.user?.vendorId;
+        }
         const coupon = new Coupon(req.body);
         await coupon.save();
         res.status(201).json({ message: "Coupon created successfully!", data: coupon });
@@ -58,3 +61,4 @@ export const deleteCoupon = async (req, res) => {
         res.status(500).json({ message: error.message });
     }
 }
+

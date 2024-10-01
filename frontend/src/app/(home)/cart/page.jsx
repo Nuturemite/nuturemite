@@ -20,6 +20,8 @@ import { useAuthContext } from "@/context/authprovider";
 import OutLoader from "@/components/ui/outloader";
 import { useCartContext } from "@/context/cartprovider";
 import { useLayoutEffect } from "react";
+import { IMAGE_URL } from "@/constants";
+
 const ShoppingCart = () => {
   const { isAuthenticated = false } = useAuthContext();
   const { cartItems: onlineCart, isLoading, error, mutate } = useCart(isAuthenticated);
@@ -75,7 +77,7 @@ const ShoppingCart = () => {
               <li key={cartItem._id} className="flex p-4 bg-white">
                 <div className="h-24 w-24 flex-shrink-0 overflow-hidden border border-gray-200">
                   <img
-                    src={cartItem.product?.images[1] || "/test1.png"}
+                    src={`${IMAGE_URL}/${cartItem.product.images[0]}` || "/test1.png"}
                     className="h-full w-full object-cover object-center"
                   />
                 </div>
@@ -83,7 +85,7 @@ const ShoppingCart = () => {
                 <div className="ml-4 flex flex-1 flex-col">
                   <div>
                     <div className="flex justify-between text-base font-medium text-gray-900">
-                      <h3>{cartItem.product.name}</h3>
+                    <Link href={`/shop/${cartItem.product.slug}`}>  <h3>{cartItem.product.name}</h3></Link>
                       <div>
                         <span className="ml-6"> &#8377;{cartItem.product.price}</span>
                         <span className="ml-2 line-through text-sm text-red-600">

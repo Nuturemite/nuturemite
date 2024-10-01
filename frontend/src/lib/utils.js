@@ -7,7 +7,6 @@ export function cn(...inputs) {
 }
 
 function error(error) {
-  console.log(error);
   toast.error(
     error?.response?.data?.message ? error.response.data.message : "Something went wrong"
   );
@@ -24,7 +23,6 @@ export const asyncHandler = async (callback, message) => {
     await callback();
     tst.success(message);
   } catch (error) {
-    console.log(error);
     tst.error(error);
   }
 };
@@ -38,5 +36,4 @@ export const formatString = (str) => {
 
 const downloadInvoice = async (id) => {
   const res = await api.get(`/api/orders/invoice/${id}`);
-  console.log(res);
 };

@@ -2,25 +2,26 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import { Input, Label, Button } from "@/components/ui/index";
+import api from "@/lib/api";
 
 const ProfilePage = () => {
   const [image, setImage] = useState(null);
+
   const [formData, setFormData] = useState({
-    username: "",
+    name: "",
+    businessName: "",
     contactNumber: "",
-    email: "",
   });
   const [originalData, setOriginalData] = useState({ ...formData });
   const [formEnabled, setFormEnabled] = useState(false);
-
+  const [pending, setPending] = useState(false);
   useEffect(() => {
-    const fetchedData = {
-      username: "JohnDoe",
-      contactNumber: "123-456-7890",
-      email: "john.doe@example.com",
+    const fetchVendorDetails = async () => {
+      const response = await api.get("/vendors/me/details");
+      setFormData(response.data.data);
+      setOriginalData(response.data.data);
     };
-    setFormData(fetchedData);
-    setOriginalData(fetchedData);
+    fetchVendorDetails();
   }, []);
 
   useEffect(() => {
@@ -41,10 +42,19 @@ const ProfilePage = () => {
     }));
   };
 
-  const handleSubmit = e => {
+  const handleSubmit = async e => {
     e.preventDefault();
     if (formEnabled) {
+      setPending(true);
       setOriginalData(formData);
+      try {
+        const response = await api.put("/vendors/me/details", formData);
+        console.log(response);
+      } catch (error) {
+        console.log(error);
+      } finally {
+        setPending(false);
+      }
     }
   };
 
@@ -67,22 +77,25 @@ const ProfilePage = () => {
               onChange={handleImageChange}
             />
           </label>
-          <h2 className="mt-4 text-2xl font-semibold">JohnDoe</h2>
-          <p className="text-gray-500">User Role: Admin</p>
+          <h2 className="mt-4 text-2xl font-semibold">{formData.name}</h2>
         </div>
         <form onSubmit={handleSubmit} className="space-y-6">
           <div className="flex items-center space-x-4">
-            <Label htmlFor="username" className="w-32 ">Username</Label>
+            <Label htmlFor="name" className="w-32 ">
+              Name
+            </Label>
             <Input
-              id="username"
-              name="username"
-              value={formData.username}
+              id="name"
+              name="name"
+              value={formData.name}
               onChange={handleInputChange}
               className="flex-1"
             />
           </div>
           <div className="flex items-center space-x-4">
-            <Label htmlFor="contactNumber" className="w-32 ">Contact Number</Label>
+            <Label htmlFor="contactNumber" className="w-32 ">
+              Contact Number
+            </Label>
             <Input
               id="contactNumber"
               name="contactNumber"
@@ -92,12 +105,13 @@ const ProfilePage = () => {
             />
           </div>
           <div className="flex items-center space-x-4">
-            <Label htmlFor="email" className="w-32 ">Email</Label>
+            <Label htmlFor="businessName" className="w-32 ">
+              Business Name
+            </Label>
             <Input
-              id="email"
-              name="email"
-              type="email"
-              value={formData.email}
+              id="businessName"
+              name="businessName"
+              value={formData.businessName}
               onChange={handleInputChange}
               className="flex-1"
             />

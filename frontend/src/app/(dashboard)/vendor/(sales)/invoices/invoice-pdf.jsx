@@ -1,25 +1,34 @@
 "use client";
 import React from "react";
-import { Page, Text, View, Document, StyleSheet } from "@react-pdf/renderer";
+import { Page, Text, View, Document, StyleSheet, Tspan } from "@react-pdf/renderer";
 
 const Invoice = ({ invoiceData }) => {
-  console.log(invoiceData);
   const styles = StyleSheet.create({
     page: {
       padding: 30,
       fontFamily: "Helvetica",
     },
     header: {
-      fontSize: 24,
+      fontSize: 20,
       textAlign: "center",
       marginBottom: 20,
+      textTransform: "uppercase",
     },
-    section: {
+    invoiceDetails: {
+      fontSize: 12,
+      marginBottom: 15,
+    },
+    soldBySection: {
+      fontSize: 12,
       marginBottom: 10,
+    },
+    buyerSection: {
+      fontSize: 12,
+      marginBottom: 20,
     },
     table: {
       display: "table",
-      width: "100%", // Ensure table width is 100% of page
+      width: "100%",
       borderStyle: "solid",
       borderWidth: 1,
       borderRightWidth: 0,
@@ -28,88 +37,157 @@ const Invoice = ({ invoiceData }) => {
     },
     tableRow: {
       flexDirection: "row",
-      borderBottomWidth: 1, // Add border to rows for better separation
-      borderBottomStyle: "solid",
     },
-    tableCol: {
-      flex: 1, // Distribute space equally among columns
+    tableColHeader: {
+      flex: 1,
+      backgroundColor: "#f2f2f2",
       borderStyle: "solid",
       borderWidth: 1,
       borderLeftWidth: 0,
       borderTopWidth: 0,
       padding: 5,
-      minWidth: 100, // Set a minimum width for better visibility
+    },
+    tableCol: {
+      flex: 1,
+      borderStyle: "solid",
+      borderWidth: 1,
+      borderLeftWidth: 0,
+      borderTopWidth: 0,
+      padding: 5,
+      minWidth: 100,
     },
     tableCell: {
-      textAlign: "left",
+      fontSize: 10,
+    },
+    summary: {
+      marginTop: 20,
       fontSize: 12,
     },
     total: {
       textAlign: "right",
-      fontSize: 18,
+      fontSize: 16,
       marginTop: 10,
+      fontWeight: "bold",
     },
-    shippingAddress: {
+    footer: {
+      fontSize: 10,
       marginTop: 20,
-      fontSize: 12,
+      textAlign: "center",
     },
   });
+
   return (
     <Document>
       <Page size="A4" style={styles.page}>
-        <Text style={styles.header}>Invoice</Text>
-        <View style={styles.section}>
-          <Text>
-            Customer: {invoiceData.shippingAddress.fname + " " + invoiceData.shippingAddress.lname}
-          </Text>
+        <Text style={styles.header}>Tax Invoice</Text>
+
+        {/* Invoice and Order Information */}
+        <View style={styles.invoiceDetails}>
+          {/* <Text>Invoice No.: C026882400000043</Text> */}
           <Text>Date: {new Date(invoiceData.createdAt).toLocaleDateString()}</Text>
+          <Text>Order ID: {invoiceData._id}</Text>
         </View>
+
+        {/* Seller Information */}
+        <View style={styles.soldBySection}>
+          <Text>Sold By</Text>
+          <Text>Nuturemite</Text>
+          <Text>FSSAI License No: 13622999000359</Text>
+          <Text>GST: 36AAUFN0688F1ZS</Text>
+          <Text>
+            Address: 5-36-226/Nr 2nd Floor, Balnagar Prashanth Nagar Kukatpallyt, Hyderabad,
+            Telangana, 500072
+          </Text>
+        </View>
+
+        {/* Buyer Information */}
+        <View style={styles.buyerSection}>
+          <Text>Sold By</Text>
+          <Text>
+            {invoiceData.shippingAddress.fname} {invoiceData.shippingAddress.lname}
+          </Text>
+          <Text>
+            Address: {invoiceData.shippingAddress.address}, {invoiceData.shippingAddress.city},{" "}
+            {invoiceData.shippingAddress.state}, {invoiceData.shippingAddress.zipcode}
+          </Text>
+          <Text>Phone: {invoiceData.shippingAddress.phone}</Text>
+        </View>
+
+        {/* Product Table */}
         <View style={styles.table}>
           <View style={styles.tableRow}>
-            <View style={{ ...styles.tableCol, flex: 9 }}>
-              <Text style={styles.tableCell}>Item</Text>
+            <View style={styles.tableColHeader}>
+              <Text style={styles.tableCell}>Product</Text>
             </View>
-            <View style={{ ...styles.tableCol, flex: 1 }}>
-              <Text style={styles.tableCell}>Quantity</Text>
+            <View style={styles.tableColHeader}>
+              <Text style={styles.tableCell}>Qty</Text>
             </View>
-            <View style={{ ...styles.tableCol, flex: 1 }}>
-              <Text style={styles.tableCell}>Price</Text>
+            <View style={styles.tableColHeader}>
+              <Text style={styles.tableCell}>MRP</Text>
             </View>
-            <View style={{ ...styles.tableCol, flex: 1 }}>
+            <View style={styles.tableColHeader}>
+              <Text style={styles.tableCell}>Discount</Text>
+            </View>
+            <View style={styles.tableColHeader}>
               <Text style={styles.tableCell}>Total</Text>
             </View>
           </View>
+
           {invoiceData.orderItems.map((item, index) => (
             <View style={styles.tableRow} key={index}>
-              <View style={{ ...styles.tableCol, flex: 9 }}>
+              <View style={styles.tableCol}>
                 <Text style={styles.tableCell}>{item.product.name}</Text>
               </View>
-              <View style={{ ...styles.tableCol, flex: 1 }}>
+              <View style={styles.tableCol}>
                 <Text style={styles.tableCell}>{item.quantity}</Text>
               </View>
-              <View style={{ ...styles.tableCol, flex: 1 }}>
-                <Text style={styles.tableCell}>{item.unitPrice}</Text>
+              <View style={styles.tableCol}>
+                <Text style={styles.tableCell}>{item.product.mrp}</Text>
               </View>
-              <View style={{ ...styles.tableCol, flex: 1 }}>
+              <View style={styles.tableCol}>
+                <Text style={styles.tableCell}>{item.product.discount}</Text>
+              </View>
+              <View style={styles.tableCol}>
                 <Text style={styles.tableCell}>{item.totalPrice}</Text>
               </View>
             </View>
           ))}
         </View>
-        <Text style={styles.total}>Total: {invoiceData.total}</Text>
-        <View style={styles.shippingAddress}>
-          <Text>Shipping Address:</Text>
-          <Text>
-            {invoiceData.shippingAddress.fname} {invoiceData.shippingAddress.lname}
-          </Text>
-          <Text>{invoiceData.shippingAddress.address}</Text>
-          <Text>
-            {invoiceData.shippingAddress.city}, {invoiceData.shippingAddress.state}{" "}
-            {invoiceData.shippingAddress.zipcode}
-          </Text>
-          <Text>Email: {invoiceData.shippingAddress.email}</Text>
-          <Text>Phone: {invoiceData.shippingAddress.phone}</Text>
+
+        {/* Total and Summary */}
+        <View style={styles.table}>
+          <View style={styles.tableRow}>
+            <View style={styles.tableColHeader}>
+              <Text style={styles.tableCell}>Gross Amount</Text>
+            </View>
+            <View style={styles.tableColHeader}>
+              <Text style={styles.tableCell}>Discount Amount</Text>
+            </View>
+            <View style={styles.tableColHeader}>
+              <Text style={styles.tableCell}>Bill Amount</Text>
+            </View>
+            <View style={styles.tableColHeader}>
+              <Text style={styles.tableCell}>Payable Amount</Text>
+            </View>
+          </View>
+          <View style={styles.tableRow}>
+            <View style={styles.tableCol}>
+              <Text style={styles.tableCell}>₹{invoiceData.subTotal}</Text>
+            </View>
+            <View style={styles.tableCol}>
+              <Text style={styles.tableCell}>₹{invoiceData.discount}</Text>
+            </View>
+            <View style={styles.tableCol}>
+              <Text style={styles.tableCell}>₹{invoiceData.subTotal - invoiceData.discount}</Text>
+            </View>
+            <View style={styles.tableCol}>
+              <Text style={styles.tableCell}>₹{Math.round(invoiceData.total)}</Text>
+            </View>
+          </View>
         </View>
+
+        {/* Footer */}
+        <Text style={styles.footer}>All disputes subject to Hyderabad jurisdiction</Text>
       </Page>
     </Document>
   );

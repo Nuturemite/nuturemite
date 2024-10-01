@@ -1,0 +1,1746 @@
+[
+  {
+    "_id": {
+      "$oid": "6698b519d18d60d47a344df9"
+    },
+    "vendor": {
+      "$oid": "669889c7d18d60d47a344db3"
+    },
+    "sku": "NM/S-4",
+    "name": "Nano curcumin piperine 60 Veg capsules",
+    "quantity": 0,
+    "price": 669,
+    "description": "Curcumin is the principle curcuminoid of turmeric and powerful antioxidant, which has less bio availability because of low water solubility. Nanocurcumin, which has high bioavailability than curcumin 95% extract. Piperine (black pepper extract) that promotes absorption of nutrients in the digestive tract. Nanocurcumin with Piperine has anti-inflammatory properties to help relieve joint pain and provides strong immunity.",
+    "details": [
+      {
+        "name": "Benefits",
+        "value": "100% Natural and vegetarian\nNanoCurcumin has high bioavailability than curcumin 95%\nPiperine Enhances the activity of Curcumin\nSuper Antioxidant, help to fight free radicals\nImmune booster",
+        "_id": {
+          "$oid": "66b33b15777863d9ca4eaddc"
+        }
+      },
+      {
+        "name": "Use Instruction",
+        "value": "Consume One capsules once daily or as suggested by the Physician or Nutritionist",
+        "_id": {
+          "$oid": "66b33b15777863d9ca4eaddd"
+        }
+      },
+      {
+        "name": "Safety Precaution",
+        "value": "Read the label carefully before use\nStore in a cool dry place away from direct sunlight\nKeep out of reach of the children",
+        "_id": {
+          "$oid": "66b33b15777863d9ca4eadde"
+        }
+      },
+      {
+        "name": "Ingredients",
+        "value": "Nanocurcumin extract, Piperine extract",
+        "_id": {
+          "$oid": "66b33b15777863d9ca4eaddf"
+        }
+      }
+    ],
+    "keywords": "curcumin curcuminoid turmeric turmeric extract turmeric powder piperine biopiperine black pepper boswellia natural curcumin nano curcumin antioxidant super antioxidant free radical high bioavailability anti-inflammatory joint health joint pain inflammation brain health heart health cardiovascular liver health immune health",
+    "categories": [
+      {
+        "$oid": "6698ad5fd18d60d47a344dd6"
+      },
+      {
+        "$oid": "6698ad5fd18d60d47a344dd8"
+      }
+    ],
+    "images": [
+      "Nano_Curcumin_Pepperine_3_Mockup_u1ctqc.jpg",
+      "Nano_Curcumin_Pepperine_Banner_vcwe9s.jpg",
+      "Nano_Curcumin_Pepperine_BK_Mockup_xcqiwm.jpg",
+      "Nano_Curcumin_Pepperine_FNT_Mockup_qfcy44.jpg",
+      "Nano_Curcumin_Pepperine_MID_Mockup_t1wuh1.jpg"
+    ],
+    "updatedAt": {
+      "$date": "2024-09-20T16:20:38.857Z"
+    },
+    "brand": {
+      "$oid": "66987df7c8d737564c027967"
+    },
+    "approvalStatus": "pending",
+    "status": "active",
+    "stockLimit": 0,
+    "shippingDetails": {
+      "dimensions": {}
+    },
+    "active": true,
+    "apvStatus": "approved",
+    "featured": true,
+    "mrp": 743,
+    "slug": "nano-curcumin-piperine-60-veg-capsules"
+  },
+  {
+    "_id": {
+      "$oid": "6698b519d18d60d47a344df8"
+    },
+    "vendor": {
+      "$oid": "669889c7d18d60d47a344db3"
+    },
+    "sku": "NM/S-5",
+    "name": "Cranberry 500 mg 60 Veg capsules",
+    "quantity": 0,
+    "price": 584,
+    "description": "Cranberry is a natural antioxidant, Detoxifier and it contain Vitamin C and E, Vitamin C supports immune system and Vitamn E helps fight cell damage free radical in the bosy. Cranberry prevents the urinary tract infection, reduces the risk of kidney stomes. Cranberry promotes oral care",
+    "details": [
+      {
+        "name": "Benefits",
+        "value": "It contains 100% natural and safe Ingredients extracted from natural sources\nImproves kidneys function\nPrevents urinary tract infection\nImmune Health\nHealthy digestive tract\n",
+        "_id": {
+          "$oid": "66b3a3fce62374fe404f3b8d"
+        }
+      },
+      {
+        "name": "Use Instruction",
+        "value": "Consume One capsules once daily or as suggested by the Physician or Nutritionist",
+        "_id": {
+          "$oid": "66b3a3fce62374fe404f3b8e"
+        }
+      },
+      {
+        "name": "Safety Precaution",
+        "value": "Read the label carefully before use\nStore in a cool dry place away from direct sunlight\nKeep out of reach of the children",
+        "_id": {
+          "$oid": "66b3a3fce62374fe404f3b8f"
+        }
+      },
+      {
+        "name": "Ingredients",
+        "value": "Cranberry Extract",
+        "_id": {
+          "$oid": "66b3a3fce62374fe404f3b90"
+        }
+      }
+    ],
+    "keywords": "Cranberry antioxidant urinary tract kidney stones health immune health detoxifier heart risk uti vitamins minerals urinary tract infections healthy urinary tract digestive health proanthocyanidins cranberry fruit cranberry fruit gut health cognitive health improves skin health",
+    "categories": [
+      {
+        "$oid": "6698ad5fd18d60d47a344dd6"
+      },
+      {
+        "$oid": "6698ad5fd18d60d47a344ddc"
+      }
+    ],
+    "images": [
+      "Cran_Berry_3_Mockup_dnbbck.jpg",
+      "Cran_Berry_Banner_syecs8.jpg",
+      "Cran_Berry_Mockup_Bk_tnyhvn.jpg",
+      "Cran_Berry_Mockup_Fnt_guu6so.jpg",
+      "Cran_Berry_Mockup_Mid_socjgi.jpg"
+    ],
+    "updatedAt": {
+      "$date": "2024-09-20T16:29:19.893Z"
+    },
+    "brand": {
+      "$oid": "66987df7c8d737564c027967"
+    },
+    "approvalStatus": "pending",
+    "status": "active",
+    "stockLimit": 0,
+    "shippingDetails": {
+      "dimensions": {}
+    },
+    "active": true,
+    "apvStatus": "approved",
+    "featured": true,
+    "mrp": 649,
+    "slug": "cranberry-500-mg-60-veg-capsules"
+  },
+  {
+    "_id": {
+      "$oid": "6698b519d18d60d47a344df7"
+    },
+    "vendor": {
+      "$oid": "669889c7d18d60d47a344db3"
+    },
+    "sku": "NM/S-7",
+    "name": "Co Enzyme Q10 120 mg 60 Veg capsules",
+    "quantity": 15,
+    "price": 1130,
+    "description": "Co-Enzyme Q10 (COQ10) is fat-soluble vitamin like substance and super antioxidant, which protect the cells from damage and plays an important role in metabolism. Co enzyme Q10 has many health Benefits",
+    "details": [
+      {
+        "name": "Benefits",
+        "value": "Co enzyme Q10 is a super antioxidant\nCoQ10 can help lower oxidative damage, promote exercise capacity and decrease fatigue\nCoQ10 can help increase insulin sensitivity and improve blood sugar levels\n\tCoQ10 reduces inflammation"
+      },
+      {
+        "name": "Use Instruction",
+        "value": "Consume One capsules once daily or as suggested by the Physician or Nutritionist"
+      },
+      {
+        "name": "Safety Precaution",
+        "value": "Read the label carefully before use\nStore in a cool dry place away from direct sunlight\nKeep out of reach of the children"
+      },
+      {
+        "name": "Ingredients",
+        "value": "Co enzyme q10"
+      }
+    ],
+    "keywords": "Co Enzyme Q10",
+    "categories": [
+      {
+        "$oid": "6698ad5fd18d60d47a344dd6"
+      }
+    ],
+    "images": [
+      "Co_Enzyme_3_Mockup_nb8enm.jpg",
+      "Co_Enzyme_Mockup_Bk_kdsyj1.jpg",
+      "Co_Enzyme_Mockup_Fnt_acrnww.jpg",
+      "Co_Enzyme_Mockup_Mid_fgvg0l.jpg",
+      "Co_enzyme_Q10_Banner_cj0wzf.jpg"
+    ],
+    "updatedAt": {
+      "$date": "2024-09-20T16:29:23.848Z"
+    },
+    "brand": {
+      "$oid": "66987df7c8d737564c027967"
+    },
+    "approvalStatus": "pending",
+    "status": "active",
+    "stockLimit": 0,
+    "active": true,
+    "apvStatus": "approved",
+    "featured": true,
+    "mrp": 1255,
+    "slug": "co-enzyme-q10-120-mg-60-veg-capsules"
+  },
+  {
+    "_id": {
+      "$oid": "6698b519d18d60d47a344dec"
+    },
+    "vendor": {
+      "$oid": "669889c7d18d60d47a344db3"
+    },
+    "sku": "NM/S-8",
+    "name": "AstaReal - Astaxanthin 6 mg 60 Veg Capsules",
+    "quantity": 82,
+    "price": 464,
+    "description": "AstaReal-Astaxanthin is a natural from haematococcus pluvialis, it is super antioxidnat. Astaxanthin has many health Benefits like immune health, muscle endurance, brain health, Vision & Eye health, gastric healt, Skin health\n",
+    "details": [
+      {
+        "name": "Benefits",
+        "value": "AstaReal-Astaxanthin is a natural from haematococcus pluvialis\nAstaReal-Astaxanthin from Japan clinically proven for many health Benefits\nAstaReal-Astaxanthin powerful antioxidant for eye and skin health"
+      },
+      {
+        "name": "Use Instruction",
+        "value": "Consume One capsules once daily or as suggested by the Physician or Nutritionist"
+      },
+      {
+        "name": "Safety Precaution",
+        "value": "Read the label carefully before use\nStore in a cool dry place away from direct sunlight\nKeep out of reach of the children"
+      },
+      {
+        "name": "Ingredients",
+        "value": "AstaReal-Astaxanthin"
+      }
+    ],
+    "keywords": "Astareal, Astaxanthin",
+    "categories": [
+      {
+        "$oid": "6698ad5fd18d60d47a344dd6"
+      },
+      {
+        "$oid": "6698ad5fd18d60d47a344de1"
+      }
+    ],
+    "images": [
+      "Astazanthin_7_3_Mockup_fwlere.jpg",
+      "Astazanthin_7_Mockup_Bk_dhuzzt.jpg",
+      "Astazanthin_7_Mockup_Fnt_lgt2g4.jpg",
+      "Astazanthin_7_Mockup_Mid_kicawx.jpg"
+    ],
+    "updatedAt": {
+      "$date": "2024-09-20T16:20:39.824Z"
+    },
+    "approvalStatus": "pending",
+    "brand": {
+      "$oid": "66987df7c8d737564c027967"
+    },
+    "status": "active",
+    "stockLimit": 0,
+    "active": true,
+    "apvStatus": "approved",
+    "featured": true,
+    "mrp": 516,
+    "slug": "astareal-astaxanthin-6-mg-60-veg-capsules"
+  },
+  {
+    "_id": {
+      "$oid": "6698b519d18d60d47a344ded"
+    },
+    "vendor": {
+      "$oid": "669889c7d18d60d47a344db3"
+    },
+    "sku": "NM/S-9",
+    "name": "AstaReal - Astaxanthin 7 mg, DHA, Glutathione, Lutein 60 Veg capsules",
+    "quantity": 0,
+    "price": 557,
+    "description": "AstaReal-Astaxanthin is a natural from haematococcus pluvialis, it is super antioxidnat. Astaxanthin in combination with Docosahexaenoic acid, Glutathione, Lutein has many health benefits like immune health, muscle endurance, brain health, Vision & Eye health, gastric healt, Skin health",
+    "details": [
+      {
+        "name": "Benefits",
+        "value": "AstaReal-Astaxanthin is a natural from haematococcus pluvialis\nAstaReal-Astaxanthin from Japan clinically proven for many health Benefits\nAstaReal-Astaxanthin powerful antioxidant for eye and skin health"
+      },
+      {
+        "name": "Use Instruction",
+        "value": "Consume One capsules once daily or as suggested by the Physician or Nutritionist"
+      },
+      {
+        "name": "Safety Precaution",
+        "value": "Read the label carefully before use\nStore in a cool dry place away from direct sunlight\nKeep out of reach of the children"
+      },
+      {
+        "name": "Ingredients",
+        "value": "AstaReal-Astaxanthin"
+      }
+    ],
+    "keywords": "Astareal, Astaxanthin, Docosahexaenoic acid, Glutathione, Lutein ",
+    "categories": [
+      {
+        "$oid": "6698ad5fd18d60d47a344dd6"
+      },
+      {
+        "$oid": "6698ad5fd18d60d47a344dda"
+      }
+    ],
+    "images": [
+      "Astazanthin_3_Mockup_ztwipp.jpg",
+      "Astazanthin_Mockup_Bk_z2fyty.jpg",
+      "Astazanthin_Mockup_Fnt_vsd8vl.jpg",
+      "Astazanthin_Mockup_Mid_utag7j.jpg"
+    ],
+    "updatedAt": {
+      "$date": "2024-09-20T16:20:39.700Z"
+    },
+    "approvalStatus": "pending",
+    "brand": {
+      "$oid": "66987df7c8d737564c027967"
+    },
+    "status": "active",
+    "stockLimit": 0,
+    "active": true,
+    "apvStatus": "approved",
+    "featured": false,
+    "mrp": 619,
+    "slug": "astareal-astaxanthin-7-mg-dha-glutathione-lutein-60-veg-capsules"
+  },
+  {
+    "_id": {
+      "$oid": "66a7a0e5f687992d038b151a"
+    },
+    "vendor": {
+      "$oid": "669889c7d18d60d47a344db3"
+    },
+    "sku": "NM/S-10",
+    "name": "Glutathione, Vitamin C, Hyaluronic acid, Aloevera, Blueberry, Vitamin E - Effervescent tablets - 20 Orange flavor for skin Health",
+    "quantity": 0,
+    "price": 799,
+    "description": "sku Glutathione, Vitamin C, Hyaluronic acid, Aloevera, Blueberry, Vitamin E - Effervescent tablets are good antioxidant, anti-aging product. This combination regulates melanin synthesis, which helps in reducing pigmentation. It helps in reducing wrinkles and increases skin elasticity and provide healthy looking skin.",
+    "details": [
+      {
+        "name": "Benefits",
+        "value": "Brightening and Even Skin Tone: This product to reduce melanin production, encouraging lighter melanin formation, which results in a brighter and more even skin tone\nIncreased Collagen Production: The combination of Glutathione and Vitamin C boosts collagen production in the body, promoting youthful and healthy skin\nSkin Moisturization: Hyaluronic Acid helps keep the skin moisturized, which is further enhanced by Vitamin C's ability to protect from sun damage and help fade skin discoloration\nImproved Skin Luminosity and Reduced Imperfections: Some formulations are clinically proven to increase skin luminosity and reduce skin imperfections",
+        "_id": {
+          "$oid": "66b33b26777863d9ca4eae47"
+        }
+      },
+      {
+        "name": "Use Instruction",
+        "value": "Consume One Tablet daily or as suggested by the Physician or Nutritionist",
+        "_id": {
+          "$oid": "66b33b26777863d9ca4eae48"
+        }
+      },
+      {
+        "name": "Safety Precaution",
+        "value": "Read the label carefully before use\nStore in a cool dry place away from direct sunlight\nKeep out of reach of the children",
+        "_id": {
+          "$oid": "66b33b26777863d9ca4eae49"
+        }
+      },
+      {
+        "name": "Ingredients",
+        "value": "Glutathione, Vitamin C, Hyaluronic acid, Aloevera, Blueberry, Vitamin E",
+        "_id": {
+          "$oid": "66b33b26777863d9ca4eae4a"
+        }
+      }
+    ],
+    "keywords": "Glutathione effervescent tablets, Antioxidant effervescent tablets, Skin hydration tablets, Immune support, Anti-aging, ",
+    "categories": [
+      {
+        "$oid": "6698ad5fd18d60d47a344dde"
+      }
+    ],
+    "images": [
+      "Promotion_2_nhszwa.jpg",
+      "Promotion_3_g3gceq.jpg",
+      "Promotion_4_im6amy.jpg",
+      "Promotion_Nuturemite_qdvxbw.png",
+      "L_Gluthathione_Mockup_V3_Nuturemite_bk_wvl6rm.jpg",
+      "L_Gluthathione_Mockup_V3_Nuturemite_fnt_1_bgjcyn.jpg"
+    ],
+    "updatedAt": {
+      "$date": "2024-09-21T08:55:22.157Z"
+    },
+    "approvalStatus": "pending",
+    "brand": {
+      "$oid": "66987df7c8d737564c027967"
+    },
+    "shippingDetails": {
+      "dimensions": {}
+    },
+    "status": "active",
+    "stockLimit": 0,
+    "active": true,
+    "apvStatus": "approved",
+    "featured": true,
+    "mrp": 1099,
+    "slug": "glutathione-vitamin-c-hyaluronic-acid-aloevera-blueberry-vitamin-e-effervescent-tablets-20-orange-flavor-for-skin-health-1726849237626"
+  },
+  {
+    "_id": {
+      "$oid": "6698b519d18d60d47a344de6"
+    },
+    "vendor": {
+      "$oid": "669889c7d18d60d47a344db3"
+    },
+    "sku": "NM/S-11",
+    "name": "Amla Powder 250 gms",
+    "quantity": 0,
+    "price": 155,
+    "description": "Amla powder, also known as Indian gooseberry powder or emblica officinallis has been used as Ayurvedic medicine for centuries to treat various diseases. Amla is in rich in vitamin C, Phosphorous, Iron, calcium, other antioxidants boost immunity and help in skin cell regenerate, slow down ageing. Amla powder topical application to skin reduces acne and pimples. Topical application of amla powder to hair is helpful in hair growth, reduces the dandruff.",
+    "details": [
+      {
+        "name": "Benefits",
+        "value": "Amla powder is full of antioxidant, it reduces the effect of free radicals thus reduces the cell damage\nAmla powder contains Vitamin C, is effective for lighting the skin\nAmla powder regular apply to hair nourishes the scalp and roots and promotes the growth of long and healthy hair. \n"
+      },
+      {
+        "name": "Use Instruction",
+        "value": "Take 1 tsp (5 gms) mixed in warm water twice a day or as directed by the ayurvedic doctor or nutritionist or physician\nFOR HAIR:  make a thin paste by adding water, mix thoroughly and apply on scalp and hairs leave for 10-15 mins and rinse with water\nFOR SKIN: Make a thin paste adding water or rose water, apply on face or skin and leave for 10- 20 mins to dry and rinse with water\n"
+      },
+      {
+        "name": "Safety Precaution",
+        "value": "Read the label carefully before use\nStore in a cool dry place away from direct sunlight\nKeep out of reach of the children"
+      },
+      {
+        "name": "Ingredients",
+        "value": "Amla"
+      }
+    ],
+    "keywords": "Amla, Indian gooseberry, Emblica officinallis, Vitamin C, Skin health, Hair Health, Skin lighting",
+    "categories": [
+      {
+        "$oid": "6698ad5fd18d60d47a344dd7"
+      }
+    ],
+    "images": [
+      "Amla_Mockup_White_FNT_250g_sdoxr0.jpg",
+      "Amla_Mockup_White_Back_en5bcr.jpg"
+    ],
+    "apvStatus": "approved",
+    "updatedAt": {
+      "$date": "2024-09-20T16:20:40.732Z"
+    },
+    "featured": true,
+    "mrp": 160,
+    "active": true,
+    "brand": {
+      "$oid": "66987df7c8d737564c027967"
+    },
+    "slug": "amla-powder-250-gms",
+    "stockLimit": 0
+  },
+  {
+    "_id": {
+      "$oid": "6698b519d18d60d47a344de7"
+    },
+    "vendor": {
+      "$oid": "669889c7d18d60d47a344db3"
+    },
+    "sku": "NM/S-12",
+    "name": "Amla Powder 450 gms",
+    "quantity": 0,
+    "price": 270,
+    "description": "Amla powder, also known as Indian gooseberry powder or emblica officinallis has been used as Ayurvedic medicine for centuries to treat various diseases. Amla is in rich in vitamin C, Phosphorous, Iron, calcium, other antioxidants boost immunity and help in skin cell regenerate, slow down ageing. Amla powder topical application to skin reduces acne and pimples. Topical application of amla powder to hair is helpful in hair growth, reduces the dandruff.",
+    "details": [
+      {
+        "name": "Benefits",
+        "value": "Amla powder is full of antioxidant, it reduces the effect of free radicals thus reduces the cell damage\nAmla powder contains Vitamin C, is effective for lighting the skin\nAmla powder regular apply to hair nourishes the scalp and roots and promotes the growth of long and healthy hair. \n"
+      },
+      {
+        "name": "Use Instruction",
+        "value": "Take 1 tsp (5 gms) mixed in warm water twice a day or as directed by the ayurvedic doctor or nutritionist or physician\nFOR HAIR:  make a thin paste by adding water, mix thoroughly and apply on scalp and hairs leave for 10-15 mins and rinse with water\nFOR SKIN: Make a thin paste adding water or rose water, apply on face or skin and leave for 10- 20 mins to dry and rinse with water\n"
+      },
+      {
+        "name": "Safety Precaution",
+        "value": "Read the label carefully before use\nStore in a cool dry place away from direct sunlight\nKeep out of reach of the children"
+      },
+      {
+        "name": "Ingredients",
+        "value": "Amla"
+      }
+    ],
+    "keywords": "Amla, Indian gooseberry, Emblica officinallis, Vitamin C, Skin health, Hair Health, Skin lighting",
+    "categories": [
+      {
+        "$oid": "6698ad5fd18d60d47a344dd7"
+      }
+    ],
+    "images": [
+      "Amla_Mockup_White_FNT_450g_o62fdi.jpg",
+      "Amla_Mockup_White_Back_gsazsn.jpg"
+    ],
+    "updatedAt": {
+      "$date": "2024-09-20T16:20:40.622Z"
+    },
+    "active": true,
+    "apvStatus": "approved",
+    "mrp": 276,
+    "brand": {
+      "$oid": "66987df7c8d737564c027967"
+    },
+    "featured": false,
+    "slug": "amla-powder-450-gms",
+    "stockLimit": 0
+  },
+  {
+    "_id": {
+      "$oid": "6698b519d18d60d47a344de8"
+    },
+    "vendor": {
+      "$oid": "669889c7d18d60d47a344db3"
+    },
+    "sku": "NM/S-13",
+    "name": "Amla Powder 900 gms",
+    "quantity": 0,
+    "price": 440,
+    "description": "Amla powder, also known as Indian gooseberry powder or emblica officinallis has been used as Ayurvedic medicine for centuries to treat various diseases. Amla is in rich in vitamin C, Phosphorous, Iron, calcium, other antioxidants boost immunity and help in skin cell regenerate, slow down ageing. Amla powder topical application to skin reduces acne and pimples. Topical application of amla powder to hair is helpful in hair growth, reduces the dandruff.",
+    "details": [
+      {
+        "name": "Benefits",
+        "value": "Amla powder is full of antioxidant, it reduces the effect of free radicals thus reduces the cell damage\nAmla powder contains Vitamin C, is effective for lighting the skin\nAmla powder regular apply to hair nourishes the scalp and roots and promotes the growth of long and healthy hair. \n"
+      },
+      {
+        "name": "Use Instruction",
+        "value": "Take 1 tsp (5 gms) mixed in warm water twice a day or as directed by the ayurvedic doctor or nutritionist or physician\nFOR HAIR:  make a thin paste by adding water, mix thoroughly and apply on scalp and hairs leave for 10-15 mins and rinse with water\nFOR SKIN: Make a thin paste adding water or rose water, apply on face or skin and leave for 10- 20 mins to dry and rinse with water\n"
+      },
+      {
+        "name": "Safety Precaution",
+        "value": "Read the label carefully before use\nStore in a cool dry place away from direct sunlight\nKeep out of reach of the children"
+      },
+      {
+        "name": "Ingredients",
+        "value": "Amla"
+      }
+    ],
+    "keywords": "Amla, Indian gooseberry, Emblica officinallis, Vitamin C, Skin health, Hair Health, Skin lighting",
+    "categories": [
+      {
+        "$oid": "6698ad5fd18d60d47a344dd7"
+      }
+    ],
+    "images": [
+      "Amla_Mockup_White_FNT_900g_x7ml9m.jpg",
+      "Amla_Mockup_White_Back_lz0rfc.jpg"
+    ],
+    "apvStatus": "approved",
+    "updatedAt": {
+      "$date": "2024-09-20T16:20:40.514Z"
+    },
+    "mrp": 450,
+    "active": true,
+    "brand": {
+      "$oid": "66987df7c8d737564c027967"
+    },
+    "featured": false,
+    "slug": "amla-powder-900-gms",
+    "stockLimit": 0
+  },
+  {
+    "_id": {
+      "$oid": "6698b519d18d60d47a344de9"
+    },
+    "vendor": {
+      "$oid": "669889c7d18d60d47a344db3"
+    },
+    "sku": "NM/S-14",
+    "name": "Ashwagandha Powder 250 gms",
+    "quantity": 0,
+    "price": 300,
+    "description": "Ashwagandha (Withania somnifera) is an evergreen shrub that grows in India. The herb is considered one of the most important herbs in the ayurvedic medicine system. Ashwagandha promotes physical fitness, relieves stress, and supports brain function. It improves the immunity and is anti-inflammatory reduce the pain and joint aches, improves the fertility in both men and women",
+    "details": [
+      {
+        "name": "Benefits",
+        "value": "100% Pure Withania somnifera (Ashwagandha) powder helping the body to respond and adapt to the physical and mental stress that plagues our busy lifestyles\nAshwagandha is a powerful adaptogen soothes nervous system, providing a quick safe, and natural way to relieve stress, anxiety and insomnia\nAshwagandha is an antioxidant eliminates the free radicals, thereby reduce the inflammation, soothing pain and joint aches\nAshwagandha inhibit the most of the phytopathogenic fungi and bacteria\n"
+      },
+      {
+        "name": "Use Instruction",
+        "value": "Take 1 tsp (5 gms) mixed in warm water twice a day or as directed by the ayurvedic doctor or nutritionist or physician "
+      },
+      {
+        "name": "Safety Precaution",
+        "value": "Read the label carefully before use\nStore in a cool dry place away from direct sunlight\nKeep out of reach of the children"
+      },
+      {
+        "name": "Ingredients",
+        "value": "Ashwagandha"
+      }
+    ],
+    "keywords": "Ashwagandha withanolides depression relaxation anxiety cognition focus immune health erectile dysfunction aphrodisiac testosterone booster physical stamina anti-inflammatory",
+    "categories": [
+      {
+        "$oid": "6698ad5fd18d60d47a344dd7"
+      }
+    ],
+    "images": [
+      "Ashwagandha_Mockup_White_FNT_250g_qsjpoi.jpg",
+      "Ashwagandha_Mockup_White_Back_epuft1.jpg"
+    ],
+    "apvStatus": "approved",
+    "updatedAt": {
+      "$date": "2024-09-20T16:20:40.406Z"
+    },
+    "mrp": 325,
+    "active": true,
+    "brand": {
+      "$oid": "66987df7c8d737564c027967"
+    },
+    "featured": false,
+    "slug": "ashwagandha-powder-250-gms",
+    "stockLimit": 0
+  },
+  {
+    "_id": {
+      "$oid": "6698b519d18d60d47a344dea"
+    },
+    "vendor": {
+      "$oid": "669889c7d18d60d47a344db3"
+    },
+    "sku": "NM/S-15",
+    "name": "Ashwagandha Powder 450 gms",
+    "quantity": 85,
+    "price": 590,
+    "description": "Ashwagandha (Withania somnifera) is an evergreen shrub that grows in India. The herb is considered one of the most important herbs in the ayurvedic medicine system. Ashwagandha promotes physical fitness, relieves stress, and supports brain function. It improves the immunity and is anti-inflammatory reduce the pain and joint aches, improves the fertility in both men and women",
+    "details": [
+      {
+        "name": "Benefits",
+        "value": "100% Pure Withania somnifera (Ashwagandha) powder helping the body to respond and adapt to the physical and mental stress that plagues our busy lifestyles\nAshwagandha is a powerful adaptogen soothes nervous system, providing a quick safe, and natural way to relieve stress, anxiety and insomnia\nAshwagandha is an antioxidant eliminates the free radicals, thereby reduce the inflammation, soothing pain and joint aches\nAshwagandha inhibit the most of the phytopathogenic fungi and bacteria\n"
+      },
+      {
+        "name": "Use Instruction",
+        "value": "Take 1 tsp (5 gms) mixed in warm water twice a day or as directed by the ayurvedic doctor or nutritionist or physician "
+      },
+      {
+        "name": "Safety Precaution",
+        "value": "Read the label carefully before use\nStore in a cool dry place away from direct sunlight\nKeep out of reach of the children"
+      },
+      {
+        "name": "Ingredients",
+        "value": "Ashwagandha"
+      }
+    ],
+    "keywords": "Ashwagandha withanolides depression relaxation anxiety cognition focus immune health erectile dysfunction aphrodisiac testosterone booster physical stamina anti-inflammatory",
+    "categories": [
+      {
+        "$oid": "6698ad5fd18d60d47a344dd6"
+      }
+    ],
+    "images": [
+      "Ashwagandha_Mockup_White_FNT_450g_z4a54h.jpg",
+      "Ashwagandha_Mockup_White_Back_et1qmk.jpg"
+    ],
+    "apvStatus": "approved",
+    "updatedAt": {
+      "$date": "2024-09-20T16:20:40.303Z"
+    },
+    "active": true,
+    "brand": {
+      "$oid": "66987df7c8d737564c027967"
+    },
+    "featured": false,
+    "stockLimit": 0,
+    "mrp": 610,
+    "slug": "ashwagandha-powder-450-gms"
+  },
+  {
+    "_id": {
+      "$oid": "6698b519d18d60d47a344deb"
+    },
+    "vendor": {
+      "$oid": "669889c7d18d60d47a344db3"
+    },
+    "sku": "NM/S-16",
+    "name": "Ashwagandha Powder 900 gms",
+    "quantity": 98,
+    "price": 990,
+    "description": "Ashwagandha (Withania somnifera) is an evergreen shrub that grows in India. The herb is considered one of the most important herbs in the ayurvedic medicine system. Ashwagandha promotes physical fitness, relieves stress, and supports brain function. It improves the immunity and is anti-inflammatory reduce the pain and joint aches, improves the fertility in both men and women",
+    "details": [
+      {
+        "name": "Benefits",
+        "value": "100% Pure Withania somnifera (Ashwagandha) powder helping the body to respond and adapt to the physical and mental stress that plagues our busy lifestyles\nAshwagandha is a powerful adaptogen soothes nervous system, providing a quick safe, and natural way to relieve stress, anxiety and insomnia\nAshwagandha is an antioxidant eliminates the free radicals, thereby reduce the inflammation, soothing pain and joint aches\nAshwagandha inhibit the most of the phytopathogenic fungi and bacteria\n"
+      },
+      {
+        "name": "Use Instruction",
+        "value": "Take 1 tsp (5 gms) mixed in warm water twice a day or as directed by the ayurvedic doctor or nutritionist or physician "
+      },
+      {
+        "name": "Safety Precaution",
+        "value": "Read the label carefully before use\nStore in a cool dry place away from direct sunlight\nKeep out of reach of the children"
+      },
+      {
+        "name": "Ingredients",
+        "value": "Ashwagandha"
+      }
+    ],
+    "keywords": "Ashwagandha withanolides depression relaxation anxiety cognition focus immune health erectile dysfunction aphrodisiac testosterone booster physical stamina anti-inflammatory",
+    "categories": [
+      {
+        "$oid": "6698ad5fd18d60d47a344dd7"
+      }
+    ],
+    "images": [
+      "Ashwagandha_Mockup_White_FNT_900g_z6ndko.jpg",
+      "Ashwagandha_Mockup_White_Back_zgkw5r.jpg"
+    ],
+    "apvStatus": "approved",
+    "updatedAt": {
+      "$date": "2024-09-20T16:20:39.933Z"
+    },
+    "active": true,
+    "brand": {
+      "$oid": "66987df7c8d737564c027967"
+    },
+    "featured": false,
+    "stockLimit": 0,
+    "mrp": 1055,
+    "slug": "ashwagandha-powder-900-gms"
+  },
+  {
+    "_id": {
+      "$oid": "6698b519d18d60d47a344e08"
+    },
+    "vendor": {
+      "$oid": "669889c7d18d60d47a344db3"
+    },
+    "sku": "NM/S-17",
+    "name": "Shatavari Powder 250 gms",
+    "quantity": 0,
+    "price": 297,
+    "description": "Shatavari powder is well known for its effect on the female reproduction system. It is also effective in a number of other systems of the body and is therefore of use to both men and women. Shatavari is perhaps best known as a female rejuvenate.",
+    "details": [
+      {
+        "name": "Benefits",
+        "value": "Shatavari helps to improve and support the female immune system\nIt not only supports a woman's overall health but also helps to balance her hormones\nIt is also advised for nursing mothers improving immunity and health of the infant\nRegulates disturbed menstruation cycles\nRelieves symptoms of pms (premenstrual syndrome), premenopausal and menopausal syndrome\n"
+      },
+      {
+        "name": "Use Instruction",
+        "value": "Take 1 tsp (5 gms) mixed in warm water twice a day or as directed by the ayurvedic doctor or nutritionist or physician"
+      },
+      {
+        "name": "Safety Precaution",
+        "value": "Read the label carefully before use\nStore in a cool dry place away from direct sunlight\nKeep out of reach of the children"
+      },
+      {
+        "name": "Ingredients",
+        "value": "Shatavari"
+      }
+    ],
+    "keywords": "Shtavari women health hormonal balance estrogen levels breast health hot flashes lactation fertility vitamins folic acid ovulation menopausal",
+    "categories": [
+      {
+        "$oid": "6698ad5fd18d60d47a344dd6"
+      },
+      {
+        "$oid": "6698ad5fd18d60d47a344ddf"
+      }
+    ],
+    "images": [
+      "Shatavari_Mockup_White_FNT_250g_qcu09g.jpg",
+      "Shatavari_Mockup_White_Back_gtsg7c.jpg"
+    ],
+    "apvStatus": "approved",
+    "updatedAt": {
+      "$date": "2024-09-20T16:20:38.512Z"
+    },
+    "mrp": 300,
+    "active": true,
+    "brand": {
+      "$oid": "66987df7c8d737564c027967"
+    },
+    "featured": false,
+    "slug": "shatavari-powder-250-gms",
+    "stockLimit": 0
+  },
+  {
+    "_id": {
+      "$oid": "6698b519d18d60d47a344e09"
+    },
+    "vendor": {
+      "$oid": "669889c7d18d60d47a344db3"
+    },
+    "sku": "NM/S-18",
+    "name": "Shatavari Powder 450 gms",
+    "quantity": 0,
+    "price": 520.8,
+    "description": "Shatavari powder is well known for its effect on the female reproduction system. It is also effective in a number of other systems of the body and is therefore of use to both men and women. Shatavari is perhaps best known as a female rejuvenate.",
+    "details": [
+      {
+        "name": "Benefits",
+        "value": "Shatavari helps to improve and support the female immune system\nIt not only supports a woman's overall health but also helps to balance her hormones\nIt is also advised for nursing mothers improving immunity and health of the infant\nRegulates disturbed menstruation cycles\nRelieves symptoms of pms (premenstrual syndrome), premenopausal and menopausal syndrome\n"
+      },
+      {
+        "name": "Use Instruction",
+        "value": "Take 1 tsp (5 gms) mixed in warm water twice a day or as directed by the ayurvedic doctor or nutritionist or physician"
+      },
+      {
+        "name": "Safety Precaution",
+        "value": "Read the label carefully before use\nStore in a cool dry place away from direct sunlight\nKeep out of reach of the children"
+      },
+      {
+        "name": "Ingredients",
+        "value": "Shatavari"
+      }
+    ],
+    "keywords": "Shtavari women health hormonal balance estrogen levels breast health hot flashes lactation fertility vitamins folic acid ovulation menopausal",
+    "categories": [
+      {
+        "$oid": "6698ad5fd18d60d47a344dd7"
+      },
+      {
+        "$oid": "6698ad5fd18d60d47a344ddf"
+      }
+    ],
+    "images": [
+      "Shatavari_Mockup_White_FNT_450g_q7k4mn.jpg",
+      "Shatavari_Mockup_White_Back_ixrzcv.jpg"
+    ],
+    "apvStatus": "approved",
+    "updatedAt": {
+      "$date": "2024-09-20T16:20:38.399Z"
+    },
+    "mrp": 540,
+    "active": true,
+    "brand": {
+      "$oid": "66987df7c8d737564c027967"
+    },
+    "featured": false,
+    "slug": "shatavari-powder-450-gms",
+    "stockLimit": 0
+  },
+  {
+    "_id": {
+      "$oid": "6698b519d18d60d47a344e0a"
+    },
+    "vendor": {
+      "$oid": "669889c7d18d60d47a344db3"
+    },
+    "sku": "NM/S-19",
+    "name": "Shatavari Powder 900 gms",
+    "quantity": 95,
+    "price": 976.5,
+    "description": "Shatavari powder is well known for its effect on the female reproduction system. It is also effective in a number of other systems of the body and is therefore of use to both men and women. Shatavari is perhaps best known as a female rejuvenate.",
+    "details": [
+      {
+        "name": "Benefits",
+        "value": "Shatavari helps to improve and support the female immune system\nIt not only supports a woman's overall health but also helps to balance her hormones\nIt is also advised for nursing mothers improving immunity and health of the infant\nRegulates disturbed menstruation cycles\nRelieves symptoms of pms (premenstrual syndrome), premenopausal and menopausal syndrome\n"
+      },
+      {
+        "name": "Use Instruction",
+        "value": "Take 1 tsp (5 gms) mixed in warm water twice a day or as directed by the ayurvedic doctor or nutritionist or physician"
+      },
+      {
+        "name": "Safety Precaution",
+        "value": "Read the label carefully before use\nStore in a cool dry place away from direct sunlight\nKeep out of reach of the children"
+      },
+      {
+        "name": "Ingredients",
+        "value": "Shatavari"
+      }
+    ],
+    "keywords": "Shtavari women health hormonal balance estrogen levels breast health hot flashes lactation fertility vitamins folic acid ovulation menopausal",
+    "categories": [
+      {
+        "$oid": "6698ad5fd18d60d47a344dd7"
+      },
+      {
+        "$oid": "6698ad5fd18d60d47a344ddf"
+      }
+    ],
+    "images": [
+      "Shatavari_Mockup_White_FNT_900g_h4u1gi.jpg",
+      "Shatavari_Mockup_White_Back_nrjzoi.jpg"
+    ],
+    "apvStatus": "approved",
+    "updatedAt": {
+      "$date": "2024-09-20T16:20:38.296Z"
+    },
+    "active": true,
+    "brand": {
+      "$oid": "66987df7c8d737564c027967"
+    },
+    "featured": false,
+    "stockLimit": 0,
+    "mrp": 999,
+    "slug": "shatavari-powder-900-gms"
+  },
+  {
+    "_id": {
+      "$oid": "6698b519d18d60d47a344e06"
+    },
+    "vendor": {
+      "$oid": "669889c7d18d60d47a344db3"
+    },
+    "sku": "NM/S-20",
+    "name": "Safed musli Powder 250 gms",
+    "quantity": 0,
+    "price": 799,
+    "description": " Safed musli is a traditional ayurvedic medicine. Safed musli used for arthritis, cancer, diabetes, boosting vitality, improving sexual performance, general overall health in both men and women and for many other uses. ",
+    "details": [
+      {
+        "name": "Benefits",
+        "value": "Safed musli contains Saponins having anti-inflammatory and anti-arthritic activity\nSafed musli helps in improving growth hormone levels, which helps in muscle building\nSafed musli is used as an aphrodisiac, which might improve the sperm count\nSafed musli improves quality and flow of milk in breastfeeding mothers\nSafed Musli might help manage stress due to its anti-stress and adaptogenic activity\n"
+      },
+      {
+        "name": "Use Instruction",
+        "value": "Take 1 tsp (5 gms) mixed in warm water twice a day or as directed by the ayurvedic doctor or nutritionist or physician"
+      },
+      {
+        "name": "Safety Precaution",
+        "value": "Read the label carefully before use\nStore in a cool dry place away from direct sunlight\nKeep out of reach of the children"
+      },
+      {
+        "name": "Ingredients",
+        "value": "Safed musli"
+      }
+    ],
+    "keywords": "Safed musli  saponin aphrodisiac libido",
+    "categories": [
+      {
+        "$oid": "6698ad5fd18d60d47a344dd7"
+      }
+    ],
+    "images": [
+      "Safed_Musli_Mockup_White_FNT_250g_f2hmm2.jpg",
+      "Safed_Musli_Mockup_White_Back_fuiuvy.jpg"
+    ],
+    "apvStatus": "approved",
+    "updatedAt": {
+      "$date": "2024-09-20T16:20:38.745Z"
+    },
+    "mrp": 800,
+    "active": true,
+    "brand": {
+      "$oid": "66987df7c8d737564c027967"
+    },
+    "featured": false,
+    "slug": "safed-musli-powder-250-gms",
+    "stockLimit": 0
+  },
+  {
+    "_id": {
+      "$oid": "6698b519d18d60d47a344e07"
+    },
+    "vendor": {
+      "$oid": "669889c7d18d60d47a344db3"
+    },
+    "sku": "NM/S-21",
+    "name": "Safed musli Powder 450 gms",
+    "quantity": 0,
+    "price": 1645,
+    "description": " Safed musli is a traditional ayurvedic medicine. Safed musli used for arthritis, cancer, diabetes, boosting vitality, improving sexual performance, general overall health in both men and women and for many other uses. ",
+    "details": [
+      {
+        "name": "Benefits",
+        "value": "Safed musli contains Saponins having anti-inflammatory and anti-arthritic activity\nSafed musli helps in improving growth hormone levels, which helps in muscle building\nSafed musli is used as an aphrodisiac, which might improve the sperm count\nSafed musli improves quality and flow of milk in breastfeeding mothers\nSafed Musli might help manage stress due to its anti-stress and adaptogenic activity. \n"
+      },
+      {
+        "name": "Use Instruction",
+        "value": "Take 1 tsp (5 gms) mixed in warm water twice a day or as directed by the ayurvedic doctor or nutritionist or physician"
+      },
+      {
+        "name": "Safety Precaution",
+        "value": "Read the label carefully before use\nStore in a cool dry place away from direct sunlight\nKeep out of reach of the children"
+      },
+      {
+        "name": "Ingredients",
+        "value": "Safed musli"
+      }
+    ],
+    "keywords": "Safed musli  saponin aphrodisiac libido",
+    "categories": [
+      {
+        "$oid": "6698ad5fd18d60d47a344dd7"
+      }
+    ],
+    "images": [
+      "Safed_Musli_Mockup_White_FNT_450g_zp2zha.jpg",
+      "Safed_Musli_Mockup_White_Back_fyppju.jpg"
+    ],
+    "apvStatus": "approved",
+    "updatedAt": {
+      "$date": "2024-09-20T16:20:38.623Z"
+    },
+    "mrp": 1650,
+    "active": true,
+    "brand": {
+      "$oid": "66987df7c8d737564c027967"
+    },
+    "featured": false,
+    "slug": "safed-musli-powder-450-gms",
+    "stockLimit": 0
+  },
+  {
+    "_id": {
+      "$oid": "6698b519d18d60d47a344e0e"
+    },
+    "vendor": {
+      "$oid": "669889c7d18d60d47a344db3"
+    },
+    "sku": "NM/S-22",
+    "name": "Wheat grass Powder 250 gms",
+    "quantity": 42,
+    "price": 372,
+    "description": "wheat grass powder is a rich source of antioxidants and important micronutrients which protects the body from the damage caused by free radicals and reduces oxidative stress in the body. It can also be used to treat and prevent heart conditions and acts as a remedy for pains related to arthritis and rheumatism. As a heart health tonic, it reduces high cholesterol levels and prevent heart failure.",
+    "details": [
+      {
+        "name": "Benefits",
+        "value": "Wheat grass powder is a super food\nIt is rich in chlorophyll, hence a source of stored energy\nWheat grass powder is a detoxifying agent, which eliminates toxins from body\nWheat grass powder can help in digestion and boosts your metabolism\nWheat grass powder can lowers the blood pressure and helps in diabetic control\n"
+      },
+      {
+        "name": "Use Instruction",
+        "value": "Take 1 tsp (5 gms) mixed in warm water twice a day or as directed by the ayurvedic doctor or nutritionist or physician "
+      },
+      {
+        "name": "Safety Precaution",
+        "value": "Read the label carefully before use\nStore in a cool dry place away from direct sunlight\nKeep out of reach of the children"
+      },
+      {
+        "name": "Ingredients",
+        "value": "Wheat grass"
+      }
+    ],
+    "keywords": "Wheat grass, Antioxidant, Detoxifier, stress reliever, RBC count, skin health, weight loss",
+    "categories": [
+      {
+        "$oid": "6698ad5fd18d60d47a344dd6"
+      },
+      {
+        "$oid": "6698ad5fd18d60d47a344dd7"
+      }
+    ],
+    "images": [
+      "Wheat_Grass_Mockup_White_FNT_250g_yazqsl.jpg",
+      "Wheat_Grass_Mockup_White_Back_ggacrb.jpg"
+    ],
+    "apvStatus": "approved",
+    "updatedAt": {
+      "$date": "2024-09-21T18:16:36.164Z"
+    },
+    "mrp": 380,
+    "active": true,
+    "brand": {
+      "$oid": "66987df7c8d737564c027967"
+    },
+    "featured": false,
+    "stockLimit": 0,
+    "slug": "wheat-grass-powder-250-gms"
+  },
+  {
+    "_id": {
+      "$oid": "6698b519d18d60d47a344e0f"
+    },
+    "vendor": {
+      "$oid": "669889c7d18d60d47a344db3"
+    },
+    "sku": "NM/S-23",
+    "name": "Wheat grass Powder 450 gms",
+    "quantity": 0,
+    "price": 697.5,
+    "description": "wheat grass powder is a rich source of antioxidants and important micronutrients which protects the body from the damage caused by free radicals and reduces oxidative stress in the body. It can also be used to treat and prevent heart conditions and acts as a remedy for pains related to arthritis and rheumatism. As a heart health tonic, it reduces high cholesterol levels and prevent heart failure.",
+    "details": [
+      {
+        "name": "Benefits",
+        "value": "Wheat grass powder is a super food\nIt is rich in chlorophyll, hence a source of stored energy\nWheat grass powder is a detoxifying agent, which eliminates toxins from body\nWheat grass powder can help in digestion and boosts your metabolism\nWheat grass powder can lowers the blood pressure and helps in diabetic control\n"
+      },
+      {
+        "name": "Use Instruction",
+        "value": "Take 1 tsp (5 gms) mixed in warm water twice a day or as directed by the ayurvedic doctor or nutritionist or physician "
+      },
+      {
+        "name": "Safety Precaution",
+        "value": "Read the label carefully before use\nStore in a cool dry place away from direct sunlight\nKeep out of reach of the children"
+      },
+      {
+        "name": "Ingredients",
+        "value": "Wheat grass"
+      }
+    ],
+    "keywords": "Wheat grass, Antioxidant, Detoxifier, stress reliever, RBC count, skin health, weight loss",
+    "categories": [
+      {
+        "$oid": "6698ad5fd18d60d47a344dd6"
+      },
+      {
+        "$oid": "6698ad5fd18d60d47a344dd7"
+      }
+    ],
+    "images": [
+      "Wheat_Grass_Mockup_White_FNT_450g_scbugr.jpg",
+      "Wheat_Grass_Mockup_White_Back_hanbji.jpg"
+    ],
+    "apvStatus": "approved",
+    "updatedAt": {
+      "$date": "2024-09-20T16:20:38.023Z"
+    },
+    "mrp": 700,
+    "active": true,
+    "brand": {
+      "$oid": "66987df7c8d737564c027967"
+    },
+    "featured": false,
+    "slug": "wheat-grass-powder-450-gms",
+    "stockLimit": 0
+  },
+  {
+    "_id": {
+      "$oid": "6698b519d18d60d47a344e10"
+    },
+    "vendor": {
+      "$oid": "669889c7d18d60d47a344db3"
+    },
+    "sku": "NM/S-24",
+    "name": "Wheat grass Powder 900 gms",
+    "quantity": 0,
+    "price": 1209,
+    "description": "wheat grass powder is a rich source of antioxidants and important micronutrients which protects the body from the damage caused by free radicals and reduces oxidative stress in the body. It can also be used to treat and prevent heart conditions and acts as a remedy for pains related to arthritis and rheumatism. As a heart health tonic, it reduces high cholesterol levels and prevent heart failure.",
+    "details": [
+      {
+        "name": "Benefits",
+        "value": "Wheat grass powder is a super food\nIt is rich in chlorophyll, hence a source of stored energy\nWheat grass powder is a detoxifying agent, which eliminates toxins from body\nWheat grass powder can help in digestion and boosts your metabolism\nWheat grass powder can lowers the blood pressure and helps in diabetic control\n",
+        "_id": {
+          "$oid": "66ed9efdd6486656cc6ac087"
+        }
+      },
+      {
+        "name": "Use Instruction",
+        "value": "Take 1 tsp (5 gms) mixed in warm water twice a day or as directed by the ayurvedic doctor or nutritionist or physician ",
+        "_id": {
+          "$oid": "66ed9efdd6486656cc6ac088"
+        }
+      },
+      {
+        "name": "Safety Precaution",
+        "value": "Read the label carefully before use\nStore in a cool dry place away from direct sunlight\nKeep out of reach of the children",
+        "_id": {
+          "$oid": "66ed9efdd6486656cc6ac089"
+        }
+      },
+      {
+        "name": "Ingredients",
+        "value": "Wheat grass",
+        "_id": {
+          "$oid": "66ed9efdd6486656cc6ac08a"
+        }
+      }
+    ],
+    "keywords": "Wheat grass, Antioxidant, Detoxifier, stress reliever, RBC count, skin health, weight loss",
+    "categories": [
+      {
+        "$oid": "6698ad5fd18d60d47a344dd6"
+      },
+      {
+        "$oid": "6698ad5fd18d60d47a344dd7"
+      }
+    ],
+    "images": [
+      " Wheat_Grass_Mockup_White_FNT_900g_n0bjiq.jpg",
+      "Wheat_Grass_Mockup_White_Back_utav9y.jpg"
+    ],
+    "active": true,
+    "updatedAt": {
+      "$date": "2024-09-20T16:20:37.915Z"
+    },
+    "apvStatus": "approved",
+    "mrp": 1225,
+    "brand": {
+      "$oid": "66987df7c8d737564c027967"
+    },
+    "featured": false,
+    "shippingDetails": {
+      "dimensions": {}
+    },
+    "slug": "wheat-grass-powder-900-gms-1726849237913",
+    "stockLimit": 0
+  },
+  {
+    "_id": {
+      "$oid": "6698b519d18d60d47a344df4"
+    },
+    "vendor": {
+      "$oid": "669889c7d18d60d47a344db3"
+    },
+    "sku": "NM/S-25",
+    "name": "Bhringaraj Powder 250 gms",
+    "quantity": 0,
+    "price": 139.5,
+    "description": "Bhringraj is ruler of hair, it is rich in protein, vitamins, and antioxidants which can protect body from other diseases. Bhringraj with hair oil can effectively promotes hair growth as well as reduces the grey hair. Bhringraj juice rejuvenates the skin helps in anti-aging, Bhringraj powder has anti-microbial property which can manage skin infections. Bhringraj powder protects liver cells and manages cholesterol levels.",
+    "details": [
+      {
+        "name": "Benefits",
+        "value": "Bhringraj powder has nutrients which will protect the hair growth\nBhringraj powder can reduces the wrinkles, patchy skin and improves skin health\nBhringraj powder has antioxidant property which can protect the cells, caused by free radicals, improves liver and kidney related diseases\nBhringraj powder has anti-inflammatory activity, which used as pain reliever\nBhringraj powder regulates blood pressure and lowers cholesterol levels\n"
+      },
+      {
+        "name": "Use Instruction",
+        "value": "Take 1 tsp (5 gms) mixed in warm water twice a day or as directed by the ayurvedic doctor or nutritionist or physician\nFOR HAIR:  make a thin paste by adding water, mix thoroughly and apply on scalp and hairs leave for 10-15 mins and rinse with water\nFOR SKIN: Make a thin paste adding water or rose water, apply on face or skin and leave for 10- 20 mins to dry and rinse with water\n"
+      },
+      {
+        "name": "Safety Precaution",
+        "value": "Read the label carefully before use\nStore in a cool dry place away from direct sunlight\nKeep out of reach of the children"
+      },
+      {
+        "name": "Ingredients",
+        "value": "Bhringaraj"
+      }
+    ],
+    "keywords": "Bhringraj Hair health Hair growht Hair fall stop Antioxidant protein vitamins Hair oil Skin health Anti aging weight loss",
+    "categories": [
+      {
+        "$oid": "6698ad5fd18d60d47a344dd6"
+      }
+    ],
+    "images": [
+      "Bhringraj_Mockup_White_FNT_250g_snctvn.jpg",
+      "Bhringraj_Mockup_White_Back_dyoibo.jpg"
+    ],
+    "apvStatus": "approved",
+    "updatedAt": {
+      "$date": "2024-09-20T16:20:39.593Z"
+    },
+    "mrp": 150,
+    "active": true,
+    "brand": {
+      "$oid": "66987df7c8d737564c027967"
+    },
+    "featured": false,
+    "slug": "bhringaraj-powder-250-gms",
+    "stockLimit": 0
+  },
+  {
+    "_id": {
+      "$oid": "6698b519d18d60d47a344df5"
+    },
+    "vendor": {
+      "$oid": "669889c7d18d60d47a344db3"
+    },
+    "sku": "NM/S-26",
+    "name": "Bhringaraj Powder 450 gms",
+    "quantity": 0,
+    "price": 232.5,
+    "description": "Bhringraj is ruler of hair, it is rich in protein, vitamins, and antioxidants which can protect body from other diseases. Bhringraj with hair oil can effectively promotes hair growth as well as reduces the grey hair. Bhringraj juice rejuvenates the skin helps in anti-aging, Bhringraj powder has anti-microbial property which can manage skin infections. Bhringraj powder protects liver cells and manages cholesterol levels.",
+    "details": [
+      {
+        "name": "Benefits",
+        "value": "Bhringraj powder has nutrients which will protect the hair growth\nBhringraj powder can reduces the wrinkles, patchy skin and improves skin health\nBhringraj powder has antioxidant property which can protect the cells, caused by free radicals, improves liver and kidney related diseases\nBhringraj powder has anti-inflammatory activity, which used as pain reliever\nBhringraj powder regulates blood pressure and lowers cholesterol levels\n"
+      },
+      {
+        "name": "Use Instruction",
+        "value": "Take 1 tsp (5 gms) mixed in warm water twice a day or as directed by the ayurvedic doctor or nutritionist or physician\nFOR HAIR:  make a thin paste by adding water, mix thoroughly and apply on scalp and hairs leave for 10-15 mins and rinse with water\nFOR SKIN: Make a thin paste adding water or rose water, apply on face or skin and leave for 10- 20 mins to dry and rinse with water\n"
+      },
+      {
+        "name": "Safety Precaution",
+        "value": "Read the label carefully before use\nStore in a cool dry place away from direct sunlight\nKeep out of reach of the children"
+      },
+      {
+        "name": "Ingredients",
+        "value": "Bhringaraj"
+      }
+    ],
+    "keywords": "Bhringraj Hair health Hair growht Hair fall stop Antioxidant protein vitamins Hair oil Skin health Anti aging weight loss",
+    "categories": [
+      {
+        "$oid": "6698ad5fd18d60d47a344dd6"
+      }
+    ],
+    "images": [
+      " Bhringraj_Mockup_White_FNT_450g_pbxnpn.jpg",
+      "    Bhringraj_Mockup_White_Back_lhd3sc.jpg"
+    ],
+    "apvStatus": "approved",
+    "updatedAt": {
+      "$date": "2024-09-20T16:20:39.473Z"
+    },
+    "featured": true,
+    "mrp": 250,
+    "active": true,
+    "brand": {
+      "$oid": "66987df7c8d737564c027967"
+    },
+    "slug": "bhringaraj-powder-450-gms",
+    "stockLimit": 0
+  },
+  {
+    "_id": {
+      "$oid": "66b9edf708c11932decf29cf"
+    },
+    "name": "adf asdf as",
+    "price": 342,
+    "description": "as sadf asdf asdfadf asdf ",
+    "categories": [
+      {
+        "$oid": "6698ad5fd18d60d47a344dd9"
+      },
+      {
+        "$oid": "6698ad5fd18d60d47a344ddd"
+      },
+      {
+        "$oid": "6698ad5fd18d60d47a344dd8"
+      }
+    ],
+    "brand": {
+      "$oid": "66987df7c8d737564c027967"
+    },
+    "vendor": {
+      "$oid": "669889c7d18d60d47a344db3"
+    },
+    "quantity": null,
+    "sku": "sdafa",
+    "images": [],
+    "shippingDetails": {
+      "weight": 34,
+      "dimensions": {
+        "length": 234,
+        "width": 234,
+        "height": 234
+      }
+    },
+    "stockLimit": 0,
+    "details": [
+      {
+        "name": "afdafd",
+        "value": "asfd",
+        "_id": {
+          "$oid": "66b9edf708c11932decf29d0"
+        }
+      }
+    ],
+    "apvStatus": "rejected",
+    "active": true,
+    "featured": false,
+    "createdAt": {
+      "$date": "2024-08-12T11:11:51.665Z"
+    },
+    "updatedAt": {
+      "$date": "2024-09-20T16:20:37.465Z"
+    },
+    "__v": 0,
+    "mrp": 3444,
+    "slug": "adf-asdf-as"
+  },
+  {
+    "_id": {
+      "$oid": "66b9edfe08c11932decf29d2"
+    },
+    "name": "dsaf gh ae",
+    "price": 342,
+    "description": "as sadf asdf asdfadf asdf ",
+    "categories": [
+      {
+        "$oid": "6698ad5fd18d60d47a344dd9"
+      },
+      {
+        "$oid": "6698ad5fd18d60d47a344ddd"
+      },
+      {
+        "$oid": "6698ad5fd18d60d47a344dd8"
+      }
+    ],
+    "brand": {
+      "$oid": "66987df7c8d737564c027967"
+    },
+    "vendor": {
+      "$oid": "669889c7d18d60d47a344db3"
+    },
+    "quantity": null,
+    "sku": "sdafa",
+    "images": [],
+    "shippingDetails": {
+      "weight": 34,
+      "dimensions": {
+        "length": 234,
+        "width": 234,
+        "height": 234
+      }
+    },
+    "stockLimit": 0,
+    "details": [
+      {
+        "name": "afdafd",
+        "value": "asfd",
+        "_id": {
+          "$oid": "66b9edfe08c11932decf29d3"
+        }
+      }
+    ],
+    "apvStatus": "rejected",
+    "active": true,
+    "featured": false,
+    "createdAt": {
+      "$date": "2024-08-12T11:11:58.133Z"
+    },
+    "updatedAt": {
+      "$date": "2024-09-20T16:20:37.353Z"
+    },
+    "__v": 0,
+    "mrp": 3444,
+    "slug": "dsaf-gh-ae"
+  },
+  {
+    "_id": {
+      "$oid": "66ba01e14b43896f78f2747a"
+    },
+    "name": "sdf",
+    "price": 43,
+    "description": "adf asdf asdf asdf as",
+    "categories": [
+      {
+        "$oid": "6698ad5fd18d60d47a344dd8"
+      },
+      {
+        "$oid": "6698ad5fd18d60d47a344ddd"
+      }
+    ],
+    "brand": {
+      "$oid": "66987df7c8d737564c027967"
+    },
+    "vendor": {
+      "$oid": "669889c7d18d60d47a344db3"
+    },
+    "quantity": null,
+    "sku": "afd a fa",
+    "images": [],
+    "shippingDetails": {
+      "weight": 34,
+      "dimensions": {
+        "length": 34,
+        "width": 3,
+        "height": 43
+      }
+    },
+    "stockLimit": 0,
+    "details": [
+      {
+        "name": "adf",
+        "value": "a fds",
+        "_id": {
+          "$oid": "66ba01e14b43896f78f2747b"
+        }
+      }
+    ],
+    "apvStatus": "pending",
+    "active": true,
+    "featured": false,
+    "createdAt": {
+      "$date": "2024-08-12T12:36:49.177Z"
+    },
+    "updatedAt": {
+      "$date": "2024-09-20T16:20:36.996Z"
+    },
+    "__v": 0,
+    "mrp": 344,
+    "slug": "sdf"
+  },
+  {
+    "_id": {
+      "$oid": "66bf48e87b4422cb3a98d36c"
+    },
+    "name": "Rhea White",
+    "price": 674,
+    "description": "Provident impedit ",
+    "categories": [
+      {
+        "$oid": "6698ad5fd18d60d47a344dd9"
+      },
+      {
+        "$oid": "6698ad5fd18d60d47a344dd7"
+      }
+    ],
+    "brand": {
+      "$oid": "66987df7c8d737564c027967"
+    },
+    "vendor": {
+      "$oid": "669889c7d18d60d47a344db3"
+    },
+    "quantity": null,
+    "sku": "Quod amet alias ill",
+    "images": [],
+    "shippingDetails": {
+      "weight": 71,
+      "dimensions": {
+        "length": 54,
+        "width": 3,
+        "height": 69
+      }
+    },
+    "stockLimit": 0,
+    "details": [],
+    "apvStatus": "pending",
+    "active": true,
+    "featured": false,
+    "createdAt": {
+      "$date": "2024-08-16T12:41:12.301Z"
+    },
+    "updatedAt": {
+      "$date": "2024-09-20T16:20:36.881Z"
+    },
+    "__v": 0,
+    "mrp": 659,
+    "slug": "rhea-white"
+  },
+  {
+    "_id": {
+      "$oid": "66e7027baced6699f2e4dc4a"
+    },
+    "name": "Destiny Mcleod",
+    "mrp": 99,
+    "price": 804,
+    "description": "Dolore cumque offici",
+    "categories": [
+      {
+        "$oid": "6698ad5fd18d60d47a344dd7"
+      },
+      {
+        "$oid": "6698ad5fd18d60d47a344dda"
+      }
+    ],
+    "brand": {
+      "$oid": "66987df7c8d737564c027967"
+    },
+    "vendor": {
+      "$oid": "669889c7d18d60d47a344db3"
+    },
+    "quantity": null,
+    "sku": "Aut minima fuga Fug",
+    "images": [],
+    "shippingDetails": {
+      "weight": 1,
+      "dimensions": {
+        "length": 28,
+        "width": 90,
+        "height": 62
+      }
+    },
+    "stockLimit": 0,
+    "details": [
+      {
+        "name": "Brenda Ratliff",
+        "value": "Unde voluptates dolo",
+        "_id": {
+          "$oid": "66e7027baced6699f2e4dc4b"
+        }
+      },
+      {
+        "name": "Jermaine Lawrence",
+        "value": "Cum odit facere et v",
+        "_id": {
+          "$oid": "66e7027baced6699f2e4dc4c"
+        }
+      }
+    ],
+    "apvStatus": "pending",
+    "active": true,
+    "featured": false,
+    "createdAt": {
+      "$date": "2024-09-15T15:51:23.725Z"
+    },
+    "updatedAt": {
+      "$date": "2024-09-20T16:20:36.783Z"
+    },
+    "__v": 0,
+    "slug": "destiny-mcleod"
+  },
+  {
+    "_id": {
+      "$oid": "66ed9e69a28fbb2b2bda7a47"
+    },
+    "name": "Robert Perry",
+    "mrp": 78,
+    "price": 768,
+    "description": "Aliquid est sint m",
+    "categories": [
+      {
+        "$oid": "6698ad5fd18d60d47a344dd7"
+      },
+      {
+        "$oid": "6698ad5fd18d60d47a344dd8"
+      }
+    ],
+    "brand": {
+      "$oid": "66987df7c8d737564c027967"
+    },
+    "vendor": {
+      "$oid": "669889c7d18d60d47a344db3"
+    },
+    "quantity": null,
+    "slug": "robert-perry-1726849236672",
+    "sku": "Et est at illum cu",
+    "images": [],
+    "shippingDetails": {
+      "weight": 29,
+      "dimensions": {
+        "length": 12,
+        "width": 46,
+        "height": 91
+      }
+    },
+    "stockLimit": 0,
+    "details": [],
+    "apvStatus": "pending",
+    "active": true,
+    "featured": false,
+    "createdAt": {
+      "$date": "2024-09-20T16:10:17.475Z"
+    },
+    "updatedAt": {
+      "$date": "2024-09-20T16:20:36.673Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "66ed9e98a2915d13ce649c24"
+    },
+    "name": "Kylan Hopkins",
+    "mrp": 99,
+    "price": 895,
+    "description": "Ut cupiditate est co",
+    "categories": [
+      {
+        "$oid": "6698ad5fd18d60d47a344dd7"
+      }
+    ],
+    "brand": {
+      "$oid": "66987df7c8d737564c027967"
+    },
+    "vendor": {
+      "$oid": "669889c7d18d60d47a344db3"
+    },
+    "quantity": null,
+    "slug": "kylan-hopkins-1726849236293",
+    "sku": "Dolore dolorem exerc",
+    "images": [],
+    "shippingDetails": {
+      "weight": 28,
+      "dimensions": {
+        "length": 91,
+        "width": 88,
+        "height": 49
+      }
+    },
+    "stockLimit": 0,
+    "details": [],
+    "apvStatus": "pending",
+    "active": true,
+    "featured": false,
+    "createdAt": {
+      "$date": "2024-09-20T16:11:04.542Z"
+    },
+    "updatedAt": {
+      "$date": "2024-09-20T16:20:36.294Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "66ed9ea1a2915d13ce649c28"
+    },
+    "name": "Kylan Hopkins",
+    "mrp": 99,
+    "price": 895,
+    "description": "Ut cupiditate est co",
+    "categories": [
+      {
+        "$oid": "6698ad5fd18d60d47a344dd7"
+      }
+    ],
+    "brand": {
+      "$oid": "66987df7c8d737564c027967"
+    },
+    "vendor": {
+      "$oid": "669889c7d18d60d47a344db3"
+    },
+    "quantity": null,
+    "slug": "kylan-hopkins-1726849236167",
+    "sku": "Dolore dolorem exerc",
+    "images": [],
+    "shippingDetails": {
+      "weight": 28,
+      "dimensions": {
+        "length": 91,
+        "width": 88,
+        "height": 49
+      }
+    },
+    "stockLimit": 0,
+    "details": [],
+    "apvStatus": "pending",
+    "active": true,
+    "featured": false,
+    "createdAt": {
+      "$date": "2024-09-20T16:11:13.430Z"
+    },
+    "updatedAt": {
+      "$date": "2024-09-20T16:20:36.176Z"
+    },
+    "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "66eda24f03e7edf10432f422"
+    },
+    "name": "Nehru Fowler",
+    "mrp": 44,
+    "price": 365,
+    "description": "Ut sunt ipsa exerci",
+    "categories": [
+      {
+        "$oid": "6698ad5fd18d60d47a344dd7"
+      }
+    ],
+    "brand": {
+      "$oid": "66987df7c8d737564c027967"
+    },
+    "vendor": {
+      "$oid": "669889c7d18d60d47a344db3"
+    },
+    "quantity": null,
+    "slug": "nehru-fowler",
+    "sku": "Soluta sunt et possi",
+    "images": [],
+    "shippingDetails": {
+      "weight": 13,
+      "dimensions": {
+        "length": 66,
+        "width": 14,
+        "height": 71
+      }
+    },
+    "stockLimit": 0,
+    "details": [],
+    "apvStatus": "pending",
+    "active": true,
+    "featured": false,
+    "createdAt": {
+      "$date": "2024-09-20T16:26:55.287Z"
+    },
+    "updatedAt": {
+      "$date": "2024-09-20T16:26:55.287Z"
+    },
+    "__v": 0
+  }
+]

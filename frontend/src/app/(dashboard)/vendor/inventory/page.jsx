@@ -22,6 +22,8 @@ import { Label } from "@/components/ui/label";
 import { tst } from "@/lib/utils";
 import Error from "@/components/shared/error";
 import { Button } from "@/components/ui";
+import { IMAGE_URL } from "@/constants";
+import { useAuthContext } from "@/context/authprovider";
 
 const StockUpdateDialog = ({ product, mutate }) => {
   const [pending, setPending] = useState(false);
@@ -85,11 +87,12 @@ const StockUpdateDialog = ({ product, mutate }) => {
 
 const ProductList = ({ searchParams }) => {
   const query = searchParams.query;
-  const { products, error, isLoading, mutate } = useProducts({ limit: 1000, active: true });
+  const { user } = useAuthContext();
+  const vendorId = user?.vendorId;
+  const { products, error, isLoading, mutate } = useProducts({ limit: 1000, active: true, vendorId: vendorId });
 
   if (error) return <Error />;
 
-  // Define columns and their data keys
   const columns = [
     {
       key: "name",
@@ -98,7 +101,7 @@ const ProductList = ({ searchParams }) => {
         <div className="flex items-center gap-3">
           <img
             className="w-10 h-10 object-cover rounded"
-            src={product?.images[1] || "./noimage.png"}
+            src={`${IMAGE_URL}/${product?.images[0] || "./noimage.png"}`}
             alt="product image"
           />
           <span className="truncate w-60">{product.name}</span>

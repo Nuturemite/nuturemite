@@ -1,32 +1,37 @@
-const ContactUs = () => {
-  const socialMedia = [
-    {
-      id: 1,
-      title: "Twitter",
-      link: "https://twitter.com/nuturemite",
-    },
-    {
-      id: 2,
-      title: "Facebook",
-      link: "https://www.facebook.com/Nuturemite/",
-    },
-    {
-      id: 3,
-      title: "Instagram",
-      link: "https://www.instagram.com/nuturemite_blog/",
-    },
-    {
-      id: 4,
-      title: "Youtube",
-      link: "https://www.youtube.com/channel/UCX1EgOA4GP0PJO893cHtbbA",
-    },
-    {
-      id: 5,
-      title: "Linkedin",
-      link: "https://www.linkedin.com/showcase/nuturemite/about/",
-    },
-  ];
+const socialMedia = [
+  {
+    id: 1,
+    title: "Twitter",
+    link: "https://twitter.com/nuturemite",
+  },
+  {
+    id: 2,
+    title: "Facebook",
+    link: "https://www.facebook.com/Nuturemite/",
+  },
+  {
+    id: 3,
+    title: "Instagram",
+    link: "https://www.instagram.com/nuturemite_blog/",
+  },
+  {
+    id: 4,
+    title: "Youtube",
+    link: "https://www.youtube.com/channel/UCX1EgOA4GP0PJO893cHtbbA",
+  },
+  {
+    id: 5,
+    title: "Linkedin",
+    link: "https://www.linkedin.com/showcase/nuturemite/about/",
+  },
+];
 
+export const metadata = {
+  title: "Contact Us",
+  description: "Contact Nuturemite for any inquiries or feedback. Reach out to us via email, phone, or visit our social media platforms.",
+}
+
+const ContactUs = () => {
   return (
     <div className="max-w-4xl mx-auto px-4 py-8">
       <h1 className="text-4xl font-bold mb-6">Contact Us</h1>

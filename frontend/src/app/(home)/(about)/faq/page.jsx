@@ -1,3 +1,8 @@
+export const metadata  = {
+  title: "FAQ",
+  description: "Frequently Asked Questions (FAQ) about Nuturemite. Find answers to common questions about our products, services, and more.",
+}
+
 const FAQ = () => {
   return (
     <div className="max-w-4xl mx-auto px-4 py-8">

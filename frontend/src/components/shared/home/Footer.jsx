@@ -4,9 +4,12 @@ import { Input } from "@/components/ui/input";
 import { Mail, Phone, MapPin, Twitter, Facebook, Instagram, Youtube, Linkedin } from "lucide-react";
 import { useCategories } from "@/lib/data";
 import Link from "next/link";
-
+import api from "@/lib/api";
+import { useState } from "react";
+import { tst } from "@/lib/utils";
 const Footer = () => {
   const { categories, isLoading } = useCategories();
+  const [email, setEmail] = useState("");
 
   const socialMedia = [
     {
@@ -75,6 +78,18 @@ const Footer = () => {
     },
   ];
 
+  const handleSubscribe = async (e) => {
+    e.preventDefault();
+    try {
+      const res = await api.post("/subscribe", { email });
+      tst.success("Subscribed successfully");
+      console.log(res);
+    } catch (error) {
+      tst.error("Something went wrong");
+      console.log(error);
+    }
+  };
+
   return (
     <div className="container-fluid bg-primary text-secondary mt-5 p-10  text-sm ">
       <div className="flex flex-wrap justify-center px-4 lg:px-0">
@@ -115,7 +130,11 @@ const Footer = () => {
               {links.length > 0 ? (
                 <div className="flex flex-col">
                   {links.map((link, idx) => (
-                    <Link key={idx} href={link.link} className="text-secondary mb-2 flex items-center">
+                    <Link
+                      key={idx}
+                      href={link.link}
+                      className="text-secondary mb-2 flex items-center"
+                    >
                       <i className="fa fa-angle-right mr-2"></i>
                       {link.name}
                     </Link>
@@ -130,10 +149,14 @@ const Footer = () => {
                     <div className="flex items-center">
                       <Input
                         type="text"
-                        className="form-control flex-1"
+                        className="text-slate-900"
                         placeholder="Your Email Address"
+                        value={email}
+                        onChange={e => setEmail(e.target.value)}
                       />
-                      <Button className="btn bg-tert-100 text-white ml-2">Sign Up</Button>
+                      <Button className="btn bg-tert-100 text-white ml-2" onClick={handleSubscribe}>
+                        Subscribe
+                      </Button>
                     </div>
                   </form>
                   <h6 className="text-secondary text-uppercase mb-3">Follow Us</h6>

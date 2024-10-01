@@ -8,9 +8,10 @@ import { useSWRConfig } from "swr";
 import { useAuthContext } from "@/context/authprovider";
 import { useCartContext } from "@/context/cartprovider";
 import { useCart } from "@/lib/data";
+import { IMAGE_URL } from "@/constants";
 
 export const ProductCard = ({ product, featured }) => {
-  const { _id, images, name, mrp, price, quantity } = product;
+  const { _id, images, name, mrp, price, quantity, slug } = product;
   const { isAuthenticated } = useAuthContext();
   const { addToCart } = useCartContext();
   const {mutate} = useCart();
@@ -31,15 +32,17 @@ export const ProductCard = ({ product, featured }) => {
   }
 
   return (
-    <Link href={`/shop/${_id}`}>
+    <Link href={`/shop/${slug}`}>
       <div className="w-full h-full group hover:shadow-md cursor-pointer bg-white p-2 relative">
         {/* Product Image and Sold Out Badge */}
         <div className="relative bg-white mb-4 overflow-hidden">
           <img
+            width={100}
+            height={100}
             className={`w-full ${
               featured && "max-h-44"
             } aspect-auto object-cover  p-2 group-hover:scale-110 group-hover:brightness-50 transition duration-500`}
-            src={images?.length ? images[1] : "./noimage.png"}
+            src={images?.length ? `${IMAGE_URL}/${images[0]}` : "./noimage.png"}
             alt={name}
           />
           {quantity === 0 && !featured ? (

@@ -6,6 +6,7 @@ import { useProducts } from "@/lib/data";
 import { useState } from "react";
 import Link from "next/link";
 import { Separator } from "@/components/ui/separator";
+import { IMAGE_URL } from "@/constants";
 
 function ProductSearch({ className }) {
   const [search, setSearch] = useState("");
@@ -33,7 +34,7 @@ function ProductSearch({ className }) {
           placeholder="Search ..."
           onChange={e => setSearch(e.target.value)}
         />
-        {search.length >= 3 && (
+        {search.length >= 1 && (
           <div className="absolute z-50 top-10 -left-20 bg-white w-[600px] max-h-[400px] overflow-y-scroll animate-height divide-y-2">
             {error && <div>{"Something went wrong"}</div>}
             {isLoading ? (
@@ -43,15 +44,17 @@ function ProductSearch({ className }) {
                 <>
                   <Link
                     key={product._id}
-                    href={`/shop/${product._id}`}
+                    href={`/shop/${product.slug}`}
                     onClick={() => setSearch("")}
                     className="hover:bg-slate-200 group"
                   >
                     <div className="flex items-center gap-4 p-2 group:hover:translate-x-2 ">
                       <img
+                        width={64}
+                        height={64}
                         className="h-16"
-                        src={product.images[1] || "./noimage.png"}
-                        alt={"Product image"}
+                        src={`${IMAGE_URL}/${product.images[0]}` || "./noimage.png"}
+                        alt={product.name}
                       />
                       <div>
                         <p>{product.name}</p>

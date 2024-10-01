@@ -16,15 +16,18 @@ export const Categories = () => {
               <div href="#" className="text-decoration-none">
                 <div className="flex flex-col md:flex-row md:items-center px-4  ">
                   <div className="overflow-hidden" style={{ width: "100px", height: "100px" }}>
-                    <img
-                      className="w-full  h-full object-cover"
-                      src={cat.image}
-                      // alt={cat.name}
-                    />
+                    <figure>
+                      <img
+                        className="w-full  h-full object-cover"
+                        src={cat.image}
+                        alt={cat.name}
+                        loading="lazy"
+                      />
+                      <figcaption>{cat.description}</figcaption>
+                    </figure>
                   </div>
                   <div className="flex-grow text-center pl-3 px-4 h-full">
                     <h6>{cat.name}</h6>
-                    {/* <small className="text-body">3 Products</small> */}
                   </div>
                 </div>
               </div>

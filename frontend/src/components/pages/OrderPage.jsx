@@ -32,6 +32,7 @@ import {
 import { tst } from "@/lib/utils";
 import { downloadInvoice } from "@/lib/utils";
 import DownloadInvoiceButton from "@/app/(dashboard)/vendor/(sales)/invoices/download-invoice";
+import { IMAGE_URL } from "@/constants";
 
 const OrderPage = ({ params, isAdmin = false, isUser = false }) => {
   const { order: orderData, error, isLoading } = useOrder(params.id);
@@ -158,14 +159,14 @@ const OrderDetails = ({ orderData }) => {
         <TableBody>
           {[
             { name: "Order Date", value: new Date(orderData.createdAt).toLocaleDateString() },
-            { name: "Total", value: orderData.subTotal },
+            { name: "Total MRP", value: orderData.subTotal },
             { name: "Discount", value: orderData.discount },
             { name: "Delivery charges", value: orderData.delCharges || 0 },
-            { name: "Total", value: orderData.total },
+            { name: "Total Price", value: orderData.total },
           ].map((item, index) => (
             <TableRow key={index} className="py-0">
               <TableCell className="text-sm py-1 whitespace-nowrap">{item.name}</TableCell>
-              <TableCell className="text-sm py-1">{item.value || "N/A"}</TableCell>
+              <TableCell className="text-sm py-1">{item.value}</TableCell>
             </TableRow>
           ))}
         </TableBody>
@@ -192,7 +193,7 @@ const OrderItems = ({ items }) => {
             <TableRow key={item._id}>
               <TableCell className="flex gap-2 items-center">
                 <img
-                  src={item.product.images[0]}
+                  src={`${IMAGE_URL}/${item.product.images[0]}`}
                   alt={item.product.name}
                   className="w-12 h-12 object-cover "
                 />

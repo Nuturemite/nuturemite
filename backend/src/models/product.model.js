@@ -11,6 +11,7 @@ export const ProductSchema = new Schema(
     brand: { type: Schema.Types.ObjectId, ref: "Brand", default: "66987df7c8d737564c027967" },
     vendor: { type: Schema.Types.ObjectId, ref: "Vendor", required: true },
     quantity: { type: Number, default: 0 },
+    slug: { type: String, required: true, unique: true },
     sku: String,
     images: [String],
     shippingDetails: {

@@ -1,3 +1,8 @@
+export const metadata = {
+  title: "Terms and Conditions",
+  description: "Read our Terms and Conditions to understand the rules and regulations for using our website.",
+}
+
 const TermsAndConditions = () => {
   return (
     <div className="max-w-4xl mx-auto px-4 py-8">

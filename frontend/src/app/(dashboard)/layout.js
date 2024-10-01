@@ -16,6 +16,8 @@ import {
   Minimize2,
   User2,
   User2Icon,
+  Receipt,
+  ImagePlus,
 } from "lucide-react";
 
 const sidebarItemsVendor = [
@@ -67,11 +69,6 @@ const sidebarItemsVendor = [
     title: "Refunds",
     link: "/vendor/refunds",
   },
-  // {
-  //   icon: User,
-  //   title: "Customers",
-  //   link: "/vendor/users",
-  // },
   {
     icon: List,
     title: "Category",
@@ -81,6 +78,11 @@ const sidebarItemsVendor = [
     icon: User2,
     title: "Profile",
     link: "/vendor/profile/",
+  },
+  {
+    icon: Receipt,
+    title: "Coupons",
+    link: "/vendor/coupons",
   },
 ];
 
@@ -155,6 +157,21 @@ const sidebarItemsAdmin = [
     icon: List,
     title: "Category",
     link: "/vendor/category",
+  },
+  {
+    icon: FileText,
+    title: "Blogs",
+    link: "/admin/blogs",
+  },
+  {
+    icon: ImagePlus,
+    title: "Banners",
+    link: "/admin/banners",
+  },
+  {
+    icon: Settings,
+    title: "Settings",
+    link: "/admin/settings",
   },
 ];
 

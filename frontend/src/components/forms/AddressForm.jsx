@@ -32,6 +32,7 @@ export default function AddressForm({ update, address }) {
   }, [update, address]);
 
   const [pending, setPending] = useState(false);
+  const [errors, setErrors] = useState({});
 
   const handleChange = e => {
     const { name, value } = e.target;
@@ -39,6 +40,38 @@ export default function AddressForm({ update, address }) {
       ...prevData,
       [name]: value,
     }));
+    validateField(name, value);
+  };
+
+  const validateField = (name, value) => {
+    switch (name) {
+      case "email":
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(value)) {
+          setErrors(prevErrors => ({
+            ...prevErrors,
+            email: "Invalid email format",
+          }));
+        } else {
+          setErrors(prevErrors => ({
+            ...prevErrors,
+            email: "",
+          }));
+        }
+        break;
+      default:
+        if (value.trim() === "") {
+          setErrors(prevErrors => ({
+            ...prevErrors,
+            [name]: "This field is required",
+          }));
+        } else {
+          setErrors(prevErrors => ({
+            ...prevErrors,
+            [name]: "",
+          }));
+        }
+    }
   };
 
   const handleSubmit = async e => {
@@ -73,6 +106,7 @@ export default function AddressForm({ update, address }) {
             value={formData.fname}
             onChange={handleChange}
           />
+          {errors.fname && <div className="text-red-500 text-sm mt-1">{errors.fname}</div>}
         </div>{" "}
         <div>
           <Label htmlFor="lname" className="mb-2">
@@ -86,6 +120,7 @@ export default function AddressForm({ update, address }) {
             value={formData.lname}
             onChange={handleChange}
           />
+          {errors.lname && <div className="text-red-500 text-sm mt-1">{errors.lname}</div>}
         </div>
         <div>
           <Label htmlFor="email" className="mb-2">
@@ -99,6 +134,7 @@ export default function AddressForm({ update, address }) {
             value={formData.email}
             onChange={handleChange}
           />
+          {errors.email && <div className="text-red-500 text-sm mt-1">{errors.email}</div>}
         </div>
         <div>
           <Label htmlFor="phone" className="mb-2">
@@ -112,6 +148,7 @@ export default function AddressForm({ update, address }) {
             value={formData.phone}
             onChange={handleChange}
           />
+          {errors.phone && <div className="text-red-500 text-sm mt-1">{errors.phone}</div>}
         </div>
         <div>
           <Label htmlFor="city" className="mb-2">
@@ -125,6 +162,7 @@ export default function AddressForm({ update, address }) {
             value={formData.city}
             onChange={handleChange}
           />
+          {errors.city && <div className="text-red-500 text-sm mt-1">{errors.city}</div>}
         </div>
         <div>
           <Label htmlFor="state" className="mb-2">
@@ -138,6 +176,7 @@ export default function AddressForm({ update, address }) {
             value={formData.state}
             onChange={handleChange}
           />
+          {errors.state && <div className="text-red-500 text-sm mt-1">{errors.state}</div>}
         </div>
         <div>
           <Label htmlFor="zipcode" className="mb-2">
@@ -151,6 +190,7 @@ export default function AddressForm({ update, address }) {
             value={formData.zipcode}
             onChange={handleChange}
           />
+          {errors.zipcode && <div className="text-red-500 text-sm mt-1">{errors.zipcode}</div>}
         </div>
         <div>
           <Label htmlFor="address" className="mb-2">
@@ -164,6 +204,7 @@ export default function AddressForm({ update, address }) {
             value={formData.address}
             onChange={handleChange}
           />
+          {errors.address && <div className="text-red-500 text-sm mt-1">{errors.address}</div>}
         </div>
         <Button pending={pending} type="submit">
           {update ? "Update Address" : "Add Address"}

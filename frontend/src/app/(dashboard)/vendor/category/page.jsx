@@ -10,9 +10,10 @@ import { Plus, Trash, Edit } from "lucide-react";
 import SearchInput from "@/components/filters/search";
 import Link from "next/link";
 import { AlertBox } from "@/components/ui/alert-dialog";
+import { Switch } from "@mui/material";
 
 const CategoryList = ({ searchParams }) => {
-  const { categories, error, isLoading, mutate } = useCategories({ query: searchParams.query });
+  const { categories, error, isLoading, mutate } = useCategories(true);
   const [pending, setPending] = useState(false);
 
   const handleCategoryDelete = async id => {
@@ -22,6 +23,21 @@ const CategoryList = ({ searchParams }) => {
       mutate(categories.filter(category => category.id !== id));
       tst.success("Category deleted successfully");
     } catch (error) {
+      console.log(error);
+      tst.error(error);
+    } finally {
+      setPending(false);
+    }
+  };
+
+  const handleCategoryStatus = async (id, status) => {
+    try {
+      setPending(true);
+      await api.put(`/categories/${id}`, { active: status });
+      mutate(categories.map(category => category.id === id ? { ...category, active: status } : category));
+      tst.success("Category status updated successfully");
+    } catch (error) {
+      console.log(error);
       tst.error(error);
     } finally {
       setPending(false);
@@ -37,6 +53,13 @@ const CategoryList = ({ searchParams }) => {
       key: "description",
       label: "Description",
       render: item => (item.description ? item.description.slice(0, 40) : "No Description"),
+    },
+    {
+      key: "active",
+      label: "Status",
+      render: item => (
+        <Switch checked={item.active} onChange={() => handleCategoryStatus(item._id, !item.active)} />
+      ),
     },
   ];
 

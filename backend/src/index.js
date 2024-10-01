@@ -19,19 +19,31 @@ import refundRoutes from "./routes/refund.route.js";
 import couponRoutes from "./routes/coupon.route.js";
 import addressRoutes from "./routes/address.route.js";
 import { uploadImage } from "./utils/uploadFile.js";
-
+import blogRoutes from "./routes/blog.route.js";
+import analyticsRoutes from "./routes/analytics.route.js";
+import subscribeRoutes from "./routes/subscribe.route.js";
+import bannerRoutes from "./routes/banner.route.js";
+import settingsRoutes from "./routes/settings.route.js";
 dotenv.config();
 
 const app = express();
-
+let count = 0;
 app.use(cors({ origin: process.env.CLIENT_URL, credentials: true }));
-
 
 app.use(express.json({ limit: "50mb", extended: true }));
 app.use(fileUpload({ limits: { fileSize: 3 * 1024 * 1024 } }));
+app.use("/", (req, res, next) => {
+  console.log(`${req.method} ${req.originalUrl} ${new Date().toLocaleString()} ${count++}`);
+  next();
+});
 
+app.use("/api/settings", settingsRoutes);
+app.use("/api/banners", bannerRoutes);
+app.use("/api/analytics", analyticsRoutes);
+app.use("/api/blogs", blogRoutes);
+app.use("/api", subscribeRoutes);
 app.use("/api", addressRoutes);
-app.use('/api', couponRoutes);
+app.use("/api", couponRoutes);
 app.use("/api", refundRoutes);
 app.use("/api", shippingRoutes);
 app.use("/api/vendors", vendorRoutes);
@@ -49,15 +61,18 @@ app.use("/api/brands", brandRoutes);
 app.use("/api/upload/images", async (req, res) => {
   try {
     let images = [];
-    console.log(req.files);
     if (req.files) {
       if (typeof req.files["images[]"] === "object") {
-        const url = await uploadImage(req.files["images[]"].data, "nuturemite/product/uploads");
-        images.push(url);
+        const url = await uploadImage(req.files["images[]"].data, "nuturemite/products/uploads");
+        const newUrl = "nuturemite/products/uploads/" + url.split("/").pop();
+        console.log(newUrl);
+        images.push(newUrl);
       } else if (req.files["images[]"]) {
         const uploadPromises = req.files["images[]"].map(async image => {
-          const url = await uploadImage(image.data, "nuturemite/product/uploads");
-          return url;
+          console.log("images - image.data", image.data);
+          const url = await uploadImage(image.data, "nuturemite/products/uploads");
+          const newUrl = "nuturemite/products/uploads/" + url.split("/").pop();
+          return newUrl;
         });
         images = await Promise.all(uploadPromises);
       }

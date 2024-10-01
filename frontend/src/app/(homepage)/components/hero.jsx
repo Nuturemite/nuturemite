@@ -1,52 +1,38 @@
-import { Button } from "@/components/ui/button";
-import React from "react";
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
+import { useBanners } from "@/lib/data";
+import Error from "@/components/shared/error";
+import Loader from "@/components/shared/loader";
 
 export const Hero = () => {
+  const { banners , isLoading,error} = useBanners();
+
+  if (isLoading) return <Loader height="80vh" />;
+  if (error) return <Error />;
+
   return (
     <div className="flex justify-between items-center">
       <div className="h-full">
         <div className="relative h-full group overflow-hidden">
-          <Carousel
-            showThumbs={false}
-            infiniteLoop
-            autoPlay
-            interval={3000}
-            showStatus={false}
-          >
-            {[
-              "./banners/banner1.jpg",
-              "./banners/banner2.jpg",
-              "./banners/banner3.jpg",
-            ].map((image, index) => (
+          <Carousel showThumbs={false} infiniteLoop autoPlay interval={3000} showStatus={false}>
+            {banners.map((banner, index) => (
               <div key={index}>
-                <img
-                  className="w-full image--2 my-auto"
-                  src={image}
-                  alt={`Product Image ${index + 1}`}
-                />
+                <figure>
+                  <img
+                    width={100}
+                    height={100}
+                    className="w-full image--2 my-auto"
+                    src={banner.image}
+                    alt={banner.title}
+                    loading="lazy"
+                  />
+                  <figcaption> {banner.title} </figcaption>
+                </figure>
               </div>
             ))}
           </Carousel>
         </div>
       </div>
-      {/* <div className="flex flex-col basis-[38%] gap-5 h-full justify-between max-md:hidden">
-        {[1, 2].map(i => (
-          <div key={i} className="relative flex-1 group overflow-hidden">
-            <img
-              src={`./banners/banner${i}.jpg`}
-              className="w-full h-full image-primary"
-              alt={`Carousel ${i}`}
-            />
-            <div className="absolute inset-0 flex flex-col justify-center items-center pointer-events-none">
-              <h2 className="text-slate-100 font-bold mb-4">Save 20%</h2>
-              <h2 className="text-white text-xl font-bold mb-4">Special Offer</h2>
-              <Button size="sm">Shop Now</Button>
-            </div>
-          </div>
-        ))}
-      </div> */}
     </div>
   );
 };

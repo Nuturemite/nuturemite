@@ -104,7 +104,7 @@ const ProductList = () => {
         <div className="flex items-center gap-3">
           <img
             className="w-10 h-10 object-cover rounded"
-            src={item.images[1] || "./noimage.png"}
+            src={`${IMAGE_URL}/${item.images[0]}` || "./noimage.png"}
             alt="product image"
           />
           <span className="truncate w-60">{item.name}</span>

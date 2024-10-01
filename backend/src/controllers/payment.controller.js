@@ -15,7 +15,7 @@ import {
 import mongoose from "mongoose";
 import crypto from "crypto";
 import Razorpay from "razorpay";
-
+import { sendOrderConfirmation, sendVendorOrderConfirmation } from "../emails/sendOrderConfirmation.js";
 export const createRazorpayOrder = async (req, res) => {
   const mongoSession = await mongoose.startSession();
   mongoSession.startTransaction();
@@ -119,6 +119,9 @@ export const placeOrder = async (userId, orderDto) => {
     await updateProductQuantities(quantityUpdates, userId, session);
 
     await session.commitTransaction();
+    const vendorIds = vendorOrders.map(order => order.vendor);
+    sendOrderConfirmation(userId, newOrder._id);
+    sendVendorOrderConfirmation(vendorIds, newOrder._id);
   } catch (error) {
     await session.abortTransaction();
     console.error("Error placing order:", error);

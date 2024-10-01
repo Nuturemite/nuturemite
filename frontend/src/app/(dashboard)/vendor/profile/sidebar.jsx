@@ -43,16 +43,11 @@ export const sidebarItems = [
     title: "Password",
     link: "/vendor/profile/password",
   },
-  {
-    icon: Trash,
-    title: "Delete Account",
-    link: "/vendor/profile/delete",
-  },
 ];
 
 export const Sidebar = () => {
   return (
-    <div className="flex flex-col h-screen w-[250px]  text-slate-900 border-r border-y bg-white">
+    <div className="flex flex-col h-screen w-[300px]  text-slate-900 border-r border-y bg-white">
       <div className="flex flex-col space-y-3 pt-4 px-1">
         {sidebarItems.map((item) => {
           const Icon = item.icon; 
