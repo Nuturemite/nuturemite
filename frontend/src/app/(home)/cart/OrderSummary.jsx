@@ -3,16 +3,13 @@ import { useCart } from "@/lib/data";
 import React from "react";
 import { useAuthContext } from "@/context/authprovider";
 import { useCartContext } from "@/context/cartprovider";
-import { useSettings } from "@/lib/data";
 export default function OrderSummary({}) {
   const {isAuthenticated} = useAuthContext();
   const { cartItems: onlineCart, isLoading, error } = useCart(isAuthenticated);
   const { cart: localCart } = useCartContext();
   const cartItems = isAuthenticated ? onlineCart : localCart;
-  const {settings,isLoading:isLoadingSettings} = useSettings();
 
-  if (isLoading || isLoadingSettings) return;
-  const {shippingCharges,freeShippingThreshold} = settings;
+  if (isLoading) return;
 
   const totalPrice = cartItems?.reduce((total, cartItem) => {
     return total + cartItem.quantity * cartItem.product.price;
@@ -24,10 +21,10 @@ export default function OrderSummary({}) {
     return total + itemDiscount;
   }, 0);
 
-  const deliveryCharges = totalPrice > freeShippingThreshold ? 0 : shippingCharges;
+  const deliveryCharges = totalPrice > 2000 ? 0 : 200;
   const totalAmount = totalPrice - totalDiscount + deliveryCharges;
   const totalItems = cartItems.length;
-  const totalSave = totalDiscount + (deliveryCharges == 0 ? shippingCharges : 0);
+  const totalSave = totalDiscount + (deliveryCharges == 0 ? 200 : 0);
 
   return (
     <div>

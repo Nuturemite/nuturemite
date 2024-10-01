@@ -27,11 +27,3 @@ export const getBanners = async () => {
     const data = await fetchData(`/banners`)
     return {...data,banners:data.data}
 }
-
-export const getCategories = async () => {
-    return await fetchData(`/categories`)
-}
-
-export const getProduct = async (slug) => {
-    return await fetchData(`/products/${slug}`)
-}

@@ -76,10 +76,6 @@ const Footer = () => {
       name: "Contact Us",
       link: "/contact-us",
     },
-    {
-      name: "Blogs",
-      link: "/blogs",
-    },
   ];
 
   const handleSubscribe = async (e) => {
