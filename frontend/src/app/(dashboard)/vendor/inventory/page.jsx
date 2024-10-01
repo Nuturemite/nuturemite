@@ -23,6 +23,7 @@ import { tst } from "@/lib/utils";
 import Error from "@/components/shared/error";
 import { Button } from "@/components/ui";
 import { IMAGE_URL } from "@/constants";
+import { useAuthContext } from "@/context/authprovider";
 
 const StockUpdateDialog = ({ product, mutate }) => {
   const [pending, setPending] = useState(false);
@@ -86,11 +87,12 @@ const StockUpdateDialog = ({ product, mutate }) => {
 
 const ProductList = ({ searchParams }) => {
   const query = searchParams.query;
-  const { products, error, isLoading, mutate } = useProducts({ limit: 1000, active: true });
+  const { user } = useAuthContext();
+  const vendorId = user?.vendorId;
+  const { products, error, isLoading, mutate } = useProducts({ limit: 1000, active: true, vendorId: vendorId });
 
   if (error) return <Error />;
 
-  // Define columns and their data keys
   const columns = [
     {
       key: "name",

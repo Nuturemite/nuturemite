@@ -30,18 +30,6 @@ export const SubOrderSchema = new Schema(
     shippingAddress: { type: Schema.Types.ObjectId, ref: "Address", required: true },
     status: {
       type: String,
-      enum: [
-        "pending",
-        "booked",
-        "processing",
-        "confirmed",
-        "shipped",
-        "in-transit",
-        "out-for-delivery",
-        "delivered",
-        "returned",
-        "cancelled",
-      ],
       default: "pending",
     },
     shipInvoice: String,

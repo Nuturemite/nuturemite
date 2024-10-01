@@ -32,4 +32,13 @@ const AvatarFallback = React.forwardRef(({ className, ...props }, ref) => (
 ))
 AvatarFallback.displayName = AvatarPrimitive.Fallback.displayName
 
+export const UserAvatar = ({ name, image }) => {
+  return (
+    <Avatar>
+      <AvatarImage src={image} />
+      <AvatarFallback>{name.charAt(0)}</AvatarFallback>
+    </Avatar>
+  );
+};
+
 export { Avatar, AvatarImage, AvatarFallback }

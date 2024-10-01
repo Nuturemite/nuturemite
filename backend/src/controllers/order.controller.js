@@ -13,8 +13,11 @@ import {
   saveShippingAddress,
 } from "../services/order.service.js";
 import axios from "axios";
-import sendOrderConfirmation from "../utils/sendOrderConfirmation.js";
-
+import {
+  sendOrderConfirmation,
+  sendVendorOrderConfirmation,
+} from "../emails/sendOrderConfirmation.js";
+import { getSettings } from "./settings.cache.js";
 export const placeOrder = async (req, res) => {
   const session = await mongoose.startSession();
   session.startTransaction();
@@ -22,6 +25,9 @@ export const placeOrder = async (req, res) => {
   try {
     const userId = req.user.id;
     const { paymentMode, shippingAddressId } = req.body;
+    const settings = await getSettings();
+    const FREE_SHIPPING_THRESHOLD = settings.freeShippingThreshold;
+    const SHIPPING_CHARGES = settings.shippingCharges;
 
     const cart = await getCart(userId);
     validateCart(cart);
@@ -32,14 +38,22 @@ export const placeOrder = async (req, res) => {
     const shippingAddress = await Address.findById(shippingAddressId);
     const newOrder = await createOrder(userId, totals, paymentMode, shippingAddress, session);
 
-    const vendorOrders = groupVendorOrders(cart, newOrder, shippingAddressId, userId);
+    console.log(SHIPPING_CHARGES);
+    console.log(FREE_SHIPPING_THRESHOLD);
+    const vendorOrders = groupVendorOrders({
+      cart,
+      newOrder,
+      shippingAddressId,
+      userId,
+      SHIPPING_CHARGES,
+      FREE_SHIPPING_THRESHOLD,
+    });
     await saveSubOrders(vendorOrders, session);
 
     await updateProductQuantities(quantityUpdates, userId, session);
-
     await session.commitTransaction();
-
     sendOrderConfirmation(userId, newOrder._id);
+    sendVendorOrderConfirmation(vendorOrders);
     res.status(201).json({ message: "Order placed successfully", order: newOrder });
   } catch (error) {
     await session.abortTransaction();
@@ -57,7 +71,8 @@ export const confirmOrder = async (req, res) => {
   try {
     const subOrder = await SubOrder.findById(id)
       .populate("shippingAddress")
-      .populate("orderItems.product", "name");
+      .populate("orderItems.product", "name")
+      .populate("vendor", "address");
     const venShipping = await createShipment(subOrder);
     console.log(venShipping);
 
@@ -122,11 +137,11 @@ const createShipmentData = order => {
     discount: order.discount,
     cod_charges: 0,
     payment_type: order.paymentMode == "cod" ? "cod" : "prepaid",
-    order_amount: order.total + order.discount,
+    order_amount: order.total + order.discount + order.delCharges,
     package_weight: 1000,
-    // package_length: 10,
-    // package_breadth: 10,
-    // package_height: 10,
+    package_type: 100,
+    package_breadth: 100,
+    package_height: 100,
     request_auto_pickup: "yes",
     consignee: {
       name: order.shippingAddress.fname + " " + order.shippingAddress.lname,
@@ -137,15 +152,13 @@ const createShipmentData = order => {
       phone: order.shippingAddress.phone,
     },
     pickup: {
-      warehouse_name: "warehouse 1",
-      name: "Nitish Kumar (Xpressbees Private Limited)",
-      address: "140, MG Road",
-      address_2: "Near metro station",
-      city: "Gurgaon",
-      state: "Haryana",
-      pincode: "251001",
-      phone: "9999999999",
-      // ...order.vendor.address,
+      warehouse_name: order.vendor.address.warehouseName,
+      name: order.vendor.address.contactName,
+      address: order.vendor.address.warehouseAddress,
+      city: order.vendor.address.city,
+      state: order.vendor.address.state,
+      pincode: order.vendor.address.postalCode,
+      phone: order.vendor.address.contactPhone,
     },
     order_items: [
       ...order.orderItems.map(o => ({
@@ -155,16 +168,7 @@ const createShipmentData = order => {
         sku: o.sku,
       })),
     ],
-    // order_items: [
-    //   {
-    //     name: "product 1",
-    //     qty: "18",
-    //     price: "100",
-    //     sku: "sku001",
-    //   },
-    // ],
-    // courier_id: "",
-    collectable_amount: order.paymentMode == "cod" ? Math.round(order.total) : 0,
+    collectable_amount: order.paymentMode == "cod" ? order.total : 0,
   };
 };
 
@@ -186,7 +190,15 @@ export const getAllOrders = async (req, res) => {
 // Get sub-orders by current authenticated vendor
 export const getMyOrdersAsVendor = async (req, res) => {
   try {
-    const subOrders = await SubOrder.find({ vendor: req.user.vendorId })
+    const { search } = req.query;
+    const subOrders = await SubOrder.find({
+      vendor: req.user.vendorId,
+      ...(search
+        ? {
+            $or: [{ name: { $regex: search, $options: "i" } }],
+          }
+        : {}),
+    })
       .select("-orderItems")
       .populate("user", "name email")
       .populate("shippingAddress");
@@ -330,5 +342,20 @@ export const cancelOrder = async (req, res) => {
     res.status(500).json({ message: error.message });
   } finally {
     session.endSession();
+  }
+};
+
+export const updateOrderStatus = async (req, res) => {
+  const { awb_number, status } = req.body;
+  try {
+    const shipping = await Shipping.findOne({ trackingId: awb_number });
+    const order = await SubOrder.findOne({ _id: shipping.order });
+    order.status = status;
+    await order.save();
+    shipping.status = status;
+    await shipping.save();
+    res.json();
+  } catch (error) {
+    res.status(500).json({ message: error.message });
   }
 };

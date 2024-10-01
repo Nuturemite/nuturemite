@@ -34,9 +34,7 @@ const ShippingPolicy = () => {
         Shipping costs are calculated at checkout based on the shipping method selected and the destination of your order. 
       </p>
       <ul className="list-disc list-inside text-gray-700 mb-4">
-        <li><strong>Standard Shipping:</strong> Free on orders over $50, otherwise a flat rate of $5.</li>
-        <li><strong>Express Shipping:</strong> A flat rate of $15.</li>
-        <li><strong>Overnight Shipping:</strong> A flat rate of $25.</li>
+        <li><strong>Standard Shipping:</strong> Free on orders over ₹2000, otherwise a flat rate of ₹50.</li>
       </ul>
 
       <h2 className="text-2xl font-semibold mt-8 mb-4">Order Processing Time</h2>

@@ -24,9 +24,16 @@ import {
 } from "@/components/ui/dialog";
 import OrderStatus from "@/components/shared/admin/OrderStatus";
 import { AlertBox } from "@/components/ui/alert-dialog";
+import { useSearchParams } from "next/navigation";
+import StatusFilter from "./StatusFilter";
+import ClearFilter from "@/components/shared/common/ClearFilter";
 
 const OrderList = () => {
-  const { orders,error, isLoading, mutate } = useVendorOrders({ limit: 50 });
+  // const searchParams = useSearchParams();
+  // const filters = {
+  //   search: searchParams.get("search"),
+  // };
+  const { orders,error, isLoading, mutate } = useVendorOrders({ limit: 50});
   const [pending, setPending] = useState(false);
 
   if (error) return <Error />;
@@ -123,12 +130,33 @@ const OrderList = () => {
       setPending(false);
     }
   };
+
+  const handleExportOrders = async () => {
+    try {
+      const response = await api.get('/my-vendor-orders');
+      const blob = new Blob([response.data.data], { type: 'application/vnd.ms-excel' });
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'orders_export.xlsx';
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+    } catch (error) {
+      console.error(error);
+      tst.error("Failed to export orders");
+    }
+  };
+
   return (
     <div className="container mx-auto p-4">
       <div className="flex justify-between text-center mb-6">
-        <div>
+        <div className="md:flex items-center gap-4">
           <SearchInput className="md:w-60" />
+          {/* <StatusFilter /> */}
+          {/* <ClearFilter /> */}
         </div>
+        {/* <Button onClick={handleExportOrders}>Export Orders</Button> */}
       </div>
       <DataTable
         columns={columns}

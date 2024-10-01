@@ -1,4 +1,5 @@
 'use server'
+import axios from "axios"
 import { revalidatePath } from "next/cache"
 
 export async function revalidate(){
@@ -6,21 +7,23 @@ export async function revalidate(){
 }
 
 const fetchData = async (url) => {
-    const res = await fetch(process.env.NEXT_PUBLIC_API_URL + url)
-    return res.json()
+    const {data} = await axios.get(process.env.NEXT_PUBLIC_API_URL + url)
+    return data
 }
 
 export const getAnalytics = async () => {
-    const res = await fetchData(`/analytics`)
-    return res.json()
+    return await fetchData(`/analytics`)
 }
 
 export const getBlogs = async () => {
-    const res = await fetchData(`/blogs`)
-    return res.json()
+    return await fetchData(`/blogs`)
 }
 
 export const getBlog = async (slug) => {
-    const res = await fetchData(`/blogs/${slug}`)
-    return res.json()
+    return await fetchData(`/blogs/${slug}`)
+}
+
+export const getBanners = async () => {
+    const data = await fetchData(`/banners`)
+    return {...data,banners:data.data}
 }

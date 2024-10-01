@@ -18,7 +18,7 @@ const RefundAndReturnPolicy = () => {
       <h2 className="text-2xl font-semibold mt-8 mb-4">Returns</h2>
       <ul className="list-disc list-inside text-gray-700 mb-4">
         <li>
-          <strong>Eligibility for Returns:</strong> You have [30/60/90] days from the date of
+          <strong>Eligibility for Returns:</strong> You have 7 days from the date of
           delivery to return an item. To be eligible for a return, your item must be unused, in the
           same condition that you received it, and in its original packaging.
         </li>

@@ -2,6 +2,8 @@ import React from "react";
 import { MoreHorizontal } from "lucide-react";
 import { useTodayReviews } from "@/lib/data";
 import Loader from "@/components/shared/loader";
+import { UserAvatar } from "@/components/ui/avatar";
+
 const StarRating = ({ rating }) => {
   const stars = [];
   for (let i = 0; i < 5; i++) {
@@ -19,11 +21,7 @@ const StarRating = ({ rating }) => {
 const ReviewCard = ({ review }) => {
   return (
     <div className="flex items-start space-x-4 py-4 border-b last:border-none">
-      <img
-        src={`https://robohash.org/${review.author._id}`}
-        alt={review.author.name}
-        className="w-12 h-12 rounded-full"
-      />
+      <UserAvatar name={review.author.name} image={review.author.image} />
       <div>
         <div className="flex items-center space-x-2">
           <h3 className="font-semibold">{review.author.name}</h3>

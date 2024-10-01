@@ -22,19 +22,23 @@ import { uploadImage } from "./utils/uploadFile.js";
 import blogRoutes from "./routes/blog.route.js";
 import analyticsRoutes from "./routes/analytics.route.js";
 import subscribeRoutes from "./routes/subscribe.route.js";
+import bannerRoutes from "./routes/banner.route.js";
+import settingsRoutes from "./routes/settings.route.js";
 dotenv.config();
 
 const app = express();
-
+let count = 0;
 app.use(cors({ origin: process.env.CLIENT_URL, credentials: true }));
 
 app.use(express.json({ limit: "50mb", extended: true }));
 app.use(fileUpload({ limits: { fileSize: 3 * 1024 * 1024 } }));
 app.use("/", (req, res, next) => {
-  console.log(`${req.method} ${req.originalUrl} ${new Date().toISOString()}`);
+  console.log(`${req.method} ${req.originalUrl} ${new Date().toLocaleString()} ${count++}`);
   next();
 });
 
+app.use("/api/settings", settingsRoutes);
+app.use("/api/banners", bannerRoutes);
 app.use("/api/analytics", analyticsRoutes);
 app.use("/api/blogs", blogRoutes);
 app.use("/api", subscribeRoutes);

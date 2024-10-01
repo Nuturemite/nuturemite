@@ -3,7 +3,7 @@ import jwt from "jsonwebtoken";
 import { User, Vendor } from "../models/model.js";
 import ejs from "ejs";
 import path from "path";
-import { sendEmail } from "../utils/sendMail.js";
+import { sendEmail } from "../emails/sendMail.js";
 import { fileURLToPath } from "url";
 import { dirname } from "path";
 

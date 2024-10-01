@@ -3,7 +3,11 @@ const Schema = mongoose.Schema;
 // Address Schema
 const addressSchema = new mongoose.Schema(
   {
-    street: { type: String, required: true },
+    warehouseName: { type: String },
+    warehouseAddress: { type: String },
+    contactName: { type: String },
+    contactPhone: { type: String },
+    street: { type: String },
     city: { type: String, required: true },
     state: { type: String, required: true },
     postalCode: { type: String, required: true },

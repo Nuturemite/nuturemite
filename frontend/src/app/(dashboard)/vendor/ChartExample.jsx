@@ -33,6 +33,15 @@ const ordersData = [
   { month: "June", totalOrders: 180 },
 ];
 
+const amlaVsRajma = [
+  { month: "January", amla: 120, rajma: 150 },
+  { month: "February", amla: 150, rajma: 180 },
+  { month: "March", amla: 135, rajma: 160 },
+  { month: "April", amla: 160, rajma: 190 },
+  { month: "May", amla: 140, rajma: 170 },
+  { month: "June", amla: 180, rajma: 210 },
+];
+
 const salesConfig = {
   totalSales: {
     label: "Total Sales",
@@ -85,6 +94,27 @@ const Chart = () => {
           <Bar dataKey="totalOrders" fill={ordersConfig.totalOrders.color} />
         </BarChart>
       </ChartContainer>
+
+      <ChartContainer config={amlaVsRajmaConfig} className="max-h-[300px] bg-white">
+        <BarChart data={amlaVsRajma} margin={{ top: 20, right: 20, bottom: 20, left: 0 }}>
+          <CartesianGrid vertical={false} strokeDasharray="3 3" />
+          <XAxis
+            dataKey="month"
+            tickLine={false}
+            tickMargin={10}
+            axisLine={false}
+            tickFormatter={value => value.slice(0, 3)}
+            className="text-gray-600"
+          />
+          <YAxis className="text-gray-600" />
+          <Tooltip content={<ChartTooltipContent />} />
+          <ChartLegend content={<ChartLegendContent />} />
+          <Bar dataKey="amla" fill={amlaVsRajmaConfig.amla.color} />
+          <Bar dataKey="rajma" fill={amlaVsRajmaConfig.rajma.color} />
+        </BarChart>
+      </ChartContainer>
+
+      
     </div>
   );
 };

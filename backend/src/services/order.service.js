@@ -57,14 +57,16 @@ export const createOrder = async (
   return await newOrder.save({ session });
 };
 
-export const groupVendorOrders = (
+export const groupVendorOrders = ({
   cart,
   newOrder,
   shippingAddressId,
   userId,
   paymentMode = "cod",
-  paymentStatus = "pending"
-) => {
+  paymentStatus = "pending",
+  SHIPPING_CHARGES = 0,
+  FREE_SHIPPING_THRESHOLD = 0,
+}) => {
   const vendorOrders = {};
   for (const item of cart.items) {
     const product = item.product;
@@ -99,6 +101,10 @@ export const groupVendorOrders = (
     vendorOrders[vendor].total = vendorOrders[vendor].disTotal;
     vendorOrders[vendor].paymentMode = paymentMode;
     vendorOrders[vendor].paymentStatus = paymentStatus;
+    if (vendorOrders[vendor].total > FREE_SHIPPING_THRESHOLD) {
+      vendorOrders[vendor].total += SHIPPING_CHARGES;
+      vendorOrders[vendor].delCharges = SHIPPING_CHARGES;
+    }
   }
   return vendorOrders;
 };
@@ -127,9 +133,7 @@ export const updateProductQuantitiesForPayment = async (quantityUpdates, userId,
     product.quantity = newQuantity;
     return product.save({ session });
   });
-  await Promise.all([
-    ...updatePromises,
-  ]);
+  await Promise.all([...updatePromises]);
 };
 
 // const placeOrder = async (userId, orderDto, session) => {

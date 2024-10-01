@@ -9,7 +9,7 @@ import {
   } from "@/components/ui/table";
   import TableSkeleton from "@/components/shared/tableskeleton";
 
-  const DashTable = ({ columns, data, isLoading,  caption, pending, rowPerPage = 3 }) => {
+  const DashTable = ({ columns, data, isLoading,  caption }) => {
     return (
       <div className={`bg-white px-2`}>
         <Table>

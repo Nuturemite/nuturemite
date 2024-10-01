@@ -16,7 +16,8 @@ import {
   Minimize2,
   User2,
   User2Icon,
-  Receipt
+  Receipt,
+  ImagePlus,
 } from "lucide-react";
 
 const sidebarItemsVendor = [
@@ -83,7 +84,6 @@ const sidebarItemsVendor = [
     title: "Coupons",
     link: "/vendor/coupons",
   },
-  
 ];
 
 const sidebarItemsAdmin = [
@@ -162,6 +162,16 @@ const sidebarItemsAdmin = [
     icon: FileText,
     title: "Blogs",
     link: "/admin/blogs",
+  },
+  {
+    icon: ImagePlus,
+    title: "Banners",
+    link: "/admin/banners",
+  },
+  {
+    icon: Settings,
+    title: "Settings",
+    link: "/admin/settings",
   },
 ];
 

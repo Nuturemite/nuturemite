@@ -3,8 +3,6 @@
 import OrderTable from "./OrderTable";
 import RevPerUserTable from "./RevPerUserTable";
 import CardSection from "./CardSection";
-import OrderChart from "./OrderChart";
-import SalesChart from "./SalesChart";
 import NewReviews from "./NewReviews";
 export default function Dashboard() {
   return (
@@ -21,14 +19,6 @@ export default function Dashboard() {
         </div>
       </div>
       <NewReviews />
-      {/* <div className="w-full flex gap-4 p-2 md:p-6">
-        <div className="w-1/2">
-          <OrderChart />
-        </div>
-        <div className="w-1/2">
-          <SalesChart />
-        </div>
-      </div> */}
     </div>
   );
 }
