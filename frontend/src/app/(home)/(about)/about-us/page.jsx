@@ -36,7 +36,7 @@ const sections = [
         <li>Shipping & Delivery</li>
         <li>Orders History</li>
         <li>Advanced Search</li>
-        <li>Login.</li>
+        <li>Login</li>
       </ul>
     ),
   },
