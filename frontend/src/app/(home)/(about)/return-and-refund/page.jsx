@@ -22,12 +22,6 @@ const RefundAndReturnPolicy = () => {
           delivery to return an item. To be eligible for a return, your item must be unused, in the
           same condition that you received it, and in its original packaging.
         </li>
-        <li>
-          <strong>Non-returnable Items:</strong> Certain types of goods are exempt from being
-          returned. These include perishable goods (such as food, flowers, newspapers, or
-          magazines), custom or personalized items, intimate or sanitary goods, hazardous materials,
-          and flammable liquids or gases.
-        </li>
       </ul>
 
       <h2 className="text-2xl font-semibold mt-8 mb-4">Refunds</h2>
