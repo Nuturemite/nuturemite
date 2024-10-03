@@ -38,7 +38,7 @@ const RefundAndReturnPolicy = () => {
       </p>
       <p className="mb-4 text-gray-700">
         If your return is approved, we will initiate a refund to your original method of payment.
-        The time it takes for the refund to be processed depends on your payment method's policies.
+        The time it takes for the refund to be processed is 7 days.
       </p>
 
       <h2 className="text-2xl font-semibold mt-8 mb-4">Exchanges</h2>
