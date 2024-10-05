@@ -13,6 +13,7 @@ import { AlertBox } from "@/components/ui/alert-dialog";
 import OutLoader from "@/components/ui/outloader";
 import { useSearchParams } from "next/navigation";
 import { Switch } from "@mui/material";
+import { IMAGE_URL } from "@/constants";
 
 const ProductList = () => {
   const searchParams = useSearchParams();
