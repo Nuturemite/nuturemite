@@ -1,9 +1,9 @@
 import express from "express";
 const router = express.Router();
 import isAuth from "../middlewares/auth.js";
-import { createRazorpayOrder, verifyRazorpayOrder } from "../controllers/payment.controller.js";
+import { createPayment, verifyRazorpayOrder, verifyPhonepeOrder } from "../controllers/payment.controller.js";
     
-router.post("/create-razorpay-order", isAuth, createRazorpayOrder);
+router.post("/create-payment", isAuth, createPayment);
 router.post("/verify-razorpay-order", isAuth, verifyRazorpayOrder);
-
+router.post("/verify-phonepe-order", verifyPhonepeOrder);
 export default router;

@@ -11,7 +11,7 @@ import {
 
   const DashTable = ({ columns, data, isLoading,  caption }) => {
     return (
-      <div className={`bg-white px-2 max-w-3xl `}>
+      <div className={`bg-white px-2`}>
         <Table>
           {caption && <TableCaption>{caption}</TableCaption>}
           <TableHeader>
@@ -27,9 +27,9 @@ import {
           ) : (
             <TableBody>
   
-              {data.map(item => (
-                <TableRow key={item.id}>
-                  <TableCell>{data.indexOf(item) + 1}</TableCell>
+              {data.map((item,index) => (
+                <TableRow key={index}>
+                  <TableCell>{index + 1}</TableCell>
                   {columns.map(column => (
                     <TableCell className={column.className} key={column.key}>
                       {column.render ? column.render(item) : item[column.key]}

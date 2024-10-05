@@ -68,6 +68,7 @@ export const groupVendorOrders = ({
   FREE_SHIPPING_THRESHOLD = 0,
 }) => {
   const vendorOrders = {};
+  console.log("cart inside groupVendorOrders",cart);
   for (const item of cart.items) {
     const product = item.product;
     const vendor = product.vendor;
@@ -133,7 +134,8 @@ export const updateProductQuantitiesForPayment = async (quantityUpdates, userId,
     product.quantity = newQuantity;
     return product.save({ session });
   });
-  await Promise.all([...updatePromises]);
+  const emptyCart = Cart.findOneAndUpdate({ user: userId }, { $set: { items: [] } }, { session });
+  await Promise.all([...updatePromises, emptyCart]);
 };
 
 // const placeOrder = async (userId, orderDto, session) => {

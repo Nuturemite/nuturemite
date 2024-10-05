@@ -32,7 +32,8 @@ const initialData = {
 
 const paymentOptions = [
   { value: "cod", label: "Cash On Delivery" },
-  { value: "online", label: "Credit/Debit Card/PhonePe" },
+  { value: "phonepe", label: "PhonePe" },
+  { value: "razorpay", label: "Credit/Debit Card/Net Banking" },
 ];
 export default function Page() {
   const [pending, setPending] = useState(false);
@@ -155,8 +156,9 @@ export default function Page() {
     e.preventDefault();
     try {
       setPending(true);
-      const response = await api.post("/payment/create-razorpay-order", {
+      const response = await api.post("/payment/create-payment", {
         shippingAddressId: selectedAddress,
+        paymentMethod: "razorpay",
       });
       initializeRazorpay(response.data.data);
     } catch (error) {
@@ -166,6 +168,23 @@ export default function Page() {
       setPending(false);
     }
   };
+
+  const handlePhonepeOrder = async e => {
+    e.preventDefault();
+    try {
+      setPending(true);
+      const response = await api.post("/payment/create-payment", {
+        shippingAddressId: selectedAddress,
+        paymentMethod: "phonepe",
+      });
+      window.open(response.data.data.redirectUrl, "_blank");
+    }
+    catch (error) {
+      tst.error(error);
+    } finally {
+      setPending(false);
+    }
+  }
 
   return (
     <div className={`${pending && "pointer-events-none opacity-50"}`}>
@@ -287,11 +306,13 @@ export default function Page() {
                   ))}
                 </div>
                 <Button
-                  disabled={pending || !selectedAddress }
+                  disabled={pending || !selectedAddress || !paymentMode}
                   className="w-full mt-2"
                   onClick={e =>
                     paymentMode === "cod"
                       ? handleCheckout(e, paymentMode)
+                      : paymentMode === "phonepe"
+                      ? handlePhonepeOrder(e, paymentMode)
                       : handleRazorpayOrder(e, paymentMode)
                   }
                 >

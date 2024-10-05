@@ -1,5 +1,5 @@
 "use client"
-import { useCart } from "@/lib/data";
+import { useCart ,useSettings} from "@/lib/data";
 import React from "react";
 import { useAuthContext } from "@/context/authprovider";
 import { useCartContext } from "@/context/cartprovider";
@@ -8,23 +8,30 @@ export default function OrderSummary({}) {
   const { cartItems: onlineCart, isLoading, error } = useCart(isAuthenticated);
   const { cart: localCart } = useCartContext();
   const cartItems = isAuthenticated ? onlineCart : localCart;
+  const {settings} = useSettings();
+  const FREE_SHIPPING_THRESHOLD = settings?.freeShippingThreshold || 0;
+  const SHIPPING_CHARGES = settings?.shippingCharges || 0;
 
   if (isLoading) return;
 
-  const totalPrice = cartItems?.reduce((total, cartItem) => {
-    return total + cartItem.quantity * cartItem.product.price;
+  const totalMrp = cartItems?.reduce((total, cartItem) => {
+    return total + cartItem.quantity * cartItem.product.mrp;
   }, 0);
 
-  const totalDiscount = cartItems?.reduce((total, cartItem) => {
+ const totalDiscount = cartItems?.reduce((total, cartItem) => {
     const itemDiscount =
       cartItem.quantity * (cartItem.product.mrp - cartItem.product.price);
     return total + itemDiscount;
   }, 0);
 
-  const deliveryCharges = totalPrice > 2000 ? 0 : 200;
-  const totalAmount = totalPrice - totalDiscount + deliveryCharges;
+  const totalPrice = cartItems?.reduce((total, cartItem) => {
+    return total + cartItem.quantity * cartItem.product.price;
+  }, 0);
+
+  const deliveryCharges = totalPrice > FREE_SHIPPING_THRESHOLD ? 0 : SHIPPING_CHARGES;
+  const totalAmount = totalMrp - totalDiscount + deliveryCharges;
   const totalItems = cartItems.length;
-  const totalSave = totalDiscount + (deliveryCharges == 0 ? 200 : 0);
+  const totalSave = totalDiscount + (deliveryCharges == 0 ? FREE_SHIPPING_THRESHOLD : 0);
 
   return (
     <div>
@@ -38,8 +45,8 @@ export default function OrderSummary({}) {
         <div>
           <dl className=" space-y-1 px-2 py-4">
             <div className="flex items-center justify-between">
-              <dt className="text-sm text-gray-800">Price ({totalItems} item)</dt>
-              <dd className="text-sm font-medium text-gray-900">₹ {totalPrice}</dd>
+              <dt className="text-sm text-gray-800">Total MRP ({totalItems} item)</dt>
+              <dd className="text-sm font-medium text-gray-900">₹ {totalMrp}</dd>
             </div>
             <div className="flex items-center justify-between pt-4">
               <dt className="flex items-center text-sm text-gray-800">

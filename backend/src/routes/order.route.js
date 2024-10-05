@@ -12,6 +12,7 @@ import {
   cancelOrder,
   updateOrderStatus,
 } from "../controllers/order.controller.js";
+import { createUserOrder } from "../controllers/create-order.controller.js";
 import isAuth from "../middlewares/auth.js";
 
 const router = express.Router();
@@ -31,5 +32,7 @@ router.post("/orders/place-order", isAuth, placeOrder); // Place a new order
 router.post("/orders/:id/cancel", isAuth, cancelOrder); // Cancel an order
 router.post("/orders/update-status",  updateOrderStatus); // Update order status
 router.put("/orders/:id", isAuth, updateOrder);
+
+router.post("/v2/orders/place-order", isAuth, createUserOrder);
 
 export default router;

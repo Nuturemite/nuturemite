@@ -56,7 +56,6 @@ const NavBar = () => {
     }
   };
 
-
   return (
     <>
       <Header />
@@ -118,11 +117,8 @@ const NavBar = () => {
 export default NavBar;
 
 const CategoryBox = React.forwardRef(({ className, title, children, ...props }, ref) => {
-  const { categories, isLoading, error } = useCategories({
-    type: "parent",
-    limit: 6,
-  });
-  if (isLoading) return;
+  const { categories, isLoading, error } = useCategories({});
+  if (isLoading || error || !categories) return;
 
   return (
     <NavigationMenuContent>

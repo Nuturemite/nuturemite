@@ -11,3 +11,5 @@
 
 # Ignore build folder
 /build
+
+/redundant

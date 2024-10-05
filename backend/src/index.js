@@ -24,6 +24,7 @@ import analyticsRoutes from "./routes/analytics.route.js";
 import subscribeRoutes from "./routes/subscribe.route.js";
 import bannerRoutes from "./routes/banner.route.js";
 import settingsRoutes from "./routes/settings.route.js";
+import queryRoutes from "./routes/query.route.js";
 dotenv.config();
 
 const app = express();
@@ -57,6 +58,9 @@ app.use("/api/products", productRoutes);
 app.use("/api/auth", authRoute);
 app.use("/api/categories", categoryRoutes);
 app.use("/api/brands", brandRoutes);
+app.use("/api/ai-analytics", queryRoutes);
+
+
 
 app.use("/api/upload/images", async (req, res) => {
   try {
