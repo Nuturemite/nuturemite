@@ -12,7 +12,8 @@ import mongoose from "mongoose";
 import crypto from "crypto";
 import Razorpay from "razorpay";
 import axios from "axios";
-import { User } from "../models/model.js";
+import { User, Settings } from "../models/model.js";
+
 import {
   sendOrderConfirmation,
   sendVendorOrderConfirmation,
@@ -38,13 +39,18 @@ export const createPayment = async (req, res) => {
     const shippingAddressId = req.body.shippingAddressId;
     const userId = req.user.id;
     const paymentMethod = req.body.paymentMethod;
+    const settings = await Settings.findOne();
+    const FREE_SHIPPING_THRESHOLD = settings.freeShippingThreshold;
+    const SHIPPING_CHARGE = settings.shippingCharges;
 
     const user = await User.findById(userId);
 
     const cart = await getCart(userId);
     validateCart(cart);
 
-    const amount = cart.items.reduce((acc, item) => acc + item.product.price * item.quantity, 0);
+    let amount = cart.items.reduce((acc, item) => acc + item.product.price * item.quantity, 0);
+    amount += amount < FREE_SHIPPING_THRESHOLD ? SHIPPING_CHARGE : 0;
+    console.log("amount", amount);
 
     if (paymentMethod === "razorpay") {
       // *****razorpay payment*****
@@ -63,6 +69,8 @@ export const createPayment = async (req, res) => {
       const salt_key = process.env.PHONEPE_MERCHANT_API_KEY;
       const merchantId = process.env.PHONEPE_MERCHANT_ID;
       const merchantUserId = req.user.id;
+
+      console.log(merchantId, merchantTransactionId, merchantUserId, amount, salt_key);
       const data = {
         merchantId,
         merchantTransactionId,
@@ -91,11 +99,8 @@ export const createPayment = async (req, res) => {
         "X-VERIFY": xVerifyChecksum,
       };
 
-      const testUrl = `https://api-preprod.phonepe.com/apis/pg-sandbox/pg/v1/pay`;
-      const liveUrl = `https://api.phonepe.com/apis/pg/v1/pay`;
-
       const response = await axios.post(
-        testUrl,
+        process.env.PHONEPE_PROD_URL,
         {
           request: base64EncodedPayload,
         },
@@ -130,7 +135,6 @@ export const verifyPhonepeOrder = async (req, res) => {
     await placeOrder(userId, orderDto);
     console.log("Order placed success");
     res.redirect(`${process.env.CLIENT_URL}/orders`);
-
   } catch (error) {
     console.log(error);
     res.status(500).send(error);
