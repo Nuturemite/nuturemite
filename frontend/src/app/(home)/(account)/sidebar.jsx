@@ -3,7 +3,7 @@ import React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
-import { Heart, User, Package, LogOut, Home } from "lucide-react";
+import { Heart, User, Package, LogOut, Home, LockKeyhole } from "lucide-react";
 import { Avatar } from "@/components/shared/avatar";
 
 const dashboardItems = [
@@ -11,6 +11,11 @@ const dashboardItems = [
     icon: User,
     title: "Account",
     link: "/account",
+  },
+  {
+    icon: LockKeyhole,
+    title: "Change Password",
+    link: "/update-password",
   },
   {
     icon: Heart,
@@ -29,7 +34,7 @@ const dashboardItems = [
   },
 ];
 
-function Sidebar({ className ,user}) {
+function Sidebar({ className, user }) {
   const activePath = usePathname().split("/")[1];
 
   return (
@@ -49,12 +54,13 @@ function Sidebar({ className ,user}) {
 
       <div className="pt-6">
         <ul>
-          {dashboardItems.map(item => (
+          {dashboardItems.map((item) => (
             <li key={item.title}>
               <Link
                 href={item.link}
                 className={`flex mb-4 items-center px-4 py-3 text-slate-700 hover:bg-tert-100 active:bg-tert-100 hover:text-white transition duration-150 cursor-pointer ${
-                  activePath === item.title.toLowerCase() && "bg-tert-100 text-white"
+                  activePath === item.title.toLowerCase() &&
+                  "bg-tert-100 text-white"
                 }`}
               >
                 <item.icon className="hover:text-white text-2xl" />
@@ -66,7 +72,9 @@ function Sidebar({ className ,user}) {
           ))}
           <li className="flex  mb-4 items-center px-4 py-3 text-slate-700 hover:bg-tert-100 hover:text-white transition duration-150 cursor-pointer">
             <LogOut className="hover:text-white text-2xl" />
-            <span className="ml-8 text-[0.9rem] font-semibold tracking-wider">Sign out</span>
+            <span className="ml-8 text-[0.9rem] font-semibold tracking-wider">
+              Sign out
+            </span>
           </li>
         </ul>
       </div>

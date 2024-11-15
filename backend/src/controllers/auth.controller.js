@@ -6,22 +6,25 @@ import path from "path";
 import { sendEmail } from "../emails/sendMail.js";
 import { fileURLToPath } from "url";
 import { dirname } from "path";
-
+import crypto from "crypto";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-const createActivationToken = user => {
+const createActivationToken = (user) => {
   const token = jwt.sign(user, process.env.ACTIVATION_SECRET, {
     expiresIn: process.env.ACTIVATION_EXPIRE,
   });
   return token;
 };
 
-const sendVerficationEmail = async user => {
+const sendVerficationEmail = async (user) => {
   const activationToken = createActivationToken(user);
   const activationUrl = `${process.env.SERVER_URL}/api/auth/verify-email?token=${activationToken}`;
   const data = { user: { name: user.name }, activationUrl };
-  const html = await ejs.renderFile(path.join(__dirname, "../emails/activation-email.ejs"), data);
+  const html = await ejs.renderFile(
+    path.join(__dirname, "../emails/activation-email.ejs"),
+    data
+  );
   await sendEmail({
     to: user.username,
     subject: "Activate Your Acount",
@@ -83,19 +86,21 @@ export const login = async (req, res) => {
       return res.status(409).json({
         message: "Your account has been blocked. Please contact support.",
       });
-    
-   
+
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
       return res.status(401).json({ message: "Invalid credentials" });
     }
 
     let vendor;
-    if (user.role == "vendor") vendor = await Vendor.findOne({ user: user._id });
+    if (user.role == "vendor")
+      vendor = await Vendor.findOne({ user: user._id });
     console.log(vendor);
 
     if (vendor && vendor.apvStatus === "pending")
-      return res.status(401).json({ message: "Please wait for admin approval" });
+      return res
+        .status(401)
+        .json({ message: "Please wait for admin approval" });
 
     const token =
       user.role == "user" || user.role == "admin"
@@ -154,13 +159,15 @@ export const registerVendor = async (req, res) => {
     req.body.user = user._id;
 
     const vendor = await Vendor.create(req.body);
-    res.status(201).json({ message: "Vendor created successfully", data: vendor });
+    res
+      .status(201)
+      .json({ message: "Vendor created successfully", data: vendor });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 };
 
-export const signToken = data => {
+export const signToken = (data) => {
   const token = jwt.sign(data, process.env.JWT_SECRET, { expiresIn: "10d" });
   return token;
 };
@@ -184,4 +191,70 @@ export const updatePassword = async (req, res) => {
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
+};
+
+// Passowrd forgot------------------------>
+
+// Send reset password email
+export const sendResetPassword = async (req, res, next) => {
+  const { email } = req.body;
+  const user = await User.findOne({ email });
+
+  if (!user) return res.status(400).json({ message: "User not registered" });
+
+  const resetToken = crypto.randomBytes(20).toString("hex");
+  user.resetPasswordToken = crypto
+    .createHash("sha256")
+    .update(resetToken)
+    .digest("hex");
+  user.resetPasswordExpire = Date.now() + 15 * 60 * 1000;
+
+  const resetUrl = `${process.env.CLIENT_URL}/auth/reset-password/${resetToken}`;
+  const html = await ejs.renderFile(
+    path.join(__dirname, "../emails/resetPassword.ejs"),
+    { name: user.name, resetUrl }
+  );
+
+  await sendEmail({ to: user.email, subject: "Password Reset", html });
+  await user.save();
+
+  res.status(200).json({ message: "Please check your mail" });
+};
+
+// Reset password using token
+export const resetPassword = async (req, res, next) => {
+  const resetPasswordToken = crypto
+    .createHash("sha256")
+    .update(req.params.token)
+    .digest("hex");
+
+  const user = await User.findOne({
+    resetPasswordToken,
+    resetPasswordExpire: { $gt: Date.now() },
+  });
+
+  if (!user)
+    return res.status(400).json({ message: "Invalid or expired token" });
+
+  const { newPassword: password, confirmNewPassword: confirmPassword } =
+    req.body;
+  if (!password || !confirmPassword || password !== confirmPassword) {
+    return res
+      .status(400)
+      .json({ message: "Passwords do not match or are missing" });
+  }
+
+  user.password = await bcrypt.hash(password, 10);
+  user.resetPasswordToken = undefined;
+  user.resetPasswordExpire = undefined;
+
+  const html = await ejs.renderFile(
+    path.join(__dirname, "../emails/passwordSuccessfull.ejs"),
+    { user }
+  );
+  await sendEmail({ to: user.email, subject: "Password Reset Success", html });
+
+  await user.save();
+
+  res.status(200).json({ message: "Password has been updated successfully" });
 };

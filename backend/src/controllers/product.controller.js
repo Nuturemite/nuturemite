@@ -8,41 +8,9 @@ export const createProduct = async (req, res) => {
     const product = new Product(req.body);
     await product.save();
     console.log(product);
-    res.status(201).json({ message: "Product created successfully!", data: product });
-  } catch (error) {
-    console.log(error);
-    res.status(500).json({ message: error.message });
-  }
-};
-
-export const findBySlug = async (slug) => {
-  try {
-    const product = await Product.findOne({ slug });
-    return product;
-  } catch (error) {
-    console.log(error);
-  }
-};
-
-export const getProduct = async (req, res) => {
-  try {
-    const product = await Product.findById(req.params.id).populate("categories", "name");
-    if (!product) return res.status(404).json({ message: "Product not found" });
-    if (req.user) {
-      product.hasUserBought = await hasUserBoughtProduct(req.params.id, req.user.id);
-    }
-    res.json({ data: product });
-  } catch (error) {
-    console.log(error);
-    res.status(500).json({ message: error.message });
-  }
-};
-
-export const getProductBySlug = async (req, res) => {
-  try {
-    const product = await findBySlug(req.params.slug);
-    if (!product) return res.status(404).json({ message: "Product not found" });
-    res.json({ data: product });
+    res
+      .status(201)
+      .json({ message: "Product created successfully!", data: product });
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: error.message });
@@ -55,9 +23,57 @@ export const hasUserBoughtProduct = async (productId, userId) => {
       product: productId,
       user: userId,
     });
+    console.log("Is this product bought by the user", hasBought);
+
     return hasBought;
   } catch (error) {
     console.log(error);
+  }
+};
+
+export const findBySlug = async (slug) => {
+  try {
+    const product = await Product.findOne({ slug })
+      .populate("reviews")
+      .populate("categories");
+    return product;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const getProduct = async (req, res) => {
+  try {
+    const product = await Product.findById(req.params.id).populate(
+      "categories",
+      "name",
+      "reviews"
+    );
+    if (!product) return res.status(404).json({ message: "Product not found" });
+    if (req.user) {
+      product.hasUserBought = await hasUserBoughtProduct(
+        req.params.id,
+        req.user.id
+      );
+    }
+    res.json({ data: product });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: error.message });
+  }
+};
+
+export const getProductBySlug = async (req, res) => {
+  try {
+    const product = await findBySlug(req.params.slug);
+    console.log("You got here");
+
+    if (!product) return res.status(404).json({ message: "Product not found" });
+
+    res.json({ data: product });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: error.message });
   }
 };
 
@@ -65,6 +81,7 @@ export const getAllProducts = async (req, res) => {
   try {
     const { page = 1, limit = 10 } = req.query;
     const products = await Product.find({})
+      .populate("reviews")
       .populate("categories", "name id")
       .populate({
         path: "brands",
@@ -81,10 +98,11 @@ export const getAllProducts = async (req, res) => {
       totalItems: total,
     });
   } catch (error) {
+    console.log(error);
+
     res.status(500).json({ message: error.message });
   }
 };
-
 
 export const getAllMyVendorProducts = async (req, res) => {
   try {
@@ -110,14 +128,15 @@ export const getAllMyVendorProducts = async (req, res) => {
   }
 };
 
-
 // Update a product
 export const updateProduct = async (req, res) => {
   try {
-    if(req.body.name) {
+    if (req.body.name) {
       req.body.slug = await createSlug(req.body.name);
     }
-    const product = await Product.findByIdAndUpdate(req.params.id, req.body, { new: true });
+    const product = await Product.findByIdAndUpdate(req.params.id, req.body, {
+      new: true,
+    });
     if (!product) return res.status(404).json({ message: "Product not found" });
     res.json({ message: "Product updated successfully!", data: product });
   } catch (error) {
@@ -137,12 +156,15 @@ export const deleteProduct = async (req, res) => {
   }
 };
 
-
 const createSlug = async (name) => {
   const slug = slugify(name, { lower: true, strict: true, trim: true });
   const product = await Product.findOne({ slug });
   if (product) {
-    return slugify(name + " " + Date.now(), { lower: true, strict: true, trim: true });
+    return slugify(name + " " + Date.now(), {
+      lower: true,
+      strict: true,
+      trim: true,
+    });
   }
   return slug;
 };

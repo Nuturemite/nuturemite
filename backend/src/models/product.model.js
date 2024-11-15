@@ -7,8 +7,14 @@ export const ProductSchema = new Schema(
     mrp: { type: Number, required: true },
     price: { type: Number, required: true },
     description: String,
-    categories: [{ type: Schema.Types.ObjectId, ref: "Category", required: true }],
-    brand: { type: Schema.Types.ObjectId, ref: "Brand", default: "66987df7c8d737564c027967" },
+    categories: [
+      { type: Schema.Types.ObjectId, ref: "Category", required: true },
+    ],
+    brand: {
+      type: Schema.Types.ObjectId,
+      ref: "Brand",
+      default: "66987df7c8d737564c027967",
+    },
     vendor: { type: Schema.Types.ObjectId, ref: "Vendor", required: true },
     quantity: { type: Number, default: 0 },
     slug: { type: String, required: true, unique: true },
@@ -40,7 +46,25 @@ ProductSchema.virtual("discountPercent").get(function () {
   return Math.round(((this.mrp - this.price) / this.mrp) * 100);
 });
 
-ProductSchema.pre('find', function(next){
-  this.sort({_id: -1});
+ProductSchema.virtual("reviews", {
+  ref: "Review",
+  localField: "_id",
+  foreignField: "product",
+  justOne: false,
+});
+
+ProductSchema.virtual("avgRating").get(function () {
+  if (this.reviews && this.reviews.length > 0) {
+    const sum = this.reviews.reduce(
+      (total, review) => total + review.rating,
+      0
+    );
+    return (sum / this.reviews.length).toFixed(2);
+  }
+  return 0;
+});
+
+ProductSchema.pre("find", function (next) {
+  this.sort({ _id: -1 });
   next();
-})
+});

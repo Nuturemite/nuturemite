@@ -15,19 +15,22 @@ const initialReviewData = {
 };
 
 function ReviewForm({ productId }) {
-  const [reviewData, setReviewData] = useState({ ...initialReviewData, product: productId });
+  const [reviewData, setReviewData] = useState({
+    ...initialReviewData,
+    product: productId,
+  });
   const [pending, setPending] = useState(false);
   const [error, setError] = useState(null);
 
-  const handleChange = e => {
+  const handleChange = (e) => {
     const { name, value } = e.target;
-    setReviewData(prevData => ({
+    setReviewData((prevData) => ({
       ...prevData,
       [name]: value,
     }));
   };
 
-  const handleSubmit = async e => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setPending(true);
 
@@ -36,7 +39,7 @@ function ReviewForm({ productId }) {
       tst.success("Review submitted successfully");
       setReviewData(initialReviewData);
     } catch (err) {
-      tst.error(err.message || "Failed to submit review");
+      tst.error(err || "Failed to submit review");
       setError(err);
     } finally {
       setPending(false);
@@ -93,15 +96,19 @@ function ReviewForm({ productId }) {
             disabled={pending}
             placeholder="Rating (1-5)"
             required
-            min="1"
-            max="5"
+            min={1}
+            max={5}
           />
         </div>
 
         <Button type="submit" className="mt-4" pending={pending}>
           Submit Review
         </Button>
-        {error && <p className="text-red-500 mt-4">{error.message}</p>}
+        {error && (
+          <p className="text-red-500 mt-4">
+            {error.response.data.message ?? error.message}
+          </p>
+        )}
       </div>
     </form>
   );

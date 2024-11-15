@@ -100,7 +100,6 @@
   background: #718096;
 }
 
-
 @layer utilities {
   .navbar-heading {
     @apply font-normal text-white text-[0.93rem] hover:bg-slate-100 px-4 py-2 hover:text-slate-600 transition-all duration-200;
@@ -123,7 +122,7 @@
   }
 
   .image-primary {
-    @apply  group-hover:scale-125 transition-all duration-500 object-cover brightness-50 opacity-70 ;
+    @apply group-hover:scale-125 transition-all duration-500 object-cover brightness-50 opacity-70;
   }
 
   .image-primary-2 {
@@ -134,11 +133,48 @@
     @apply grid grid-cols-1  min-[400px]:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-10;
   }
 
-  .grid-4{
+  .grid-4 {
     @apply grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-10;
   }
 
   .error {
     @apply text-red-500 px-2 py-3 border border-red-300 text-sm mt-2;
+  }
+}
+
+.shine-effect {
+  overflow: hidden;
+}
+
+.shine-effect::before {
+  content: "";
+  position: absolute;
+  width: 8rem; /* Adjust width as needed */
+  height: 100%;
+  background-image: linear-gradient(
+    120deg,
+    rgba(255, 255, 255, 0) 30%,
+    rgba(255, 255, 255, 0.8),
+    rgba(255, 255, 255, 0) 70%
+  );
+  top: 0;
+  left: -8rem; /* Adjust starting position */
+  opacity: 0.9;
+  transition: opacity 0.4s ease;
+}
+
+.shine-effect::before {
+  animation: shine 1.8s ease-out infinite;
+}
+
+@keyframes shine {
+  0% {
+    left: -100px;
+  }
+  60% {
+    left: 100%;
+  }
+  100% {
+    left: 100%;
   }
 }

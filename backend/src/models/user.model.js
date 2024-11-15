@@ -13,6 +13,8 @@ export const UserSchema = new Schema(
     gender: { type: String, enum: ["male", "female", "others"] },
     active: { type: Boolean, default: true },
     blocked: { type: Boolean, default: false },
+    resetPasswordToken: { type: String, default: "" },
+    resetPasswordExpire: { type: Date },
   },
   { timestamps: true }
 );

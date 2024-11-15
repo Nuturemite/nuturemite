@@ -33,7 +33,7 @@ const OrderList = () => {
   // const filters = {
   //   search: searchParams.get("search"),
   // };
-  const { orders,error, isLoading, mutate } = useVendorOrders({ limit: 50});
+  const { orders, error, isLoading, mutate } = useVendorOrders({ limit: 50 });
   const [pending, setPending] = useState(false);
 
   if (error) return <Error />;
@@ -41,34 +41,34 @@ const OrderList = () => {
   const columns = [
     {
       label: "Order ID",
-      render: item => item._id,
+      render: (item) => item._id,
     },
     {
       label: "Ordered By",
-      render: item => item.user.name,
+      render: (item) => item.user.name,
       className: "whitespace-nowrap",
     },
     {
       label: "Address",
-      render: item => (
+      render: (item) => (
         <span className=" line-clamp-2">{`${item.shippingAddress.address}, ${item.shippingAddress.city}, ${item.shippingAddress.state}, ${item.shippingAddress.zipcode}`}</span>
       ),
     },
     {
       label: "Total ",
-      render: item => `₹${item.total}`,
+      render: (item) => `₹${item.total}`,
     },
     {
       label: "Status",
-      render: item => <OrderStatus status={item.status} />,
+      render: (item) => <OrderStatus status={item.status} />,
     },
     {
       label: "Date",
-      render: item => new Date(item.createdAt).toLocaleDateString(),
+      render: (item) => new Date(item.createdAt).toLocaleDateString(),
     },
     {
       label: "Payment Status",
-      render: item => (
+      render: (item) => (
         <div
           className={cn(
             "rounded-full px-2 py-1 text-xs text-center",
@@ -83,7 +83,7 @@ const OrderList = () => {
     },
     {
       label: "Payment Mode",
-      render: item => (
+      render: (item) => (
         <div
           className={cn(
             "rounded-full px-2 py-1 text-xs text-center",
@@ -98,7 +98,7 @@ const OrderList = () => {
     },
   ];
 
-  const actions = item => (
+  const actions = (item) => (
     <>
       {/* {item.status === "pending" && <ShipmentDialog orderId={item._id} />} */}
       {item.status === "pending" && (
@@ -117,7 +117,7 @@ const OrderList = () => {
     </>
   );
 
-  const handleConfirmOrder = async orderId => {
+  const handleConfirmOrder = async (orderId) => {
     try {
       setPending(true);
       await api.post(`/orders/${orderId}/confirm`);
@@ -133,12 +133,14 @@ const OrderList = () => {
 
   const handleExportOrders = async () => {
     try {
-      const response = await api.get('/my-vendor-orders');
-      const blob = new Blob([response.data.data], { type: 'application/vnd.ms-excel' });
+      const response = await api.get("/my-vendor-orders");
+      const blob = new Blob([response.data.data], {
+        type: "application/vnd.ms-excel",
+      });
       const url = window.URL.createObjectURL(blob);
-      const a = document.createElement('a');
+      const a = document.createElement("a");
       a.href = url;
-      a.download = 'orders_export.xlsx';
+      a.download = "orders_export.xlsx";
       document.body.appendChild(a);
       a.click();
       a.remove();
@@ -198,15 +200,17 @@ const ShipmentDialog = ({ orderId }) => {
         <DialogContent>
           <DialogHeader>
             <DialogTitle>Add Shipment Details</DialogTitle>
-            <DialogDescription>Enter tracking ID and carrier for the shipment.</DialogDescription>
+            <DialogDescription>
+              Enter tracking ID and carrier for the shipment.
+            </DialogDescription>
           </DialogHeader>
-          <form onSubmit={e => e.preventDefault()}>
+          <form onSubmit={(e) => e.preventDefault()}>
             <div className="my-4 grid grid-cols-4">
               <Label className="">Tracking ID</Label>
               <Input
                 type="text"
                 value={trackingId}
-                onChange={e => setTrackingId(e.target.value)}
+                onChange={(e) => setTrackingId(e.target.value)}
                 className="col-span-3 "
               />
             </div>
@@ -215,7 +219,7 @@ const ShipmentDialog = ({ orderId }) => {
               <Input
                 type="text"
                 value={carrier}
-                onChange={e => setCarrier(e.target.value)}
+                onChange={(e) => setCarrier(e.target.value)}
                 className="col-span-3"
               />
             </div>

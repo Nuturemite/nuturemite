@@ -20,7 +20,9 @@ export const FeaturedProducts = () => {
 
   return (
     <div className="">
-      <h2 className="uppercase mb-10 text-3xl  font-medium text-center">Featured Products</h2>
+      <h2 className="uppercase mb-10 text-3xl  font-medium text-center">
+        Best sellers
+      </h2>
       <Carousel
         opts={{
           align: "start",

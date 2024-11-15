@@ -14,20 +14,20 @@ function LoginForm() {
     password: "",
   });
   const [pending, setPending] = useState(false);
-  const { login} = useAuthContext();
+  const { login } = useAuthContext();
   const router = useRouter();
   const { emptyCart } = useCartContext();
   const { cart } = useCartContext();
 
-  const handleChange = event => {
+  const handleChange = (event) => {
     const { name, value, type, checked } = event.target;
-    setFormData(prevData => ({
+    setFormData((prevData) => ({
       ...prevData,
       [name]: type === "checkbox" ? checked : value,
     }));
   };
 
-  const handleSignin = async e => {
+  const handleSignin = async (e) => {
     e.preventDefault();
     try {
       setPending(true);
@@ -40,9 +40,10 @@ function LoginForm() {
         localStorage.setItem("token", token);
       }
       login();
-      if(cart.length > 0) await api.post("/cart/save", { cartItems: cart });
+      if (cart.length > 0) await api.post("/cart/save", { cartItems: cart });
       emptyCart();
-      if (user.role === "vendor" && vendor || user.role === "admin") router.push("/vendor");
+      if ((user.role === "vendor" && vendor) || user.role === "admin")
+        router.push("/vendor");
       else if (user.role === "vendor") router.push("/vendor-register");
       else router.push("/");
       tst.success("Signin success");
@@ -57,9 +58,14 @@ function LoginForm() {
     <div className="flex justify-between items-center  w-full ">
       <div className="w-full  mx-auto max-w-sm p-4 bg-slate-200 border border-slate-400  shadow sm:p-6 md:p-8">
         <form className="space-y-6" onSubmit={handleSignin}>
-          <h5 className="text-xl font-medium text-slate-800">Sign in to our platform</h5>
+          <h5 className="text-xl font-medium text-slate-800">
+            Sign in to our platform
+          </h5>
           <div>
-            <label htmlFor="username" className="block mb-2 text-sm font-medium text-slate-800">
+            <label
+              htmlFor="username"
+              className="block mb-2 text-sm font-medium text-slate-800"
+            >
               Username
             </label>
             <input
@@ -74,7 +80,10 @@ function LoginForm() {
             />
           </div>
           <div>
-            <label htmlFor="password" className="block mb-2 text-sm font-medium text-slate-800">
+            <label
+              htmlFor="password"
+              className="block mb-2 text-sm font-medium text-slate-800"
+            >
               Password
             </label>
             <input
@@ -89,16 +98,22 @@ function LoginForm() {
             />
           </div>
           <div className="flex items-start">
-            <a href="#" className="text-sm text-blue-700 hover:underline">
+            <Link
+              href="/auth/forgot-password"
+              className="text-sm text-blue-700 hover:underline"
+            >
               Forgot your password?
-            </a>
+            </Link>
           </div>
           <Button className="w-full" pending={pending}>
             Login to your Account
           </Button>
           <div className="text-sm font-medium text-slate-800">
             Not registered?{" "}
-            <Link href="/auth/register" className="text-blue-700 hover:underline">
+            <Link
+              href="/auth/register"
+              className="text-blue-700 hover:underline"
+            >
               Create account
             </Link>
           </div>

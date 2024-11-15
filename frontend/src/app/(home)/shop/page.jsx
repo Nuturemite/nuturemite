@@ -14,7 +14,7 @@ import Loader from "@/components/shared/loader";
 
 function Page() {
   const searchParams = useSearchParams();
-  
+
   const filters = {
     minPrice: searchParams.get("minprice"),
     maxPrice: searchParams.get("maxprice"),
@@ -26,7 +26,7 @@ function Page() {
     page: searchParams.get("page") || 1,
     minRating: searchParams.get("minRating"),
     productId: searchParams.get("productId"),
-    active:true,
+    active: true,
   };
 
   const { products, isLoading, error, totalPages } = useProducts(filters);
@@ -41,7 +41,8 @@ function Page() {
         <div className="flex flex-col items-center justify-between w-full">
           <h3 className="text-2xl font-bold mb-4">No products found</h3>
           <p className="text-gray-500">
-            Oops! It seems like we could not find any products with the given criteria.
+            Oops! It seems like we could not find any products with the given
+            criteria.
           </p>
         </div>
       );
@@ -49,7 +50,7 @@ function Page() {
 
     return (
       <div className="grid grid-cols-2 lg:grid-cols-3 gap-2 md:gap-8">
-        {products.map(product => (
+        {products.map((product) => (
           <ProductCard key={product.id} product={product} />
         ))}
       </div>

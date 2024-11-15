@@ -59,7 +59,7 @@ const NavBar = () => {
   return (
     <>
       <Header />
-      <nav className="bg-primary border-slate-200 border-b px-4 md:px-12 flex gap-16 items-center justify-between">
+      <nav className="bg-primary sticky top-0 z-50 border-slate-200 border-b px-4 md:px-12 flex gap-16 items-center justify-between">
         {/* Mobile menu */}
         <div className="flex gap-2 items-center text-white ">
           <div className="md:hidden">
@@ -87,7 +87,10 @@ const NavBar = () => {
                 </li>
               ))}
               {isAuthenticated && (
-                <li onClick={handleLogout} className="cursor-pointer navbar-heading">
+                <li
+                  onClick={handleLogout}
+                  className="cursor-pointer navbar-heading"
+                >
                   Logout
                 </li>
               )}
@@ -105,7 +108,11 @@ const NavBar = () => {
           </div>
           <div className="md:hidden flex gap-2 items-center">
             <Link href={"/cart"}>
-              <Icon icon="mynaui:cart" fontSize={28} className="text-tert-100 cursor-pointer " />
+              <Icon
+                icon="mynaui:cart"
+                fontSize={28}
+                className="text-tert-100 cursor-pointer "
+              />
             </Link>
           </div>
         </div>
@@ -116,52 +123,64 @@ const NavBar = () => {
 
 export default NavBar;
 
-const CategoryBox = React.forwardRef(({ className, title, children, ...props }, ref) => {
-  const { categories, isLoading, error } = useCategories({});
-  if (isLoading || error || !categories) return;
+const CategoryBox = React.forwardRef(
+  ({ className, title, children, ...props }, ref) => {
+    const { categories, isLoading, error } = useCategories({});
+    if (isLoading || error || !categories) return;
 
-  return (
-    <NavigationMenuContent>
-      <ul className="grid h-[400px] overflow-y-scroll scrollbar w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
-        {categories?.map(cat => (
-          <ListItem key={cat._id} title={cat.name} href={`/shop?categoryId=${cat._id}`}>
-            {cat.description
-              ? cat.description
-              : "A set of layered sections of content—known as tab panels—that are displayed one at a time"}
-          </ListItem>
-        ))}
-      </ul>
-    </NavigationMenuContent>
-  );
-});
+    return (
+      <NavigationMenuContent>
+        <ul className="grid h-[400px] overflow-y-scroll scrollbar w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
+          {categories?.map((cat) => (
+            <ListItem
+              key={cat._id}
+              title={cat.name}
+              href={`/shop?categoryId=${cat._id}`}
+            >
+              {cat.description
+                ? cat.description
+                : "A set of layered sections of content—known as tab panels—that are displayed one at a time"}
+            </ListItem>
+          ))}
+        </ul>
+      </NavigationMenuContent>
+    );
+  }
+);
 CategoryBox.displayName = "CategoryBox";
 
-const ListItem = React.forwardRef(({ className, title, children, ...props }, ref) => {
-  return (
-    <li>
-      <NavigationMenuLink asChild>
-        <Link
-          ref={ref}
-          className={cn(
-            "block select-none space-y-1  p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground",
-            className
-          )}
-          {...props}
-        >
-          <div className="text-sm font-medium leading-none">{title}</div>
-          <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">{children}</p>
-        </Link>
-      </NavigationMenuLink>
-    </li>
-  );
-});
+const ListItem = React.forwardRef(
+  ({ className, title, children, ...props }, ref) => {
+    return (
+      <li>
+        <NavigationMenuLink asChild>
+          <Link
+            ref={ref}
+            className={cn(
+              "block select-none space-y-1  p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground",
+              className
+            )}
+            {...props}
+          >
+            <div className="text-sm font-medium leading-none">{title}</div>
+            <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
+              {children}
+            </p>
+          </Link>
+        </NavigationMenuLink>
+      </li>
+    );
+  }
+);
 
 const CatNav = () => {
   return (
     <NavigationMenu>
       <NavigationMenuList>
         <NavigationMenuItem>
-          <NavigationMenuTrigger className="navbar-heading">Categories</NavigationMenuTrigger>
+          <NavigationMenuTrigger className="navbar-heading">
+            Categories
+          </NavigationMenuTrigger>
           <CategoryBox />
         </NavigationMenuItem>
       </NavigationMenuList>

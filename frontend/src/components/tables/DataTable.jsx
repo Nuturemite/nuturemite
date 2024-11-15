@@ -13,15 +13,23 @@ import TableSkeleton from "@/components/shared/tableskeleton";
 import Pagination from "../ui/pagination";
 import OutLoader from "../ui/outloader";
 
-const DataTable = ({ columns, data, isLoading, actions, caption, pending, rowPerPage = 3 }) => {
+const DataTable = ({
+  columns,
+  data,
+  isLoading,
+  actions,
+  caption,
+  pending,
+  rowPerPage = 100,
+}) => {
   return (
     <div className={`bg-white px-2`}>
       <Table>
         {caption && <TableCaption>{caption}</TableCaption>}
         <TableHeader>
           <TableRow>
-          <TableHead>S.No</TableHead>
-            {columns.map(column => (
+            <TableHead>S.No</TableHead>
+            {columns.map((column) => (
               <TableHead key={column.key}>{column.label}</TableHead>
             ))}
             {actions && <TableHead>Actions</TableHead>}
@@ -31,11 +39,10 @@ const DataTable = ({ columns, data, isLoading, actions, caption, pending, rowPer
           <TableSkeleton columnCount={columns.length + 2} />
         ) : (
           <TableBody>
-
-            {data.map(item => (
+            {data.map((item) => (
               <TableRow key={item.id}>
                 <TableCell>{data.indexOf(item) + 1}</TableCell>
-                {columns.map(column => (
+                {columns.map((column) => (
                   <TableCell className={column.className} key={column.key}>
                     {column.render ? column.render(item) : item[column.key]}
                   </TableCell>

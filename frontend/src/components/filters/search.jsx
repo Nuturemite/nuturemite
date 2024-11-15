@@ -10,7 +10,7 @@ function SearchInput({ className }) {
   const pathname = usePathname();
   const { replace } = useRouter();
 
-  const handleSearch = e => {
+  const handleSearch = (e) => {
     const params = new URLSearchParams(searchParams);
     const value = e.target.value;
     if (value) {
