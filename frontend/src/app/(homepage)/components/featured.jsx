@@ -30,7 +30,7 @@ export const FeaturedProducts = () => {
         className="w-full"
       >
         <CarouselContent>
-          {products.map((product, index) => (
+          {products?.map((product, index) => (
             <CarouselItem
               key={index}
               className="min-[400px]:basis-1/2 md:basis-1/3 lg:basis-1/5 space-y-10"

@@ -50,7 +50,7 @@ function Page() {
 
     return (
       <div className="grid grid-cols-2 lg:grid-cols-3 gap-2 md:gap-8">
-        {products.map((product) => (
+        {products?.map((product) => (
           <ProductCard key={product.id} product={product} />
         ))}
       </div>
