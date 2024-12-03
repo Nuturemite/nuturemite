@@ -1,11 +1,18 @@
-import { Address, Cart, Order, Product, Shipping, SubOrder } from "../models/model.js";
+import {
+  Address,
+  Cart,
+  Order,
+  Product,
+  Shipping,
+  SubOrder,
+} from "../models/model.js";
 import mongoose from "mongoose";
 
-export const getCart = async userId => {
+export const getCart = async (userId) => {
   return await Cart.findOne({ user: userId }).populate("items.product");
 };
 
-export const validateCart = cart => {
+export const validateCart = (cart) => {
   if (!cart || cart.items.length === 0) {
     throw new Error(cart ? "Cart is empty" : "Cart not found");
   }
@@ -18,7 +25,10 @@ export const checkProductQuantities = async (cart, session) => {
     if (product.quantity < item.quantity) {
       throw new Error("Insufficient quantity");
     }
-    quantityUpdates.push({ product, newQuantity: product.quantity - item.quantity });
+    quantityUpdates.push({
+      product,
+      newQuantity: product.quantity - item.quantity,
+    });
   }
   return quantityUpdates;
 };
@@ -29,8 +39,11 @@ export const saveShippingAddress = async (shippingAddress, userId, session) => {
   return await address.save({ session });
 };
 
-export const calculateTotals = cart => {
-  const subtotal = cart.items.reduce((acc, item) => acc + item.product.price * item.quantity, 0);
+export const calculateTotals = (cart) => {
+  const subtotal = cart.items.reduce(
+    (acc, item) => acc + item.product.price * item.quantity,
+    0
+  );
   const total = subtotal <= 2000 ? subtotal + 200 : subtotal;
   return { subtotal, total };
 };
@@ -54,7 +67,8 @@ export const createOrder = async (
     user: userId,
     createdAt: new Date(),
   });
-  return await newOrder.save({ session });
+  await newOrder.save({ session });
+  return newOrder;
 };
 
 export const groupVendorOrders = ({
@@ -68,7 +82,7 @@ export const groupVendorOrders = ({
   FREE_SHIPPING_THRESHOLD = 0,
 }) => {
   const vendorOrders = {};
-  console.log("cart inside groupVendorOrders",cart);
+  console.log("cart inside groupVendorOrders", cart);
   for (const item of cart.items) {
     const product = item.product;
     const vendor = product.vendor;
@@ -98,7 +112,8 @@ export const groupVendorOrders = ({
     });
     vendorOrders[vendor].subTotal += product.mrp * item.quantity;
     vendorOrders[vendor].disTotal += itemTotal;
-    vendorOrders[vendor].discount = vendorOrders[vendor].subTotal - vendorOrders[vendor].disTotal;
+    vendorOrders[vendor].discount =
+      vendorOrders[vendor].subTotal - vendorOrders[vendor].disTotal;
     vendorOrders[vendor].total = vendorOrders[vendor].disTotal;
     vendorOrders[vendor].paymentMode = paymentMode;
     vendorOrders[vendor].paymentStatus = paymentStatus;
@@ -111,30 +126,46 @@ export const groupVendorOrders = ({
 };
 
 export const saveSubOrders = async (vendorOrders, session) => {
-  const subOrderPromises = Object.values(vendorOrders).map(subOrderData => {
+  const subOrderPromises = Object.values(vendorOrders).map((subOrderData) => {
     const subOrder = new SubOrder(subOrderData);
     return subOrder.save({ session });
   });
   await Promise.all(subOrderPromises);
 };
 
-export const updateProductQuantities = async (quantityUpdates, userId, session) => {
+export const updateProductQuantities = async (
+  quantityUpdates,
+  userId,
+  session
+) => {
   const updatePromises = quantityUpdates.map(({ product, newQuantity }) => {
     product.quantity = newQuantity;
     return product.save({ session });
   });
   await Promise.all([
     ...updatePromises,
-    Cart.findOneAndUpdate({ user: userId }, { $set: { items: [] } }, { session }),
+    Cart.findOneAndUpdate(
+      { user: userId },
+      { $set: { items: [] } },
+      { session }
+    ),
   ]);
 };
 
-export const updateProductQuantitiesForPayment = async (quantityUpdates, userId, session) => {
+export const updateProductQuantitiesForPayment = async (
+  quantityUpdates,
+  userId,
+  session
+) => {
   const updatePromises = quantityUpdates.map(({ product, newQuantity }) => {
     product.quantity = newQuantity;
     return product.save({ session });
   });
-  const emptyCart = Cart.findOneAndUpdate({ user: userId }, { $set: { items: [] } }, { session });
+  const emptyCart = Cart.findOneAndUpdate(
+    { user: userId },
+    { $set: { items: [] } },
+    { session }
+  );
   await Promise.all([...updatePromises, emptyCart]);
 };
 

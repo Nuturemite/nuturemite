@@ -1,4 +1,11 @@
-import { Address, Cart, Order, Product, Shipping, SubOrder } from "../models/model.js";
+import {
+  Address,
+  Cart,
+  Order,
+  Product,
+  Shipping,
+  SubOrder,
+} from "../models/model.js";
 import mongoose from "mongoose";
 import {
   // placeOrder,
@@ -36,9 +43,15 @@ export const placeOrder = async (req, res) => {
 
     const totals = calculateTotals(cart);
     const shippingAddress = await Address.findById(shippingAddressId);
-    const newOrder = await createOrder(userId, totals, paymentMode, shippingAddress, session);
+    const newOrder = await createOrder(
+      userId,
+      totals,
+      paymentMode,
+      shippingAddress,
+      session
+    );
 
-    console.log(SHIPPING_CHARGES);
+    console.log(newOrder);
     console.log(FREE_SHIPPING_THRESHOLD);
     const vendorOrders = groupVendorOrders({
       cart,
@@ -54,11 +67,15 @@ export const placeOrder = async (req, res) => {
     await session.commitTransaction();
     sendOrderConfirmation(userId, newOrder._id);
     sendVendorOrderConfirmation(vendorOrders);
-    res.status(201).json({ message: "Order placed successfully", order: newOrder });
+    res
+      .status(201)
+      .json({ message: "Order placed successfully", order: newOrder });
   } catch (error) {
     await session.abortTransaction();
     console.error("Error placing order:", error);
-    res.status(500).json({ message: "Error placing order", error: error.message });
+    res
+      .status(500)
+      .json({ message: "Error placing order", error: error.message });
   } finally {
     session.endSession();
   }
@@ -107,21 +124,28 @@ export const confirmOrder = async (req, res) => {
   }
 };
 
-const createShipment = async order => {
+const createShipment = async (order) => {
   try {
     const data = createShipmentData(order);
     console.log(data);
-    const logRes = await axios.post("https://shipment.xpressbees.com/api/users/login", {
-      email: process.env.XPRESS_EMAIL,
-      password: process.env.XPRESS_PASSWORD,
-    });
+    const logRes = await axios.post(
+      "https://shipment.xpressbees.com/api/users/login",
+      {
+        email: process.env.XPRESS_EMAIL,
+        password: process.env.XPRESS_PASSWORD,
+      }
+    );
     const XPRESS_TOKEN = logRes.data.data;
     // console.log(XPRESS_TOKEN);
-    const response = await axios.post("https://shipment.xpressbees.com/api/shipments2", data, {
-      headers: {
-        Authorization: `Bearer ${XPRESS_TOKEN}`,
-      },
-    });
+    const response = await axios.post(
+      "https://shipment.xpressbees.com/api/shipments2",
+      data,
+      {
+        headers: {
+          Authorization: `Bearer ${XPRESS_TOKEN}`,
+        },
+      }
+    );
     return response.data.data;
   } catch (error) {
     console.log(error);
@@ -129,7 +153,7 @@ const createShipment = async order => {
   }
 };
 
-const createShipmentData = order => {
+const createShipmentData = (order) => {
   return {
     order_number: order._id,
     unique_order_number: "yes",
@@ -161,7 +185,7 @@ const createShipmentData = order => {
       phone: order.vendor.address.contactPhone,
     },
     order_items: [
-      ...order.orderItems.map(o => ({
+      ...order.orderItems.map((o) => ({
         name: o.product.name,
         qty: o.quantity,
         price: o.unitPrice,
@@ -254,7 +278,10 @@ export const getOrderById = async (req, res) => {
         select: "_id vendor name price mrp images",
       })
       .populate("shippingAddress")
-      .populate({ path: "vendor", select: "_id name businessName contactNumber address" });
+      .populate({
+        path: "vendor",
+        select: "_id name businessName contactNumber address",
+      });
 
     res.status(200).json({ data: suborders });
   } catch (error) {
@@ -278,7 +305,11 @@ export const updateOrder = async (req, res) => {
       await shippingDetailsModel.save({ session });
     } else {
       const shippingDetailsModel = await Shipping.findOne({ order: order._id });
-      await Shipping.findOneAndUpdate({ _id: shippingDetailsModel._id }, { status }, { session });
+      await Shipping.findOneAndUpdate(
+        { _id: shippingDetailsModel._id },
+        { status },
+        { session }
+      );
     }
     await session.commitTransaction();
     res.json();
@@ -310,10 +341,13 @@ const xpressCancelOrder = async (awb, XPRESS_TOKEN) => {
 };
 
 const getXpressToken = async () => {
-  const logRes = await axios.post("https://shipment.xpressbees.com/api/users/login", {
-    email: process.env.XPRESS_EMAIL,
-    password: process.env.XPRESS_PASSWORD,
-  });
+  const logRes = await axios.post(
+    "https://shipment.xpressbees.com/api/users/login",
+    {
+      email: process.env.XPRESS_EMAIL,
+      password: process.env.XPRESS_PASSWORD,
+    }
+  );
   return logRes.data.data;
 };
 
@@ -324,16 +358,27 @@ export const cancelOrder = async (req, res) => {
   try {
     const order = await SubOrder.findById(id);
     if (order.status == "pending") {
-      await SubOrder.findByIdAndUpdate(id, { status: "cancelled" }, { session });
+      await SubOrder.findByIdAndUpdate(
+        id,
+        { status: "cancelled" },
+        { session }
+      );
     } else {
       const XPRESS_TOKEN = await getXpressToken();
 
       const shipping = await Shipping.findOne({ order: id });
-      const cancelRes = await xpressCancelOrder(shipping.trackingId, XPRESS_TOKEN);
+      const cancelRes = await xpressCancelOrder(
+        shipping.trackingId,
+        XPRESS_TOKEN
+      );
       console.log(cancelRes);
       shipping.status = "cancelled";
       await shipping.save({ session });
-      await SubOrder.findByIdAndUpdate(id, { status: "cancelled" }, { session });
+      await SubOrder.findByIdAndUpdate(
+        id,
+        { status: "cancelled" },
+        { session }
+      );
     }
     await session.commitTransaction();
     res.json();

@@ -20,15 +20,15 @@ function LoginForm() {
   const { login } = useAuthContext();
   const router = useRouter();
 
-  const handleChange = event => {
+  const handleChange = (event) => {
     const { name, value, type, checked } = event.target;
-    setFormData(prevData => ({
+    setFormData((prevData) => ({
       ...prevData,
       [name]: type === "checkbox" ? checked : value,
     }));
   };
 
-  const handleSignup = async e => {
+  const handleSignup = async (e) => {
     e.preventDefault();
     try {
       setPending(true);
@@ -45,7 +45,9 @@ function LoginForm() {
     <div className="flex justify-between items-center w-full mb-10 ">
       <div className="w-full mx-auto max-w-sm p-4 bg-slate-200 border border-slate-300 shadow sm:p-6 md:p-8">
         <form className="space-y-6" onSubmit={handleSignup} disabled={pending}>
-          <h5 className="text-xl font-medium text-slate-800">Create new Account</h5>
+          <h5 className="text-xl font-medium text-slate-800">
+            Create new Account
+          </h5>
 
           <div>
             <Label htmlFor="name">Name</Label>
@@ -90,7 +92,10 @@ function LoginForm() {
           </Button>
           <div>
             Want to become a vendor?{" "}
-            <Link href="/vendor-register" className="text-blue-700 hover:underline">
+            <Link
+              href="/vendor-register"
+              className="text-blue-700 hover:underline"
+            >
               Click here
             </Link>
           </div>

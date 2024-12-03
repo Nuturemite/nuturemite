@@ -9,7 +9,9 @@ export const sendOrderConfirmation = async (userId, orderId) => {
       throw new Error("User not found");
     }
 
-    const subOrder = await Order.findById(orderId).populate("shippingAddress").exec();
+    const subOrder = await Order.findById(orderId)
+      .populate("shippingAddress")
+      .exec();
     if (!subOrder) {
       throw new Error("Order not found");
     }
@@ -28,17 +30,21 @@ export const sendOrderConfirmation = async (userId, orderId) => {
   }
 };
 
-export const sendVendorOrderConfirmation = async vendorOrders => {
+export const sendVendorOrderConfirmation = async (vendorOrders) => {
   try {
-    const subOrders = await Order.find({ _id: { $in: vendorOrders.map(order => order.order) } })
+    const subOrders = await Order.find({
+      _id: { $in: vendorOrders.map((order) => order.order) },
+    })
       .populate("shippingAddress")
       .exec();
-    const vendors = await Vendor.find({ _id: { $in: vendorOrders.map(order => order.vendor) } })
+    const vendors = await Vendor.find({
+      _id: { $in: vendorOrders.map((order) => order.vendor) },
+    })
       .populate("user")
       .exec();
-    const emails = vendors.map(vendor => vendor.user.email);
+    const emails = vendors.map((vendor) => vendor.user.email);
 
-    emails.forEach(async email => {
+    emails.forEach(async (email) => {
       const emailBody = getVendorEmailBody(email, subOrders);
       await sendEmail({
         to: email,
@@ -59,10 +65,10 @@ const getEmailBody = (user, subOrder) => {
       <p>Thank you for your order!</p>
       <p>Your order ID is <strong>${subOrder._id}</strong>.</p>
       <p>Here are the details of your order:</p>
-      <p><strong>Total: ₹${Math.round(subOrder.total)}</strong></p>
-      <p>Shipping Address: ${subOrder.shippingAddress.address}, ${subOrder.shippingAddress.city}, ${
-    subOrder.shippingAddress.zipcode
-  }</p>
+      <p><strong>Total: ₹${Math.round(parseFloat(subOrder.total))}</strong></p>
+      <p>Shipping Address: ${subOrder.shippingAddress.address}, ${
+    subOrder.shippingAddress.city
+  }, ${subOrder.shippingAddress.zipcode}</p>
       <p>We will notify you once your order is shipped. If you have any questions, feel free to reply to this email.</p>
       <p>Best regards,<br>Nuturemite</p>
     `;
@@ -74,11 +80,11 @@ const getVendorEmailBody = (email, subOrder) => {
       <p>You have a new order!</p>
       <p>Order ID: ${subOrder._id}</p>
       <p>Order Details: ${subOrder.orderItems
-        .map(item => `${item.name} - ${item.quantity}`)
+        .map((item) => `${item.name} - ${item.quantity}`)
         .join(", ")}</p>
-      <p>Shipping Address: ${subOrder.shippingAddress.address}, ${subOrder.shippingAddress.city}, ${
-    subOrder.shippingAddress.zipcode
-  }</p>
+      <p>Shipping Address: ${subOrder.shippingAddress.address}, ${
+    subOrder.shippingAddress.city
+  }, ${subOrder.shippingAddress.zipcode}</p>
       <p>Best regards,<br>Nuturemite</p>
     `;
 };

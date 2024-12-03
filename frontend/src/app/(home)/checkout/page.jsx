@@ -46,11 +46,11 @@ export default function Page() {
   const { mutate } = useSWRConfig();
   const { cartItems } = useCart();
   const [coupon, setCoupon] = useState(null);
-  
+
   // if (cartItems.length === 0) return <EmptyCart />;
   if (isAddressLoading) return <Loader />;
 
-  const handlePaymentOptionChange = e => {
+  const handlePaymentOptionChange = (e) => {
     setPaymentMode(e.target.value);
   };
 
@@ -74,15 +74,15 @@ export default function Page() {
     ],
   ];
 
-  const handleChange = e => {
+  const handleChange = (e) => {
     const { name, value } = e.target;
-    setShippingAddress(prevData => ({
+    setShippingAddress((prevData) => ({
       ...prevData,
       [name]: value,
     }));
   };
 
-  const handleSaveAddress = async e => {
+  const handleSaveAddress = async (e) => {
     e.preventDefault();
     try {
       setPending(true);
@@ -118,7 +118,7 @@ export default function Page() {
     }
   };
 
-  const initializeRazorpay = data => {
+  const initializeRazorpay = (data) => {
     const options = {
       key: process.env.NEXT_PUBLIC_RAZORPAY_KEY,
       amount: data.amount,
@@ -152,7 +152,7 @@ export default function Page() {
     }
   };
 
-  const handleRazorpayOrder = async e => {
+  const handleRazorpayOrder = async (e) => {
     e.preventDefault();
     try {
       setPending(true);
@@ -169,7 +169,7 @@ export default function Page() {
     }
   };
 
-  const handlePhonepeOrder = async e => {
+  const handlePhonepeOrder = async (e) => {
     e.preventDefault();
     try {
       setPending(true);
@@ -178,13 +178,12 @@ export default function Page() {
         paymentMethod: "phonepe",
       });
       window.open(response.data.data.redirectUrl, "_blank");
-    }
-    catch (error) {
+    } catch (error) {
       tst.error(error);
     } finally {
       setPending(false);
     }
-  }
+  };
 
   return (
     <div className={`${pending && "pointer-events-none opacity-50"}`}>
@@ -197,7 +196,7 @@ export default function Page() {
               <div className="bg-white p-6 border border-gray-200">
                 {addresses &&
                   addresses.length > 0 &&
-                  addresses.map(address => (
+                  addresses.map((address) => (
                     <div
                       key={address.id}
                       className="flex items-center border-b border-gray-300 last:border-b-0"
@@ -215,10 +214,11 @@ export default function Page() {
                         htmlFor={`address-${address._id}`}
                         className="ml-3 w-full p-4 text-gray-800 text-sm font-medium"
                       >
-                        <span className="text-gray-700">{address.address}</span>,{" "}
-                        <span className="text-gray-700">{address.city}</span>,{" "}
+                        <span className="text-gray-700">{address.address}</span>
+                        , <span className="text-gray-700">{address.city}</span>,{" "}
                         <span className="text-gray-700">{address.state}</span>,{" "}
-                        <span className="text-gray-700">{address.zipcode}</span>,{" "}
+                        <span className="text-gray-700">{address.zipcode}</span>
+                        ,{" "}
                         <span className="text-gray-700">{address.country}</span>
                       </label>
                     </div>
@@ -232,7 +232,10 @@ export default function Page() {
                             <div className="flex gap-10">
                               {section.map((field, idx) => (
                                 <div key={idx} className="w-full">
-                                  <Label className={"text-slate-600"} htmlFor={field.value}>
+                                  <Label
+                                    className={"text-slate-600"}
+                                    htmlFor={field.value}
+                                  >
                                     {field.label}
                                   </Label>
                                   <Input
@@ -247,7 +250,10 @@ export default function Page() {
                             </div>
                           ) : (
                             <div>
-                              <Label className={"text-slate-600"} htmlFor={section.value}>
+                              <Label
+                                className={"text-slate-600"}
+                                htmlFor={section.value}
+                              >
                                 {section.label}
                               </Label>
                               <Textarea
@@ -265,7 +271,10 @@ export default function Page() {
                   )}
                 </>
                 <div className="flex gap-4">
-                  <Button className="mt-4" onClick={() => setShowAddressForm(!showAddressForm)}>
+                  <Button
+                    className="mt-4"
+                    onClick={() => setShowAddressForm(!showAddressForm)}
+                  >
                     {showAddressForm ? "Cancel" : "Add New Address"}
                   </Button>
                   {showAddressForm && (
@@ -282,7 +291,7 @@ export default function Page() {
               <h2 className="h2-primary">Payment Method</h2>
               <div className="bg-white  p-6 border border-gray-200">
                 <div className="space-y-4">
-                  {paymentOptions.map(option => (
+                  {paymentOptions.map((option) => (
                     <div
                       key={option.value}
                       className="flex items-center  border-b border-gray-300 last:border-b-0"
@@ -308,7 +317,7 @@ export default function Page() {
                 <Button
                   disabled={pending || !selectedAddress || !paymentMode}
                   className="w-full mt-2"
-                  onClick={e =>
+                  onClick={(e) =>
                     paymentMode === "cod"
                       ? handleCheckout(e, paymentMode)
                       : paymentMode === "phonepe"
@@ -331,7 +340,6 @@ export default function Page() {
               <ApplyCoupon coupon={coupon} setCoupon={setCoupon} />
             </div> */}
           </div>
-          
         </div>
       </div>
       <OutLoader loading={pending} />
@@ -339,13 +347,10 @@ export default function Page() {
   );
 }
 
-const ApplyCoupon = ({coupon, setCoupon}) => {
+const ApplyCoupon = ({ coupon, setCoupon }) => {
   return (
     <div className="flex items-center gap-4 bg-white md:p-6 ">
-      <Input
-        type="text"
-        placeholder="Enter coupon code"
-      />
+      <Input type="text" placeholder="Enter coupon code" />
       <Button>Apply Coupon</Button>
     </div>
   );

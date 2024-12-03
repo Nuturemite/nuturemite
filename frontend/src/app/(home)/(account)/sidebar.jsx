@@ -41,7 +41,7 @@ function Sidebar({ className, user }) {
     <aside
       className={cn(
         className,
-        "w-[300px] max-md:hidden stick top-0 right-0  px-6 border-r border-slate-200 bg-white min-h-[60vh]"
+        "w-[300px] max-md:hidden  stick top-0 right-0  px-6 border-r border-slate-200 bg-white min-h-[60vh]"
       )}
     >
       <div className="pt-10 text-slate-600 flex gap-2 ml-2  items-center">
