@@ -9,7 +9,7 @@ import api from "@/lib/api";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-
+import { Eye, EyeOff } from 'lucide-react';
 function LoginForm() {
   const [formData, setFormData] = useState({
     username: "",
@@ -19,7 +19,7 @@ function LoginForm() {
   const [pending, setPending] = useState(false);
   const { login } = useAuthContext();
   const router = useRouter();
-
+const [showPassword, setShowPassword] = useState(false);
   const handleChange = (event) => {
     const { name, value, type, checked } = event.target;
     setFormData((prevData) => ({
@@ -27,7 +27,9 @@ function LoginForm() {
       [name]: type === "checkbox" ? checked : value,
     }));
   };
-
+  const togglePasswordVisibility = () => {
+    setShowPassword(prevShow => !prevShow);
+  };
   const handleSignup = async (e) => {
     e.preventDefault();
     try {
@@ -62,7 +64,7 @@ function LoginForm() {
             />
           </div>
           <div>
-            <Label htmlFor="username">Username</Label>
+            <Label htmlFor="username">Email</Label>
             <Input
               type="text"
               name="username"
@@ -75,16 +77,63 @@ function LoginForm() {
           </div>
 
           <div>
-            <Label htmlFor="password">Your password</Label>
-            <Input
-              type="password"
+            <label
+              htmlFor="password"
+              className="block mb-2 text-sm font-medium text-slate-800"
+            >
+              Password
+            </label>
+            <div className="relative">
+            <style>
+          {`
+            /* Hide the browser's default password toggle */
+            input::-ms-reveal,
+            input::-ms-clear,
+            input::-webkit-contacts-auto-fill-button,
+            input::-webkit-credentials-auto-fill-button {
+              display: none !important;
+            }
+            
+            /* For Webkit browsers like Chrome/Safari */
+            input[type="password"]::-webkit-inner-spin-button,
+            input[type="password"]::-webkit-outer-spin-button,
+            input[type="password"]::-webkit-search-cancel-button,
+            input[type="password"]::-webkit-search-decoration {
+              -webkit-appearance: none;
+              margin: 0;
+            }
+            
+            /* Additional rule to hide the password reveal button in Chrome/Edge */
+            input[type="password"]::-webkit-textfield-decoration-container {
+              visibility: hidden;
+            }
+          `}
+        </style>
+ <input
+               type={showPassword ? "text" : "password"}
               name="password"
               id="password"
-              placeholder="••••••••"
+              placeholder="Enter your password"
+              className="bg-slate-300 border border-slate-300 text-slate-700 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  placeholder-slate-400"
               value={formData.password}
               onChange={handleChange}
               required
             />
+            <button
+          type="button"
+          className="absolute inset-y-0 right-0 flex items-center pr-3 text-slate-600 hover:text-slate-800 white"
+          onClick={togglePasswordVisibility}
+          tabIndex="-1"
+          aria-label={showPassword ? "Hide password" : "Show password"}
+        >
+          {showPassword ? (
+            <EyeOff size={18} />
+          ) : (
+            <Eye size={18} />
+          )}
+        </button>
+            </div>
+           
           </div>
 
           <Button className="w-full" pending={pending}>
